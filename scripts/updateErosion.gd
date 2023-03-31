@@ -36,9 +36,9 @@ func calc_water_neighbors(tile):
 	for n in neighbors:
 			if UpdateValue.is_valid_tile(n[0], n[1]):
 				# if the adjecent tiles are an ocean tile
-				# or their waterHeight has exceeded their baseHeight (tile is flooded) proc erosion
+				# or their waterHeight is not 0 (tile is flooded) proc erosion
 				if Global.tileMap[n[0]][n[1]].base == Tile.TileBase.OCEAN \
-				|| Global.tileMap[n[0]][n[1]].waterHeight > Global.tileMap[n[0]][n[1]].baseHeight:
+				|| Global.tileMap[n[0]][n[1]].waterHeight > 0:
 					numWaterTiles += 1
 				
 	return numWaterTiles

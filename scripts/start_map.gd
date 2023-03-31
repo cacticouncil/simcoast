@@ -336,6 +336,7 @@ func update_game_state():
 	#print("Updating game state on tick: " + str(numTicks))
 	#turning this function off until it can be fixed
 	#UpdateWater.update_waves()
+	UpdateWater.update_water_spread()
 	UpdateValue.update_land_value()
 	UpdateHappiness.update_happiness()
 	UpdatePopulation.update_population()
