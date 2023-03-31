@@ -3,6 +3,8 @@ extends Node
 #temp var for ocean level directions
 var waterDir = 1
 
+
+
 #Update waves
 func update_waves():
 	if Global.oceanHeight == 0:
