@@ -163,7 +163,9 @@ func updateOceanHeight(dir):
 
 		# Adjust water height to match ocean height
 		if !tile.is_ocean():
+			var prevHeight = tile.waterHeight;
 			tile.waterHeight = Global.oceanHeight - tile.baseHeight
+			tile.changeInWaterHeight = tile.waterHeight - prevHeight;
 			#Global.tileMap[tile.i][tile.j].cube.update()
 
 		# Check each orthogonal neighbor to determine if it will flood
