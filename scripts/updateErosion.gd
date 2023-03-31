@@ -7,6 +7,7 @@ func update_erosion():
 	for i in mapHeight:
 		for j in mapWidth:
 			var currTile = Global.tileMap[i][j]
+			# erosion rate determined by tile base and num of adjacent water tiles
 			if currTile.base != Tile.TileBase.OCEAN:
 				var waterPresence = calc_water_neighbors(currTile)
 				if currTile.base == Tile.TileBase.DIRT:
@@ -18,7 +19,15 @@ func update_erosion():
 			# if tile reaches max erosion, reduce height of tile and reset
 			if currTile.erosion >= 100:
 				currTile.erosion = 0
-				currTile.baseHeight -= 1
+				# TENTATIVE IMPLEMENTATION: If tile is completely eroded away, it becomes an OCEAN tile (water source tile). 
+				if currTile.baseHeight == 0:
+					currTile.base = Tile.TileBase.OCEAN
+					# These two lines are necessary since currently OCEAN tiles don't actually use waterHeight, only baseHeight.
+					currTile.baseHeight = currTile.waterHeight
+					currTile.waterHeight = 0
+				# otherwise just reduce height of tile
+				else:
+					currTile.baseHeight -= 1
 func calc_water_neighbors(tile):
 	# check 8 adjacent tiles for water
 	var numWaterTiles = 0
