@@ -215,7 +215,10 @@ func _unhandled_input(event):
 					tile.inf = Tile.TileInf.BEACH_GRASS
 
 			Global.Tool.REPAIR:
-				if tile.has_building():
+				if tile.waterHeight > 0:
+					actionText.text = "Cannot repair flooded tiles. Remove water first."
+				else:
+					tile.tileDamage = 0
 					tile.data[4] = 0
 
 			Global.Tool.COPY_TILE:
@@ -334,9 +337,8 @@ func _process(delta):
 
 func update_game_state():
 	#print("Updating game state on tick: " + str(numTicks))
-	#turning this function off until it can be fixed
-	#UpdateWater.update_waves()
-	UpdateWater.update_water_spread()
+	UpdateWaves.update_waves()
+	City.calculate_damage()
 	UpdateValue.update_land_value()
 	UpdateHappiness.update_happiness()
 	UpdatePopulation.update_population()
