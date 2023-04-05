@@ -11,30 +11,30 @@ func update_water_spread():
 		for j in mapWidth:
 			var currTile = Global.tileMap[i][j]
 			var highest = find_highest_water(currTile)
-			# if there are no higher water tiles around, check if water needs to disapate
-			if highest == 0:
-				pass
-			# if tile is an ocean tile raise its water height if there are higher water tiles adjacent
-			elif currTile.base == Tile.TileBase.OCEAN:
-				return
-			else:
-				return
+			# adjust water height to be one unit lower than the highest adjacent tile
+			currTile.waterHeight = (highest - 1) - currTile.baseHeight
+			# if current tile has no water neighbors, water should be removed (oceans will NOT be affected by this)
+			if currTile.waterHeight < 0:
+				currTile.waterHeight = 0
 
+# returns total height of the highest tile around the current tile (water + base)
 func find_highest_water(tile):
 	var highest = tile
 	# Only checking for 4 cardinal directions, can be changed if needed
 	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
 	for n in neighbors:
 		if UpdateValue.is_valid_tile(n[0], n[1]):
-			var nwaterheight = Global.tileMap[n[0]][n[1]].waterheight
-			var nbaseheight = Global.tileMap[n[0]][n[1]].baseheight
-			# If neighbor is taller and has water that can spread set it to highest
-			if nbaseheight + nwaterheight > highest.baseheight + highest.waterheight && nwaterheight > 1:
+			var nwaterheight = Global.tileMap[n[0]][n[1]].waterHeight
+			var nbaseheight = Global.tileMap[n[0]][n[1]].baseHeight
+			# If neighbor is taller and has water that can spread set it to highest (oceans can always spread water)
+			if nbaseheight + nwaterheight > highest.baseHeight + highest.waterHeight && \
+			(nwaterheight > 1 || Global.tileMap[n[0]][n[1]].base == Tile.TileBase.OCEAN):
 				highest = Global.tileMap[n[0]][n[1]]
+	# if no higher tile was found, return 0
 	if highest == tile:
 		return 0
 	else:
-		return highest.waterheight + highest.baseheight
+		return highest.waterHeight + highest.baseHeight
 	
 #Update waves
 func update_waves():
