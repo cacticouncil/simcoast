@@ -12,7 +12,7 @@ func update_weather():
 		
 	#random generate between 0 and 1, if less than prob storm then there will be a storm
 	rng.randomize()
-	if !Weather.Weather.currentlyStorming && rng.randf() < Weather.probStorm:
+	if !Weather.currentlyStorming && rng.randf() < Weather.probStorm:
 		print("Storming")
 		Weather.currentlyStorming = true
 		var stormType = rng.randf()

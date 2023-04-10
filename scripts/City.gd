@@ -222,6 +222,8 @@ func calculate_satisfaction():
 	
 # When flooding occurs, determine damage to infrastructure and perform tile erosion
 func calculate_damage():
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
 	for i in Global.mapWidth:
 		for j in Global.mapHeight:
 			var tile = Global.tileMap[i][j]
@@ -251,6 +253,47 @@ func calculate_damage():
 				#tile.remove_water()
 				#tile.cube.update()
 				tile.changeInWaterHeight = 0
+			#on the first tick of a storm, and also every 10 ticks after that
+			#add damage to buildings
+			if(Weather.ticksStorming == 1 || Weather.ticksStorming%10 == 0):
+				#tropical storms and cat 1 hurricanes shouldn't damage any buildings
+				if (Global.currentWeatherState == Weather.WeatherStates.TROPICAL_STORM):
+					pass
+				elif (Global.currentWeatherState == Weather.WeatherStates.HURRICANE_1):
+					pass
+				
+				#10% chance for a given building to be lightly damaged during a cat 2
+				elif (Global.currentWeatherState == Weather.WeatherStates.HURRICANE_2):
+					if (rng.randf() < 0.1):
+						tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+				
+				#25% chance for a given building to be lightly damaged during a cat 3
+				#5% chance for a given building to be medium damaged by cat 3
+				elif (Global.currentWeatherState == Weather.WeatherStates.HURRICANE_3):
+					if (rng.randf() < 0.25):
+						tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+					elif (rng.randf() < .05):
+						tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+						
+				#5% chance for light damage during cat 4
+				#25% chance for a given building to be medium damaged during cat 4
+				#10% chance for heavy damage
+				elif (Global.currentWeatherState == Weather.WeatherStates.HURRICANE_4):
+					if (rng.randf() < .05):
+						tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+					elif (rng.randf() < 0.25):
+						tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+					elif (rng.randf() < .10):
+						tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+				
+				#10% chance for medium damage in cat5
+				#40% chance for heavy damage in cat5
+				elif (Global.currentWeatherState == Weather.WeatherStates.HURRICANE_5):
+					if (rng.randf() < 0.10):
+						tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+					elif (rng.randf() < .40):
+						tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+					
 
 		
 func tile_out_of_bounds(cube):
