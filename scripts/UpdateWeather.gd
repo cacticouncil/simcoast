@@ -1,9 +1,6 @@
 extends Node
 
 var rng = RandomNumberGenerator.new()
-var ticksStorming = 0
-var maximumStormTicks = UpdateDate.MONTH_TICKS / 4
-var currentlyStorming = false
 
 func update_weather():
 	if UpdateDate.month == UpdateDate.Months.September || UpdateDate.month == UpdateDate.Months.October:
@@ -15,9 +12,9 @@ func update_weather():
 		
 	#random generate between 0 and 1, if less than prob storm then there will be a storm
 	rng.randomize()
-	if !currentlyStorming && rng.randf() < Weather.probStorm:
+	if !Weather.Weather.currentlyStorming && rng.randf() < Weather.probStorm:
 		print("Storming")
-		currentlyStorming = true
+		Weather.currentlyStorming = true
 		var stormType = rng.randf()
 		if stormType < Weather.probTropicalStorm:
 			Global.currentWeatherState = Weather.WeatherStates.TROPICAL_STORM
@@ -46,11 +43,11 @@ func update_weather():
 						print("Cat 4")
 	else: 
 		#eventually add light rain
-		if (currentlyStorming && ticksStorming > (maximumStormTicks - rng.randf_range(0, maximumStormTicks - 5))):
+		if (Weather.currentlyStorming && Weather.ticksStorming > (Weather.maximumStormTicks - rng.randf_range(0, Weather.maximumStormTicks - 5))):
 			Global.currentWeatherState = Weather.WeatherStates.CLEAR
-			currentlyStorming = false
-			ticksStorming = 0
+			Weather.currentlyStorming = false
+			Weather.ticksStorming = 0
 			print("Storm ran out of time") 
-		elif (currentlyStorming):
-			ticksStorming = ticksStorming + 1
+		elif (Weather.currentlyStorming):
+			Weather.ticksStorming = Weather.ticksStorming + 1
 			print("Storm continues")

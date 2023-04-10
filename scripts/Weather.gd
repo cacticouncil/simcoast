@@ -30,6 +30,10 @@ var probCat3 = 0.6632;
 var probCat4 = .2947;
 var probCat5 = .0421 
 
+var ticksStorming = 0
+var maximumStormTicks = UpdateDate.MONTH_TICKS / 4
+var currentlyStorming = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
