@@ -159,6 +159,8 @@ UpdateDate="*res://scripts/updateDate.gd"
 UpdateValue="*res://scripts/UpdateValue.gd"
 UpdateHappiness="*res://scripts/UpdateHappiness.gd"
 UpdateDemand="*res://scripts/updateDemand.gd"
+Weather="*res://scripts/Weather.gd"
+UpdateWeather="*res://scripts/UpdateWeather.gd"
 
 [display]
 
