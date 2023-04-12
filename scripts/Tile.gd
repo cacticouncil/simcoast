@@ -334,7 +334,7 @@ func remove_people(n):
 	data[2] -= n
 	if data[2] <= 0:
 		data[2] = 0
-		data[4] = 0
+		#data[4] = 0
 	var after = data[2]
 	return after - before
 
