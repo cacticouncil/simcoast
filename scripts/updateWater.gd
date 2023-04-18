@@ -12,6 +12,7 @@ func update_water_spread():
 			var currTile = Global.tileMap[i][j]
 			var highest = find_highest_water(currTile)
 			# adjust water height to be one unit lower than the highest adjacent tile
+			currTile.changeInWaterHeight = (highest - 1) - currTile.baseHeight
 			currTile.waterHeight = (highest - 1) - currTile.baseHeight
 			# if current tile has no water neighbors, water should be removed (oceans will NOT be affected by this)
 			if currTile.waterHeight < 0:
