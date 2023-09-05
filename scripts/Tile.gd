@@ -79,6 +79,7 @@ var cube = Area2D.new()
 var data = [0, 0, 0, 0, 0]
 var powered = false
 var tileDamage = 0
+var erosion = 0
 # Purchase price of a tile
 var landValue = 0
 # Income of a zone
@@ -173,8 +174,8 @@ func lower_tile():
 		baseHeight = 0
 
 func raise_water():
-	waterHeight += 1
-	changeInWaterHeight = 1
+	waterHeight += 3
+	changeInWaterHeight = 3
 	if (waterHeight + baseHeight) > Global.MAX_HEIGHT:
 		waterHeight = Global.MAX_HEIGHT - baseHeight
 
