@@ -337,12 +337,15 @@ func _process(delta):
 
 func update_game_state():
 	#print("Updating game state on tick: " + str(numTicks))
-	UpdateWaves.update_waves()
+	#turning this function off until it can be fixed
+	#UpdateWater.update_waves()
+	UpdateWater.update_water_spread()
 	City.calculate_damage()
 	UpdateValue.update_land_value()
 	UpdateHappiness.update_happiness()
 	UpdatePopulation.update_population()
 	UpdateDemand.get_demand()
+	UpdateErosion.update_erosion()
 	Econ.calcCityIncome()
 	Econ.calculate_upkeep_costs()
 	UpdateDate.update_date()
