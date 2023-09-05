@@ -337,7 +337,7 @@ func _process(delta):
 
 func update_game_state():
 	#print("Updating game state on tick: " + str(numTicks))
-	UpdateWaves.update_waves()
+	#UpdateWaves.update_waves()
 	UpdateWeather.update_weather()
 	#turning this function off until it can be fixed
 	#UpdateWater.update_waves()
