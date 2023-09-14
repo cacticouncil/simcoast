@@ -13,6 +13,7 @@ func _ready():
 	initCamera()
 	initSave_Exit()
 	loadMapData("res://saves/default.json")
+	initObservers()
 	$HUD/TopBar/HBoxContainer/Money.text = "Player Money: $" + Econ.comma_values(str(Econ.money))
 	$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
 	$HUD/TopBar/HBoxContainer/City_Tax_Rate.text = "Tax Rate: " + str(Econ.city_tax_rate * 100) + "%"
@@ -42,6 +43,9 @@ func initCamera():
 	$Camera2D.limit_top = -Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_right = mid_x + Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_bottom = Global.mapHeight * Global.TILE_HEIGHT + Global.MAP_EDGE_BUFFER
+
+func initObservers():
+	Global.announcer.addObserver(load("res://scripts/Observers/AchievementObserver.gd").new())
 
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):

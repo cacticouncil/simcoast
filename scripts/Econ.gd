@@ -45,11 +45,12 @@ var city_costs = 0 # Upkeep costs
 var city_tax_rate = BASE_TAX_RATE
 var property_tax_rate = 0.01 
 
-
 # adjustVal parameter takes in the exact amount loss or gain towards the player money 
 # EX: if player spends $500 then adjustVal should be -500
 func adjust_player_money(adjustVal):
 	money += adjustVal
+	if money > 110000:
+		Global.announcer.notify("Money Made")
 	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Money").text = "$" + comma_values(str(money))
 
 func purchase_structure(structureCost):
