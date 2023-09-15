@@ -46,6 +46,9 @@ func initCamera():
 
 func initObservers():
 	Global.announcer.addObserver(load("res://scripts/Observers/AchievementObserver.gd").new())
+	var sfxObserver = load("res://scripts/Observers/SfxObserver.gd").new()
+	Global.announcer.addObserver(sfxObserver)
+	self.add_child(sfxObserver)
 
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):
@@ -99,18 +102,22 @@ func _unhandled_input(event):
 					match Global.mapTool:
 						Global.Tool.ZONE_LT_RES:
 							if tile.get_zone() != Tile.TileZone.LIGHT_RESIDENTIAL:
+								Global.announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_RESIDENTIAL)
 						Global.Tool.ZONE_HV_RES:
 							if tile.get_zone() != Tile.TileZone.HEAVY_RESIDENTIAL:
+								Global.announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_RESIDENTIAL)
 						Global.Tool.ZONE_LT_COM:
 							if tile.get_zone() != Tile.TileZone.LIGHT_COMMERCIAL:
+								Global.announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_COMMERCIAL)
 						Global.Tool.ZONE_HV_COM:
 							if tile.get_zone() != Tile.TileZone.HEAVY_COMMERCIAL:
+								Global.announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_COMMERCIAL)
 								
