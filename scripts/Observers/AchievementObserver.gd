@@ -1,14 +1,14 @@
 class_name AchievementObserver extends "res://scripts/Observers/Observer.gd"
 #Handles Achievements
 
-var MoneyMade = false
+var achievements = {'Money Made': false}
 
 func onNotify(event):
 	if event == "Money Made":
-		unlock(event, MoneyMade)
+		unlock(event)
 
-func unlock(achName, achievement):
-	if !achievement:
-		achievement = true
+func unlock(achName):
+	if !achievements[achName]:
+		achievements[achName] = true
 		print("Achievement Unlocked: " + achName)
 		# TODO: Display achievements
