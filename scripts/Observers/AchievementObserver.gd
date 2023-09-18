@@ -34,8 +34,10 @@ func unlock(achName, achType):
 		achievements[achName] = true
 		print("Achievement Unlocked: " + achName)
 		# TODO: Display achievements
+		#Displays building achievement
 		if (achType == 0):
 			Overlay.b_achievement_pop()
+		#Displays economic achievement
 		elif (achType == 1):
 			Overlay.e_achievement_pop()
 	

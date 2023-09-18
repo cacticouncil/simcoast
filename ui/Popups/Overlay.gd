@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-
+#Calls to popup animation in Overlay scene
 func b_achievement_pop():
 	$BuildingAchievement/AnimationPlayer.play("popup")
 func e_achievement_pop():
