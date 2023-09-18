@@ -14,3 +14,4 @@ func playSFX(sfxPath):
 	sfxPlayer.stream = load(sfxPath)
 	self.add_child(sfxPlayer)
 	sfxPlayer.play()
+	
