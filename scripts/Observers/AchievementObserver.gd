@@ -1,6 +1,7 @@
 class_name AchievementObserver extends "res://scripts/Observers/Observer.gd"
 #Handles Achievements
 
+# TO DO: More properties for achievements (e.g. types, names)
 var achievements = {
 	'Money Made': false, 
 	'Build 10 Residential Areas': false, 
