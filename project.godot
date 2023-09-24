@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Observers/AchievementObserver.gd"
 }, {
-"base": "Node",
-"class": "Announcer",
-"language": "GDScript",
-"path": "res://scripts/Observers/Announcer.gd"
-}, {
 "base": "BTDecorator",
 "class": "BTAlways",
 "language": "GDScript",
@@ -120,11 +115,6 @@ _global_script_classes=[ {
 "path": "res://git_api.gdns"
 }, {
 "base": "Node",
-"class": "MissionObserver",
-"language": "GDScript",
-"path": "res://scripts/Observers/MissionObserver.gd"
-}, {
-"base": "Node",
 "class": "Observer",
 "language": "GDScript",
 "path": "res://scripts/Observers/Observer.gd"
@@ -146,7 +136,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AchievementObserver": "",
-"Announcer": "",
 "BTAlways": "res://addons/behavior_tree/icons/btalways.svg",
 "BTComposite": "res://addons/behavior_tree/icons/btcomposite.svg",
 "BTConditional": "res://addons/behavior_tree/icons/btconditional.png",
@@ -167,7 +156,6 @@ _global_script_class_icons={
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
 "Event": "",
 "GitAPI": "",
-"MissionObserver": "",
 "Observer": "",
 "SfxObserver": "",
 "Tile": "",
@@ -197,6 +185,8 @@ UpdateGraphics="*res://scripts/updateGraphics.gd"
 UpdateErosion="*res://scripts/updateErosion.gd"
 UpdateWater="*res://scripts/updateWater.gd"
 Overlay="*res://ui/Popups/Overlay.tscn"
+Announcer="*res://scripts/Observers/Announcer.gd"
+MissionObserver="*res://scripts/Observers/MissionObserver.gd"
 
 [display]
 

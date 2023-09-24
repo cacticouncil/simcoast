@@ -45,10 +45,28 @@ func initCamera():
 	$Camera2D.limit_bottom = Global.mapHeight * Global.TILE_HEIGHT + Global.MAP_EDGE_BUFFER
 
 func initObservers():
-	Global.announcer.addObserver(load("res://scripts/Observers/AchievementObserver.gd").new())
-	Global.announcer.addObserver(load("res://scripts/Observers/MissionObserver.gd").new())
+	#Add achievement observer
+	Announcer.addObserver(load("res://scripts/Observers/AchievementObserver.gd").new())
+	
+	#Add mission observer
+	#var missObs = load("res://scripts/Observers/MissionObserver.gd").new()
+	var missObs = get_node("/root/MissionObserver")
+	Announcer.addObserver(missObs)
+	var missions = missObs.getMissions()
+	$HUD/MissionsBG.margin_bottom = 28 + (14 * missions.size()) + (20 * (missions.size() + 1))
+	$HUD/Missions/VBoxContainer/Mission1.text = missions[0]
+	if missions.size() > 1:
+		$HUD/Missions/VBoxContainer/Mission2.text = missions[1]
+	else:
+		$HUD/Missions/VBoxContainer/Mission2.visible = false
+	if missions.size() > 2:
+		$HUD/Missions/VBoxContainer/Mission3.text = missions[2]
+	else:
+		$HUD/Missions/VBoxContainer/Mission3.visible = false
+	
+	#Add SFX observer
 	var sfxObserver = load("res://scripts/Observers/SfxObserver.gd").new()
-	Global.announcer.addObserver(sfxObserver)
+	Announcer.addObserver(sfxObserver)
 	self.add_child(sfxObserver)
 
 # Handle inputs (clicks, keys)
@@ -103,22 +121,22 @@ func _unhandled_input(event):
 					match Global.mapTool:
 						Global.Tool.ZONE_LT_RES:
 							if tile.get_zone() != Tile.TileZone.LIGHT_RESIDENTIAL:
-								Global.announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_RESIDENTIAL)
 						Global.Tool.ZONE_HV_RES:
 							if tile.get_zone() != Tile.TileZone.HEAVY_RESIDENTIAL:
-								Global.announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_RESIDENTIAL)
 						Global.Tool.ZONE_LT_COM:
 							if tile.get_zone() != Tile.TileZone.LIGHT_COMMERCIAL:
-								Global.announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
+								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_COMMERCIAL)
 						Global.Tool.ZONE_HV_COM:
 							if tile.get_zone() != Tile.TileZone.HEAVY_COMMERCIAL:
-								Global.announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
+								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_COMMERCIAL)
 								

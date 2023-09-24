@@ -49,9 +49,7 @@ var property_tax_rate = 0.01
 # EX: if player spends $500 then adjustVal should be -500
 func adjust_player_money(adjustVal):
 	money += adjustVal
-	Global.announcer.notify(Event.new("Money", "Amount of money", money))
-	#if money > 110000:
-	#	Global.announcer.notify("Money Made")
+	Announcer.notify(Event.new("Money", "Amount of money", money))
 	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Money").text = "$" + comma_values(str(money))
 
 func purchase_structure(structureCost):

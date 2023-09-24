@@ -1,4 +1,4 @@
-class_name Announcer extends Node
+extends Node
 
 var observers = Array()
 var numOfObservers = 0

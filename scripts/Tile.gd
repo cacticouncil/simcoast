@@ -155,10 +155,10 @@ func paste_tile(tile):
 func clear_tile():
 	if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
 		tileDamage -= data[0] * Econ.REMOVE_COMMERCIAL_BUILDING
-		Global.announcer.notify(Event.new("Removed Tile", "Removed Commercial Area", 1))
+		Announcer.notify(Event.new("Removed Tile", "Removed Commercial Area", 1))
 	elif zone == TileZone.HEAVY_RESIDENTIAL || zone == TileZone.LIGHT_RESIDENTIAL:
 		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
-		Global.announcer.notify(Event.new("Removed Tile", "Removed Residential Area", 1))
+		Announcer.notify(Event.new("Removed Tile", "Removed Residential Area", 1))
 	else:
 		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
 	if tileDamage < 0:
