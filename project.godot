@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
-"class": "AchievementObserver",
-"language": "GDScript",
-"path": "res://scripts/Observers/AchievementObserver.gd"
-}, {
 "base": "BTDecorator",
 "class": "BTAlways",
 "language": "GDScript",
@@ -135,7 +130,6 @@ _global_script_classes=[ {
 "path": "res://scripts/TileCube.gd"
 } ]
 _global_script_class_icons={
-"AchievementObserver": "",
 "BTAlways": "res://addons/behavior_tree/icons/btalways.svg",
 "BTComposite": "res://addons/behavior_tree/icons/btcomposite.svg",
 "BTConditional": "res://addons/behavior_tree/icons/btconditional.png",
@@ -187,6 +181,7 @@ UpdateWater="*res://scripts/updateWater.gd"
 Overlay="*res://ui/Popups/Overlay.tscn"
 Announcer="*res://scripts/Observers/Announcer.gd"
 MissionObserver="*res://scripts/Observers/MissionObserver.gd"
+AchievementObserver="*res://scripts/Observers/AchievementObserver.gd"
 
 [display]
 

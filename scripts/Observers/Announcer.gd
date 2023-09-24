@@ -6,7 +6,8 @@ var numOfObservers = 0
 # Stats that observers care about
 var stats = {
 	'# of Residential Areas': 0, 
-	'# of Commercial Areas': 0
+	'# of Commercial Areas': 0,
+	'Money': 0
 }
 
 func addObserver(observer):
@@ -28,6 +29,8 @@ func updateStats(event):
 			stats['# of Residential Areas'] -= event.eventValue
 		elif event.eventDescription == "Removed Commercial Area":
 			stats['# of Commercial Areas'] -= event.eventValue
+	elif event.eventName == "Money":
+		stats['Money'] = event.eventValue
 
 func notify(event):
 	updateStats(event)

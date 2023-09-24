@@ -46,12 +46,13 @@ func initCamera():
 
 func initObservers():
 	#Add achievement observer
-	Announcer.addObserver(load("res://scripts/Observers/AchievementObserver.gd").new())
+	Announcer.addObserver(get_node("/root/AchievementObserver"))
+	AchievementObserver.createAchievements()
 	
 	#Add mission observer
-	#var missObs = load("res://scripts/Observers/MissionObserver.gd").new()
 	var missObs = get_node("/root/MissionObserver")
 	Announcer.addObserver(missObs)
+	MissionObserver.createMissions()
 	var missions = missObs.getMissions()
 	$HUD/MissionsBG.margin_bottom = 28 + (14 * missions.size()) + (20 * (missions.size() + 1))
 	$HUD/Missions/VBoxContainer/Mission1.text = missions[0]
