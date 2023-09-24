@@ -11,6 +11,7 @@ func onNotify(event):
 func playSFX(sfxPath):
 	var sfxPlayer = AudioStreamPlayer.new()
 	sfxPlayer.bus = "SFX"
+	sfxPlayer.volume_db = -20.0
 	sfxPlayer.stream = load(sfxPath)
 	self.add_child(sfxPlayer)
 	sfxPlayer.play()
