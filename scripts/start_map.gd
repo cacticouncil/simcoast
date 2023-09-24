@@ -46,6 +46,7 @@ func initCamera():
 
 func initObservers():
 	Global.announcer.addObserver(load("res://scripts/Observers/AchievementObserver.gd").new())
+	Global.announcer.addObserver(load("res://scripts/Observers/MissionObserver.gd").new())
 	var sfxObserver = load("res://scripts/Observers/SfxObserver.gd").new()
 	Global.announcer.addObserver(sfxObserver)
 	self.add_child(sfxObserver)
