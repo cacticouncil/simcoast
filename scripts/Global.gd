@@ -40,8 +40,6 @@ var colRange = range(0, mapHeight, 1)
 var numZones = 0
 var numPeople = 0
 
-# For the Event/Achievement System
-#var announcer = load("res://scripts/Observers/Announcer.gd").new()
 
 func initTileMap():
 	var tm = []
