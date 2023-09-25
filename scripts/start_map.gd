@@ -125,14 +125,11 @@ func _unhandled_input(event):
 			# Add/Remove People
 			Global.Tool.ADD_RES_PERSON:
 				if tile.is_residential():
-					var change = tile.add_people(1)
-					UpdatePopulation.RESIDENTS += change
-					UpdatePopulation.TOTAL_POPULATION += change
+					tile.add_people(1)
 
 			Global.Tool.ADD_COM_PERSON:
 				if tile.is_commercial() && UpdatePopulation.RESIDENTS * UpdatePopulation.BASE_EMPLOYMENT_RATE > UpdatePopulation.WORKERS:
-					var change = tile.add_people(1)
-					UpdatePopulation.WORKERS += change
+					tile.add_people(1)
 
 			# Water Tool
 			Global.Tool.LAYER_WATER:
@@ -344,6 +341,7 @@ func update_game_state():
 	UpdateValue.update_land_value()
 	UpdateHappiness.update_happiness()
 	UpdatePopulation.update_population()
+	print(UpdatePopulation.RESIDENTS)
 	UpdateDemand.get_demand()
 	UpdateErosion.update_erosion()
 	Econ.calcCityIncome()

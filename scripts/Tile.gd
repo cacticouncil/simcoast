@@ -153,15 +153,22 @@ func paste_tile(tile):
 	profitRate = tile.profitRate
 
 func clear_tile():
-	if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
-		tileDamage -= data[0] * Econ.REMOVE_COMMERCIAL_BUILDING
-	else:
-		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
-	if tileDamage < 0:
-		tileDamage = 0
+	
+#	if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
+#		tileDamage -= data[0] * Econ.REMOVE_COMMERCIAL_BUILDING
+#	else:
+#		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
+#	if tileDamage < 0:
+#		tileDamage = 0
+	while (data[0] > 0):
+		remove_building()
 	zone = TileZone.NONE
+	if (inf == TileInf.POWER_PLANT):
+		inf = TileInf.NONE
+		City.connectPower()
 	inf = TileInf.NONE
 	data = [0, 0, 0, 0, 0]
+	tileDamage = 0
 	
 func raise_tile():
 	baseHeight += 1
@@ -270,7 +277,6 @@ func set_damage(n):
 		#should remove all buildings and all population?
 		while data[0] > 0:
 			remove_building()
-		remove_people(data[2])
 
 func is_powered():
 	return powered
@@ -306,7 +312,7 @@ func remove_building():
 	if data[0] <= 1:
 		data[0] = 0
 		data[1] = 4
-		data[2] = 0
+		remove_people(data[2])
 		data[3] = 0
 		inf = TileInf.NONE
 	
@@ -314,7 +320,9 @@ func remove_building():
 		data[0] -= 1
 		data[3] -= 4
 		if data[2] > data[3]:
-			data[2] = data[3]
+#			data[2] = data[3]
+			var diff = data[2] - data[3]
+			remove_people(diff)
 #	if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
 #		tileDamage -= Econ.REMOVE_COMMERCIAL_BUILDING
 #	else:
@@ -327,8 +335,12 @@ func add_people(n):
 	data[2] += n
 	if data[2] > data[3]:
 		data[2] = data[3]
-	var after = data[2]
-	return after - before
+	var diff = data[2] - before
+	if (is_residential()):
+		UpdatePopulation.change_residents(diff)
+	elif (is_commercial()):
+		UpdatePopulation.change_workers(diff)
+	return diff
 
 func remove_people(n):		
 	var before = data[2]
@@ -336,14 +348,20 @@ func remove_people(n):
 	if data[2] <= 0:
 		data[2] = 0
 		#data[4] = 0
-	var after = data[2]
-	return after - before
+	var diff = data[2] - before
+	if (is_residential()):
+		UpdatePopulation.change_residents(diff)
+	elif (is_commercial()):
+		UpdatePopulation.change_workers(diff)
+	return diff
 
 func clear_house():
 	if zone != TileZone.RESIDENTIAL:
 		return
 	
 	inf = TileInf.NONE
+	while (data[0] > 0):
+		remove_building()
 	data = [0, 0, 0, 0, 0]
 
 func get_data():
