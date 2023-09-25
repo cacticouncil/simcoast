@@ -34,5 +34,6 @@ func updateStats(event):
 
 func notify(event):
 	updateStats(event)
+	# Time to announce to all the observers
 	for i in numOfObservers:
 		observers[i].onNotify(event, stats)

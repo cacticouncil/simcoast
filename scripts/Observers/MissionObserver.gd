@@ -2,19 +2,6 @@ extends "res://scripts/Observers/Observer.gd"
 #Handles Missions, unlike Achievements, these need a sense of progression
 
 # Missions are a list of dictionaries that are individual sets of missions
-"""
-var missions = [
-	{
-		'Build 1 Residential Area': false, 
-		'Build 1 Commercial Area': false
-	},
-	{
-		'Build 5 Residential Areas': false, 
-		'Build 5 Commercial Areas': false,
-		'Mission 3': false
-	}
-]
-"""
 var missions = []
 
 var toDelete = []
@@ -23,6 +10,7 @@ var toDelete = []
 var missionIndex = 0
 
 func createMissions():
+	# Creates goal objects for the purpose of testing
 	var goalClass = load("res://scripts/Observers/Goal.gd")
 	
 	var mission1 = []
@@ -32,51 +20,42 @@ func createMissions():
 	
 	var mission2 = []
 	mission2.append(goalClass.new('# of Residential Areas', true, 5, 'Build 5 Residential Areas', 'Build 5 Residential Areas', 0))
-	mission2.append(goalClass.new('# of Commercial Areas', true, 5, 'Build 5 Commercial Area', 'Build 5 Commercial Area', 0))
+	mission2.append(goalClass.new('# of Commercial Areas', true, 5, 'Build 5 Commercial Areas', 'Build 5 Commercial Areas', 0))
 	mission2.append(goalClass.new('Money', true, 999999999999, 'We\'re rich!', 'Make $999,999,999,999', 1))
 	missions.append(mission2)
 
 func onNotify(event, stats):
-	"""
-	if missionIndex == 0:
-		checkMissionZero(event, stats)
-	elif missionIndex == 1:
-		checkMissionOne(event, stats)
-	"""
+	# Whenever we're notified, check if we've completed any of our missions
 	for i in range(missions[0].size()):
 		if missions[0][i].isComplete():
 			unlock(missions[0][i], i)
+	# Can't delete during unlock so do it here (Check mission observer)
 	deleteGoals()
 	#Check if we're done
 	checkIfDone()
 
-"""
-func checkMissionZero(event, stats):
-	if stats['# of Residential Areas'] >= 1:
-		unlock('Build 1 Residential Area')
-	if stats['# of Commercial Areas'] >= 1:
-		unlock('Build 1 Commercial Area')
-
-func checkMissionOne(event, stats):
-	if stats['# of Residential Areas'] >= 5:
-		unlock('Build 5 Residential Areas')
-	if stats['# of Commercial Areas'] >= 5:
-		unlock('Build 5 Commercial Areas')
-"""
-
 func unlock(miss, missNum):
+	# Mark as finished
 	print("Mission Complete: " + miss.achievementName)
 	toDelete.append(missNum)
 	
-	get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission" + str(missNum + 1)).add_color_override("font_color",  Color(0, 0.57, 0.05))
+	#Find the right node, change the color
+	if get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission1").text == miss.achievementName:
+		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission1").add_color_override("font_color",  Color(0, 0.57, 0.05))
+	elif get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission2").text == miss.achievementName:
+		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission2").add_color_override("font_color",  Color(0, 0.57, 0.05))
+	elif get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission3").text == miss.achievementName:
+		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission3").add_color_override("font_color",  Color(0, 0.57, 0.05))
 
 func getMissions():
+	# Returns a list of the mission name in string format
 	var listOfMissions = []
 	for mission in missions[0]:
 		listOfMissions.append(mission.achievementName)
 	return listOfMissions
 
 func deleteGoals():
+	# Remove all goals from missions that are stored by index in toDelete
 	for num in toDelete:
 		missions[0].remove(num)
 	toDelete.clear()
@@ -87,9 +66,20 @@ func checkIfDone():
 		print("All Missions Complete in Group #" + str(missionIndex))
 		missionIndex += 1
 		missions.remove(0) # Keep new set of missions at beginning
+		#FIXME: This is to prevent crashing when missions are done, will eventually want to figure out what to do in that case
+		if missions.empty():
+			createMissions()
 		displayNewMissions()
 		#FIXME: When events are updates, replace "" with something better
 		onNotify("", Announcer.stats) #Check onNotify to see if new goals are complete
+
+func hoverMission(index):
+	# Currently useless while I figure out hover text
+	get_node("/root/HUD/BottomBar/HoverText").text = missions[0][index].achievementDescription
+
+func unhoverMission():
+	# Currently useless while I figure out hover text
+	get_node("/root/HUD/BottomBar/HoverText").text = ""
 
 func displayNewMissions():
 	var missions = getMissions()

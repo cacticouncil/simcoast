@@ -1,21 +1,13 @@
 extends "res://scripts/Observers/Observer.gd"
 #Handles Achievements
 
-# TO DO: More properties for achievements (e.g. types, names)
-# The reason these are dictionaries instead of vars is persistence issues
-"""
-var achievements = {
-	'Money Made': false, 
-	'Build 10 Residential Areas': false, 
-	'Build 10 Commercial Areas': false
-}
-"""
 var toComplete = []
 var completed = []
 
 var toDelete = []
 
 func createAchievements():
+	#Create achievements for the purpose of testing
 	var goalClass = load("res://scripts/Observers/Goal.gd")
 	toComplete.push_back(goalClass.new('# of Residential Areas', true, 10, 'Build 10 Residential Areas', 'Build 10 Residential Areas', 0))
 	toComplete.push_back(goalClass.new('# of Commercial Areas', true, 10, 'Build 10 Commercial Areas', 'Build 10 Commercial Areas', 0))

@@ -9,6 +9,8 @@ var achievementDescription # description
 var achievementType #achType for ach popup
 # var reward?
 # var icon? if we want a pic associated with an icon
+# For icons?:
+# https://sketch.io/
 
 func _init(_varToCheck, _greaterThan, _constGoal, _achievementName, _achievementDescription, _achievementType):
 	varToCheck = _varToCheck

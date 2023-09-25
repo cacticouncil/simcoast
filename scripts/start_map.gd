@@ -56,6 +56,16 @@ func initObservers():
 	var missions = missObs.getMissions()
 	$HUD/MissionsBG.margin_bottom = 28 + (14 * missions.size()) + (20 * (missions.size() + 1))
 	$HUD/Missions/VBoxContainer/Mission1.text = missions[0]
+	
+	#FIXME: This line should add hover text but isn't
+	""" For reference from ui_buttons.gd
+	for i in group.get_buttons():
+		i.connect("pressed", self, "button_pressed")
+		i.connect("mouse_entered", self, "button_hover", [i])
+		i.connect("mouse_exited", self, "button_exit")
+	"""
+	#$HUD/Missions/VBoxContainer/Mission1.connect("mouse_entered", self, "MissionObserver.hoverMission", [0])
+	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "testHover")
 	if missions.size() > 1:
 		$HUD/Missions/VBoxContainer/Mission2.text = missions[1]
 	else:
@@ -69,6 +79,9 @@ func initObservers():
 	var sfxObserver = load("res://scripts/Observers/SfxObserver.gd").new()
 	Announcer.addObserver(sfxObserver)
 	self.add_child(sfxObserver)
+
+func testHover():
+	print("working")
 
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):
