@@ -104,10 +104,10 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://git_api.gdns"
 }, {
-"base": "Reference",
+"base": "Object",
 "class": "NPC",
 "language": "GDScript",
-"path": "res://scripts/NPCs/NPC.gd"
+"path": "res://scripts/NPC.gd"
 }, {
 "base": "Object",
 "class": "Tile",
@@ -167,6 +167,7 @@ UpdateGraphics="*res://scripts/updateGraphics.gd"
 UpdateErosion="*res://scripts/updateErosion.gd"
 UpdateWater="*res://scripts/updateWater.gd"
 Overlay="*res://ui/Popups/Overlay.tscn"
+NPCOrganizer="*res://scripts/NPCOrganizer.gd"
 
 [display]
 
