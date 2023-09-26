@@ -182,13 +182,20 @@ func adjust_individual_tax_rate(num, dir):
 
 # Helper Functions
 func comma_values(val):
-	var pos = val.length() % 3
 	var res = ""
+	#this cuts off the negative sign to allow for proper comma formatting
+	if (val[0] == '-'):
+		val = val.substr(1, -1)
+		# add the negative sign back into the result
+		res += "-"
+		
+	var pos = val.length() % 3
 	
 	for i in range(0, val.length()):
 		if i != 0 && i % 3 == pos:
 			res += ","
 		res += val[i]
+		
 	return res
 
 func adjust_individual_tax_rate_helper(currRate, dir):
