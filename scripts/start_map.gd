@@ -341,7 +341,6 @@ func update_game_state():
 	UpdateValue.update_land_value()
 	UpdateHappiness.update_happiness()
 	UpdatePopulation.update_population()
-	print(UpdatePopulation.RESIDENTS)
 	UpdateDemand.get_demand()
 	UpdateErosion.update_erosion()
 	Econ.calcCityIncome()
