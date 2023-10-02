@@ -1,65 +1,39 @@
 class_name DialogueSystem extends Node
 
 # keeps track of current dialogue sequence for npc and player
-var currentNPC = 1
-var currentPlayer = 1
+var currentNPC = 0
+var currentPlayer = 0
 var turn = true
 var currentDialogue=""
 
 # dialogue sequence for npc
-const NPC_CONV = {
-1:{
-	"dialogue":"Welcome to city hall! How can I help you today?",
-	"next":[1,2]
-},
-2:{
-	"dialogue":"You don't have any achievements yet.",
-	"next":[-1]
-},
-	
-3:{
-	"dialogue":"Maybe try building more houses!",
-	"next":[3,4]
-},
-4:{
-	"dialogue":"Maybe try adding a commercial zone!",
-	"next":[-1]
-	
-},
-5:{
-	"dialogue":"See you next time!",
-	"next":[0]
-}
-}
+var NPC_CONV = {}
 
 # dialogue sequence for player
-const PLAYER_CONV = {
-1:{
-	"dialogue":"I want to see my achievements",
-	"next":2
-},
-2:{
-	"dialogue":"I want suggestions",
-	"next":3
-},
-3:{
-	"dialogue":"I want a different suggestion",
-	"next":4
-},
-4:{
-	"dialogue":"Thanks",
-	"next":5
-}
-}
+var PLAYER_CONV = {}
 
-# Called when the node enters the scene tree for the first time.
+# gets the dialogue from json files
+func load_dialogues():
+	var npc = File.new()
+	npc.open("res://resources/NPC.json", npc.READ)
+	var text = npc.get_as_text()
+	NPC_CONV.parse_json(text)
+	npc.close()
+	var player = File.new()
+	player.open("res://resources/PLAYER.json", player.READ)
+	var text2 = player.get_as_text()
+	PLAYER_CONV.parse_json(text2)
+	player.close()
+
+
+
 func get_next_dialogue():
 	#npc sequence
 	if(turn == true):
 		currentDialogue = NPC_CONV[currentNPC]["dialogue"]
 		# no player prompt
-		if(NPC_CONV[currentNPC]["next"] == [-1]):
-			currentNPC = 5
+		if(NPC_CONV[currentNPC]["next"] == "-1"):
+			currentNPC = 4
 		else:
 			currentPlayer = NPC_CONV[currentNPC]["next"]
 			turn = false
@@ -68,11 +42,12 @@ func get_next_dialogue():
 	#player sequence
 	else:
 		# end dialogue
-		if(currentPlayer == [0]):
+		if(currentPlayer == "-2"):
 			return
 		currentDialogue=[]
-		for j in currentPlayer:
-			currentDialogue.append(PLAYER_CONV[j]["dialogue"])
+		var cp = currentPlayer.split(",")
+		for j in cp:
+			currentDialogue.append(PLAYER_CONV[int(j)]["dialogue"])
 		#print(currentDialogue)
 		return currentDialogue
 
