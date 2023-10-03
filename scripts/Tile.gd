@@ -153,20 +153,19 @@ func paste_tile(tile):
 	profitRate = tile.profitRate
 
 func clear_tile():
-	
-#	if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
-#		tileDamage -= data[0] * Econ.REMOVE_COMMERCIAL_BUILDING
-#	else:
-#		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
-#	if tileDamage < 0:
-#		tileDamage = 0
+	#remove all buildings 
 	while (data[0] > 0):
 		remove_building()
 	
+	#reset zones
 	zone = TileZone.NONE
+	
+	#reconnect power if road or power plant is cleared
 	if (inf == TileInf.POWER_PLANT or inf == TileInf.ROAD):
 		inf = TileInf.NONE
 		City.connectPower()
+		
+	#reset tile to base
 	inf = TileInf.NONE
 	data = [0, 0, 0, 0, 0]
 	tileDamage = 0
