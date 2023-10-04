@@ -45,11 +45,11 @@ var city_costs = 0 # Upkeep costs
 var city_tax_rate = BASE_TAX_RATE
 var property_tax_rate = 0.01 
 
-
 # adjustVal parameter takes in the exact amount loss or gain towards the player money 
 # EX: if player spends $500 then adjustVal should be -500
 func adjust_player_money(adjustVal):
 	money += adjustVal
+	Announcer.notify(Event.new("Money", "Amount of money", money))
 	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Money").text = "$" + comma_values(str(money))
 
 func purchase_structure(structureCost):
@@ -182,13 +182,20 @@ func adjust_individual_tax_rate(num, dir):
 
 # Helper Functions
 func comma_values(val):
-	var pos = val.length() % 3
 	var res = ""
+	#this cuts off the negative sign to allow for proper comma formatting
+	if (val[0] == '-'):
+		val = val.substr(1, -1)
+		# add the negative sign back into the result
+		res += "-"
+		
+	var pos = val.length() % 3
 	
 	for i in range(0, val.length()):
 		if i != 0 && i % 3 == pos:
 			res += ","
 		res += val[i]
+		
 	return res
 
 func adjust_individual_tax_rate_helper(currRate, dir):

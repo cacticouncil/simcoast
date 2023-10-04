@@ -141,7 +141,7 @@ func calc_tile_damage(tile): #Return a value depending on tile damage
 
 func calc_city_wealth(tile): #Return a value based on city wealth
 	var cityWealthValue = 0
-	cityWealthValue = Econ.money * CITY_WEALTH_WEIGHT #TODO: Make this logarithmic?
+	#cityWealthValue = Econ.money * CITY_WEALTH_WEIGHT #TODO: Make this logarithmic?
 	return cityWealthValue
 
 func calc_taxation_rate(tile): #Return a weight depending on tax rate of tile

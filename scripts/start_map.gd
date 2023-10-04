@@ -13,6 +13,7 @@ func _ready():
 	initCamera()
 	initSave_Exit()
 	loadMapData("res://saves/default.json")
+	initObservers()
 	$HUD/TopBar/HBoxContainer/Money.text = "Player Money: $" + Econ.comma_values(str(Econ.money))
 	$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
 	$HUD/TopBar/HBoxContainer/City_Tax_Rate.text = "Tax Rate: " + str(Econ.city_tax_rate * 100) + "%"
@@ -42,6 +43,45 @@ func initCamera():
 	$Camera2D.limit_top = -Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_right = mid_x + Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_bottom = Global.mapHeight * Global.TILE_HEIGHT + Global.MAP_EDGE_BUFFER
+
+func initObservers():
+	#Add achievement observer
+	Announcer.addObserver(get_node("/root/AchievementObserver"))
+	AchievementObserver.createAchievements()
+	
+	#Add mission observer
+	var missObs = get_node("/root/MissionObserver")
+	Announcer.addObserver(missObs)
+	MissionObserver.createMissions()
+	var missions = missObs.getMissions()
+	$HUD/MissionsBG.margin_bottom = 28 + (14 * missions.size()) + (20 * (missions.size() + 1))
+	$HUD/Missions/VBoxContainer/Mission1.text = missions[0]
+	
+	#FIXME: This line should add hover text but isn't
+	""" For reference from ui_buttons.gd
+	for i in group.get_buttons():
+		i.connect("pressed", self, "button_pressed")
+		i.connect("mouse_entered", self, "button_hover", [i])
+		i.connect("mouse_exited", self, "button_exit")
+	"""
+	#$HUD/Missions/VBoxContainer/Mission1.connect("mouse_entered", self, "MissionObserver.hoverMission", [0])
+	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "testHover")
+	if missions.size() > 1:
+		$HUD/Missions/VBoxContainer/Mission2.text = missions[1]
+	else:
+		$HUD/Missions/VBoxContainer/Mission2.visible = false
+	if missions.size() > 2:
+		$HUD/Missions/VBoxContainer/Mission3.text = missions[2]
+	else:
+		$HUD/Missions/VBoxContainer/Mission3.visible = false
+	
+	#Add SFX observer
+	var sfxObserver = load("res://scripts/Observers/SfxObserver.gd").new()
+	Announcer.addObserver(sfxObserver)
+	self.add_child(sfxObserver)
+
+func testHover():
+	print("working")
 
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):
@@ -95,18 +135,22 @@ func _unhandled_input(event):
 					match Global.mapTool:
 						Global.Tool.ZONE_LT_RES:
 							if tile.get_zone() != Tile.TileZone.LIGHT_RESIDENTIAL:
+								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_RESIDENTIAL)
 						Global.Tool.ZONE_HV_RES:
 							if tile.get_zone() != Tile.TileZone.HEAVY_RESIDENTIAL:
+								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_RESIDENTIAL)
 						Global.Tool.ZONE_LT_COM:
 							if tile.get_zone() != Tile.TileZone.LIGHT_COMMERCIAL:
+								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_COMMERCIAL)
 						Global.Tool.ZONE_HV_COM:
 							if tile.get_zone() != Tile.TileZone.HEAVY_COMMERCIAL:
+								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_COMMERCIAL)
 								
