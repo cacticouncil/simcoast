@@ -1,4 +1,4 @@
-{
+[
 {
 	"dialogue":"I want to see my achievements",
 	"next":"1"
@@ -15,4 +15,4 @@
 	"dialogue":"Thanks",
 	"next":"4"
 }
-}
+]

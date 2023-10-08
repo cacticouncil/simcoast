@@ -1,4 +1,4 @@
-{
+[
 {
 	"dialogue":"Welcome to city hall! How can I help you today?",
 	"next":"0,1"
@@ -21,4 +21,4 @@
 	"dialogue":"See you next time!",
 	"next":"-2"
 }
-}
+]

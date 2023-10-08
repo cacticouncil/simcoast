@@ -7,10 +7,10 @@ var turn = true
 var currentDialogue=""
 var currentSequence = 0
 # dialogue sequence for npc
-var NPC_CONV = {}
+var NPC_CONV = Dictionary()
 
 # dialogue sequence for player
-var PLAYER_CONV = {}
+var PLAYER_CONV = Dictionary()
 
 
 # gets the dialogue from json files
@@ -18,14 +18,14 @@ func _init(playerDialogue, npcDialogue):
 	var npc = File.new()
 	npc.open(npcDialogue, npc.READ)
 	var text = npc.get_as_text()
-	NPC_CONV.parse_json(text)
+	NPC_CONV = parse_json(text)
 	npc.close()
 	var player = File.new()
 	player.open(playerDialogue, player.READ)
 	var text2 = player.get_as_text()
-	PLAYER_CONV.parse_json(text2)
+	PLAYER_CONV = parse_json(text2)
 	player.close()
-
+	
 
 
 func get_next_dialogue():
