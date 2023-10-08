@@ -50,7 +50,7 @@ func initObservers():
 	AchievementObserver.createAchievements()
 	
 	Announcer.addObserver(get_node("/root/NpcObserver"))
-	NpcObserver.initializeNPCS()
+	NpcObserver.initializeNPCs()
 	#Add mission observer
 	var missObs = get_node("/root/MissionObserver")
 	Announcer.addObserver(missObs)
