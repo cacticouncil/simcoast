@@ -21,7 +21,7 @@ func addNPC(npcName_, playerDialogue, npcDialogue):
 	#Have a way of encrypting this? So it is reversable
 	var npcID
 	while (true):
-		npcID = rng.randi_range(0, 100000)
+		npcID = 1
 		if !npcDictionary.has(npcID):
 			break
 	var npcObject = NPC.new(npcID, npcName_, playerDialogue, npcDialogue)

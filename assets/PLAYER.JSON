@@ -1,0 +1,18 @@
+{
+{
+	"dialogue":"I want to see my achievements",
+	"next":"1"
+},
+{
+	"dialogue":"I want suggestions",
+	"next":"2"
+},
+{
+	"dialogue":"I want a different suggestion",
+	"next":"3"
+},
+{
+	"dialogue":"Thanks",
+	"next":"4"
+}
+}

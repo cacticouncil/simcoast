@@ -1,0 +1,24 @@
+{
+{
+	"dialogue":"Welcome to city hall! How can I help you today?",
+	"next":"0,1"
+},
+{
+	"dialogue":"You don't have any achievements yet.",
+	"next":"-1"
+},
+	
+{
+	"dialogue":"Maybe try building more houses!",
+	"next":"2,3"
+},
+{
+	"dialogue":"Maybe try adding a commercial zone!",
+	"next":"-1"
+	
+},
+{
+	"dialogue":"See you next time!",
+	"next":"-2"
+}
+}
