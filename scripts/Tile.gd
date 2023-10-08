@@ -86,6 +86,8 @@ var landValue = 0
 var profitRate = 0
 var happiness = 0
 var changeInWaterHeight = 0
+# Tracks what connections a tile has to its neighbors with roads
+var connections = [0,0,0,0]
 
 # Economy AI: equation coefficient constants
 var desirability = 0.2
@@ -161,7 +163,7 @@ func clear_tile():
 	zone = TileZone.NONE
 	
 	#reconnect power if road or power plant is cleared
-	if (inf == TileInf.POWER_PLANT or inf == TileInf.ROAD):
+	if (inf == TileInf.POWER_PLANT || inf == TileInf.ROAD):
 		inf = TileInf.NONE
 		City.connectPower()
 		
@@ -169,6 +171,7 @@ func clear_tile():
 	inf = TileInf.NONE
 	data = [0, 0, 0, 0, 0]
 	tileDamage = 0
+	connections = [0, 0, 0, 0]
 	
 func raise_tile():
 	baseHeight += 1
