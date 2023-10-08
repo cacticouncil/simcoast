@@ -5,7 +5,7 @@ var currentNPC = 0
 var currentPlayer = 0
 var turn = true
 var currentDialogue=""
-
+var currentSequence = 0
 # dialogue sequence for npc
 var NPC_CONV = {}
 
@@ -31,12 +31,12 @@ func _init(playerDialogue, npcDialogue):
 func get_next_dialogue():
 	#npc sequence
 	if(turn == true):
-		currentDialogue = NPC_CONV[currentNPC]["dialogue"]
+		currentDialogue = NPC_CONV[int(currentNPC)]["dialogue"]
 		# no player prompt
-		if(NPC_CONV[currentNPC]["next"] == "-1"):
+		if(NPC_CONV[int(currentNPC)]["next"] == "-1"):
 			currentNPC = 4
 		else:
-			currentPlayer = NPC_CONV[currentNPC]["next"]
+			currentPlayer = NPC_CONV[int(currentNPC)]["next"]
 			turn = false
 		#print(currentDialogue)
 		return currentDialogue
@@ -53,7 +53,36 @@ func get_next_dialogue():
 		return currentDialogue
 
 func nextNPCLine(d):
-	for i in PLAYER_CONV:
-		if (PLAYER_CONV[i]["dialogue"] == d):
-			currentNPC = PLAYER_CONV[i]["next"]
-			turn = true
+	if typeof(d) == TYPE_ARRAY:
+		if (d.size() != 1):
+			for i in PLAYER_CONV:
+				if (PLAYER_CONV[i]["dialogue"] == d[1]):
+					currentNPC = PLAYER_CONV[i]["next"]
+					turn = true
+
+func dialogueSequence():
+	var seq = true
+	while(seq):
+		var cd = get_next_dialogue()
+		print(cd)
+		nextNPCLine(cd)
+		if(currentPlayer == "-2" && turn == false):
+			seq = false
+		
+		
+
+func _input(event):
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_1:
+			emit_signal("1")
+			currentSequence = 1
+			print("1")
+		if event.keycode == KEY_2:
+			currentSequence = 2
+			emit_signal("2")
+			print("2")
+		if event.keycode == KEY_3:
+			currentSequence = 3
+			emit_signal("3")
+			print("3")
+			

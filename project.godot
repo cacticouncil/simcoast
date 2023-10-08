@@ -114,10 +114,10 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://git_api.gdns"
 }, {
-"base": "Node",
-"class": "SuggestionSystem",
+"base": "Object",
+"class": "NPC",
 "language": "GDScript",
-"path": "res://scripts/Dialogue/SuggestionSystem.gd"
+"path": "res://scripts/NPC.gd"
 }, {
 "base": "Node",
 "class": "Observer",
@@ -129,10 +129,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Observers/SfxObserver.gd"
 }, {
-"base": "Object",
-"class": "NPC",
+"base": "Node",
+"class": "SuggestionSystem",
 "language": "GDScript",
-"path": "res://scripts/NPC.gd"
+"path": "res://scripts/Dialogue/SuggestionSystem.gd"
 }, {
 "base": "Object",
 "class": "Tile",
@@ -164,13 +164,12 @@ _global_script_class_icons={
 "BehaviorTree": "res://addons/behavior_tree/icons/bt.svg",
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
 "DialogueSystem": "",
-"GitAPI": "",
-"NPC": "",
-"SuggestionSystem": "",
 "Event": "",
 "GitAPI": "",
+"NPC": "",
 "Observer": "",
 "SfxObserver": "",
+"SuggestionSystem": "",
 "Tile": "",
 "TileCube": ""
 }
