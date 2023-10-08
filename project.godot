@@ -99,10 +99,35 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/behavior_tree/src/blackboard.gd"
 }, {
+"base": "Node",
+"class": "DialogueSystem",
+"language": "GDScript",
+"path": "res://scripts/Dialogue/DialogueSystem.gd"
+}, {
+"base": "Node",
+"class": "Event",
+"language": "GDScript",
+"path": "res://scripts/Event.gd"
+}, {
 "base": "",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://git_api.gdns"
+}, {
+"base": "Node",
+"class": "SuggestionSystem",
+"language": "GDScript",
+"path": "res://scripts/Dialogue/SuggestionSystem.gd"
+}, {
+"base": "Node",
+"class": "Observer",
+"language": "GDScript",
+"path": "res://scripts/Observers/Observer.gd"
+}, {
+"base": "Node",
+"class": "SfxObserver",
+"language": "GDScript",
+"path": "res://scripts/Observers/SfxObserver.gd"
 }, {
 "base": "Object",
 "class": "NPC",
@@ -138,8 +163,14 @@ _global_script_class_icons={
 "BTWait": "res://addons/behavior_tree/icons/btwait.svg",
 "BehaviorTree": "res://addons/behavior_tree/icons/bt.svg",
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
+"DialogueSystem": "",
 "GitAPI": "",
 "NPC": "",
+"SuggestionSystem": "",
+"Event": "",
+"GitAPI": "",
+"Observer": "",
+"SfxObserver": "",
 "Tile": "",
 "TileCube": ""
 }
@@ -168,6 +199,9 @@ UpdateErosion="*res://scripts/updateErosion.gd"
 UpdateWater="*res://scripts/updateWater.gd"
 Overlay="*res://ui/Popups/Overlay.tscn"
 NPCOrganizer="*res://scripts/NPCOrganizer.gd"
+Announcer="*res://scripts/Observers/Announcer.gd"
+MissionObserver="*res://scripts/Observers/MissionObserver.gd"
+AchievementObserver="*res://scripts/Observers/AchievementObserver.gd"
 
 [display]
 
