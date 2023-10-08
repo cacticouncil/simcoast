@@ -13,7 +13,7 @@ func createAchievements():
 	toComplete.push_back(goalClass.new('# of Commercial Areas', true, 10, 'Build 10 Commercial Areas', 'Build 10 Commercial Areas', 0))
 	toComplete.push_back(goalClass.new('Money', true, 110000, 'Money Made', 'Make $110,000', 1))
 
-func onNotify(event, stats):
+func onNotify(event):
 	#Fun fact to anyone looking through this code: you can't delete from an array you're looping through in gdscript: https://ask.godotengine.org/77668/what-happens-when-i-remove-an-array-element-isnide-a-for-loop#:~:text=1%20Answer&text=Don't%20loop%20through%20the,loop%20through%20that%20array%20instead.
 	for i in range(toComplete.size()):
 		if toComplete[i].isComplete():
