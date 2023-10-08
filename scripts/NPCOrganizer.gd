@@ -7,7 +7,7 @@ var rng = RandomNumberGenerator.new()
 
 
 func _ready():
-	addNPC("Carl")
+	addNPC("Carl","res://resources/PLAYER.json", "res://resources/NPC.json")
 func getNPCCount():
 	return npcCount
 # Prints list of all NPC names
@@ -15,7 +15,7 @@ func printNPCList():
 	for n in self.npcDictionary.values():
 		print(n.name + ", ")
 	return
-func addNPC(npcName_):
+func addNPC(npcName_, playerDialogue, npcDialogue):
 	#Should add NPC as the name given and give unique ID
 	self.npcCount += 1
 	#Have a way of encrypting this? So it is reversable
@@ -24,7 +24,7 @@ func addNPC(npcName_):
 		npcID = rng.randi_range(0, 100000)
 		if !npcDictionary.has(npcID):
 			break
-	var npcObject = NPC.new(npcID, npcName_)
+	var npcObject = NPC.new(npcID, npcName_, playerDialogue, npcDialogue)
 	npcDictionary[npcID] = npcObject
 	return
 func deleteNPC(id_):
@@ -34,9 +34,4 @@ func deleteNPC(id_):
 func setName(id_, newName):
 	npcDictionary[id_].name = newName
 	return
-func setCurrentDialogue(id_, currDialogue):
-	npcDictionary[id_].currentDialogue = currDialogue
-	return
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+

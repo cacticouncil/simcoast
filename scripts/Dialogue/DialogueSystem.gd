@@ -12,15 +12,16 @@ var NPC_CONV = {}
 # dialogue sequence for player
 var PLAYER_CONV = {}
 
+
 # gets the dialogue from json files
-func load_dialogues():
+func _init(playerDialogue, npcDialogue):
 	var npc = File.new()
-	npc.open("res://resources/NPC.json", npc.READ)
+	npc.open(npcDialogue, npc.READ)
 	var text = npc.get_as_text()
 	NPC_CONV.parse_json(text)
 	npc.close()
 	var player = File.new()
-	player.open("res://resources/PLAYER.json", player.READ)
+	player.open(playerDialogue, player.READ)
 	var text2 = player.get_as_text()
 	PLAYER_CONV.parse_json(text2)
 	player.close()
@@ -56,4 +57,3 @@ func nextNPCLine(d):
 		if (PLAYER_CONV[i]["dialogue"] == d):
 			currentNPC = PLAYER_CONV[i]["next"]
 			turn = true
-
