@@ -56,8 +56,8 @@ func nextNPCLine(d):
 	if typeof(d) == TYPE_ARRAY:
 		if (d.size() != 1):
 			for i in PLAYER_CONV:
-				if (PLAYER_CONV[i]["dialogue"] == d[1]):
-					currentNPC = PLAYER_CONV[i]["next"]
+				if (i["dialogue"] == d[1]):
+					currentNPC = i["next"]
 					turn = true
 
 func dialogueSequence():
@@ -71,18 +71,18 @@ func dialogueSequence():
 		
 		
 
-func _input(event):
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_1:
-			emit_signal("1")
-			currentSequence = 1
-			print("1")
-		if event.keycode == KEY_2:
-			currentSequence = 2
-			emit_signal("2")
-			print("2")
-		if event.keycode == KEY_3:
-			currentSequence = 3
-			emit_signal("3")
-			print("3")
-			
+#func _input(event):
+#	if event is InputEventKey and event.pressed:
+#		if event.keycode == KEY_1:
+#			emit_signal("1")
+#			currentSequence = 1
+#			print("1")
+#		if event.keycode == KEY_2:
+#			currentSequence = 2
+#			emit_signal("2")
+#			print("2")
+#		if event.keycode == KEY_3:
+#			currentSequence = 3
+#			emit_signal("3")
+#			print("3")
+#
