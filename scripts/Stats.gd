@@ -6,7 +6,8 @@ var stats = {
 	'# of Power Plants': 0,
 	'# of Roads': 0,
 	'# of Parks': 0,
-	'Money': 0
+	'Money': 0,
+	'Total Population': 0
 }
 
 func getStat(name):
@@ -37,3 +38,7 @@ func updateStats(event):
 			stats['# of Parks'] -= event.eventValue
 	elif event.eventName == "Money":
 		stats['Money'] = event.eventValue
+	elif event.eventName == "Profit":
+		stats['Profit'] = event.eventValue
+	elif event.eventName == "Total Population":
+		stats['Total Population'] = event.eventValue

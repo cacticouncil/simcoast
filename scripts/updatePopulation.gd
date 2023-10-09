@@ -64,6 +64,7 @@ func update_population():
 					TOTAL_POPULATION += change
 	
 	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Population").text = "Total Population: " + str(TOTAL_POPULATION)
+	Announcer.notify(Event.new("Total Population", "Number of Citizens", TOTAL_POPULATION))
 					
 func get_population():
 	return TOTAL_POPULATION

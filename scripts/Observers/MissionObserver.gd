@@ -36,6 +36,8 @@ func createMissions():
 	missions.append(mission3)
 	
 	var missionUnbeatable = [] # FIXME: Handle what happens when all missions are complete
+	missionUnbeatable.append(goalClass.new('Profit', true, 5000, 'Make $5,000 in one month', 'Make $5,000 in one month', 1))
+	missionUnbeatable.append(goalClass.new('Total Population', true, 100, 'House 100 Citizents', 'Have a total population over 100', 1))
 	missionUnbeatable.append(goalClass.new('Money', true, 999999999999, 'We\'re rich!', 'Make $999,999,999,999', 1))
 	missions.append(missionUnbeatable)
 
