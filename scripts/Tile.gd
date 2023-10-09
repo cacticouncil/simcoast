@@ -163,6 +163,12 @@ func clear_tile():
 		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
 	if tileDamage < 0:
 		tileDamage = 0
+	if inf == TileInf.POWER_PLANT:
+		Announcer.notify(Event.new("Removed Tile", "Removed Power Plant", 1))
+	elif inf == TileInf.ROAD:
+		Announcer.notify(Event.new("Removed Tile", "Removed Road", 1))
+	elif inf == TileInf.PARK:
+		Announcer.notify(Event.new("Removed Tile", "Removed Park", 1))
 	zone = TileZone.NONE
 	inf = TileInf.NONE
 	data = [0, 0, 0, 0, 0]

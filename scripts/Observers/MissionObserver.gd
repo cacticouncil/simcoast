@@ -15,6 +15,7 @@ func createMissions():
 	
 	var mission0 = []
 	mission0.append(goalClass.new('# of Power Plants', true, 1, 'Build a Power Plant', 'Build a Power Plant', 0))
+	mission0.append(goalClass.new('# of Roads', true, 10, 'Build 10 Roads', 'Build 10 Roads', 0))
 	missions.append(mission0)
 	
 	var mission1 = []
@@ -25,8 +26,18 @@ func createMissions():
 	var mission2 = []
 	mission2.append(goalClass.new('# of Residential Areas', true, 5, 'Build 5 Residential Areas', 'Build 5 Residential Areas', 0))
 	mission2.append(goalClass.new('# of Commercial Areas', true, 5, 'Build 5 Commercial Areas', 'Build 5 Commercial Areas', 0))
-	mission2.append(goalClass.new('Money', true, 999999999999, 'We\'re rich!', 'Make $999,999,999,999', 1))
+	mission2.append(goalClass.new('Money', true, 105000, 'Have $105,000', 'Make $105,000', 1))
 	missions.append(mission2)
+	
+	var mission3 = []
+	mission3.append(goalClass.new('# of Residential Areas', true, 10, 'Build 10 Residential Areas', 'Build 10 Residential Areas', 0))
+	mission3.append(goalClass.new('# of Commercial Areas', true, 10, 'Build 10 Commercial Areas', 'Build 10 Commercial Areas', 0))
+	mission3.append(goalClass.new('# of Parks', true, 5, 'Build 5 Parks', 'Build 5 Parks', 1))
+	missions.append(mission3)
+	
+	var missionUnbeatable = [] # FIXME: Handle what happens when all missions are complete
+	missionUnbeatable.append(goalClass.new('Money', true, 999999999999, 'We\'re rich!', 'Make $999,999,999,999', 1))
+	missions.append(missionUnbeatable)
 
 func onNotify(event):
 	# Whenever we're notified, check if we've completed any of our missions
@@ -60,6 +71,7 @@ func getMissions():
 
 func deleteGoals():
 	# Remove all goals from missions that are stored by index in toDelete
+	toDelete.invert() # Needs to be invert, otherwise breaks having multiple missions completed when we move onto next set
 	for num in toDelete:
 		missions[0].remove(num)
 	toDelete.clear()

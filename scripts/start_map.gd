@@ -219,6 +219,7 @@ func _unhandled_input(event):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.PARK
 							City.numParks += 1
+							Announcer.notify(Event.new("Added Tile", "Added Park", 1))
 						else:
 							actionText.text = "Not enough funds!"
 					elif (tile.inf == Tile.TileInf.PARK):
@@ -239,6 +240,7 @@ func _unhandled_input(event):
 							City.connectRoads(tile)
 							City.connectPower()
 							City.numRoads += 1
+							Announcer.notify(Event.new("Added Tile", "Added Road", 1))
 						else:
 							actionText.text = "Not enough funds!"
 					elif (tile.inf == Tile.TileInf.ROAD):
