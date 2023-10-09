@@ -3,6 +3,7 @@ extends Node
 var stats = {
 	'# of Residential Areas': 0, 
 	'# of Commercial Areas': 0,
+	'# of Power Plants': 0,
 	'Money': 0
 }
 
@@ -15,10 +16,14 @@ func updateStats(event):
 			stats['# of Residential Areas'] += event.eventValue
 		elif event.eventDescription == "Added Commercial Area":
 			stats['# of Commercial Areas'] += event.eventValue
+		elif event.eventDescription == "Added Power Plant":
+			stats['# of Power Plants'] += event.eventValue
 	elif event.eventName == "Removed Tile":
 		if event.eventDescription == "Removed Residential Area":
 			stats['# of Residential Areas'] -= event.eventValue
 		elif event.eventDescription == "Removed Commercial Area":
 			stats['# of Commercial Areas'] -= event.eventValue
+		elif event.eventDescription == "Removed Power Plant":
+			stats['# of Power Plants'] -= event.eventValue
 	elif event.eventName == "Money":
 		stats['Money'] = event.eventValue

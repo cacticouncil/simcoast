@@ -5,7 +5,6 @@ var currMapPath # Current file path of the map loaded
 var copyTile				# Stores tile to use when copy/pasting tiles on the map
 var tickDelay = Global.TICK_DELAY #time in seconds between ticks
 var numTicks = 0 #time elapsed since start
-var isPaused = false
 var isFastFWD = false
 
 # Called when the node enters the scene tree for the first time.
@@ -202,6 +201,7 @@ func _unhandled_input(event):
 							tile.inf = Tile.TileInf.POWER_PLANT
 							City.connectPower()
 							City.numPowerPlants += 1
+							Announcer.notify(Event.new("Added Tile", "Added Power Plant", 1))
 						else:
 							actionText.text = "Not enough funds!"
 					elif (tile.inf == Tile.TileInf.POWER_PLANT):
@@ -298,6 +298,15 @@ func _unhandled_input(event):
 		elif event.scancode == KEY_V:
 			actionText.text = "Paste tool selected"
 			Global.mapTool = Global.Tool.PASTE_TILE
+		elif event.scancode == KEY_ESCAPE:
+			if $PauseMenu.visible:
+				$PauseMenu.visible = false
+				$HUD/play_button.pressed = false
+				Global.isPaused = false
+			else:
+				$PauseMenu.visible = true
+				$HUD/play_button.pressed = true
+				Global.isPaused = true
 
 	elif event is InputEventMouseMotion:		
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
@@ -345,9 +354,11 @@ func loadMapData(mapPath):
 
 
 func _on_SaveButton_pressed():
+	print("Save Button Pressed")
 	$Popups/SaveDialog.popup_centered()
 
 func _on_LoadButton_pressed():
+	print("Load Button Pressed")
 	$Popups/LoadDialog.popup_centered()
 
 func _on_file_selected_load(filePath):
@@ -366,9 +377,17 @@ func _on_file_selected_save(filePath):
 func _on_ExitButton_pressed():
 	get_tree().quit()
 
+func _on_AchievementButton_pressed():
+	print("Achievement Button Pressed")
+
+func _on_ContinueButton_pressed():
+	$PauseMenu.visible = false
+	$HUD/play_button.pressed = false
+	Global.isPaused = false
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !isPaused:
+	if !Global.isPaused:
 		tickDelay -= delta
 		if tickDelay <= 0:
 			
@@ -404,7 +423,7 @@ func update_graphics():
 	Econ.updateProfitDisplay()
 
 func _on_play_button_toggled(button_pressed:bool):
-	isPaused = button_pressed
+	Global.isPaused = button_pressed
 
 func _on_fastfwd_button_toggled(button_pressed:bool):
 	isFastFWD = button_pressed

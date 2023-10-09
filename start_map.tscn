@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=2]
+[gd_scene load_steps=122 format=2]
 
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/buttons/add_water_hover.png" type="Texture" id=2]
@@ -109,6 +109,12 @@
 [ext_resource path="res://assets/buttons/fast_forward_default.png" type="Texture" id=107]
 [ext_resource path="res://assets/buttons/fast_forward_pressed.png" type="Texture" id=108]
 [ext_resource path="res://ui/SubMenu/TaxMenu.tscn" type="PackedScene" id=109]
+[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/LoadButton.tscn" type="PackedScene" id=110]
+[ext_resource path="res://assets/fonts/upheavtt_80.tres" type="DynamicFont" id=111]
+[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/AchievementButton.tscn" type="PackedScene" id=112]
+[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/ContinueButton.tscn" type="PackedScene" id=113]
+[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/SaveButton.tscn" type="PackedScene" id=114]
+[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/QuitButton.tscn" type="PackedScene" id=115]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.133333, 0.886275, 0.129412, 1 )
@@ -935,6 +941,53 @@ align = 1
 [node name="VectorMap" type="YSort" parent="."]
 script = ExtResource( 7 )
 
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+anchor_right = 1.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 0.392157 )
+
+[node name="PauseMenu" type="VBoxContainer" parent="PauseMenu"]
+anchor_right = 1.0
+margin_top = 185.0
+margin_bottom = 300.0
+
+[node name="PauseTitle" type="Label" parent="PauseMenu/PauseMenu"]
+margin_right = 1280.0
+margin_bottom = 72.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 5
+custom_fonts/font = ExtResource( 111 )
+text = "Paused"
+align = 1
+valign = 1
+
+[node name="PauseButtons" type="VBoxContainer" parent="PauseMenu/PauseMenu"]
+margin_top = 76.0
+margin_right = 1280.0
+margin_bottom = 292.0
+
+[node name="ContinueButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 113 )]
+
+[node name="SaveButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 114 )]
+margin_top = 44.0
+margin_bottom = 84.0
+
+[node name="LoadButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 110 )]
+margin_top = 88.0
+margin_bottom = 128.0
+
+[node name="AchievementButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 112 )]
+margin_top = 132.0
+margin_bottom = 172.0
+
+[node name="QuitButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 115 )]
+margin_top = 176.0
+margin_bottom = 216.0
+
 [node name="Popups" type="CanvasLayer" parent="."]
 
 [node name="SaveDialog" type="FileDialog" parent="Popups"]
@@ -958,3 +1011,8 @@ script = ExtResource( 104 )
 
 [connection signal="toggled" from="HUD/play_button" to="." method="_on_play_button_toggled"]
 [connection signal="toggled" from="HUD/fastfwd_button" to="." method="_on_fastfwd_button_toggled"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/SaveButton" to="." method="_on_SaveButton_pressed"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/LoadButton" to="." method="_on_LoadButton_pressed"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/AchievementButton" to="." method="_on_AchievementButton_pressed"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/QuitButton" to="." method="_on_ExitButton_pressed"]

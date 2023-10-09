@@ -13,6 +13,10 @@ func createMissions():
 	# Creates goal objects for the purpose of testing
 	var goalClass = load("res://scripts/Observers/Goal.gd")
 	
+	var mission0 = []
+	mission0.append(goalClass.new('# of Power Plants', true, 1, 'Build a Power Plant', 'Build a Power Plant', 0))
+	missions.append(mission0)
+	
 	var mission1 = []
 	mission1.append(goalClass.new('# of Residential Areas', true, 1, 'Build 1 Residential Area', 'Build 1 Residential Area', 0))
 	mission1.append(goalClass.new('# of Commercial Areas', true, 1, 'Build 1 Commercial Area', 'Build 1 Commercial Area', 0))

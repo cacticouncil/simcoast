@@ -40,6 +40,8 @@ var colRange = range(0, mapHeight, 1)
 var numZones = 0
 var numPeople = 0
 
+# To know if game is paused
+var isPaused = false
 
 func initTileMap():
 	var tm = []
