@@ -24,7 +24,4 @@ func getType():
 	return self.type
 func dialogueTrigger():
 	#Access current dialogue and dialogue system
-	#print(currentDialogue)
-	#Call next dialogue
 	dialogueSystem.dialogueSequence()
-	print()
