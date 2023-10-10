@@ -68,13 +68,18 @@ func initObservers():
 		i.connect("mouse_exited", self, "button_exit")
 	"""
 	#$HUD/Missions/VBoxContainer/Mission1.connect("mouse_entered", self, "MissionObserver.hoverMission", [0])
-	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "testHover")
+	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "show_mission_tip", [0])
+	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_exited", self, "clear_mission_tip")
 	if missions.size() > 1:
 		$HUD/Missions/VBoxContainer/Mission2.text = missions[1]
+		get_node("HUD/Missions/VBoxContainer/Mission2").connect("mouse_entered", self, "show_mission_tip", [1])
+		get_node("HUD/Missions/VBoxContainer/Mission2").connect("mouse_exited", self, "clear_mission_tip")
 	else:
 		$HUD/Missions/VBoxContainer/Mission2.visible = false
 	if missions.size() > 2:
 		$HUD/Missions/VBoxContainer/Mission3.text = missions[2]
+		get_node("HUD/Missions/VBoxContainer/Mission3").connect("mouse_entered", self, "show_mission_tip", [2])
+		get_node("HUD/Missions/VBoxContainer/Mission3").connect("mouse_exited", self, "clear_mission_tip")
 	else:
 		$HUD/Missions/VBoxContainer/Mission3.visible = false
 	
@@ -83,8 +88,11 @@ func initObservers():
 	Announcer.addObserver(sfxObserver)
 	self.add_child(sfxObserver)
 
-func testHover():
-	print("working")
+func show_mission_tip(num):
+	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = MissionObserver.getMissionsDescriptions()[num]
+
+func clear_mission_tip():
+	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = ""
 
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):

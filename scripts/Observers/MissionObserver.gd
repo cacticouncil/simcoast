@@ -18,25 +18,21 @@ func createMissions():
 	missions.append(mission0)
 	
 	var mission1 = []
-	mission1.append(goalClass.new('# of Roads', true, 5, 'Build 5 Roads', 'Build 10 roads', 0))
+	mission1.append(goalClass.new('# of Roads', true, 5, 'Build 5 Roads', 'Build 5 roads', 0))
 	mission1.append(goalClass.new('# of Powered Roads', true, 5, 'Power 5 roads', 'Connect roads to a power plant to power them', 0))
 	missions.append(mission1)
 	
 	var mission2 = []
 	mission2.append(goalClass.new('# of Residential Areas', true, 3, 'Build 3 Residential Areas', 'Build 3 Residential Areas', 0))
 	mission2.append(goalClass.new('# of Powered Res', true, 3, 'Power 3 Residential Areas', 'Connect the residential areas to roads to power them', 0))
-	#mission2.append(goalClass.new('Money', true, 105000, 'Have $105,000', 'Make $105,000', 1))
 	missions.append(mission2)
 	
 	var mission3 = []
 	mission3.append(goalClass.new('# of Commercial Areas', true, 3, 'Build 3 Commercial Areas', 'Build 3 Commercial Areas', 0))
 	mission3.append(goalClass.new('# of Powered Comm', true, 3, 'Power 3 Commercial Areas', 'Connect the commercial areas to roads to power them', 0))
-	#mission3.append(goalClass.new('# of Parks', true, 5, 'Build 5 Parks', 'Build 5 Parks', 1))
 	missions.append(mission3)
 	
 	var missionUnbeatable = [] # FIXME: Handle what happens when all missions are complete
-	#missionUnbeatable.append(goalClass.new('Profit', true, 5000, 'Make $5,000 in one month', 'Make $5,000 in one month', 1))
-	#missionUnbeatable.append(goalClass.new('Total Population', true, 100, 'House 100 Citizents', 'Have a total population over 100', 1))
 	missionUnbeatable.append(goalClass.new('Money', true, 999999999999, 'We\'re rich!', 'Make $999,999,999,999', 1))
 	missions.append(missionUnbeatable)
 
@@ -68,6 +64,13 @@ func getMissions():
 	var listOfMissions = []
 	for mission in missions[0]:
 		listOfMissions.append(mission.achievementName)
+	return listOfMissions
+
+func getMissionsDescriptions():
+	# Returns a list of the mission descriptions in string format
+	var listOfMissions = []
+	for mission in missions[0]:
+		listOfMissions.append(mission.achievementDescription)
 	return listOfMissions
 
 func deleteGoals():
@@ -105,19 +108,27 @@ func displayNewMissions():
 	# I'm assuming there will always be at least one mission
 	get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission1").text = missions[0]
 	get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission1").add_color_override("font_color",  Color(1, 1, 1))
-	get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "testMissionHover")
+	get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "show_mission_tip", [0])
+	get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission1").connect("mouse_exited", self, "clear_mission_tip")
 	if missions.size() > 1:
 		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission2").text = missions[1]
 		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission2").add_color_override("font_color",  Color(1, 1, 1))
+		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission2").connect("mouse_entered", self, "show_mission_tip", [1])
+		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission2").connect("mouse_exited", self, "clear_mission_tip")
 		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission2").visible = true
 	else:
 		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission2").visible = false
 	if missions.size() > 2:
 		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission3").text = missions[2]
 		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission3").add_color_override("font_color",  Color(1, 1, 1))
+		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission3").connect("mouse_entered", self, "show_mission_tip", [2])
+		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission3").connect("mouse_exited", self, "clear_mission_tip")
 		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission3").visible = true
 	else:
 		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission3").visible = false
 
-func testMissionHover():
-	print("Working")
+func show_mission_tip(num):
+	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = getMissionsDescriptions()[num]
+
+func clear_mission_tip():
+	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = ""

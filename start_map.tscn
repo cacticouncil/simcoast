@@ -251,9 +251,6 @@ __meta__ = {
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 17 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 group = ExtResource( 16 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/ToolMenu"]
@@ -920,6 +917,7 @@ custom_constants/separation = 20
 [node name="Mission1" type="Label" parent="HUD/Missions/VBoxContainer"]
 margin_right = 260.0
 margin_bottom = 14.0
+mouse_filter = 1
 text = "Mission 1"
 align = 1
 
@@ -927,6 +925,7 @@ align = 1
 margin_top = 34.0
 margin_right = 260.0
 margin_bottom = 48.0
+mouse_filter = 1
 text = "Mission 2"
 align = 1
 
@@ -934,6 +933,7 @@ align = 1
 margin_top = 68.0
 margin_right = 260.0
 margin_bottom = 82.0
+mouse_filter = 1
 custom_colors/font_color = Color( 0, 0.568627, 0.0470588, 1 )
 text = "Mission 3"
 align = 1
@@ -1011,6 +1011,7 @@ script = ExtResource( 104 )
 
 [connection signal="toggled" from="HUD/play_button" to="." method="_on_play_button_toggled"]
 [connection signal="toggled" from="HUD/fastfwd_button" to="." method="_on_fastfwd_button_toggled"]
+[connection signal="mouse_entered" from="HUD/Missions/VBoxContainer/Mission1" to="." method="_on_Mission1_mouse_entered"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/LoadButton" to="." method="_on_LoadButton_pressed"]
