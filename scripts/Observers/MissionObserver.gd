@@ -15,7 +15,7 @@ func createMissions():
 	
 	var mission0 = []
 	mission0.append(goalClass.new('# of Power Plants', true, 1, 'Build a Power Plant', 'Build a Power Plant', 0))
-	mission0.append(goalClass.new('# of Roads', true, 10, 'Build 10 Roads', 'Build 10 Roads', 0))
+	mission0.append(goalClass.new('# of Powered Roads', true, 10, 'Build 10 Powered Roads', 'Connect roads to power plant to power them', 0))
 	missions.append(mission0)
 	
 	var mission1 = []
