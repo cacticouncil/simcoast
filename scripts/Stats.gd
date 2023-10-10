@@ -10,6 +10,7 @@ var stats = {
 	'# of Powered Comm': 0,
 	'# of Powered Res': 0,
 	'Money': 0,
+	'Profit': 0,
 	'Total Population': 0
 }
 
