@@ -31,7 +31,7 @@ func unlock(goal, goalNum):
 	completed.append(goal)
 	#Displays building achievement
 	if (goal.achievementType == 0):
-		Overlay.b_achievement_pop()
+		Overlay.b_achievement_pop(goal.achievementName)
 	#Displays economic achievement
 	elif (goal.achievementType == 1):
 		Overlay.e_achievement_pop()
