@@ -159,6 +159,11 @@ func clear_tile():
 	while (data[0] > 0):
 		remove_building()
 	
+	#inform the Announcer that we have removed a zone
+	if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
+			Announcer.notify(Event.new("Removed Tile", "Removed Commercial Area", 1))
+	elif zone == TileZone.HEAVY_RESIDENTIAL || zone == TileZone.LIGHT_RESIDENTIAL:
+			Announcer.notify(Event.new("Removed Tile", "Removed Residential Area", 1))
 	#reset zones
 	zone = TileZone.NONE
 	
@@ -332,12 +337,6 @@ func remove_building():
 	#clamp tile damage to 0
 	if tileDamage < 0:
 		tileDamage = 0
-		
-	#inform the Announcer that we have removed a building
-	if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
-			Announcer.notify(Event.new("Removed Tile", "Removed Commercial Area", 1))
-	elif zone == TileZone.HEAVY_RESIDENTIAL || zone == TileZone.LIGHT_RESIDENTIAL:
-			Announcer.notify(Event.new("Removed Tile", "Removed Residential Area", 1))
 
 func add_people(n):	
 	var before = data[2]
