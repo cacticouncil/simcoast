@@ -48,7 +48,6 @@ func onNotify(event):
 
 func unlock(miss, missNum):
 	# Mark as finished
-	#print("Mission Complete: " + miss.achievementName)
 	toDelete.append(missNum)
 	
 	#Find the right node, change the color
@@ -83,7 +82,6 @@ func deleteGoals():
 func checkIfDone():
 	# Check if all missions in this group our complete
 	if missions[0].empty():
-		#print("All Missions Complete in Group #" + str(missionIndex))
 		missionIndex += 1
 		missions.remove(0) # Keep new set of missions at beginning
 		#FIXME: This is to prevent crashing when missions are done, will eventually want to figure out what to do in that case

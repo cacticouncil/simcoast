@@ -228,9 +228,6 @@ custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HoverText" type="Label" parent="HUD/BottomBar"]
 margin_left = 10.0
@@ -243,9 +240,6 @@ valign = 1
 [node name="ToolsBG" type="Panel" parent="HUD"]
 anchor_bottom = 1.0
 margin_right = 90.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ToolMenu" type="Control" parent="HUD"]
 margin_right = 40.0

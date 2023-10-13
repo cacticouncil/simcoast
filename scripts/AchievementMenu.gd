@@ -1,7 +1,6 @@
 extends Node
 
 func _ready():
-	print("Achievement Menu Setup")
 	var lockedAch = AchievementObserver.getLockedAchievements()
 	var unlockedAch = AchievementObserver.getUnlockedAchievements()
 	var container
