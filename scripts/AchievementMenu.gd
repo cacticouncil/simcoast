@@ -17,6 +17,7 @@ func _ready():
 			container = HBoxContainer.new()
 			container.set("custom_constants/separation", 20)
 			$ScrollContainer/Achievements/UnlockedAchievements.add_child(container)
+			# This random control node was the easiest way to get the first spacing
 			container.add_child(Control.new())
 		var Ach = preload("res://ui/SubMenu/Achievement.tscn")
 		var AchInstance = Ach.instance()

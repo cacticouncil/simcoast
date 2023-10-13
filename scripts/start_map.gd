@@ -87,6 +87,9 @@ func initObservers():
 	var sfxObserver = load("res://scripts/Observers/SfxObserver.gd").new()
 	Announcer.addObserver(sfxObserver)
 	self.add_child(sfxObserver)
+	
+	# Just in case their's any action to take about this right away
+	Announcer.notify(Event.new("Money", "Amount of money", Econ.money))
 
 func show_mission_tip(num):
 	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = MissionObserver.getMissionsDescriptions()[num]
