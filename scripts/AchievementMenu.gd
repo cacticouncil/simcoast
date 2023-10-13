@@ -5,6 +5,12 @@ func _ready():
 	var lockedAch = AchievementObserver.getLockedAchievements()
 	var unlockedAch = AchievementObserver.getUnlockedAchievements()
 	var container
+	
+	if unlockedAch.size() == 0:
+		$ScrollContainer/Achievements/Unlocked.visible = false
+	else:
+		$ScrollContainer/Achievements/Unlocked.visible = true
+	
 	for i in range(unlockedAch.size()):
 		if i % 3 == 0:
 			container = HBoxContainer.new()
@@ -15,9 +21,14 @@ func _ready():
 		var AchInstance = Ach.instance()
 		
 		var currAch = unlockedAch[i]
-		AchInstance.updateValues(currAch.achievementName, currAch.achievementDescription, currAch.constGoal, currAch.constGoal, true)
+		AchInstance.updateValues(currAch.achievementName, currAch.achievementDescription, currAch.constGoal, currAch.constGoal, currAch.icon, true)
 		
 		container.add_child(AchInstance)
+	
+	if lockedAch.size() == 0:
+		$ScrollContainer/Achievements/Locked.visible = false
+	else:
+		$ScrollContainer/Achievements/Locked.visible = true
 	
 	for i in range(lockedAch.size()):
 		if i % 3 == 0:
@@ -30,7 +41,7 @@ func _ready():
 		
 		var currAch = lockedAch[i]
 		var currProgress = Stats.getStat(currAch.varToCheck)
-		AchInstance.updateValues(currAch.achievementName, currAch.achievementDescription, currProgress, currAch.constGoal, false)
+		AchInstance.updateValues(currAch.achievementName, currAch.achievementDescription, currProgress, currAch.constGoal, currAch.icon, false)
 		
 		container.add_child(AchInstance)
 

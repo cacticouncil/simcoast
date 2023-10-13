@@ -14,26 +14,26 @@ func createMissions():
 	var goalClass = load("res://scripts/Observers/Goal.gd")
 	
 	var mission0 = []
-	mission0.append(goalClass.new('# of Power Plants', true, 1, 'Build a Power Plant', 'Build a Power Plant', 0))
+	mission0.append(goalClass.new('# of Power Plants', true, 1, 'Build a Power Plant', 'Build a Power Plant', "res://assets/achievement_icons/Construction Achievement.png"))
 	missions.append(mission0)
 	
 	var mission1 = []
-	mission1.append(goalClass.new('# of Roads', true, 5, 'Build 5 Roads', 'Build 5 roads', 0))
-	mission1.append(goalClass.new('# of Powered Roads', true, 5, 'Power 5 roads', 'Connect roads to a power plant to power them', 0))
+	mission1.append(goalClass.new('# of Roads', true, 5, 'Build 5 Roads', 'Build 5 roads', "res://assets/achievement_icons/Construction Achievement.png"))
+	mission1.append(goalClass.new('# of Powered Roads', true, 5, 'Power 5 roads', 'Connect roads to a power plant to power them', "res://assets/achievement_icons/Construction Achievement.png"))
 	missions.append(mission1)
 	
 	var mission2 = []
-	mission2.append(goalClass.new('# of Residential Areas', true, 3, 'Build 3 Residential Areas', 'Build 3 Residential Areas', 0))
-	mission2.append(goalClass.new('# of Powered Res', true, 3, 'Power 3 Residential Areas', 'Connect the residential areas to roads to power them', 0))
+	mission2.append(goalClass.new('# of Residential Areas', true, 3, 'Build 3 Residential Areas', 'Build 3 Residential Areas', "res://assets/achievement_icons/Construction Achievement.png"))
+	mission2.append(goalClass.new('# of Powered Res', true, 3, 'Power 3 Residential Areas', 'Connect the residential areas to roads to power them', "res://assets/achievement_icons/Construction Achievement.png"))
 	missions.append(mission2)
 	
 	var mission3 = []
-	mission3.append(goalClass.new('# of Commercial Areas', true, 3, 'Build 3 Commercial Areas', 'Build 3 Commercial Areas', 0))
-	mission3.append(goalClass.new('# of Powered Comm', true, 3, 'Power 3 Commercial Areas', 'Connect the commercial areas to roads to power them', 0))
+	mission3.append(goalClass.new('# of Commercial Areas', true, 3, 'Build 3 Commercial Areas', 'Build 3 Commercial Areas', "res://assets/achievement_icons/Construction Achievement.png"))
+	mission3.append(goalClass.new('# of Powered Comm', true, 3, 'Power 3 Commercial Areas', 'Connect the commercial areas to roads to power them', "res://assets/achievement_icons/Construction Achievement.png"))
 	missions.append(mission3)
 	
 	var missionUnbeatable = [] # FIXME: Handle what happens when all missions are complete
-	missionUnbeatable.append(goalClass.new('Money', true, 999999999999, 'We\'re rich!', 'Make $999,999,999,999', 1))
+	missionUnbeatable.append(goalClass.new('Money', true, 999999999999, 'We\'re rich!', 'Make $999,999,999,999', "res://assets/achievement_icons/MoneyAchievement.png"))
 	missions.append(missionUnbeatable)
 
 func onNotify(event):
