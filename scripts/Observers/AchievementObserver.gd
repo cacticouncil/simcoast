@@ -12,7 +12,6 @@ func createAchievements():
 	toComplete.push_back(goalClass.new('# of Residential Areas', true, 10, 'Build 10 Residential Areas', 'Build 10 Residential Areas', "res://assets/achievement_icons/Construction Achievement.png"))
 	toComplete.push_back(goalClass.new('# of Commercial Areas', true, 10, 'Build 10 Commercial Areas', 'Build 10 Commercial Areas', "res://assets/achievement_icons/Construction Achievement.png"))
 	toComplete.push_back(goalClass.new('Money', true, 110000, 'Money Made', 'Have $110,000', "res://assets/achievement_icons/MoneyAchievement.png"))
-	toComplete.append(goalClass.new('Money', true, 105000, 'Have $105,000', 'Have $105,000', "res://assets/achievement_icons/MoneyAchievement.png"))
 	toComplete.append(goalClass.new('# of Parks', true, 5, 'Build 5 Parks', 'Build 5 Parks', "res://assets/achievement_icons/Construction Achievement.png"))
 	toComplete.append(goalClass.new('Profit', true, 5000, 'Make $5,000 in one month', 'Make $5,000 in one month', "res://assets/achievement_icons/MoneyAchievement.png"))
 	toComplete.append(goalClass.new('Total Population', true, 100, 'House 100 Citizents', 'Have a total population over 100', "res://assets/achievement_icons/Construction Achievement.png"))

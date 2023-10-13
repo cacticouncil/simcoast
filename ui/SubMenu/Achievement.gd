@@ -1,5 +1,7 @@
 extends Node
 
+var greyscale = preload("res://assets/shaders/greyscale.tres")
+
 # Called when the node enters the scene tree for the first time.
 func updateValues(aName, aDesc, aValue, aConst, aPic, completed):
 	$AchievementName.text = aName
@@ -9,5 +11,6 @@ func updateValues(aName, aDesc, aValue, aConst, aPic, completed):
 	$ProgressNumber.text = str(aValue) + "/" + str(aConst)
 	
 	$TextureRect.set_texture(load(aPic))
-	if completed:
-		$Uncompleted.visible = false
+	if !completed:
+		$TextureRect.material = ShaderMaterial.new()
+		$TextureRect.material.shader = greyscale

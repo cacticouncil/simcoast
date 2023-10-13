@@ -90,10 +90,3 @@ margin_top = 13.0
 margin_right = 113.0
 margin_bottom = 138.0
 texture = ExtResource( 3 )
-
-[node name="Uncompleted" type="ColorRect" parent="."]
-margin_left = 13.0
-margin_top = 13.0
-margin_right = 113.0
-margin_bottom = 138.0
-color = Color( 0.329412, 0.329412, 0.329412, 1 )
