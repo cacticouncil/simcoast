@@ -1,14 +1,24 @@
 extends CanvasLayer
 
 #Source - https://www.youtube.com/watch?v=rJcy221LrYs
+var overlayPopup = preload("res://ui/Popups/OverlayPopup.tscn")
+
+var queue = []
 
 #Calls to popup animation in Overlay scene
 func achievement_pop(achName, achPic):
-	$BG/AchievementName.text = achName
-	$BG/TextureRect.set_texture(load(achPic))
+	var inst = overlayPopup.instance()
+	inst.set_values(achName, achPic)
+	inst.name = achName
+	inst.visible = false
+	queue.append(achName)
+	$OverlayControl.add_child(inst)
 	# Made a sick fade animation
-	$AnimationPlayer.play("Fade")
+	$AnimationPlayer.queue("Fade")
 
-func _on_AnimationPlayer_animation_finished():
-	#FIXME: Why is this not getting called once the animation finishes?
-	get_parent().remove_child(self)
+func animationStart():
+	get_node("/root/Overlay/OverlayControl/" + queue[0]).visible = true
+
+func animationEnd():
+	$OverlayControl.remove_child(get_node("/root/Overlay/OverlayControl/" + queue[0]))
+	queue.remove(0)
