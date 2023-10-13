@@ -5,12 +5,14 @@ func _ready():
 	var unlockedAch = AchievementObserver.getUnlockedAchievements()
 	var container
 	
+	#If we have no unlocked achivevements, don't write unlocked
 	if unlockedAch.size() == 0:
 		$ScrollContainer/Achievements/Unlocked.visible = false
 	else:
 		$ScrollContainer/Achievements/Unlocked.visible = true
 	
 	for i in range(unlockedAch.size()):
+		# We have 3 achievements side by side, then print on the next row
 		if i % 3 == 0:
 			container = HBoxContainer.new()
 			container.set("custom_constants/separation", 20)
