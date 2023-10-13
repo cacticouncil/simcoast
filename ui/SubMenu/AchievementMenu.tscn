@@ -15,7 +15,9 @@ uniform float value = 1.0;
 void fragment() {
 	COLOR = texture(TEXTURE, UV);
 	if (value != 1.0) {
-		COLOR.rgb = vec3(value);
+		if (COLOR.r > 0.3 && COLOR.b > 0.3 && COLOR.g > 0.3) {
+			COLOR.rgb = vec3(value);
+		}
 	}
 }"
 
