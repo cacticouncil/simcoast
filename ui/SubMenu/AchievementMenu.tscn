@@ -54,7 +54,7 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 5
 custom_constants/shadow_offset_y = 5
 custom_fonts/font = ExtResource( 2 )
-text = "Unlocked"
+text = " Unlocked"
 
 [node name="UnlockedAchievements" type="VBoxContainer" parent="ScrollContainer/Achievements"]
 margin_top = 40.0
@@ -69,7 +69,7 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 5
 custom_constants/shadow_offset_y = 5
 custom_fonts/font = ExtResource( 2 )
-text = "Locked"
+text = " Locked"
 
 [node name="LockedAchievements" type="VBoxContainer" parent="ScrollContainer/Achievements"]
 margin_top = 84.0

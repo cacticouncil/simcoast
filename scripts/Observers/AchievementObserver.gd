@@ -38,7 +38,11 @@ func unlock(goal, goalNum):
 	toDelete.append(goalNum)
 	completed.append(goal)
 	#Displays achievements
-	Overlay.achievement_pop(goal.achievementName)
+	var pop = preload("res://ui/Popups/Overlay.tscn")
+	var popUpInstance = pop.instance()
+	get_parent().add_child(popUpInstance)
+	popUpInstance.achievement_pop(goal.achievementName)
+	#Overlay.achievement_pop(goal.achievementName)
 
 func deleteGoals():
 	for num in toDelete:
