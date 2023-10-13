@@ -396,7 +396,10 @@ func _on_ExitButton_pressed():
 	get_tree().quit()
 
 func _on_AchievementButton_pressed():
-	print("Achievement Button Pressed")
+	var AchMenu = preload("res://ui/SubMenu/AchievementMenu.tscn")
+	var AchMenuInstance = AchMenu.instance()
+	add_child(AchMenuInstance)
+	#AchMenuInstance.setup()
 
 func _on_ContinueButton_pressed():
 	$PauseMenu.visible = false

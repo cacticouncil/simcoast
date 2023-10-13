@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/fonts/upheavtt.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/achievement_icons/Construction Achievement.png" type="Texture" id=3]
+[ext_resource path="res://ui/SubMenu/Achievement.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 2 )
+
+[node name="AchievementBG" type="ColorRect"]
+margin_right = 400.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 400, 150 )
+color = Color( 0.85098, 0.85098, 0.85098, 1 )
+script = ExtResource( 4 )
+
+[node name="BG" type="ColorRect" parent="."]
+margin_right = 400.0
+margin_bottom = 150.0
+color = Color( 0.85098, 0.85098, 0.85098, 1 )
+
+[node name="AchievementName" type="Label" parent="."]
+margin_left = 118.0
+margin_top = 2.0
+margin_right = 395.0
+margin_bottom = 41.0
+custom_colors/font_color = Color( 0.117647, 0, 1, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Achievement Name"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="AchievementDescription" type="Label" parent="."]
+margin_left = 118.0
+margin_top = 38.0
+margin_right = 395.0
+margin_bottom = 86.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Description of Achievement"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="ProgressNumber" type="Label" parent="."]
+margin_left = 118.0
+margin_top = 119.0
+margin_right = 395.0
+margin_bottom = 138.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "5/10"
+align = 1
+valign = 1
+
+[node name="ProgressBarBG" type="ColorRect" parent="."]
+margin_left = 125.0
+margin_top = 87.0
+margin_right = 383.0
+margin_bottom = 112.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ProgressBarEmpty" type="ColorRect" parent="."]
+margin_left = 130.0
+margin_top = 92.0
+margin_right = 378.0
+margin_bottom = 107.0
+color = Color( 0.85098, 0.85098, 0.85098, 1 )
+
+[node name="ProgressBarFilled" type="ColorRect" parent="."]
+margin_left = 130.0
+margin_top = 92.0
+margin_right = 254.0
+margin_bottom = 107.0
+color = Color( 0.239216, 0.74902, 0, 1 )
+
+[node name="AchievementIcon" type="ColorRect" parent="."]
+margin_left = 13.0
+margin_top = 13.0
+margin_right = 113.0
+margin_bottom = 138.0
+color = Color( 0.356863, 0.356863, 0.356863, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 13.0
+margin_top = 13.0
+margin_right = 113.0
+margin_bottom = 138.0
+texture = ExtResource( 3 )
+
+[node name="Uncompleted" type="ColorRect" parent="."]
+margin_left = 13.0
+margin_top = 13.0
+margin_right = 113.0
+margin_bottom = 138.0
+color = Color( 0.329412, 0.329412, 0.329412, 1 )
