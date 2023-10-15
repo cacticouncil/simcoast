@@ -104,24 +104,28 @@ func _unhandled_input(event):
 			# Change Base or (if same base) raise/lower tile height
 			Global.Tool.BASE_DIRT:
 				if tile.get_base() != Tile.TileBase.DIRT:
+					tile.clear_tile()
 					tile.set_base(Tile.TileBase.DIRT)
 				else:
 					City.adjust_tile_height(tile)
 				
 			Global.Tool.BASE_ROCK:
 				if tile.get_base() != Tile.TileBase.ROCK:
+					tile.clear_tile()
 					tile.set_base(Tile.TileBase.ROCK)
 				else:
 					City.adjust_tile_height(tile)
 
 			Global.Tool.BASE_SAND:
 				if tile.get_base() != Tile.TileBase.SAND:
+					tile.clear_tile()
 					tile.set_base(Tile.TileBase.SAND)
 				else:
 					City.adjust_tile_height(tile)
 			
 			Global.Tool.BASE_OCEAN:
 				if tile.get_base() != Tile.TileBase.OCEAN:
+					tile.clear_tile()
 					tile.set_base(Tile.TileBase.OCEAN)
 					tile.set_base_height(Global.oceanHeight)
 					tile.set_water_height(0)
