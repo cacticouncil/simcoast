@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Construction.mp3-37cce032b8937abdcb1b928ac4061711.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/Construction.mp3"
+dest_files=[ "res://.import/Construction.mp3-37cce032b8937abdcb1b928ac4061711.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
