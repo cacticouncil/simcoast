@@ -99,23 +99,24 @@ func connectRoads(tile):
 	var queue = [tile]
 	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
 	var maxHeightDiff = Global.MAX_CONNECTION_HEIGHT
-	
+
 	for n in neighbors:
 		if roadConnected(tile, n, maxHeightDiff):
 			queue.append(Global.tileMap[n[0]][n[1]])
-	
+
 	while !queue.empty():
 		var road = queue.pop_front()
-		road.data = 	[0, 0, 0, 0, 0]
-		
+		road.connections = 	[0, 0, 0, 0]
+
 		if roadConnected(road, [road.i-1, road.j], maxHeightDiff):
-			road.data[0] = 1
+			road.connections[0] = 1
 		if roadConnected(road, [road.i, road.j-1], maxHeightDiff):
-			road.data[1] = 1
+			road.connections[1] = 1
 		if roadConnected(road, [road.i+1, road.j], maxHeightDiff):
-			road.data[2] = 1
+			road.connections[2] = 1
 		if roadConnected(road, [road.i, road.j+1], maxHeightDiff):
-			road.data[3] = 1
+			road.connections[3] = 1
+	
 
 func roadConnected(tile, n, diff):
 	if !is_tile_inbounds(n[0], n[1]):
@@ -205,9 +206,9 @@ func adjust_building_number(tile):
 
 func adjust_people_number(tile):
 	if Input.is_action_pressed("left_click"):
-		UpdatePopulation.TOTAL_POPULATION += tile.add_people(1)
+		tile.add_people(1)
 	elif Input.is_action_pressed("right_click"):
-		UpdatePopulation.TOTAL_POPULATION += tile.remove_people(1)
+		tile.remove_people(1)
 
 func calculate_satisfaction():
 	var population = 0
