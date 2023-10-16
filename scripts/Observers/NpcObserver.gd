@@ -1,13 +1,13 @@
 extends "res://scripts/Observers/Observer.gd"
 #Handles NPC triggers
 
-#export var sfxPlayer : AudioStreamPlayer
+
 
 func onNotify(event, stats):
-	# Plays some banger royalty free construction sfx
-	if event.eventName == "Added Tile":
+	# Will call the dialogue based on the name/id of the NPC
+	if event.eventName == "Carl":
 		if event.eventValue == 1:
-			print("Added Tile Dialogue Start")
+			print("A wild Carl appears!")
 			NPCOrganizer.npcDictionary[1].dialogueTrigger()
 
 func triggerDialogue(dialogue):

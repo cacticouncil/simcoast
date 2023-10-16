@@ -38,7 +38,6 @@ func unlock(miss, missNum):
 	# Mark as finished
 	print("Mission Complete: " + miss.achievementName)
 	toDelete.append(missNum)
-	
 	#Find the right node, change the color
 	if get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission1").text == miss.achievementName:
 		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission1").add_color_override("font_color",  Color(0, 0.57, 0.05))
