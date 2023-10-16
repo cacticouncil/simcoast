@@ -10,7 +10,6 @@ var NO_POWER_UNHAPPINESS = 10
 var DAMAGE_UNHAPPINESS = 10
 var SEVERE_DAMAGE_UNHAPPINESS = 30
 
-var TOTAL_POPULATION = 0
 var RESIDENTS = 0
 var WORKERS = 0
 var BASE_EMPLOYMENT_RATE = .95
@@ -38,16 +37,14 @@ func update_population():
 					
 				if (selectTile > rng.randf_range(0, maxRange)):
 					if (currTile.is_residential()):
-						var change = currTile.add_people(1)
-						RESIDENTS += change
-						TOTAL_POPULATION += change
+						currTile.add_people(1)
 					elif (currTile.is_commercial()):
 						if RESIDENTS * BASE_EMPLOYMENT_RATE > WORKERS:
-							var change = currTile.add_people(1)
-							WORKERS += change
+							currTile.add_people(1)
+	
 					
 			if currTile.has_building():
-				
+#				code related to people moving out of buildings
 				var leaveChance = 0
 				var status = currTile.get_status()
 				
@@ -59,12 +56,30 @@ func update_population():
 					leaveChance += SEVERE_DAMAGE_UNHAPPINESS
 				
 				rng.randomize()
-				if (selectTile * leaveChance > rng.randf_range(0, maxRange) && TOTAL_POPULATION > 0):
-					var change = currTile.remove_people(1)
-					TOTAL_POPULATION += change
+				if (selectTile * leaveChance > rng.randf_range(0, maxRange) && RESIDENTS > 0):
+					currTile.remove_people(1)
+				
+				#fixes workers not moving out when residents leave
+				if (floor(WORKERS - (RESIDENTS * BASE_EMPLOYMENT_RATE)) > 0 && currTile.is_commercial()):
+					var diff = floor(WORKERS - (RESIDENTS * BASE_EMPLOYMENT_RATE))
+					currTile.remove_people(diff)
+					
 	
-	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Population").text = "Total Population: " + str(TOTAL_POPULATION)
-	Announcer.notify(Event.new("Total Population", "Number of Citizens", TOTAL_POPULATION))
+	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Population").text = "Total Population: " + str(RESIDENTS)
+	Announcer.notify(Event.new("Total Population", "Number of Citizens", RESIDENTS))
 					
 func get_population():
-	return TOTAL_POPULATION
+	return RESIDENTS
+	
+func change_workers(n):
+	if (n > 0 && WORKERS + n >= RESIDENTS * BASE_EMPLOYMENT_RATE):
+		WORKERS = RESIDENTS
+	else:
+		WORKERS += n
+		if (WORKERS < 0):
+			WORKERS = 0
+		
+func change_residents(n):
+	RESIDENTS += n
+	if (RESIDENTS < 0):
+		RESIDENTS = 0
