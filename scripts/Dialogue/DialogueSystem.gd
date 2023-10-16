@@ -6,6 +6,8 @@ var currentPlayer = 0
 var turn = true
 var currentDialogue=""
 var currentSequence = 0
+var choices = false
+var cd
 # dialogue sequence for npc
 var NPC_CONV = Dictionary()
 
@@ -53,21 +55,33 @@ func get_next_dialogue():
 		return currentDialogue
 
 func nextNPCLine(d):
-	if typeof(d) == TYPE_ARRAY:
-		if (d.size() != 1):
-			for i in PLAYER_CONV:
-				if (i["dialogue"] == d[1]):
-					currentNPC = i["next"]
-					turn = true
+	for i in PLAYER_CONV:
+		if (i["dialogue"] == d):
+			currentNPC = i["next"]
+			turn = true
 
-func dialogueSequence():
-	var seq = true
-	while(seq):
-		var cd = get_next_dialogue()
-		print(cd)
-		nextNPCLine(cd)
-		if(currentPlayer == "-2" && turn == false):
-			seq = false
+func dialogueSequence(n):
+	if(choices == true):
+		if(n == 1):
+			nextNPCLine(cd[0])
+		elif (n == 2):
+			nextNPCLine(cd[1])
+		else:
+			nextNPCLine(cd[0])
+			
+	cd = get_next_dialogue()
+	print(cd)
+	
+	if (typeof(cd) == TYPE_ARRAY && cd.size() != 1):
+		choices = true
+		
+	
+	if(currentPlayer == "-2" && turn == false):
+		currentNPC = 0
+		currentPlayer = 0
+		turn = true
+		currentDialogue=""
+		currentSequence = 0
 		
 		
 
