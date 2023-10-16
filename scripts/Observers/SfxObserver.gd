@@ -3,7 +3,7 @@ class_name SfxObserver extends "res://scripts/Observers/Observer.gd"
 
 #export var sfxPlayer : AudioStreamPlayer
 
-func onNotify(event, stats):
+func onNotify(event):
 	# Plays some banger royalty free construction sfx
 	if event.eventName == "Added Tile":
 		if event.eventDescription == "Added Resedential Area" || event.eventDescription == "Added Commercial Area":

@@ -3,7 +3,7 @@ extends "res://scripts/Observers/Observer.gd"
 
 
 
-func onNotify(event, stats):
+func onNotify(event):
 	# Will call the dialogue based on the name/id of the NPC
 	if event.eventName == "Carl":
 		if event.eventValue == 1:
@@ -15,3 +15,4 @@ func triggerDialogue(dialogue):
 
 func initializeNPCs():
 	pass # Happens once at the start of the program
+	
