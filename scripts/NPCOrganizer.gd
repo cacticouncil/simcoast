@@ -21,6 +21,9 @@ func printNPCList():
 
 #Adds NPC into dictionary as the name given and give unique ID
 func addNPC(npcName, npcID, playerDialogue, npcDialogue):
+	if (npcID in npcDictionary):
+		print("Not unique ID!")
+		return
 	self.npcCount += 1
 	var npcObject = NPC.new(npcID, npcName, playerDialogue, npcDialogue)
 	npcDictionary[npcID] = npcObject
@@ -37,4 +40,7 @@ func setName(id_, newName):
 	npcDictionary[id_].name = newName
 	return
 
-
+#Access current dialogue and dialogue system
+func dialogueTrigger(id_):
+	npcDictionary[id_].dialogueSequence()
+	return

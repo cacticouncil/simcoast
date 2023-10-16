@@ -8,7 +8,7 @@ func onNotify(event):
 	if event.eventName == "Carl":
 		if event.eventValue == 1:
 			print("A wild Carl appears!")
-			NPCOrganizer.npcDictionary[1].dialogueTrigger()
+			NPCOrganizer.dialogueTrigger(1)
 
 func triggerDialogue(dialogue):
 	pass # Happens when dialogue is triggered
