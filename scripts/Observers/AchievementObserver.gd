@@ -19,13 +19,6 @@ func createAchievements():
 	#Just for testing scrolling of achievement menu:
 	toComplete.append(goalClass.new('Money', true, 200000, 'Have $200,000', 'Have $200,000', "res://assets/achievement_icons/MoneyAchievement.png"))
 	toComplete.append(goalClass.new('Money', true, 300000, 'Have $300,000', 'Have $300,000', "res://assets/achievement_icons/MoneyAchievement.png"))
-	toComplete.append(goalClass.new('Money', true, 400000, 'Have $400,000', 'Have $400,000', "res://assets/achievement_icons/MoneyAchievement.png"))
-	toComplete.append(goalClass.new('Money', true, 500000, 'Have $500,000', 'Have $500,000', "res://assets/achievement_icons/MoneyAchievement.png"))
-	toComplete.append(goalClass.new('Money', true, 600000, 'Have $600,000', 'Have $600,000', "res://assets/achievement_icons/MoneyAchievement.png"))
-	toComplete.append(goalClass.new('Money', true, 700000, 'Have $700,000', 'Have $700,000', "res://assets/achievement_icons/MoneyAchievement.png"))
-	toComplete.append(goalClass.new('Money', true, 800000, 'Have $800,000', 'Have $800,000', "res://assets/achievement_icons/MoneyAchievement.png"))
-	toComplete.append(goalClass.new('Money', true, 900000, 'Have $900,000', 'Have $900,000', "res://assets/achievement_icons/MoneyAchievement.png"))
-	toComplete.append(goalClass.new('Money', true, 900000, 'Millionaire', 'Have $1,000,000', "res://assets/achievement_icons/MoneyAchievement.png"))
 
 func onNotify(event):
 	#Fun fact to anyone looking through this code: you can't delete from an array you're looping through in gdscript: https://ask.godotengine.org/77668/what-happens-when-i-remove-an-array-element-isnide-a-for-loop#:~:text=1%20Answer&text=Don't%20loop%20through%20the,loop%20through%20that%20array%20instead.
