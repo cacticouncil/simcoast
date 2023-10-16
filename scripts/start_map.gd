@@ -104,24 +104,28 @@ func _unhandled_input(event):
 			# Change Base or (if same base) raise/lower tile height
 			Global.Tool.BASE_DIRT:
 				if tile.get_base() != Tile.TileBase.DIRT:
+					tile.clear_tile()
 					tile.set_base(Tile.TileBase.DIRT)
 				else:
 					City.adjust_tile_height(tile)
 				
 			Global.Tool.BASE_ROCK:
 				if tile.get_base() != Tile.TileBase.ROCK:
+					tile.clear_tile()
 					tile.set_base(Tile.TileBase.ROCK)
 				else:
 					City.adjust_tile_height(tile)
 
 			Global.Tool.BASE_SAND:
 				if tile.get_base() != Tile.TileBase.SAND:
+					tile.clear_tile()
 					tile.set_base(Tile.TileBase.SAND)
 				else:
 					City.adjust_tile_height(tile)
 			
 			Global.Tool.BASE_OCEAN:
 				if tile.get_base() != Tile.TileBase.OCEAN:
+					tile.clear_tile()
 					tile.set_base(Tile.TileBase.OCEAN)
 					tile.set_base_height(Global.oceanHeight)
 					tile.set_water_height(0)
@@ -169,14 +173,11 @@ func _unhandled_input(event):
 			# Add/Remove People
 			Global.Tool.ADD_RES_PERSON:
 				if tile.is_residential():
-					var change = tile.add_people(1)
-					UpdatePopulation.RESIDENTS += change
-					UpdatePopulation.TOTAL_POPULATION += change
+					tile.add_people(1)
 
 			Global.Tool.ADD_COM_PERSON:
 				if tile.is_commercial() && UpdatePopulation.RESIDENTS * UpdatePopulation.BASE_EMPLOYMENT_RATE > UpdatePopulation.WORKERS:
-					var change = tile.add_people(1)
-					UpdatePopulation.WORKERS += change
+					tile.add_people(1)
 
 			# Water Tool
 			Global.Tool.LAYER_WATER:
