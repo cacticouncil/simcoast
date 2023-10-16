@@ -24,7 +24,7 @@ func createMissions():
 	mission2.append(goalClass.new('Money', true, 999999999999, 'We\'re rich!', 'Make $999,999,999,999', 1))
 	missions.append(mission2)
 
-func onNotify(event, stats):
+func onNotify(event):
 	# Whenever we're notified, check if we've completed any of our missions
 	for i in range(missions[0].size()):
 		if missions[0][i].isComplete():
@@ -36,9 +36,8 @@ func onNotify(event, stats):
 
 func unlock(miss, missNum):
 	# Mark as finished
-	print("Mission Complete: " + miss.achievementName)
+	#print("Mission Complete: " + miss.achievementName)
 	toDelete.append(missNum)
-	
 	#Find the right node, change the color
 	if get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission1").text == miss.achievementName:
 		get_node("/root/CityMap/HUD/Missions/VBoxContainer/Mission1").add_color_override("font_color",  Color(0, 0.57, 0.05))
@@ -63,7 +62,7 @@ func deleteGoals():
 func checkIfDone():
 	# Check if all missions in this group our complete
 	if missions[0].empty():
-		print("All Missions Complete in Group #" + str(missionIndex))
+		#print("All Missions Complete in Group #" + str(missionIndex))
 		missionIndex += 1
 		missions.remove(0) # Keep new set of missions at beginning
 		#FIXME: This is to prevent crashing when missions are done, will eventually want to figure out what to do in that case
@@ -71,7 +70,8 @@ func checkIfDone():
 			createMissions()
 		displayNewMissions()
 		#FIXME: When events are updates, replace "" with something better
-		onNotify("", Announcer.stats) #Check onNotify to see if new goals are complete
+		onNotify("") #Check onNotify to see if new goals are complete
+		Announcer.notify(Event.new("Completed Mission", "Completed Mission", missionIndex - 1)) # Mission index - 1 because it's the last group
 
 func hoverMission(index):
 	# Currently useless while I figure out hover text

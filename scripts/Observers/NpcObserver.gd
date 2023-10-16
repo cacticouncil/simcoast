@@ -1,7 +1,6 @@
 extends "res://scripts/Observers/Observer.gd"
 #Handles NPC triggers
 
-#export var sfxPlayer : AudioStreamPlayer
 
 func onNotify(event, stats):
 	# Plays some banger royalty free construction sfx
@@ -18,3 +17,4 @@ func triggerDialogue(dialogue):
 
 func initializeNPCs():
 	pass # Happens once at the start of the program
+	

@@ -22,6 +22,6 @@ func _init(_varToCheck, _greaterThan, _constGoal, _achievementName, _achievement
 
 func isComplete():
 	if greaterThan:
-		return Announcer.stats[varToCheck] >= constGoal
+		return Stats.getStat(varToCheck) >= constGoal
 	else:
-		return Announcer.stats[varToCheck] <= constGoal
+		return Stats.getStat(varToCheck) <= constGoal
