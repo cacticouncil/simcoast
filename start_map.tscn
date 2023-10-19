@@ -488,7 +488,7 @@ texture_pressed = ExtResource( 25 )
 texture_hover = ExtResource( 24 )
 texture_focused = ExtResource( 25 )
 
-[node name="power_plant_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR7"]
+[node name="utility_plant_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR7"]
 margin_left = 36.0
 margin_right = 68.0
 margin_bottom = 32.0

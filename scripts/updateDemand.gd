@@ -1,6 +1,6 @@
 extends Node
 
-var NO_POWER_UNHAPPINESS = 10
+var NO_UTILITIES_UNHAPPINESS = 10
 var DAMAGE_UNHAPPINESS = 10
 var SEVERE_DAMAGE_UNHAPPINESS = 30
 
@@ -22,8 +22,8 @@ func calcResidentialDemand():
 				# calc chance of pop moving in (based on updatePopulation chance)
 				avgmove += (currTile.happiness)
 				# calc of pop leaving (based on updatePopulation chance)
-				if !currTile.is_powered():
-					avgleave += NO_POWER_UNHAPPINESS
+				if !currTile.has_utilities():
+					avgleave += NO_UTILITIES_UNHAPPINESS
 				if currTile.get_status() == Tile.TileStatus.LIGHT_DAMAGE || currTile.get_status() == Tile.TileStatus.MEDIUM_DAMAGE:
 					avgleave += DAMAGE_UNHAPPINESS
 				elif currTile.get_status() == Tile.TileStatus.HEAVY_DAMAGE:

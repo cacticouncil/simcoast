@@ -13,7 +13,7 @@ const LIGHT_RES_VALUE = 1
 const HEAVY_RES_VALUE = 1
 const LIGHT_COM_VALUE = 1
 const HEAVY_COM_VALUE = -1
-const POWER_PLANT_VALUE = -10
+const UTILITIES_PLANT_VALUE = -10
 const PARK_VALUE = 3
 const ROAD_VALUE = 0
 
@@ -88,8 +88,8 @@ func calc_zone_connections(tile): #Return final value of the tiles surrounding s
 	
 	for n in neighbors:
 		if is_valid_tile(n[0], n[1]):
-			# Check if it's a powerplant
-			if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.POWER_PLANT:
+			# Check if it's a utility plant
+			if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.UTILITIES_PLANT:
 				industrial_neighbor += 1
 				continue
 			elif Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.PARK:
@@ -117,7 +117,7 @@ func calc_zone_connections(tile): #Return final value of the tiles surrounding s
 			(HEAVY_RES_VALUE * heavy_residential_neighbor) + \
 			(LIGHT_COM_VALUE* light_commercial_neighbor) + \
 			(HEAVY_COM_VALUE * heavy_commercial_neighbor) + \
-			(POWER_PLANT_VALUE * industrial_neighbor) + \
+			(UTILITIES_PLANT_VALUE * industrial_neighbor) + \
 			(PARK_VALUE * park_neighbor) + \
 			(ROAD_VALUE * road_neighbor)
 

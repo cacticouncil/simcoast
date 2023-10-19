@@ -50,10 +50,10 @@ func button_hover(button):
 			toolInfo.text = "Add building to commercial zone   (Right Click: Remove building)"
 		'add_employee_button':
 			toolInfo.text = "Add employee to commercial zone   (Right Click: Remove employee)"
-		'power_plant_button':
-			toolInfo.text = "Build Power Plant"
+		'utility_plant_button':
+			toolInfo.text = "Build Utilities Plant"
 		'road_button':
-			toolInfo.text = "Built infrastructure (road/power/water) tile   (Right Click: Remove infrastructure)"
+			toolInfo.text = "Built infrastructure (road/utility/water) tile   (Right Click: Remove infrastructure)"
 		'park_button':
 			toolInfo.text = "Built Park   (Right Click: Remove park)"	
 		'beach_rocks_button':
@@ -117,8 +117,8 @@ func button_pressed():
 			Global.mapTool = Global.Tool.ADD_COM_BLDG
 		'add_employee_button':
 			Global.mapTool = Global.Tool.ADD_COM_PERSON
-		'power_plant_button':
-			Global.mapTool = Global.Tool.INF_POWER_PLANT
+		'utility_plant_button':
+			Global.mapTool = Global.Tool.INF_UTILITIES_PLANT
 		'park_button':
 			Global.mapTool = Global.Tool.INF_PARK
 		'road_button':

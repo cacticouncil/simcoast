@@ -19,8 +19,8 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 			
 	for n in neighbors:
 		if is_valid_tile(n[0], n[1]):
-			# Check if it's a powerplant
-			if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.POWER_PLANT:
+			# Check if it's a utility plant
+			if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.UTILITIES_PLANT:
 				industrial_neighbor += 1
 				continue
 			

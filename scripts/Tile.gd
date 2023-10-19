@@ -27,7 +27,7 @@ enum TileInf {
 	BUILDING,
 	BEACH_ROCKS,
 	BEACH_GRASS,
-	POWER_PLANT
+	UTILITIES_PLANT
 }
 
 # Flooding damage levels that can affect tiles
@@ -50,10 +50,10 @@ const LT_COM_ZONE_COLOR = [Color("ffa0b4d0"), Color("ff2d5b82")]
 const HV_COM_ZONE_COLOR = [Color("ff7d9bbf"), Color("ff2d5b82")]
 
 const BUILDING_COLOR = [Color("ffaaaaaa"), Color("ff999999"), Color("ff888888"), Color("ff777777")]
-const UNPOWERED_BUILDING_COLOR = [Color("ff555555"), Color("ff444444"), Color("ff333333"), Color("ff333333")]
+const NO_UTILITIES_BUILDING_COLOR = [Color("ff555555"), Color("ff444444"), Color("ff333333"), Color("ff333333")]
 
-const POWER_PLANT_COLOR = [Color("ff777777"), Color("ff888888"), Color("ff999999"), Color("ff999999")]
-const POWER_STACK_COLOR = [Color("ff333333"), Color("ff950000"), Color("ff6a0000"), Color("ff333333")]
+const UTILITIES_PLANT_COLOR = [Color("ff777777"), Color("ff888888"), Color("ff999999"), Color("ff999999")]
+const UTILITIES_STACK_COLOR = [Color("ff333333"), Color("ff950000"), Color("ff6a0000"), Color("ff333333")]
 
 const RES_OCCUPANCY_COLOR = [Color("aa2a9d2d"), Color("aa1d851f")]
 const COM_OCCUPANCY_COLOR = [Color("aa3779a2"), Color("aa26648b")]
@@ -77,7 +77,7 @@ var zone = 0
 var inf = 0
 var cube = Area2D.new()
 var data = [0, 0, 0, 0, 0]
-var powered = false
+var utilities = false
 var tileDamage = 0
 var erosion = 0
 # Purchase price of a tile
@@ -167,10 +167,10 @@ func clear_tile():
 	#reset zones
 	zone = TileZone.NONE
 	
-	#reconnect power if road or power plant is cleared
-	if (inf == TileInf.POWER_PLANT || inf == TileInf.ROAD):
+	#reconnect utility if road or utility plant is cleared
+	if (inf == TileInf.UTILITIES_PLANT || inf == TileInf.ROAD):
 		inf = TileInf.NONE
-		City.connectPower()
+		City.connectUtilities()
 		
 	#reset tile to base
 	inf = TileInf.NONE
@@ -286,8 +286,8 @@ func set_damage(n):
 		while data[0] > 0:
 			remove_building()
 
-func is_powered():
-	return powered
+func has_utilities():
+	return utilities
 
 func get_zone():
 	return zone

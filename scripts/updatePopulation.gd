@@ -6,7 +6,7 @@ var BASE_BUILD_CHANCE = 0.01
 var BASE_MOVE_CHANCE = 0.01
 var BASE_LEAVE_CHANCE = 0.01
 
-var NO_POWER_UNHAPPINESS = 10
+var NO_UTILITIES_UNHAPPINESS = 10
 var DAMAGE_UNHAPPINESS = 10
 var SEVERE_DAMAGE_UNHAPPINESS = 30
 
@@ -25,8 +25,8 @@ func update_population():
 			var maxRange = currTile.landValue + currTile.happiness
 			var selectTile = BASE_BUILD_CHANCE * (currTile.landValue + currTile.happiness)
 			
-			# cannot add buldings or people without power, zoning, or if the tile is damaged
-			if currTile.is_zoned() && currTile.is_powered() && currTile.tileDamage == 0:
+			# cannot add buldings or people without utility, zoning, or if the tile is damaged
+			if currTile.is_zoned() && currTile.has_utilities() && currTile.tileDamage == 0:
 				rng.randomize()
 				#only add buildings to tiles that already have buildings if a tile is at over 50% capacity 
 				if (selectTile > rng.randf_range(0, maxRange) && currTile.data[3] != 0 && currTile.data[2]/currTile.data[3] > .5):
@@ -48,8 +48,8 @@ func update_population():
 				var leaveChance = 0
 				var status = currTile.get_status()
 				
-				if (!currTile.is_powered()):
-					leaveChance += NO_POWER_UNHAPPINESS 
+				if (!currTile.has_utilities()):
+					leaveChance += NO_UTILITIES_UNHAPPINESS 
 				if (status == Tile.TileStatus.LIGHT_DAMAGE || status == Tile.TileStatus.MEDIUM_DAMAGE):
 					leaveChance += DAMAGE_UNHAPPINESS
 				elif (status == Tile.TileStatus.HEAVY_DAMAGE):

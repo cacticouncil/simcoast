@@ -25,12 +25,12 @@ const REMOVE_BUILDING_DAMAGE = 0.2
 const REMOVE_COMMERCIAL_BUILDING  = 0.3
 
 #Building costs
-const POWER_PLANT_COST = 10000
+const UTILITIES_PLANT_COST = 10000
 const PARK_COST = 500
 const ROAD_COST = 100
 
 #Building upkeep costs
-const POWER_PLANT_UPKEEP_COST = 100
+const UTILITIES_PLANT_UPKEEP_COST = 100
 const PARK_UPKEEP_COST = 10
 const ROAD_UPKEEP_COST = 2
 
@@ -61,7 +61,7 @@ func purchase_structure(structureCost):
 		return false
 
 func calculate_upkeep_costs():
-	city_costs = ((City.numPowerPlants * POWER_PLANT_UPKEEP_COST) + (City.numParks * PARK_UPKEEP_COST) + (City.numRoads * ROAD_UPKEEP_COST))
+	city_costs = ((City.numUtilityPlants * UTILITIES_PLANT_UPKEEP_COST) + (City.numParks * PARK_UPKEEP_COST) + (City.numRoads * ROAD_UPKEEP_COST))
 
 #func adjust_city_income(val):
 #	city_income = val

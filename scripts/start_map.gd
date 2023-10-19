@@ -191,23 +191,23 @@ func _unhandled_input(event):
 			Global.Tool.CLEAR_TILE:
 				tile.clear_tile()
 				
-			Global.Tool.INF_POWER_PLANT:
+			Global.Tool.INF_UTILITIES_PLANT:
 				if Input.is_action_pressed("left_click"):
-					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.POWER_PLANT):
-						if (Econ.purchase_structure(Econ.POWER_PLANT_COST)):
+					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.UTILITIES_PLANT):
+						if (Econ.purchase_structure(Econ.UTILITIES_PLANT_COST)):
 							tile.clear_tile()
-							tile.inf = Tile.TileInf.POWER_PLANT
-							City.connectPower()
-							City.numPowerPlants += 1
+							tile.inf = Tile.TileInf.UTILITIES_PLANT
+							City.connectUtilities()
+							City.numUtilityPlants += 1
 						else:
 							actionText.text = "Not enough funds!"
-					elif (tile.inf == Tile.TileInf.POWER_PLANT):
+					elif (tile.inf == Tile.TileInf.UTILITIES_PLANT):
 						actionText.text = "Cannot build here!"
 				elif Input.is_action_pressed("right_click"):
-					if tile.inf == Tile.TileInf.POWER_PLANT:
+					if tile.inf == Tile.TileInf.UTILITIES_PLANT:
 						tile.clear_tile()
-						City.connectPower()
-						City.numPowerPlants -= 1
+						City.connectUtilities()
+						City.numUtilityPlants -= 1
 						
 			Global.Tool.INF_PARK:
 				if Input.is_action_pressed("left_click"):
@@ -234,7 +234,7 @@ func _unhandled_input(event):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.ROAD
 							City.connectRoads(tile)
-							City.connectPower()
+							City.connectUtilities()
 							City.numRoads += 1
 						else:
 							actionText.text = "Not enough funds!"
@@ -246,7 +246,7 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.ROAD:
 						tile.clear_tile()
 						City.connectRoads(tile)
-						City.connectPower()
+						City.connectUtilities()
 						City.numRoads -= 1
 
 			Global.Tool.INF_BEACH_ROCKS:
@@ -287,8 +287,8 @@ func _unhandled_input(event):
 			actionText.text = "Flood and erosion damange calculated"
 			City.calculate_damage()
 		elif event.scancode == KEY_P:
-			actionText.text = "Power grid recalculated"
-			City.connectPower()
+			actionText.text = "Utilities grid recalculated"
+			City.connectUtilities()
 		elif event.scancode == KEY_C:
 			actionText.text = "Select tile to copy"
 			Global.mapTool = Global.Tool.COPY_TILE
@@ -338,7 +338,7 @@ func loadMapData(mapPath):
 	var mapName = SaveLoad.loadData(mapPath)
 	$VectorMap.loadMap()
 	get_node("HUD/TopBar/ActionText").text = "Map file '%s'.json loaded" % [mapName]
-	City.connectPower()
+	City.connectUtilities()
 
 
 func _on_SaveButton_pressed():
