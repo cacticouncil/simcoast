@@ -26,7 +26,14 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 # residential zones means there aren't enough jobs to go around, so it stays for now
 	var zone_balance = abs(Global.numCommercialZones - Global.numResidentialZones) * Global.ZONE_BALANCE
 	
+	#this variable positively influences desirability the more people there are in the city, up to 100. This means the max
+#	impact that this variable can have on desirability is .1. 
+	var population = max(UpdatePopulation.get_population(),100) * tile.NUMBER_PEOPLE
 	
+	#positively impacts desirability if population is growing more rapidly, growth updated monthly
+	var growth = UpdatePopulation.get_growth() * UpdatePopulation.GROWTH
+	
+	 
 	# Equation for calculating desirability
 	var desirability = tile.BASE_DESIRABILITY + \
 		int(tile.is_close_water) * tile.WATER_CLOSE + \

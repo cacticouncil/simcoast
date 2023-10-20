@@ -16,6 +16,11 @@ var BASE_EMPLOYMENT_RATE = .95
 
 var rng = RandomNumberGenerator.new()
 
+# metrics for Economy AI
+var growth_rate = 0
+var GROWTH = .01
+var previous_population = 0
+
 #Update buildings and population
 func update_population():
 	for i in Global.mapWidth:
@@ -82,3 +87,14 @@ func change_residents(n):
 	RESIDENTS += n
 	if (RESIDENTS < 0):
 		RESIDENTS = 0
+		
+func calc_pop_growth():
+	#this function gets called once a month in UpdateDate.gd, so growth is calculated monthly
+	#formula is (pop at t1 - pop at t0)/(pop at t0) * 100
+	var diff = RESIDENTS - previous_population
+	growth_rate = (diff/previous_population) * 100
+#	update previous population for next time
+	previous_population = RESIDENTS
+	
+func get_growth():
+	return growth_rate

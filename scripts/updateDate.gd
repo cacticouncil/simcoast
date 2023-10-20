@@ -32,6 +32,7 @@ func update_date():
 			month += 1
 		update_month_display()
 		Econ.profit()
+		UpdatePopulation.calc_pop_growth()
 
 func update_month_display():
 	get_node("/root/CityMap/HUD/Date/Month").text = Months.keys()[month]
