@@ -215,6 +215,7 @@ func _unhandled_input(event):
 						if (Econ.purchase_structure(Econ.PARK_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.PARK
+							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
 						else:
 							actionText.text = "Not enough funds!"

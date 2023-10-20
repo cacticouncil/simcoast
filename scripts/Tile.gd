@@ -16,7 +16,8 @@ enum TileZone {
 	LIGHT_RESIDENTIAL,
 	HEAVY_RESIDENTIAL,
 	LIGHT_COMMERCIAL,
-	HEAVY_COMMERCIAL
+	HEAVY_COMMERCIAL,
+	PUBLIC_WORKS
 }
 
 enum TileInf {
@@ -101,6 +102,7 @@ const BASE_SAND = -0.05
 const RESIDENTIAL_NEIGHBOR = 0.05
 const COMMERCIAL_NEIGHBOR = 0.10
 const INDUSTRIAL_NEIGHBOR = -0.2
+const PUBLIC_WORKS_NEIGHBORS = 0.075
 const NUMBER_ZONES = 0.01
 const NUMBER_PEOPLE = 0.001
 const PROP_TAX_HEAVY = -0.1
@@ -119,6 +121,7 @@ var tile_base_sand = false
 var residential_neighbors = 0
 var commercial_neighbors = 0
 var industrial_neighbors = 0
+var public_works_neighbors = 0
 var prop_tax_weight = 0
 var is_sales_tax_heavy = false
 var is_neg_profit = false

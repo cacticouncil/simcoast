@@ -9,10 +9,15 @@ const LOWER_LIMIT = 0.01
 # Now that the tile's variable coefficients have been updated, update desirability
 func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var tile = blackboard.get_data("queue").pop_front()
+#	variable representing the influence of a tile's distance to water
 	var water = 0
 	if (tile.distance_to_water() != null):
 #		water weight is 0.025, 0.025 * 6 (max distance tracked) = 0.15, which is the old maximum that water will add to desirability
 		water = tile.distance_to_water() * tile.WATER_WEIGHT
+#	variable representing the influence of a tile's neighbors on its desirability
+	var neighbors = tile.residential_neighbors * tile.RESIDENTIAL_NEIGHBOR + tile.commercial_neighbors * tile.COMMERCIAL_NEIGHBOR + \
+	tile.industrial_neighbors * tile.INDUSTRIAL_NEIGHBOR + tile.public_works_neighbors * tile.PUBLIC_WORKS_NEIGHBORS
+	
 	# Equation for calculating desirability
 	var desirability = tile.BASE_DESIRABILITY + \
 		int(tile.is_close_water) * tile.WATER_CLOSE + \
