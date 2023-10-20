@@ -94,6 +94,7 @@ var desirability = 0.2
 const BASE_DESIRABILITY = 0.2
 const WATER_CLOSE = 0.1
 const WATER_FAR = 0.05
+const WATER_WEIGHT = 0.025
 const BASE_DIRT = 0.05
 const BASE_ROCK = 0
 const BASE_SAND = -0.05
@@ -383,3 +384,38 @@ func is_residential():
 	
 func is_commercial():
 	return zone == TileZone.LIGHT_COMMERCIAL || zone == TileZone.HEAVY_COMMERCIAL
+
+func distance_to_water():
+#	THIS FUNCTION WILL FAIL IF MAPHEIGHT OR MAPWIDTH IS LESS THAN 6
+#	 set distance to the maximum possible value any tile could be from water
+	var distance = max(Global.mapHeight, Global.mapWidth)
+#	checking 6 tiles in each direction in the same column
+	for index in range(i-6, i+7):
+		if is_valid_tile(index, j):
+			if Global.tileMap[index][j].is_ocean():
+#				this is the distance from our current tile to the base tile
+				var temp_distance = abs(i - index)
+				if temp_distance < distance:
+					 distance = temp_distance
+	for index in range(j-6, j+7):
+		if index < 0 || index >= Global.mapWidth:
+			continue
+		else:
+			if Global.tileMap[i][index].is_ocean():
+#				this is the distance from our current tile to the base tile
+				var temp_distance = abs(j - index)
+				if temp_distance < distance:
+					 distance = temp_distance
+#	if the distance value has been changed, return it
+	if distance != max(Global.mapHeight, Global.mapWidth):
+		return distance
+	else:
+		 return null
+
+#copied from presence_of_water.gd for use in above function as a helper
+func is_valid_tile(i, j) -> bool:
+	if i < 0 || Global.mapHeight <= i:
+		return false
+	if j < 0 || Global.mapWidth <= j:
+		return false
+	return true
