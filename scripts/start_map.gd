@@ -319,7 +319,7 @@ func _unhandled_input(event):
 		elif event.scancode == KEY_V:
 			actionText.text = "Paste tool selected"
 			Global.mapTool = Global.Tool.PASTE_TILE
-		elif event.scancode == KEY_ESCAPE:
+		elif event.scancode == KEY_ESCAPE && get_node("/root/CityMap/AchievementMenu") == null:
 			if $PauseMenu.visible:
 				$PauseMenu.visible = false
 				$HUD/play_button.pressed = false
@@ -454,10 +454,37 @@ func _on_fastfwd_button_toggled(button_pressed:bool):
 
 
 func _on_DashboardButton_pressed():
-	print("Dashboard pressed")
+	$HUD/TopBarBG/DashboardSelected.visible = true
+	$HUD/TopBarBG/AchievementSelected.visible = false
+	$HUD/TopBarBG/StoreSelected.visible = false
 
 func _on_UIAchievementButton_pressed():
-	print("Achievements pressed")
+	$HUD/TopBarBG/DashboardSelected.visible = false
+	$HUD/TopBarBG/AchievementSelected.visible = true
+	$HUD/TopBarBG/StoreSelected.visible = false
+	var AchMenu = preload("res://ui/SubMenu/AchievementMenu.tscn")
+	var AchMenuInstance = AchMenu.instance()
+	add_child(AchMenuInstance)
 
 func _on_StoreButton_pressed():
-	print("Store pressed")
+	$HUD/TopBarBG/DashboardSelected.visible = false
+	$HUD/TopBarBG/AchievementSelected.visible = false
+	$HUD/TopBarBG/StoreSelected.visible = true
+
+func _on_DashboardButton_mouse_entered():
+	$HUD/TopBarBG/DashboardHover.visible = true
+
+func _on_UIAchievementButton_mouse_entered():
+	$HUD/TopBarBG/AchievementHover.visible = true
+
+func _on_StoreButton_mouse_entered():
+	$HUD/TopBarBG/StoreHover.visible = true
+
+func _on_DashboardButton_mouse_exited():
+	$HUD/TopBarBG/DashboardHover.visible = false
+
+func _on_UIAchievementButton_mouse_exited():
+	$HUD/TopBarBG/AchievementHover.visible = false
+
+func _on_StoreButton_mouse_exited():
+	$HUD/TopBarBG/StoreHover.visible = false

@@ -116,6 +116,53 @@ margin_right = 1280.0
 margin_bottom = 45.0
 color = Color( 0.94902, 0.960784, 0.968627, 1 )
 
+[node name="DashboardHover" type="ColorRect" parent="HUD/TopBarBG"]
+visible = false
+margin_left = 159.0
+margin_top = 34.0
+margin_right = 258.0
+margin_bottom = 37.0
+color = Color( 0.254902, 0.247059, 0.247059, 0.737255 )
+
+[node name="DashboardSelected" type="ColorRect" parent="HUD/TopBarBG"]
+margin_left = 159.0
+margin_top = 34.0
+margin_right = 258.0
+margin_bottom = 37.0
+color = Color( 0, 0, 0, 0.737255 )
+
+[node name="AchievementHover" type="ColorRect" parent="HUD/TopBarBG"]
+visible = false
+margin_left = 268.0
+margin_top = 34.0
+margin_right = 393.0
+margin_bottom = 37.0
+color = Color( 0.254902, 0.247059, 0.247059, 0.737255 )
+
+[node name="AchievementSelected" type="ColorRect" parent="HUD/TopBarBG"]
+visible = false
+margin_left = 268.0
+margin_top = 34.0
+margin_right = 393.0
+margin_bottom = 37.0
+color = Color( 0, 0, 0, 0.737255 )
+
+[node name="StoreHover" type="ColorRect" parent="HUD/TopBarBG"]
+visible = false
+margin_left = 403.0
+margin_top = 34.0
+margin_right = 458.0
+margin_bottom = 37.0
+color = Color( 0.254902, 0.247059, 0.247059, 0.737255 )
+
+[node name="StoreSelected" type="ColorRect" parent="HUD/TopBarBG"]
+visible = false
+margin_left = 403.0
+margin_top = 34.0
+margin_right = 458.0
+margin_bottom = 37.0
+color = Color( 0, 0, 0, 0.737255 )
+
 [node name="TopBarMenu" type="HBoxContainer" parent="HUD"]
 margin_left = 10.0
 margin_top = 10.0
@@ -863,8 +910,14 @@ resizable = true
 mode = 0
 script = ExtResource( 104 )
 
+[connection signal="mouse_entered" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_exited"]
 [connection signal="pressed" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_pressed"]
+[connection signal="mouse_entered" from="HUD/TopBarMenu/AchievementButton" to="." method="_on_UIAchievementButton_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/TopBarMenu/AchievementButton" to="." method="_on_UIAchievementButton_mouse_exited"]
 [connection signal="pressed" from="HUD/TopBarMenu/AchievementButton" to="." method="_on_UIAchievementButton_pressed"]
+[connection signal="mouse_entered" from="HUD/TopBarMenu/StoreButton" to="." method="_on_StoreButton_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/TopBarMenu/StoreButton" to="." method="_on_StoreButton_mouse_exited"]
 [connection signal="pressed" from="HUD/TopBarMenu/StoreButton" to="." method="_on_StoreButton_pressed"]
 [connection signal="toggled" from="HUD/play_button" to="." method="_on_play_button_toggled"]
 [connection signal="toggled" from="HUD/fastfwd_button" to="." method="_on_fastfwd_button_toggled"]
