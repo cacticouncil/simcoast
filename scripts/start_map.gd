@@ -23,12 +23,8 @@ func _ready():
 	
 
 func initSave_Exit():
-	$HUD/ToolMenu/VBoxContainer/VBoxContainer/save_button.connect("pressed", self, "_on_SaveButton_pressed")
-	$HUD/ToolMenu/VBoxContainer/VBoxContainer/load_button.connect("pressed", self, "_on_LoadButton_pressed")
 	$Popups/SaveDialog.connect("file_selected", self, "_on_file_selected_save")
 	$Popups/LoadDialog.connect("file_selected", self, "_on_file_selected_load")
-	$HUD/ToolMenu/VBoxContainer/VBoxContainer/exit_button.connect("pressed", self, "_on_ExitButton_pressed")
-
 # Set camera to start at middle of map, and set camera edge limits
 # Width/height is number of map tiles
 func initCamera():
@@ -37,6 +33,9 @@ func initCamera():
 	
 	# Use the player starting tile to calculate camera position
 	$Camera2D.position.y = mid_y
+	
+	#Change offeset so it's the center of the actual area
+	$Camera2D.offset.x = -75 #75 since toolbar is 150 so half of that
 	
 	$Camera2D.limit_left = (mid_x * -1) - Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_top = -Global.MAP_EDGE_BUFFER
