@@ -141,14 +141,14 @@ func button_pressed():
 			if Global.oceanHeight < Global.MAX_HEIGHT:
 				Global.oceanHeight += 1
 				City.updateOceanHeight(1)
-				get_node("../TopBar/ActionText").text = "Ocean height raised to %s" % [Global.oceanHeight]
+				get_node("../BottomBar/HoverText").text = "Ocean height raised to %s" % [Global.oceanHeight]
 		
 		'lower_ocean_button':
 			Global.mapTool = Global.Tool.NONE
 			if Global.oceanHeight > 0:
 				Global.oceanHeight -= 1
 				City.updateOceanHeight(-1)
-				get_node("../TopBar/ActionText").text = "Ocean height lowered to %s" % [Global.oceanHeight]
+				get_node("../BottomBar/HoverText").text = "Ocean height lowered to %s" % [Global.oceanHeight]
 		
 		'damage_button':
 			Global.mapTool = Global.Tool.NONE
@@ -157,13 +157,13 @@ func button_pressed():
 		'satisfaction_button':
 			Global.mapTool = Global.Tool.NONE
 			City.calculate_satisfaction()
-			get_node("../TopBar/ActionText").text = "Flooding damage calculated"
+			get_node("../BottomBar/HoverText").text = "Flooding damage calculated"
 		
 		'quicksave_button':
 			Global.mapTool = Global.Tool.NONE
 			if not Global.mapPath.empty():
 				SaveLoad.saveMapData(Global.mapPath)
-				get_node("../TopBar/ActionText").text = "Map data saved"
+				get_node("../BottomBar/HoverText").text = "Map data saved"
 			else:
 				OS.alert('There is no existing save file to quicksave to, please use the Save button to make a new save file.', 'No Save File')
 		

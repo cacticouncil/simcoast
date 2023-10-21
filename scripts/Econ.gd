@@ -50,12 +50,12 @@ var property_tax_rate = 0.01
 func adjust_player_money(adjustVal):
 	money += adjustVal
 	Announcer.notify(Event.new("Money", "Amount of money", money))
-	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Money").text = "$" + comma_values(str(money))
+	get_node("/root/CityMap/HUD/HBoxContainer/Money").text = "$" + comma_values(str(money))
 
 func purchase_structure(structureCost):
 	if ((money - structureCost) >= 0):
 		money -= structureCost
-		get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Money").text = "$" + comma_values(str(money))
+		get_node("/root/CityMap/HUD/HBoxContainer/Money").text = "$" + comma_values(str(money))
 		return true
 	else:
 		return false
@@ -70,7 +70,7 @@ func calculate_upkeep_costs():
 	
 func updateProfitDisplay():
 	var profit = round(city_income - city_costs)
-	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/City_Income").text = "$" + comma_values(str(profit))
+	#get_node("/root/CityMap/HUD/TopBar/HBoxContainer/City_Income").text = "$" + comma_values(str(profit))
 	#print("$" + comma_values(str(profit)))
 	
 func profit():
@@ -143,7 +143,7 @@ func adjust_tax_rate(val):
 		BASE_TAX_RATE = 0
 	elif (BASE_TAX_RATE > 1):
 		BASE_TAX_RATE = 1
-	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/City_Tax_Rate").text = "Tax Rate: " + str(BASE_TAX_RATE * 100) + "%"
+	#get_node("/root/CityMap/HUD/TopBar/HBoxContainer/City_Tax_Rate").text = "Tax Rate: " + str(BASE_TAX_RATE * 100) + "%"
 
 func adjust_individual_tax_rate(num, dir):
 	var currRate

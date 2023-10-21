@@ -65,7 +65,7 @@ func update_population():
 					currTile.remove_people(diff)
 					
 	
-	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Population").text = "Total Population: " + str(RESIDENTS)
+	get_node("/root/CityMap/HUD/HBoxContainer/Population").text = str(RESIDENTS)
 	Announcer.notify(Event.new("Total Population", "Number of Citizens", RESIDENTS))
 					
 func get_population():

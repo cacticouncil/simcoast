@@ -13,11 +13,11 @@ func _ready():
 	initSave_Exit()
 	loadMapData("res://saves/default.json")
 	initObservers()
-	$HUD/TopBar/HBoxContainer/Money.text = "Player Money: $" + Econ.comma_values(str(Econ.money))
-	$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
-	$HUD/TopBar/HBoxContainer/City_Tax_Rate.text = "Tax Rate: " + str(Econ.city_tax_rate * 100) + "%"
-	$HUD/TopBar/HBoxContainer/Population.text = "Total Population: " + str(UpdatePopulation.get_population())
-	$HUD/TopBar/HBoxContainer/Demand.text = "Residential Demand: " + str(UpdateDemand.calcResidentialDemand()) + "/10" + " Commercial Demand: " + str(UpdateDemand.calcCommercialDemand()) + "/10"
+	$HUD/HBoxContainer/Money.text = "$" + Econ.comma_values(str(Econ.money))
+	#$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
+	#$HUD/TopBar/HBoxContainer/City_Tax_Rate.text = "Tax Rate: " + str(Econ.city_tax_rate * 100) + "%"
+	$HUD/HBoxContainer/Population.text = str(UpdatePopulation.get_population())
+	#$HUD/TopBar/HBoxContainer/Demand.text = "Residential Demand: " + str(UpdateDemand.calcResidentialDemand()) + "/10" + " Commercial Demand: " + str(UpdateDemand.calcCommercialDemand()) + "/10"
 	$HUD/Date/Year.text = str(UpdateDate.year)
 	$HUD/Date/Month.text = UpdateDate.Months.keys()[UpdateDate.month]
 	
@@ -99,7 +99,7 @@ func clear_mission_tip():
 
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):
-	var actionText = get_node("HUD/TopBar/ActionText")
+	var actionText = get_node("HUD/BottomBar/HoverText")
 	
 	if event is InputEventMouseButton and event.pressed:
 		actionText.text = ""
@@ -343,7 +343,7 @@ func saveMapData(mapPath):
 	var pathValues = SaveLoad.saveData(mapPath) 
 	var correctMapName = pathValues[0]
 	currMapPath = pathValues[1]
-	get_node("HUD/TopBar/ActionText").text = "Map file '%s'.json saved" % [correctMapName]
+	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json saved" % [correctMapName]
 
 func loadMapData(mapPath):
 	# var file = File.new()
@@ -371,7 +371,7 @@ func loadMapData(mapPath):
 	# 	Global.tileMap[tileData[0]][tileData[1]] = Tile.new(int(tileData[0]), int(tileData[1]), int(tileData[2]), int(tileData[3]), int(tileData[4]), int(tileData[5]), int(tileData[6]), tileData[7])
 	var mapName = SaveLoad.loadData(mapPath)
 	$VectorMap.loadMap()
-	get_node("HUD/TopBar/ActionText").text = "Map file '%s'.json loaded" % [mapName]
+	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json loaded" % [mapName]
 	City.connectPower()
 
 
@@ -394,7 +394,7 @@ func _on_file_selected_load(filePath):
 func _on_file_selected_save(filePath):
 	print("File Selected: ", filePath)
 	saveMapData(filePath)
-	$HUD/TopBar/ActionText.text = "Map Data Saved"
+	$HUD/BottomBar/HoverText.text = "Map Data Saved"
 
 func _on_ExitButton_pressed():
 	get_tree().quit()
@@ -452,3 +452,13 @@ func _on_play_button_toggled(button_pressed:bool):
 
 func _on_fastfwd_button_toggled(button_pressed:bool):
 	isFastFWD = button_pressed
+
+
+func _on_DashboardButton_pressed():
+	print("Dashboard pressed")
+
+func _on_UIAchievementButton_pressed():
+	print("Achievements pressed")
+
+func _on_StoreButton_pressed():
+	print("Store pressed")

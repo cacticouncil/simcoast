@@ -24,7 +24,7 @@ func reduce_map():
 	for i in Global.tileMap.size():
 		Global.tileMap[i].pop_back()
 	
-	get_node("HUD/TopBar/ActionText").text = "Map size reduced to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
+	get_node("HUD/BottomBar/HoverText").text = "Map size reduced to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
 	
 # Add a new row and column of empty tiles
 func extend_map():
@@ -47,7 +47,7 @@ func extend_map():
 	
 	Global.mapWidth += 1
 
-	get_node("HUD/TopBar/ActionText").text = "Map size extended to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
+	get_node("HUD/BottomBar/HoverText").text = "Map size extended to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
 	
 
 # Starting from each power plant, trace power distribution and power tiles if they are connected
