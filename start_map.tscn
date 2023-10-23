@@ -867,9 +867,6 @@ margin_bottom = 68.0
 toggle_mode = true
 texture_normal = ExtResource( 106 )
 texture_pressed = ExtResource( 105 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="fastfwd_button" type="TextureButton" parent="HUD"]
 margin_left = 130.0
