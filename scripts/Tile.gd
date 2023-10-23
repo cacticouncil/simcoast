@@ -163,7 +163,18 @@ func clear_tile():
 	if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
 			Announcer.notify(Event.new("Removed Tile", "Removed Commercial Area", 1))
 	elif zone == TileZone.HEAVY_RESIDENTIAL || zone == TileZone.LIGHT_RESIDENTIAL:
-			Announcer.notify(Event.new("Removed Tile", "Removed Residential Area", 1))
+		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
+		Announcer.notify(Event.new("Removed Tile", "Removed Residential Area", 1))
+	else:
+		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
+	if tileDamage < 0:
+		tileDamage = 0
+	if inf == TileInf.POWER_PLANT:
+		Announcer.notify(Event.new("Removed Tile", "Removed Power Plant", 1))
+	elif inf == TileInf.ROAD:
+		Announcer.notify(Event.new("Removed Tile", "Removed Road", 1))
+	elif inf == TileInf.PARK:
+		Announcer.notify(Event.new("Removed Tile", "Removed Park", 1))
 	#reset zones
 	zone = TileZone.NONE
 	
