@@ -33,7 +33,15 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	#positively impacts desirability if population is growing more rapidly, growth updated monthly
 	var growth = UpdatePopulation.get_growth() * UpdatePopulation.GROWTH
 	
-	 
+	#measures the positive or negative impact of the tax structure. high taxes -> negative impact, low taxes -> positive impact, neutral taxes -> no impact
+	#neutral taxes are meant to convey that the taxes here are no higher or lower than another comparable place, so they don't influence people wanting to be here
+	#only one of the three booleans will be nonzero
+	var sales_tax = int(tile.is_sales_tax_light) * Tile.SALES_TAX_LIGHT + int(tile.is_sales_tax_neutral) * Tile.SALES_TAX_NEUTRAL + int(tile.is_sales_tax_heavy) * Tile.SALES_TAX_HEAVY
+	var property_tax = int(tile.is_prop_tax_light) * Tile.PROP_TAX_LIGHT + int(tile.is_prop_tax_neutral) * Tile.PROP_TAX_NEUTRAL + int(tile.is_prop_tax_heavy) * Tile.PROP_TAX_HEAVY
+	var income_tax = int(tile.is_income_tax_light) * Tile.INCOME_TAX_LIGHT + int(tile.is_income_tax_neutral) * Tile.INCOME_TAX_NEUTRAL + int(tile.is_income_tax_heavy) * Tile.INCOME_TAX_HEAVY
+#	tax_burden represents the total impact of all three types of taxes on desirability
+	var tax_burden = sales_tax + property_tax + income_tax
+	
 	# Equation for calculating desirability
 	var desirability = tile.BASE_DESIRABILITY + \
 		int(tile.is_close_water) * tile.WATER_CLOSE + \

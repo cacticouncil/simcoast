@@ -9,16 +9,24 @@ const RESIDENT_PERSON_VALUE = 2000
 
 
 #tax rates
+#LEGACY VALUES, REMOVE WHEN DONE MAKING CHANGES
 const TAX_INCOME_MULTIPLIER = 1000
 var BASE_TAX_RATE = 0.05 # 5% #TODO: Be able to update this in-game / maybe different tax rates for commercial/residentail/industry
 var LIGHT_RES_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
 var LIGHT_RES_INCOME_RATE = BASE_TAX_RATE #land value * num people
-var HEAVY_RES_PROPERTY_RATE = BASE_TAX_RATE #land value * num people
+var HEAVY_RES_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
 var HEAVY_RES_INCOME_RATE = BASE_TAX_RATE #land value * num people
-var LIGHT_COM_PROPERTY_RATE = BASE_TAX_RATE #land value * num people
+var LIGHT_COM_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
 var LIGHT_COM_INCOME_RATE = BASE_TAX_RATE #land value * num people
-var HEAVY_COM_PROPERTY_RATE = BASE_TAX_RATE #land value * num people
+var HEAVY_COM_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
 var HEAVY_COM_INCOME_RATE = BASE_TAX_RATE #land value * num people
+
+const PROPERTY_TAX = 0.01 #property tax gets set at 1% to start, which is neutral
+const SALES_TAX = 0.05 #5% sales tax to start, also neutral
+const INCOME_TAX = 0.025 #2.5% income tax, also neutral
+#neutrality is from desirability, meaning these taxes are neither light nor heavy
+
+
 
 # Tile Durability Constants
 const REMOVE_BUILDING_DAMAGE = 0.2
@@ -28,6 +36,7 @@ const REMOVE_COMMERCIAL_BUILDING  = 0.3
 const UTILITIES_PLANT_COST = 10000
 const PARK_COST = 500
 const ROAD_COST = 100
+
 
 #Building upkeep costs
 const UTILITIES_PLANT_UPKEEP_COST = 100
@@ -77,6 +86,7 @@ func profit():
 	var profit = round(city_income - city_costs)
 	adjust_player_money(profit)
 
+#10/25/23: Doesn't get called anywhere??? Why is this here?
 func collectTaxes():
 	var taxProfit = 0
 	var mapHeight = Global.mapHeight
