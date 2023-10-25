@@ -92,7 +92,10 @@ func calc_pop_growth():
 	#this function gets called once a month in UpdateDate.gd, so growth is calculated monthly
 	#formula is (pop at t1 - pop at t0)/(pop at t0) * 100
 	var diff = RESIDENTS - previous_population
-	growth_rate = (diff/previous_population) * 100
+	if previous_population != 0:
+		growth_rate = (diff/previous_population) * 100
+	else:
+		growth_rate = diff * 100
 #	update previous population for next time
 	previous_population = RESIDENTS
 	
