@@ -77,7 +77,7 @@ func get_population():
 	return RESIDENTS
 	
 func change_workers(n):
-	if (n > 0 && WORKERS + n >= RESIDENTS * BASE_EMPLOYMENT_RATE):
+	if (n > 0 && (WORKERS + n) >= (RESIDENTS * BASE_EMPLOYMENT_RATE)):
 		WORKERS = RESIDENTS
 	else:
 		WORKERS += n
