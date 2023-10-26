@@ -154,28 +154,28 @@ func _unhandled_input(event):
 						Global.Tool.ZONE_LT_RES:
 							if tile.get_zone() != Tile.TileZone.LIGHT_RESIDENTIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
-								if tile.is_powered():
+								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_RESIDENTIAL)
 						Global.Tool.ZONE_HV_RES:
 							if tile.get_zone() != Tile.TileZone.HEAVY_RESIDENTIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
-								if tile.is_powered():
+								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_RESIDENTIAL)
 						Global.Tool.ZONE_LT_COM:
 							if tile.get_zone() != Tile.TileZone.LIGHT_COMMERCIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
-								if tile.is_powered():
+								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_COMMERCIAL)
 						Global.Tool.ZONE_HV_COM:
 							if tile.get_zone() != Tile.TileZone.HEAVY_COMMERCIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
-								if tile.is_powered():
+								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_COMMERCIAL)
