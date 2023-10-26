@@ -5,7 +5,6 @@ var currMapPath # Current file path of the map loaded
 var copyTile				# Stores tile to use when copy/pasting tiles on the map
 var tickDelay = Global.TICK_DELAY #time in seconds between ticks
 var numTicks = 0 #time elapsed since start
-var isPaused = false
 var isFastFWD = false
 
 # Called when the node enters the scene tree for the first time.
@@ -49,6 +48,10 @@ func initObservers():
 	Announcer.addObserver(get_node("/root/AchievementObserver"))
 	AchievementObserver.createAchievements()
 	
+	#Add npc observers
+	Announcer.addObserver(get_node("/root/NpcObserver"))
+	NpcObserver.initializeNPCs()
+	
 	#Add mission observer
 	var missObs = get_node("/root/MissionObserver")
 	Announcer.addObserver(missObs)
@@ -65,13 +68,18 @@ func initObservers():
 		i.connect("mouse_exited", self, "button_exit")
 	"""
 	#$HUD/Missions/VBoxContainer/Mission1.connect("mouse_entered", self, "MissionObserver.hoverMission", [0])
-	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "testHover")
+	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "show_mission_tip", [0])
+	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_exited", self, "clear_mission_tip")
 	if missions.size() > 1:
 		$HUD/Missions/VBoxContainer/Mission2.text = missions[1]
+		get_node("HUD/Missions/VBoxContainer/Mission2").connect("mouse_entered", self, "show_mission_tip", [1])
+		get_node("HUD/Missions/VBoxContainer/Mission2").connect("mouse_exited", self, "clear_mission_tip")
 	else:
 		$HUD/Missions/VBoxContainer/Mission2.visible = false
 	if missions.size() > 2:
 		$HUD/Missions/VBoxContainer/Mission3.text = missions[2]
+		get_node("HUD/Missions/VBoxContainer/Mission3").connect("mouse_entered", self, "show_mission_tip", [2])
+		get_node("HUD/Missions/VBoxContainer/Mission3").connect("mouse_exited", self, "clear_mission_tip")
 	else:
 		$HUD/Missions/VBoxContainer/Mission3.visible = false
 	
@@ -79,9 +87,15 @@ func initObservers():
 	var sfxObserver = load("res://scripts/Observers/SfxObserver.gd").new()
 	Announcer.addObserver(sfxObserver)
 	self.add_child(sfxObserver)
+	
+	# Just in case their's any action to take about this right away
+	Announcer.notify(Event.new("Money", "Amount of money", Econ.money))
 
-func testHover():
-	print("working")
+func show_mission_tip(num):
+	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = MissionObserver.getMissionsDescriptions()[num]
+
+func clear_mission_tip():
+	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = ""
 
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):
@@ -140,21 +154,29 @@ func _unhandled_input(event):
 						Global.Tool.ZONE_LT_RES:
 							if tile.get_zone() != Tile.TileZone.LIGHT_RESIDENTIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+								if tile.is_powered():
+									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_RESIDENTIAL)
 						Global.Tool.ZONE_HV_RES:
 							if tile.get_zone() != Tile.TileZone.HEAVY_RESIDENTIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+								if tile.is_powered():
+									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_RESIDENTIAL)
 						Global.Tool.ZONE_LT_COM:
 							if tile.get_zone() != Tile.TileZone.LIGHT_COMMERCIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
+								if tile.is_powered():
+									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_COMMERCIAL)
 						Global.Tool.ZONE_HV_COM:
 							if tile.get_zone() != Tile.TileZone.HEAVY_COMMERCIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
+								if tile.is_powered():
+									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_COMMERCIAL)
 								
@@ -199,6 +221,7 @@ func _unhandled_input(event):
 							tile.inf = Tile.TileInf.UTILITIES_PLANT
 							City.connectUtilities()
 							City.numUtilityPlants += 1
+							Announcer.notify(Event.new("Added Tile", "Added Power Plant", 1))
 						else:
 							actionText.text = "Not enough funds!"
 					elif (tile.inf == Tile.TileInf.UTILITIES_PLANT):
@@ -217,6 +240,7 @@ func _unhandled_input(event):
 							tile.inf = Tile.TileInf.PARK
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
+							Announcer.notify(Event.new("Added Tile", "Added Park", 1))
 						else:
 							actionText.text = "Not enough funds!"
 					elif (tile.inf == Tile.TileInf.PARK):
@@ -237,6 +261,7 @@ func _unhandled_input(event):
 							City.connectRoads(tile)
 							City.connectUtilities()
 							City.numRoads += 1
+							Announcer.notify(Event.new("Added Tile", "Added Road", 1))
 						else:
 							actionText.text = "Not enough funds!"
 					elif (tile.inf == Tile.TileInf.ROAD):
@@ -296,6 +321,15 @@ func _unhandled_input(event):
 		elif event.scancode == KEY_V:
 			actionText.text = "Paste tool selected"
 			Global.mapTool = Global.Tool.PASTE_TILE
+		elif event.scancode == KEY_ESCAPE && get_node("/root/CityMap/AchievementMenu") == null:
+			if $PauseMenu.visible:
+				$PauseMenu.visible = false
+				$HUD/play_button.pressed = false
+				Global.isPaused = false
+			else:
+				$PauseMenu.visible = true
+				$HUD/play_button.pressed = true
+				Global.isPaused = true
 
 	elif event is InputEventMouseMotion:		
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
@@ -343,9 +377,11 @@ func loadMapData(mapPath):
 
 
 func _on_SaveButton_pressed():
+	print("Save Button Pressed")
 	$Popups/SaveDialog.popup_centered()
 
 func _on_LoadButton_pressed():
+	print("Load Button Pressed")
 	$Popups/LoadDialog.popup_centered()
 
 func _on_file_selected_load(filePath):
@@ -364,9 +400,20 @@ func _on_file_selected_save(filePath):
 func _on_ExitButton_pressed():
 	get_tree().quit()
 
+func _on_AchievementButton_pressed():
+	var AchMenu = preload("res://ui/SubMenu/AchievementMenu.tscn")
+	var AchMenuInstance = AchMenu.instance()
+	add_child(AchMenuInstance)
+	#AchMenuInstance.setup()
+
+func _on_ContinueButton_pressed():
+	$PauseMenu.visible = false
+	$HUD/play_button.pressed = false
+	Global.isPaused = false
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !isPaused:
+	if !Global.isPaused:
 		tickDelay -= delta
 		if tickDelay <= 0:
 			
@@ -402,7 +449,9 @@ func update_graphics():
 	Econ.updateProfitDisplay()
 
 func _on_play_button_toggled(button_pressed:bool):
-	isPaused = button_pressed
+	Global.isPaused = button_pressed
+	if Global.isPaused:
+		$PauseMenu.visible = true
 
 func _on_fastfwd_button_toggled(button_pressed:bool):
 	isFastFWD = button_pressed

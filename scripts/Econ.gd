@@ -85,6 +85,7 @@ func updateProfitDisplay():
 func profit():
 	var profit = round(city_income - city_costs)
 	adjust_player_money(profit)
+	Announcer.notify(Event.new("Profit", "Money Made Each Month", profit))
 
 #10/25/23: Doesn't get called anywhere??? Why is this here?
 func collectTaxes():

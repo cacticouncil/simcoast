@@ -61,6 +61,11 @@ func connectUtilities():
 			#Global.tileMap[i][j].cube.update()
 			if Global.tileMap[i][j].inf == Tile.TileInf.UTILITIES_PLANT:
 				utilityPlants.append(Global.tileMap[i][j])
+	
+	# For the announcer to keep track of the number of specific tiles powered
+	var roadsPowered = 0
+	var commsPowered = 0
+	var resPowered = 0
 
 	for plant in utilityPlants:
 		plant.utilities = true
@@ -77,8 +82,9 @@ func connectUtilities():
 		while !queue.empty():
 			var road = queue.pop_front()
 			
-			# If road is not utilities, it hasn't yet been checked
+			# If road is not powered, it hasn't yet been checked
 			if !road.utilities:
+				roadsPowered += 1
 				road.utilities = true
 			
 				# Check neighbors: if it's a connected road, add it to the queue; otherwise, utility tile
@@ -91,8 +97,18 @@ func connectUtilities():
 								if Global.tileMap[n[0]][n[1]].utilities == false:
 									queue.append(Global.tileMap[n[0]][n[1]])
 						else:
-							Global.tileMap[n[0]][n[1]].utilities = true
+							var currTile = Global.tileMap[n[0]][n[1]]
+							# if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
+							if currTile.zone == Tile.TileZone.HEAVY_COMMERCIAL || currTile.zone == Tile.TileZone.LIGHT_COMMERCIAL:
+								commsPowered += 1
+							elif currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL || currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
+								resPowered += 1
+							currTile.utilities = true
 							#Global.tileMap[n[0]][n[1]].cube.update()
+	
+	Announcer.notify(Event.new("Tiles Powered", "Number of powered roads", roadsPowered))
+	Announcer.notify(Event.new("Tiles Powered", "Number of powered commercial areas", commsPowered))
+	Announcer.notify(Event.new("Tiles Powered", "Number of powered residential areas", resPowered))
 
 # Check tile for neighboring road connections, and create connections from any connecting roads to tile
 func connectRoads(tile):

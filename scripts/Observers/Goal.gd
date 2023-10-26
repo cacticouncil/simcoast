@@ -7,21 +7,21 @@ var constGoal #Const to check against
 var achievementName # name
 var achievementDescription # description
 var achievementType #achType for ach popup
+var icon # the string path to the related picture
 # var reward?
-# var icon? if we want a pic associated with an icon
 # For icons?:
 # https://sketch.io/
 
-func _init(_varToCheck, _greaterThan, _constGoal, _achievementName, _achievementDescription, _achievementType):
+func _init(_varToCheck, _greaterThan, _constGoal, _achievementName, _achievementDescription, _icon):
 	varToCheck = _varToCheck
 	greaterThan = _greaterThan
 	constGoal = _constGoal
 	achievementName = _achievementName
 	achievementDescription = _achievementDescription
-	achievementType = _achievementType
+	icon = _icon
 
 func isComplete():
 	if greaterThan:
-		return Announcer.stats[varToCheck] >= constGoal
+		return Stats.getStat(varToCheck) >= constGoal
 	else:
-		return Announcer.stats[varToCheck] <= constGoal
+		return Stats.getStat(varToCheck) <= constGoal

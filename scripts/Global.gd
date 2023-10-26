@@ -45,6 +45,8 @@ var numCommercialZones = 0
 # Economy AI constants
 const ZONE_BALANCE = -.01
 
+# To know if game is paused
+var isPaused = false
 
 func initTileMap():
 	var tm = []
