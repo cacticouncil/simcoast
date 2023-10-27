@@ -51,12 +51,18 @@ func button_hover(button):
 			toolInfo.text = "Add building to commercial zone   (Right Click: Remove building)"
 		'add_employee_button':
 			toolInfo.text = "Add employee to commercial zone   (Right Click: Remove employee)"
+		'fire_station_button':
+			toolInfo.text = "Built Fire Station   (Right Click: Remove Fire Station)"
 		'power_plant_button':
 			toolInfo.text = "Build Power Plant"
 		'road_button':
 			toolInfo.text = "Built infrastructure (road/power/water) tile   (Right Click: Remove infrastructure)"
 		'park_button':
 			toolInfo.text = "Built Park   (Right Click: Remove park)"	
+		'library_button':
+			toolInfo.text = "Built Library   (Right Click: Remove Library)"
+		'museum_button':
+			toolInfo.text = "Built Museum   (Right Click: Remove Museum)"
 		'beach_rocks_button':
 			toolInfo.text = "Add beach rocks to sand tile   (Right Click: Remove rocks)"
 		'beach_grass_button':
@@ -118,10 +124,16 @@ func button_pressed():
 			Global.mapTool = Global.Tool.ADD_COM_BLDG
 		'add_employee_button':
 			Global.mapTool = Global.Tool.ADD_COM_PERSON
+		'fire_station_button':
+			Global.mapTool = Global.Tool.INF_FIRE_STATION
 		'power_plant_button':
 			Global.mapTool = Global.Tool.INF_POWER_PLANT
 		'park_button':
 			Global.mapTool = Global.Tool.INF_PARK
+		'library_button':
+			Global.mapTool = Global.Tool.INF_LIBRARY
+		'museum_button':
+			Global.mapTool = Global.Tool.INF_MUSEUM
 		'road_button':
 			Global.mapTool = Global.Tool.INF_ROAD
 		'beach_rocks_button':

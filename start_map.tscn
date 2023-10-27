@@ -1,9 +1,18 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=1]
+[ext_resource path="res://assets/buttons/library_normal.png" type="Texture" id=2]
 [ext_resource path="res://scripts/start_map.gd" type="Script" id=3]
 [ext_resource path="res://scripts/Camera2D.gd" type="Script" id=4]
+[ext_resource path="res://assets/buttons/library_active.png" type="Texture" id=5]
+[ext_resource path="res://assets/buttons/library_hover.png" type="Texture" id=6]
 [ext_resource path="res://scripts/VectorMap.gd" type="Script" id=7]
+[ext_resource path="res://assets/buttons/museum_hover.png" type="Texture" id=8]
+[ext_resource path="res://assets/buttons/museum_normal.png" type="Texture" id=9]
+[ext_resource path="res://assets/buttons/museum_active.png" type="Texture" id=10]
+[ext_resource path="res://assets/buttons/fireStation_normal.png" type="Texture" id=11]
+[ext_resource path="res://assets/buttons/fireStation_hover.png" type="Texture" id=12]
+[ext_resource path="res://assets/buttons/fireStation_active.png" type="Texture" id=13]
 [ext_resource path="res://toolbar_button_group.tres" type="ButtonGroup" id=16]
 [ext_resource path="res://assets/buttons/hv_res_zone_hover.png" type="Texture" id=20]
 [ext_resource path="res://assets/buttons/park_hover.png" type="Texture" id=24]
@@ -386,7 +395,7 @@ group = ExtResource( 16 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/ToolsMenu"]
 margin_right = 150.0
-margin_bottom = 1465.0
+margin_bottom = 1630.0
 custom_constants/separation = 0
 
 [node name="ToolbarTitle" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer"]
@@ -599,12 +608,53 @@ text = "Utilities"
 align = 1
 valign = 1
 
-[node name="Public Services" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer"]
+[node name="EmergencyServices" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer"]
 margin_top = 375.0
 margin_right = 150.0
 margin_bottom = 465.0
 rect_min_size = Vector2( 150, 90 )
 color = Color( 0.235294, 0.235294, 0.235294, 0.878431 )
+
+[node name="Title" type="Label" parent="HUD/ToolsMenu/VBoxContainer/EmergencyServices"]
+margin_top = 3.0
+margin_right = 150.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 150, 20 )
+custom_fonts/font = ExtResource( 123 )
+text = "Services"
+align = 1
+valign = 1
+
+[node name="fire_station_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/EmergencyServices"]
+margin_left = 20.66
+margin_top = 27.0
+margin_right = 64.66
+margin_bottom = 67.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 16 )
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 13 )
+texture_hover = ExtResource( 12 )
+texture_focused = ExtResource( 13 )
+
+[node name="Label" type="Label" parent="HUD/ToolsMenu/VBoxContainer/EmergencyServices/fire_station_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 18 )
+text = "Fire Station"
+align = 1
+valign = 1
+
+[node name="Public Services" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer"]
+margin_top = 465.0
+margin_right = 150.0
+margin_bottom = 630.0
+rect_min_size = Vector2( 150, 165 )
+color = Color( 0.431373, 0.458824, 0.517647, 0.321569 )
 
 [node name="Title" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Public Services"]
 margin_top = 3.0
@@ -640,12 +690,60 @@ text = "Park"
 align = 1
 valign = 1
 
+[node name="library_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Public Services"]
+margin_left = 85.32
+margin_top = 27.0
+margin_right = 129.32
+margin_bottom = 70.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 16 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 5 )
+texture_hover = ExtResource( 6 )
+texture_focused = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Public Services/library_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 18 )
+text = "Library"
+align = 1
+valign = 1
+
+[node name="museum_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Public Services"]
+margin_left = 20.66
+margin_top = 96.0
+margin_right = 64.66
+margin_bottom = 139.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 16 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 8 )
+texture_focused = ExtResource( 10 )
+
+[node name="Label" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Public Services/museum_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 18 )
+text = "Museum"
+align = 1
+valign = 1
+
 [node name="scroll" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer"]
-margin_top = 465.0
+margin_top = 630.0
 margin_right = 150.0
-margin_bottom = 1465.0
+margin_bottom = 1630.0
 rect_min_size = Vector2( 150, 1000 )
-color = Color( 0.431373, 0.458824, 0.517647, 0.321569 )
+color = Color( 0.235294, 0.235294, 0.235294, 0.878431 )
 
 [node name="Date" type="VBoxContainer" parent="HUD"]
 margin_left = 150.0

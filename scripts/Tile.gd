@@ -23,6 +23,9 @@ enum TileInf {
 	NONE,
 	ROAD,
 	PARK,
+	FIRE_STATION,
+	LIBRARY,
+	MUSEUM,
 	HOUSE,
 	BUILDING,
 	BEACH_ROCKS,
@@ -62,8 +65,11 @@ const LIGHT_DAMAGE_COLOR = [Color("ff555555"), Color("ffd8bf09"), Color("ffc4ae0
 const MEDIUM_DAMAGE_COLOR = [Color("ff555555"), Color("ffd86909"), Color("ffac5100"), Color("ffac5100")]
 const HEAVY_DAMAGE_COLOR = [Color("ff555555"), Color("ffd80909"), Color("ff7c0000"), Color("ff590000")]
 
+const FIRE_STATION_COLOR = [Color("ff5e2821"), Color("ffa85145"), Color("fffc7462"), Color("fffc7462")]
 const PARK_COLOR = [Color("ff8bb54a"), Color("ff60822d")]
 const TREE_COLOR = [Color("ff4a8a7d"), Color("ff286f61")]
+const LIBRARY_COLOR = [Color("ff666333"), Color("ff9c984c"), Color("ffe0db72"), Color("ffe0db72")]
+const MUSEUM_COLOR = [Color("ff6e472d"), Color("ffa8724d"), Color("fff7a66f"), Color("fff7a66f")]
 const BEACH_ROCK_COLOR = [Color("ffb8c5d4"), Color("ffa0b3cc"), Color("ff8ca4c0")]
 
 const ROAD_COLOR = [Color("ff6a6a6a"), Color("ff999999")]

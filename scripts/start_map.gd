@@ -250,6 +250,69 @@ func _unhandled_input(event):
 						tile.clear_tile()
 						City.numParks -= 1
 			
+			Global.Tool.INF_LIBRARY:
+				#TODO: Libraries don't do anything right now
+				if Input.is_action_pressed("left_click"):
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.LIBRARY):
+						if (Econ.purchase_structure(Econ.LIBRARY_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.LIBRARY
+							City.numLibraries += 1
+							#TODO: not tracking libraries currently
+							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.LIBRARY):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Libraries must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.LIBRARY:
+						tile.clear_tile()
+						City.numLibraries -= 1
+			
+			Global.Tool.INF_MUSEUM:
+				#TODO: Museums don't do anything right now
+				if Input.is_action_pressed("left_click"):
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.MUSEUM):
+						if (Econ.purchase_structure(Econ.MUSEUM_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.MUSEUM
+							City.numMuseums += 1
+							#TODO: not tracking museums currently
+							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.MUSEUM):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Museums must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.MUSEUM:
+						tile.clear_tile()
+						City.numMuseums -= 1
+			
+			Global.Tool.INF_FIRE_STATION:
+				#TODO: Museums don't do anything right now
+				if Input.is_action_pressed("left_click"):
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.FIRE_STATION):
+						if (Econ.purchase_structure(Econ.FIRE_STATION_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.FIRE_STATION
+							City.numFireStations += 1
+							#TODO: not tracking museums currently
+							Announcer.notify(Event.new("Added Tile", "Added Fire Station", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.FIRE_STATION):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Fire Stations must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.FIRE_STATION:
+						tile.clear_tile()
+						City.numFireStations -= 1
+			
 			Global.Tool.INF_ROAD:
 				if Input.is_action_pressed("left_click"):
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.ROAD):

@@ -79,6 +79,26 @@ func _draw():
 			draw_polygon(s[2].get_polygon(), PoolColorArray([Tile.POWER_STACK_COLOR[2]]))
 			draw_polygon(s[0].get_polygon(), PoolColorArray([Tile.POWER_STACK_COLOR[0]]))
 			
+	elif tile.inf == Tile.TileInf.LIBRARY:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.LIBRARY_COLOR[3])
+		
+	elif tile.inf == Tile.TileInf.MUSEUM:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.MUSEUM_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.MUSEUM_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.MUSEUM_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.MUSEUM_COLOR[3])
+		
+	elif tile.inf == Tile.TileInf.FIRE_STATION:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.FIRE_STATION_COLOR[3])
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		for r in objects:
 			draw_polygon(r[1].get_polygon(), PoolColorArray([Tile.BEACH_ROCK_COLOR[1]]))
@@ -235,6 +255,63 @@ func update_polygons():
 				update_cube(s, stack_x, stack_y, stack_width, stack_depth, stack_height, building_height, 0)
 				objects.append(s)
 				
+	elif tile.inf == Tile.TileInf.LIBRARY:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+		
+	elif tile.inf == Tile.TileInf.MUSEUM:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+
+	elif tile.inf == Tile.TileInf.FIRE_STATION:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
 		clear_objects()
