@@ -52,19 +52,25 @@ func button_hover(button):
 		'add_employee_button':
 			toolInfo.text = "Add employee to commercial zone   (Right Click: Remove employee)"
 		'fire_station_button':
-			toolInfo.text = "Built Fire Station   (Right Click: Remove Fire Station)"
+			toolInfo.text = "Build Fire Station   (Right Click: Remove Fire Station)"
 		'hospital_button':
-			toolInfo.text = "Built Hospital   (Right Click: Remove Hospital)"
+			toolInfo.text = "Build Hospital   (Right Click: Remove Hospital)"
+		'police_station_button':
+			toolInfo.text = "Build Police Station   (Right Click: Remove Police Station)"
 		'power_plant_button':
 			toolInfo.text = "Build Power Plant"
+		'sewage_facility_button':
+			toolInfo.text = "Build Sewage Facility"
+		'waste_treatment_button':
+			toolInfo.text = "Build Waste Treatment Facility"
 		'road_button':
-			toolInfo.text = "Built infrastructure (road/power/water) tile   (Right Click: Remove infrastructure)"
+			toolInfo.text = "Build infrastructure (road/power/water) tile   (Right Click: Remove infrastructure)"
 		'park_button':
-			toolInfo.text = "Built Park   (Right Click: Remove park)"	
+			toolInfo.text = "Build Park   (Right Click: Remove park)"	
 		'library_button':
-			toolInfo.text = "Built Library   (Right Click: Remove Library)"
+			toolInfo.text = "Build Library   (Right Click: Remove Library)"
 		'museum_button':
-			toolInfo.text = "Built Museum   (Right Click: Remove Museum)"
+			toolInfo.text = "Build Museum   (Right Click: Remove Museum)"
 		'beach_rocks_button':
 			toolInfo.text = "Add beach rocks to sand tile   (Right Click: Remove rocks)"
 		'beach_grass_button':
@@ -130,8 +136,14 @@ func button_pressed():
 			Global.mapTool = Global.Tool.INF_FIRE_STATION
 		'hospital_button':
 			Global.mapTool = Global.Tool.INF_HOSPITAL
+		'police_station_button':
+			Global.mapTool = Global.Tool.INF_POLICE_STATION
 		'power_plant_button':
 			Global.mapTool = Global.Tool.INF_POWER_PLANT
+		'sewage_facility_button':
+			Global.mapTool = Global.Tool.INF_SEWAGE_FACILITY
+		'waste_treatment_button':
+			Global.mapTool = Global.Tool.INF_WASTE_TREATMENT
 		'park_button':
 			Global.mapTool = Global.Tool.INF_PARK
 		'library_button':

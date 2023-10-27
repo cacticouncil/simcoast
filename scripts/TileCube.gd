@@ -79,6 +79,20 @@ func _draw():
 			draw_polygon(s[2].get_polygon(), PoolColorArray([Tile.POWER_STACK_COLOR[2]]))
 			draw_polygon(s[0].get_polygon(), PoolColorArray([Tile.POWER_STACK_COLOR[0]]))
 			
+	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.SEWAGE_FACILITY_COLOR[3])
+		
+	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.WASTE_TREATMENT_COLOR[3])
+		
 	elif tile.inf == Tile.TileInf.LIBRARY:
 		var b = objects.pop_front()
 		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[1]]))
@@ -105,6 +119,12 @@ func _draw():
 		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[2]]))
 		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[0]]))
 		draw_polyline(b[0].get_polygon(), Tile.HOSPITAL_COLOR[3])
+	elif tile.inf == Tile.TileInf.POLICE_STATION:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.POLICE_STATION_COLOR[3])
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		for r in objects:
 			draw_polygon(r[1].get_polygon(), PoolColorArray([Tile.BEACH_ROCK_COLOR[1]]))
@@ -261,6 +281,44 @@ func update_polygons():
 				update_cube(s, stack_x, stack_y, stack_width, stack_depth, stack_height, building_height, 0)
 				objects.append(s)
 				
+	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+	
+	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+	
 	elif tile.inf == Tile.TileInf.LIBRARY:
 		clear_objects()
 		var building_width = Global.TILE_WIDTH - 10
@@ -319,6 +377,25 @@ func update_polygons():
 		objects.append(b)
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+		
+	elif tile.inf == Tile.TileInf.POLICE_STATION:
 		clear_objects()
 		var building_width = Global.TILE_WIDTH - 10
 		var building_depth = building_width / 2.0

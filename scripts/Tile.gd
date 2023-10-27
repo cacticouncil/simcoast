@@ -25,13 +25,16 @@ enum TileInf {
 	PARK,
 	FIRE_STATION,
 	HOSPITAL,
+	POLICE_STATION,
 	LIBRARY,
 	MUSEUM,
 	HOUSE,
 	BUILDING,
 	BEACH_ROCKS,
 	BEACH_GRASS,
-	POWER_PLANT
+	POWER_PLANT,
+	SEWAGE_FACILITY,
+	WASTE_TREATMENT
 }
 
 # Flooding damage levels that can affect tiles
@@ -58,6 +61,8 @@ const UNPOWERED_BUILDING_COLOR = [Color("ff555555"), Color("ff444444"), Color("f
 
 const POWER_PLANT_COLOR = [Color("ff777777"), Color("ff888888"), Color("ff999999"), Color("ff999999")]
 const POWER_STACK_COLOR = [Color("ff333333"), Color("ff950000"), Color("ff6a0000"), Color("ff333333")]
+const SEWAGE_FACILITY_COLOR = [Color("ff4d2817"), Color("ff663a24"), Color("ff945535"), Color("ff945535")]
+const WASTE_TREATMENT_COLOR = [Color("ff1f5922"), Color("ff3b943f"), Color("ff54d15a"), Color("ff54d15a")]
 
 const RES_OCCUPANCY_COLOR = [Color("aa2a9d2d"), Color("aa1d851f")]
 const COM_OCCUPANCY_COLOR = [Color("aa3779a2"), Color("aa26648b")]
@@ -68,6 +73,7 @@ const HEAVY_DAMAGE_COLOR = [Color("ff555555"), Color("ffd80909"), Color("ff7c000
 
 const FIRE_STATION_COLOR = [Color("ff5e2821"), Color("ffa85145"), Color("fffc7462"), Color("fffc7462")]
 const HOSPITAL_COLOR = [Color("ff5c5c5c"), Color("ffb0b0b0"), Color("fffafafa"), Color("fffafafa")]
+const POLICE_STATION_COLOR = [Color("ff22246b"), Color("ff3d40a1"), Color("ff5f64fa"), Color("ff5f64fa")]
 const PARK_COLOR = [Color("ff8bb54a"), Color("ff60822d")]
 const TREE_COLOR = [Color("ff4a8a7d"), Color("ff286f61")]
 const LIBRARY_COLOR = [Color("ff666333"), Color("ff9c984c"), Color("ffe0db72"), Color("ffe0db72")]

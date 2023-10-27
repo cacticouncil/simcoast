@@ -230,6 +230,40 @@ func _unhandled_input(event):
 						tile.clear_tile()
 						City.connectPower()
 						City.numPowerPlants -= 1
+			
+			Global.Tool.INF_SEWAGE_FACILITY:
+				if Input.is_action_pressed("left_click"):
+					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.SEWAGE_FACILITY):
+						if (Econ.purchase_structure(Econ.SEWAGE_FACILITY_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.SEWAGE_FACILITY
+							City.numSewageFacilities += 1
+							Announcer.notify(Event.new("Added Tile", "Added Sewage Facility", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.SEWAGE_FACILITY):
+						actionText.text = "Cannot build here!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.SEWAGE_FACILITY:
+						tile.clear_tile()
+						City.numSewageFacilities -= 1
+			
+			Global.Tool.INF_WASTE_TREATMENT:
+				if Input.is_action_pressed("left_click"):
+					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.WASTE_TREATMENT):
+						if (Econ.purchase_structure(Econ.WASTE_TREATMENT_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.WASTE_TREATMENT
+							City.numWasteTreatment += 1
+							Announcer.notify(Event.new("Added Tile", "Added Waste Treatment Facility", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.WASTE_TREATMENT):
+						actionText.text = "Cannot build here!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.WASTE_TREATMENT:
+						tile.clear_tile()
+						City.numWasteTreatment -= 1
 						
 			Global.Tool.INF_PARK:
 				if Input.is_action_pressed("left_click"):
@@ -307,7 +341,7 @@ func _unhandled_input(event):
 					elif (tile.inf == Tile.TileInf.FIRE_STATION):
 						actionText.text = "Cannot build here!"
 					else:
-						actionText.text = "Fire Stations must be built on a dirt base!"
+						actionText.text = "Fire stations must be built on a dirt base!"
 				elif Input.is_action_pressed("right_click"):
 					if tile.inf == Tile.TileInf.FIRE_STATION:
 						tile.clear_tile()
@@ -333,6 +367,27 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.HOSPITAL:
 						tile.clear_tile()
 						City.numHospital -= 1
+			
+			Global.Tool.INF_POLICE_STATION:
+				#TODO: Museums don't do anything right now
+				if Input.is_action_pressed("left_click"):
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.POLICE_STATION):
+						if (Econ.purchase_structure(Econ.POLICE_STATION_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.POLICE_STATION
+							City.numPoliceStations += 1
+							#TODO: not tracking museums currently
+							Announcer.notify(Event.new("Added Tile", "Added Police Station", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.POLICE_STATION):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Police stations must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.POLICE_STATION:
+						tile.clear_tile()
+						City.numPoliceStations -= 1
 			
 			Global.Tool.INF_ROAD:
 				if Input.is_action_pressed("left_click"):
