@@ -674,6 +674,8 @@ func get_cube_colors():
 			colors[3] = Tile.PARK_COLOR[1]
 		Tile.TileInf.ROAD:
 			colors[0] = Tile.ROCK_COLOR[0]
+		Tile.TileInf.BRIDGE:
+			colors[0] = Tile.ROCK_COLOR[0]
 
 	return colors
 

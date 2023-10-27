@@ -145,7 +145,7 @@ func connectRoads(tile):
 func roadConnected(tile, n, diff):
 	if !is_tile_inbounds(n[0], n[1]):
 		return false
-	if Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.ROAD:
+	if Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.ROAD && Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.BRIDGE:
 		return false
 	if abs(tile.get_base_height() - Global.tileMap[n[0]][n[1]].get_base_height()) > diff:
 		return false
