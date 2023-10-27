@@ -22,6 +22,7 @@ enum TileZone {
 enum TileInf {
 	NONE,
 	ROAD,
+	BRIDGE,
 	PARK,
 	FIRE_STATION,
 	HOSPITAL,
@@ -81,6 +82,7 @@ const MUSEUM_COLOR = [Color("ff6e472d"), Color("ffa8724d"), Color("fff7a66f"), C
 const BEACH_ROCK_COLOR = [Color("ffb8c5d4"), Color("ffa0b3cc"), Color("ff8ca4c0")]
 
 const ROAD_COLOR = [Color("ff6a6a6a"), Color("ff999999")]
+const BRIDGE_COLOR = [Color("ff6a6a6a"), Color("ff999999")]
 
 var i
 var j

@@ -138,6 +138,9 @@ func _draw():
 	elif tile.inf == Tile.TileInf.ROAD:
 		for r in objects:
 			draw_polygon(r, PoolColorArray([Tile.ROAD_COLOR[0]]))
+	elif tile.inf == Tile.TileInf.BRIDGE:
+		for r in objects:
+			draw_polygon(r, PoolColorArray([Tile.BRIDGE_COLOR[0]]))
 
 func clear_objects():
 	for o in objects:
@@ -454,7 +457,44 @@ func update_polygons():
 					Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
 					Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
 				]))
-				
+	elif tile.inf == Tile.TileInf.BRIDGE:
+		clear_objects()
+		
+		if tile.connections[(0 + Global.camDirection) % 4]:
+			objects.append(PoolVector2Array([
+				Vector2(x - (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (1.0 / 8.0))),
+				Vector2(x - (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (3.0 / 8.0))),
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
+				Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
+			]))
+		if tile.connections[(1 + Global.camDirection) % 4]:
+			objects.append(PoolVector2Array([
+				Vector2(x + (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (1.0 / 8.0))),
+				Vector2(x + (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (3.0 / 8.0))),
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
+				Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
+			]))
+		if tile.connections[(2 + Global.camDirection) % 4]:
+			objects.append(PoolVector2Array([
+				Vector2(x + (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (5.0 / 8.0))),
+				Vector2(x + (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (7.0 / 8.0))),
+				Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0))),
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0)))
+			]))
+		if tile.connections[(3 + Global.camDirection) % 4]:
+			objects.append(PoolVector2Array([
+				Vector2(x - (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (7.0 / 8.0))),
+				Vector2(x - (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (5.0 / 8.0))),
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0))),
+				Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
+			]))
+		if !tile.connections[0] && !tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
+			objects.append(PoolVector2Array([
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0))),
+				Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0))),
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
+				Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
+			]))
 	# Create simple rocks to display beach rocks
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		clear_objects()

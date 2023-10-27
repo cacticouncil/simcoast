@@ -411,6 +411,29 @@ func _unhandled_input(event):
 						City.connectRoads(tile)
 						City.connectPower()
 						City.numRoads -= 1
+			
+			Global.Tool.INF_BRIDGE:
+				if Input.is_action_pressed("left_click"):
+					if (tile.get_base() == Tile.TileBase.OCEAN && tile.inf != Tile.TileInf.BRIDGE):
+						if (Econ.purchase_structure(Econ.BRIDGE_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.BRIDGE
+							City.connectRoads(tile)
+							City.connectPower()
+							City.numBridges += 1
+							Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.BRIDGE):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Bridge not buildable on tile base type"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.BRIDGE:
+						tile.clear_tile()
+						City.connectRoads(tile)
+						City.connectPower()
+						City.numBridges -= 1
 
 			Global.Tool.INF_BEACH_ROCKS:
 				if tile.get_base() == Tile.TileBase.SAND:

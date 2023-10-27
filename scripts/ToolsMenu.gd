@@ -65,6 +65,8 @@ func button_hover(button):
 			toolInfo.text = "Build Waste Treatment Facility"
 		'road_button':
 			toolInfo.text = "Build infrastructure (road/power/water) tile   (Right Click: Remove infrastructure)"
+		'bridge_button':
+			toolInfo.text = "Build infrastructure tile over water   (Right Click: Remove infrastructure)"
 		'park_button':
 			toolInfo.text = "Build Park   (Right Click: Remove park)"	
 		'library_button':
@@ -152,6 +154,8 @@ func button_pressed():
 			Global.mapTool = Global.Tool.INF_MUSEUM
 		'road_button':
 			Global.mapTool = Global.Tool.INF_ROAD
+		'bridges_button':
+			Global.mapTool = Global.Tool.INF_BRIDGE
 		'beach_rocks_button':
 			Global.mapTool = Global.Tool.INF_BEACH_ROCKS
 		'beach_grass_button':
