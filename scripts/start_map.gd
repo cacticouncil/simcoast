@@ -313,6 +313,27 @@ func _unhandled_input(event):
 						tile.clear_tile()
 						City.numFireStations -= 1
 			
+			Global.Tool.INF_HOSPITAL:
+				#TODO: Museums don't do anything right now
+				if Input.is_action_pressed("left_click"):
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.HOSPITAL):
+						if (Econ.purchase_structure(Econ.HOSPITAL_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.HOSPITAL
+							City.numHospital += 1
+							#TODO: not tracking museums currently
+							Announcer.notify(Event.new("Added Tile", "Added Hospital", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.HOSPITAL):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Hospitals must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.HOSPITAL:
+						tile.clear_tile()
+						City.numHospital -= 1
+			
 			Global.Tool.INF_ROAD:
 				if Input.is_action_pressed("left_click"):
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.ROAD):

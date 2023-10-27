@@ -31,6 +31,7 @@ const ROAD_COST = 100
 const LIBRARY_COST = 3000
 const MUSEUM_COST = 3000
 const FIRE_STATION_COST = 5000
+const HOSPITAL_COST = 5000
 
 #Building upkeep costs
 const POWER_PLANT_UPKEEP_COST = 100
@@ -39,6 +40,7 @@ const ROAD_UPKEEP_COST = 2
 const LIBRARY_UPKEEP_COST = 50
 const MUSEUM_UPKEEP_COST = 50
 const FIRE_STATION_UPKEEP_COST = 100
+const HOSPITAL_UPKEEP_COST = 100
 
 # Player/Mayor Constants
 var money = 100000
@@ -67,7 +69,7 @@ func purchase_structure(structureCost):
 		return false
 
 func calculate_upkeep_costs():
-	city_costs = ((City.numPowerPlants * POWER_PLANT_UPKEEP_COST) + (City.numParks * PARK_UPKEEP_COST) + (City.numRoads * ROAD_UPKEEP_COST) + (City.numLibraries * LIBRARY_UPKEEP_COST) + (City.numMuseums * MUSEUM_UPKEEP_COST) + (City.numFireStations * FIRE_STATION_UPKEEP_COST))
+	city_costs = ((City.numPowerPlants * POWER_PLANT_UPKEEP_COST) + (City.numParks * PARK_UPKEEP_COST) + (City.numRoads * ROAD_UPKEEP_COST) + (City.numLibraries * LIBRARY_UPKEEP_COST) + (City.numMuseums * MUSEUM_UPKEEP_COST) + (City.numFireStations * FIRE_STATION_UPKEEP_COST) + (City.numHospital * HOSPITAL_UPKEEP_COST))
 
 #func adjust_city_income(val):
 #	city_income = val

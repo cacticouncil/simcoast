@@ -62,7 +62,7 @@ func loadData(mapPath: String):
 	for tileData in mapData.tiles:
 		#FIXME: Save the tile data better. As soon as I add a tile INF type, the beach grass breaks
 		var tileType = int(tileData[6])
-		if tileType == 5:
-			tileType = 8
+		if tileType == 5 || tileType == 6:
+			tileType += 4
 		Global.tileMap[tileData[0]][tileData[1]] = Tile.new(int(tileData[0]), int(tileData[1]), int(tileData[2]), int(tileData[3]), int(tileData[4]), int(tileData[5]), tileType, tileData[7], int(tileData[8]), int(tileData[9]), int(tileData[10]))
 	return mapData.name

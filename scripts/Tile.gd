@@ -24,6 +24,7 @@ enum TileInf {
 	ROAD,
 	PARK,
 	FIRE_STATION,
+	HOSPITAL,
 	LIBRARY,
 	MUSEUM,
 	HOUSE,
@@ -66,6 +67,7 @@ const MEDIUM_DAMAGE_COLOR = [Color("ff555555"), Color("ffd86909"), Color("ffac51
 const HEAVY_DAMAGE_COLOR = [Color("ff555555"), Color("ffd80909"), Color("ff7c0000"), Color("ff590000")]
 
 const FIRE_STATION_COLOR = [Color("ff5e2821"), Color("ffa85145"), Color("fffc7462"), Color("fffc7462")]
+const HOSPITAL_COLOR = [Color("ff5c5c5c"), Color("ffb0b0b0"), Color("fffafafa"), Color("fffafafa")]
 const PARK_COLOR = [Color("ff8bb54a"), Color("ff60822d")]
 const TREE_COLOR = [Color("ff4a8a7d"), Color("ff286f61")]
 const LIBRARY_COLOR = [Color("ff666333"), Color("ff9c984c"), Color("ffe0db72"), Color("ffe0db72")]

@@ -6,6 +6,7 @@ var numRoads = 0
 var numLibraries = 0
 var numMuseums = 0
 var numFireStations = 0
+var numHospital = 0
 
 # Delete the last row and column of the map
 func reduce_map():
