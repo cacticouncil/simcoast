@@ -414,26 +414,20 @@ func is_commercial():
 	return zone == TileZone.LIGHT_COMMERCIAL || zone == TileZone.HEAVY_COMMERCIAL
 
 func distance_to_water():
-#	THIS FUNCTION WILL FAIL IF MAPHEIGHT OR MAPWIDTH IS LESS THAN 6
 #	 set distance to the maximum possible value any tile could be from water
 	var distance = max(Global.mapHeight, Global.mapWidth)
-#	checking 6 tiles in each direction in the same column
-	for index in range(i-6, i+7):
-		if is_valid_tile(index, j):
-			if Global.tileMap[index][j].is_ocean():
-#				this is the distance from our current tile to the base tile
-				var temp_distance = abs(i - index)
-				if temp_distance < distance:
-					 distance = temp_distance
-	for index in range(j-6, j+7):
-		if index < 0 || index >= Global.mapWidth:
-			continue
-		else:
-			if Global.tileMap[i][index].is_ocean():
-#				this is the distance from our current tile to the base tile
-				var temp_distance = abs(j - index)
-				if temp_distance < distance:
-					 distance = temp_distance
+#	checking a 6 tile radius circle around the current tile
+	for x in range(i-6, i+7):
+		for y in range(j-6, j+7):
+			if is_valid_tile(x, y):
+				if Global.tileMap[x][y].is_ocean():
+	#				this is the distance from our current tile to the base tile
+					var x2x1 = x - i
+					var y2y1 = y - j
+					var temp_distance = sqrt(x2x1*x2x1 - y2y1*y2y1)
+					if temp_distance < distance:
+						 distance = temp_distance
+	
 #	if the distance value has been changed, return it
 	if distance != max(Global.mapHeight, Global.mapWidth):
 		return distance

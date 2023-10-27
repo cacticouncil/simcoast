@@ -14,7 +14,9 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var water = 0
 	if (tile.distance_to_water() != null):
 #		water weight is 0.025, 0.025 * 6 (max distance tracked) = 0.15, which is the old maximum that water will add to desirability
-		water = tile.distance_to_water() * tile.WATER_WEIGHT
+# distance to water returns null if no water within 6 tiles
+# abs statement flips it so closer water is more influential than farther water, with a minimum of 1
+		water = abs(tile.distance_to_water()-5) * tile.WATER_WEIGHT
 		
 #	variable representing the influence of a tile's neighbors on its desirability
 	var neighbors = tile.residential_neighbors * tile.RESIDENTIAL_NEIGHBOR + tile.commercial_neighbors * tile.COMMERCIAL_NEIGHBOR + \
