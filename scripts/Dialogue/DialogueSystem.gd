@@ -8,6 +8,7 @@ var currentDialogue=""
 var currentSequence = 0
 var choices = false
 var cd
+var solo = false
 # dialogue sequence for npc
 var NPC_CONV = Dictionary()
 
@@ -27,32 +28,42 @@ func _init(playerDialogue, npcDialogue):
 	var text2 = player.get_as_text()
 	PLAYER_CONV = parse_json(text2)
 	player.close()
+	if (text == text2):
+		solo = true
+	
 	
 
 
 func get_next_dialogue():
 	#npc sequence
-	if(turn == true):
-		currentDialogue = NPC_CONV[int(currentNPC)]["dialogue"]
-		# no player prompt
-		if(NPC_CONV[int(currentNPC)]["next"] == "-1"):
-			currentNPC = 4
-		else:
-			currentPlayer = NPC_CONV[int(currentNPC)]["next"]
-			turn = false
-		#print(currentDialogue)
-		return currentDialogue
-	#player sequence
-	else:
-		# end dialogue
-		if(currentPlayer == "-2"):
+	if (solo == true):
+		if (currentNPC == "-2"):
 			return
-		currentDialogue=[]
-		var cp = currentPlayer.split(",")
-		for j in cp:
-			currentDialogue.append(PLAYER_CONV[int(j)]["dialogue"])
-		#print(currentDialogue)
+		currentDialogue = NPC_CONV[int(currentNPC)]["dialogue"]
+		currentNPC = NPC_CONV[int(currentNPC)]["next"]
 		return currentDialogue
+	if (solo == false):
+		if(turn == true):
+			currentDialogue = NPC_CONV[int(currentNPC)]["dialogue"]
+			# no player prompt
+			if(NPC_CONV[int(currentNPC)]["next"] == "-1"):
+				currentNPC = 4
+			else:
+				currentPlayer = NPC_CONV[int(currentNPC)]["next"]
+				turn = false
+			#print(currentDialogue)
+			return currentDialogue
+		#player sequence
+		else:
+			# end dialogue
+			if(currentPlayer == "-2"):
+				return
+			currentDialogue=[]
+			var cp = currentPlayer.split(",")
+			for j in cp:
+				currentDialogue.append(PLAYER_CONV[int(j)]["dialogue"])
+			#print(currentDialogue)
+			return currentDialogue
 
 func nextNPCLine(d):
 	for i in PLAYER_CONV:
