@@ -37,7 +37,8 @@ func _init(playerDialogue, npcDialogue):
 func get_next_dialogue():
 	#npc sequence
 	if (solo == true):
-		if (currentNPC == "-2"):
+		if (int(currentNPC) == -2):
+			currentPlayer = -2
 			return
 		currentDialogue = NPC_CONV[int(currentNPC)]["dialogue"]
 		currentNPC = NPC_CONV[int(currentNPC)]["next"]
@@ -86,14 +87,19 @@ func dialogueSequence(n):
 	if (typeof(cd) == TYPE_ARRAY && cd.size() != 1):
 		choices = true
 		
-	
-	if(currentPlayer == "-2" && turn == false):
+	if(solo == true && int(currentNPC) == -2):
 		currentNPC = 0
 		currentPlayer = 0
 		turn = true
 		currentDialogue=""
 		currentSequence = 0
-		
+	elif(solo == false):		
+		if(int(currentPlayer) == -2 && turn == false):
+			currentNPC = 0
+			currentPlayer = 0
+			turn = true
+			currentDialogue=""
+			currentSequence = 0
 		
 
 #func _input(event):
