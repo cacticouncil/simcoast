@@ -86,6 +86,8 @@ var landValue = 0
 var profitRate = 0
 var happiness = 0
 var changeInWaterHeight = 0
+# Tracks what connections a tile has to its neighbors with roads
+var connections = [0,0,0,0]
 
 # Economy AI: equation coefficient constants
 var desirability = 0.2
@@ -153,9 +155,13 @@ func paste_tile(tile):
 	profitRate = tile.profitRate
 
 func clear_tile():
+	#remove all buildings 
+	while (data[0] > 0):
+		remove_building()
+	
+	#inform the Announcer that we have removed a zone
 	if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
-		tileDamage -= data[0] * Econ.REMOVE_COMMERCIAL_BUILDING
-		Announcer.notify(Event.new("Removed Tile", "Removed Commercial Area", 1))
+			Announcer.notify(Event.new("Removed Tile", "Removed Commercial Area", 1))
 	elif zone == TileZone.HEAVY_RESIDENTIAL || zone == TileZone.LIGHT_RESIDENTIAL:
 		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
 		Announcer.notify(Event.new("Removed Tile", "Removed Residential Area", 1))
@@ -163,9 +169,25 @@ func clear_tile():
 		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
 	if tileDamage < 0:
 		tileDamage = 0
+	if inf == TileInf.POWER_PLANT:
+		Announcer.notify(Event.new("Removed Tile", "Removed Power Plant", 1))
+	elif inf == TileInf.ROAD:
+		Announcer.notify(Event.new("Removed Tile", "Removed Road", 1))
+	elif inf == TileInf.PARK:
+		Announcer.notify(Event.new("Removed Tile", "Removed Park", 1))
+	#reset zones
 	zone = TileZone.NONE
+	
+	#reconnect power if road or power plant is cleared
+	if (inf == TileInf.POWER_PLANT || inf == TileInf.ROAD):
+		inf = TileInf.NONE
+		City.connectPower()
+		
+	#reset tile to base
 	inf = TileInf.NONE
 	data = [0, 0, 0, 0, 0]
+	tileDamage = 0
+	connections = [0, 0, 0, 0]
 	
 func raise_tile():
 	baseHeight += 1
@@ -274,7 +296,6 @@ func set_damage(n):
 		#should remove all buildings and all population?
 		while data[0] > 0:
 			remove_building()
-		remove_people(data[2])
 
 func is_powered():
 	return powered
@@ -307,22 +328,24 @@ func add_building():
 	#		Econ.adjust_player_money(-10000)
 
 func remove_building():		
+	# if there is only one building
 	if data[0] <= 1:
 		data[0] = 0
 		data[1] = 4
-		data[2] = 0
+		remove_people(data[2])
 		data[3] = 0
 		inf = TileInf.NONE
-	
+		
+	#if there is more than 1 building
 	else:
 		data[0] -= 1
 		data[3] -= 4
 		if data[2] > data[3]:
-			data[2] = data[3]
-#	if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
-#		tileDamage -= Econ.REMOVE_COMMERCIAL_BUILDING
-#	else:
-#		tileDamage -= Econ.REMOVE_BUILDING_DAMAGE
+#			data[2] = data[3]
+			var diff = data[2] - data[3]
+			remove_people(diff)
+			
+	#clamp tile damage to 0
 	if tileDamage < 0:
 		tileDamage = 0
 
@@ -331,8 +354,12 @@ func add_people(n):
 	data[2] += n
 	if data[2] > data[3]:
 		data[2] = data[3]
-	var after = data[2]
-	return after - before
+	var diff = data[2] - before
+	if (is_residential()):
+		UpdatePopulation.change_residents(diff)
+	elif (is_commercial()):
+		UpdatePopulation.change_workers(diff)
+	return diff
 
 func remove_people(n):		
 	var before = data[2]
@@ -340,14 +367,20 @@ func remove_people(n):
 	if data[2] <= 0:
 		data[2] = 0
 		#data[4] = 0
-	var after = data[2]
-	return after - before
+	var diff = data[2] - before
+	if (is_residential()):
+		UpdatePopulation.change_residents(diff)
+	elif (is_commercial()):
+		UpdatePopulation.change_workers(diff)
+	return diff
 
 func clear_house():
 	if zone != TileZone.RESIDENTIAL:
 		return
 	
 	inf = TileInf.NONE
+	while (data[0] > 0):
+		remove_building()
 	data = [0, 0, 0, 0, 0]
 
 func get_data():

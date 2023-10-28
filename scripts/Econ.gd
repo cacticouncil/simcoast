@@ -76,6 +76,7 @@ func updateProfitDisplay():
 func profit():
 	var profit = round(city_income - city_costs)
 	adjust_player_money(profit)
+	Announcer.notify(Event.new("Profit", "Money Made Each Month", profit))
 
 func collectTaxes():
 	var taxProfit = 0

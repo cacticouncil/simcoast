@@ -138,7 +138,7 @@ anchor_right = 0.5
 margin_left = -242.0
 margin_top = 8.0
 margin_right = 242.0
-margin_bottom = 473.0
+margin_bottom = 477.0
 custom_constants/separation = 5
 __meta__ = {
 "_edit_use_anchors_": false
@@ -275,7 +275,7 @@ __meta__ = {
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 492.0
-margin_bottom = 473.0
+margin_bottom = 477.0
 rect_min_size = Vector2( 300, 80 )
 script = ExtResource( 9 )
 __meta__ = {
@@ -288,7 +288,7 @@ anchor_right = 0.5
 margin_left = -234.0
 margin_top = 8.0
 margin_right = 234.0
-margin_bottom = 421.0
+margin_bottom = 429.0
 text = "Are you sure you wish to delete your current save file?
 
 Warning: Deleted save files cannot be recovered!"

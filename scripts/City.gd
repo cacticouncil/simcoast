@@ -61,6 +61,11 @@ func connectPower():
 			#Global.tileMap[i][j].cube.update()
 			if Global.tileMap[i][j].inf == Tile.TileInf.POWER_PLANT:
 				powerPlants.append(Global.tileMap[i][j])
+	
+	# For the announcer to keep track of the number of specific tiles powered
+	var roadsPowered = 0
+	var commsPowered = 0
+	var resPowered = 0
 
 	for plant in powerPlants:
 		plant.powered = true
@@ -79,6 +84,7 @@ func connectPower():
 			
 			# If road is not powered, it hasn't yet been checked
 			if !road.powered:
+				roadsPowered += 1
 				road.powered = true
 			
 				# Check neighbors: if it's a connected road, add it to the queue; otherwise, power tile
@@ -91,31 +97,42 @@ func connectPower():
 								if Global.tileMap[n[0]][n[1]].powered == false:
 									queue.append(Global.tileMap[n[0]][n[1]])
 						else:
+							var currTile = Global.tileMap[n[0]][n[1]]
+							# if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
+							if currTile.zone == Tile.TileZone.HEAVY_COMMERCIAL || currTile.zone == Tile.TileZone.LIGHT_COMMERCIAL:
+								commsPowered += 1
+							elif currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL || currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
+								resPowered += 1
 							Global.tileMap[n[0]][n[1]].powered = true
 							#Global.tileMap[n[0]][n[1]].cube.update()
+	
+	Announcer.notify(Event.new("Tiles Powered", "Number of powered roads", roadsPowered))
+	Announcer.notify(Event.new("Tiles Powered", "Number of powered commercial areas", commsPowered))
+	Announcer.notify(Event.new("Tiles Powered", "Number of powered residential areas", resPowered))
 
 # Check tile for neighboring road connections, and create connections from any connecting roads to tile
 func connectRoads(tile):
 	var queue = [tile]
 	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
 	var maxHeightDiff = Global.MAX_CONNECTION_HEIGHT
-	
+
 	for n in neighbors:
 		if roadConnected(tile, n, maxHeightDiff):
 			queue.append(Global.tileMap[n[0]][n[1]])
-	
+
 	while !queue.empty():
 		var road = queue.pop_front()
-		road.data = 	[0, 0, 0, 0, 0]
-		
+		road.connections = 	[0, 0, 0, 0]
+
 		if roadConnected(road, [road.i-1, road.j], maxHeightDiff):
-			road.data[0] = 1
+			road.connections[0] = 1
 		if roadConnected(road, [road.i, road.j-1], maxHeightDiff):
-			road.data[1] = 1
+			road.connections[1] = 1
 		if roadConnected(road, [road.i+1, road.j], maxHeightDiff):
-			road.data[2] = 1
+			road.connections[2] = 1
 		if roadConnected(road, [road.i, road.j+1], maxHeightDiff):
-			road.data[3] = 1
+			road.connections[3] = 1
+	
 
 func roadConnected(tile, n, diff):
 	if !is_tile_inbounds(n[0], n[1]):
@@ -205,9 +222,9 @@ func adjust_building_number(tile):
 
 func adjust_people_number(tile):
 	if Input.is_action_pressed("left_click"):
-		UpdatePopulation.TOTAL_POPULATION += tile.add_people(1)
+		tile.add_people(1)
 	elif Input.is_action_pressed("right_click"):
-		UpdatePopulation.TOTAL_POPULATION += tile.remove_people(1)
+		tile.remove_people(1)
 
 func calculate_satisfaction():
 	var population = 0
