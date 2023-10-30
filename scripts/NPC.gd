@@ -22,9 +22,6 @@ func getID():
 	return self.id
 func getType():
 	return self.type
-func dialogueTrigger1():
+func dialogueTrigger():
 	#Access current dialogue and dialogue system
-	dialogueSystem.dialogueSequence(1)
-	
-func dialogueTrigger2():
-	dialogueSystem.dialogueSequence(2)
+	dialogueSystem.dialogueSequence(id)

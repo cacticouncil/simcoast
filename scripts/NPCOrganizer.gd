@@ -45,3 +45,5 @@ func setName(id_, newName):
 func dialogueTrigger(id_):
 	npcDictionary[id_].dialogueSequence()
 	return
+func nextDialogue(id_):
+	return npcDictionary[id_].dialogueSystem.get_next_dialogue()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=2]
+[gd_scene load_steps=124 format=2]
 
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/buttons/add_water_hover.png" type="Texture" id=2]
@@ -115,6 +115,8 @@
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/ContinueButton.tscn" type="PackedScene" id=113]
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/SaveButton.tscn" type="PackedScene" id=114]
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/QuitButton.tscn" type="PackedScene" id=115]
+[ext_resource path="res://assets/buttons/interaction_button_hover.png" type="Texture" id=116]
+[ext_resource path="res://assets/buttons/interaction_button_unpressed.png" type="Texture" id=117]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.133333, 0.886275, 0.129412, 1 )
@@ -880,6 +882,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="interaction_button" type="TextureButton" parent="HUD"]
+margin_left = 165.0
+margin_top = 29.0
+margin_right = 205.0
+margin_bottom = 69.0
+texture_normal = ExtResource( 117 )
+texture_hover = ExtResource( 116 )
+expand = true
+
 [node name="TaxMenu" parent="HUD" instance=ExtResource( 109 )]
 
 [node name="MissionsBG" type="Panel" parent="HUD"]
@@ -1002,6 +1013,7 @@ script = ExtResource( 104 )
 
 [connection signal="toggled" from="HUD/play_button" to="." method="_on_play_button_toggled"]
 [connection signal="toggled" from="HUD/fastfwd_button" to="." method="_on_fastfwd_button_toggled"]
+[connection signal="pressed" from="HUD/interaction_button" to="." method="_on_interaction_button_pressed"]
 [connection signal="mouse_entered" from="HUD/Missions/VBoxContainer/Mission1" to="." method="_on_Mission1_mouse_entered"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/SaveButton" to="." method="_on_SaveButton_pressed"]

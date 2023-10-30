@@ -199,12 +199,13 @@ UpdateGraphics="*res://scripts/updateGraphics.gd"
 UpdateErosion="*res://scripts/updateErosion.gd"
 UpdateWater="*res://scripts/updateWater.gd"
 Overlay="*res://ui/Popups/Overlay.tscn"
-NPCOrganizer="*res://scripts/NPCOrganizer.gd"
 Announcer="*res://scripts/Observers/Announcer.gd"
 MissionObserver="*res://scripts/Observers/MissionObserver.gd"
 AchievementObserver="*res://scripts/Observers/AchievementObserver.gd"
 Stats="*res://scripts/Stats.gd"
 NpcObserver="*res://scripts/Observers/NpcObserver.gd"
+NPCOrganizer="*res://scripts/NPCOrganizer.gd"
+Introduction="*res://ui/NPC_Interactions/Introduction.gd"
 
 [display]
 
