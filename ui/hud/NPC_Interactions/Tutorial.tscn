@@ -17,19 +17,15 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Tutorial" type="Control"]
-margin_left = -672.0
-margin_top = -384.0
-margin_right = -672.0
-margin_bottom = -384.0
+[node name="Tutorial" type="CanvasLayer"]
 script = ExtResource( 8 )
 
 [node name="DialogueBox" type="ColorRect" parent="."]
-margin_left = 174.0
-margin_top = 786.0
-margin_right = 1096.0
-margin_bottom = 965.0
-color = Color( 0.341508, 0.467211, 0.578125, 1 )
+margin_left = 117.0
+margin_top = 494.0
+margin_right = 1039.0
+margin_bottom = 673.0
+color = Color( 0.341176, 0.466667, 0.576471, 1 )
 
 [node name="Teacher" type="AnimatedSprite" parent="DialogueBox"]
 position = Vector2( 921, -59 )

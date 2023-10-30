@@ -455,6 +455,9 @@ func _on_fastfwd_button_toggled(button_pressed:bool):
 	isFastFWD = button_pressed
 
 func _on_interaction_button_pressed():
+	var tut = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
+	var TutInstance = tut.instance()
+	add_child(TutInstance)
 	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 	var TutorialInstance = tutorial.instance()
 	add_child(TutorialInstance)
