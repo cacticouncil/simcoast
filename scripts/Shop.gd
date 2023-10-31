@@ -14,12 +14,11 @@ func _ready():
 func _on_QuitShop_pressed():
 	get_parent().remove_child(self)
 
-
-func _on_TideInfo_pressed():
-	$InformationBox.visible = true
-	$InformationBox/infoText.bbcode_text = tide_info
-
-
 func _on_CloseInfo_pressed():
 	$InformationBox.visible = false
 
+
+
+func _on_InfoButton1_pressed():
+	$InformationBox.visible = true
+	$InformationBox/infoText.bbcode_text = tide_info
