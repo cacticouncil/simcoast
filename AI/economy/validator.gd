@@ -30,10 +30,10 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	
 	#this variable positively influences desirability the more people there are in the city, up to 100. This means the max
 #	impact that this variable can have on desirability is .1. 
-	var population = max(UpdatePopulation.get_population(),100) * tile.NUMBER_PEOPLE
+	var population = min(UpdatePopulation.get_population(),100) * tile.NUMBER_PEOPLE
 	
 	#positively impacts desirability if population is growing more rapidly, growth updated monthly
-	var growth = UpdatePopulation.get_growth() * UpdatePopulation.GROWTH
+	var growth = UpdatePopulation.get_growth() * tile.GROWTH
 	
 	#measures the positive or negative impact of the tax structure. high taxes -> negative impact, low taxes -> positive impact, neutral taxes -> no impact
 	#neutral taxes are meant to convey that the taxes here are no higher or lower than another comparable place, so they don't influence people wanting to be here
@@ -44,18 +44,27 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 #	tax_burden represents the total impact of all three types of taxes on desirability
 	var tax_burden = sales_tax + property_tax + income_tax
 	
+	#this value represents how a tile's wealth impacts its desirability. Tiles with higher wealth will have higher desirability
+	#commercial tile wealth is impacted by the wealth of the residential zones around it
+	#see city_wealth.gd for more
+	var wealth_influence = tile.wealth_weight * tile.WEALTH_INFLUENCE
+	
+	#tile_dmg_weight is a value that subtracts from desirability if a tile is damaged, doesn't add anything only removes
+	#desirability explains itself in the name, and is influenced by all the factors defined above
+	var desirability = tile.BASE_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + tile.tile_dmg_weight
+	
 	# Equation for calculating desirability
-	var desirability = tile.BASE_DESIRABILITY + \
-		int(tile.is_close_water) * tile.WATER_CLOSE + \
-		int(tile.is_far_water) * tile.WATER_FAR + \
-		int(tile.tile_base_dirt) * tile.BASE_DIRT + int(tile.tile_base_rock) * tile.BASE_ROCK + int(tile.tile_base_sand) * tile.BASE_SAND + \
-		tile.residential_neighbors * tile.RESIDENTIAL_NEIGHBOR + tile.commercial_neighbors * tile.COMMERCIAL_NEIGHBOR + tile.industrial_neighbors * tile.INDUSTRIAL_NEIGHBOR + \
-		Global.numZones * tile.NUMBER_ZONES + Global.numPeople * tile.NUMBER_PEOPLE + \
-		tax_burden + \
-		int(tile.is_neg_profit) * tile.WEALTH_NEG + \
-		tile.wealth_weight * tile.WEALTH_DESIRE + \
-		tile.tile_dmg_weight
-		
+#	var desirability = tile.BASE_DESIRABILITY + \
+#		int(tile.is_close_water) * tile.WATER_CLOSE + \
+#		int(tile.is_far_water) * tile.WATER_FAR + \
+#		int(tile.tile_base_dirt) * tile.BASE_DIRT + int(tile.tile_base_rock) * tile.BASE_ROCK + int(tile.tile_base_sand) * tile.BASE_SAND + \
+#		tile.residential_neighbors * tile.RESIDENTIAL_NEIGHBOR + tile.commercial_neighbors * tile.COMMERCIAL_NEIGHBOR + tile.industrial_neighbors * tile.INDUSTRIAL_NEIGHBOR + \
+#		Global.numZones * tile.NUMBER_ZONES + Global.numPeople * tile.NUMBER_PEOPLE + \
+#		tax_burden + \
+#		int(tile.is_neg_profit) * -tile.WEALTH_INFLUENCE + \
+#		tile.wealth_weight * tile.WEALTH_INFLUENCE + \
+#		tile.tile_dmg_weight
+
 	if desirability > UPPER_LIMIT:
 		desirability = UPPER_LIMIT
 	elif desirability < LOWER_LIMIT:
