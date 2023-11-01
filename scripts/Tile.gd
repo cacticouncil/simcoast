@@ -114,8 +114,8 @@ const SALES_TAX_LIGHT = .025
 const INCOME_TAX_HEAVY = -.15
 const INCOME_TAX_NEUTRAL = 0
 const INCOME_TAX_LIGHT = 0.075
-const WEALTH_NEG = -0.05
-const WEALTH_DESIRE = 0.025
+const WEALTH_INFLUENCE = 0.05
+const GROWTH = .001
 
 
 # Economy AI: Equation variable booleans & values

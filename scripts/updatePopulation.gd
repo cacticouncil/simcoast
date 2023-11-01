@@ -18,7 +18,6 @@ var rng = RandomNumberGenerator.new()
 
 # metrics for Economy AI
 var growth_rate = 0
-var GROWTH = .01
 var previous_population = 0
 
 #Update buildings and population
