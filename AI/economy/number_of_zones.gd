@@ -42,5 +42,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	# Set the associated Global values
 	Global.numZones = numZones
 	Global.numPeople = numPeople
+	Global.numCommercialZones = numCommercialZones
+	Global.numResidentialZones = numResidentialZones
 	
 	return succeed()
