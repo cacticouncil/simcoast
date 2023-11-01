@@ -95,18 +95,19 @@ func collectTaxes():
 	for i in mapHeight:
 		for j in mapWidth:
 			var currTile = Global.tileMap[i][j]
-			if currTile.zone == Tile.TileZone.HEAVY_COMMERCIAL:
-				taxProfit += (currTile.data[2] * HEAVY_COM_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
-				taxProfit += (currTile.data[0] * HEAVY_COM_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
-			elif currTile.zone == Tile.TileZone.LIGHT_COMMERCIAL:
-				taxProfit += (currTile.data[2] * LIGHT_COM_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
-				taxProfit += (currTile.data[0] * LIGHT_COM_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
-			elif currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL:
-				taxProfit += (currTile.data[2] * HEAVY_RES_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
-				taxProfit += (currTile.data[0] * HEAVY_RES_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
-			elif currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
-				taxProfit += (currTile.data[2] * LIGHT_RES_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
-				taxProfit += (currTile.data[0] * LIGHT_RES_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
+#			if currTile.zone == Tile.TileZone.HEAVY_COMMERCIAL:
+#				taxProfit += (currTile.data[2] * HEAVY_COM_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
+#				taxProfit += (currTile.data[0] * HEAVY_COM_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
+#			elif currTile.zone == Tile.TileZone.LIGHT_COMMERCIAL:
+#				taxProfit += (currTile.data[2] * LIGHT_COM_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
+#				taxProfit += (currTile.data[0] * LIGHT_COM_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
+#			elif currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL:
+#				taxProfit += (currTile.data[2] * HEAVY_RES_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
+#				taxProfit += (currTile.data[0] * HEAVY_RES_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
+#			elif currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
+#				taxProfit += (currTile.data[2] * LIGHT_RES_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
+#				taxProfit += (currTile.data[0] * LIGHT_RES_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
+			taxProfit += currTile.profitRate
 	adjust_player_money(round(taxProfit))
 	
 func calcCityIncome(): #Calculate tax profit
@@ -116,18 +117,19 @@ func calcCityIncome(): #Calculate tax profit
 	for i in mapHeight:
 		for j in mapWidth:
 			var currTile = Global.tileMap[i][j]
-			if currTile.zone == Tile.TileZone.HEAVY_COMMERCIAL:
-				taxProfit += (currTile.data[2]  * currTile.landValue * HEAVY_COM_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
-				taxProfit += (currTile.data[0]  * currTile.landValue * HEAVY_COM_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
-			elif currTile.zone == Tile.TileZone.LIGHT_COMMERCIAL:
-				taxProfit += (currTile.data[2]  * currTile.landValue * LIGHT_COM_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
-				taxProfit += (currTile.data[0]  * currTile.landValue * LIGHT_COM_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
-			elif currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL:
-				taxProfit += (currTile.data[2]  * currTile.landValue * HEAVY_RES_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
-				taxProfit += (currTile.data[0]  * currTile.landValue * HEAVY_RES_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
-			elif currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
-				taxProfit += (currTile.data[2]  * currTile.landValue * LIGHT_RES_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
-				taxProfit += (currTile.data[0]  * currTile.landValue * LIGHT_RES_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
+#			if currTile.zone == Tile.TileZone.HEAVY_COMMERCIAL:
+#				taxProfit += (currTile.data[2]  * currTile.landValue * HEAVY_COM_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
+#				taxProfit += (currTile.data[0]  * currTile.landValue * HEAVY_COM_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
+#			elif currTile.zone == Tile.TileZone.LIGHT_COMMERCIAL:
+#				taxProfit += (currTile.data[2]  * currTile.landValue * LIGHT_COM_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
+#				taxProfit += (currTile.data[0]  * currTile.landValue * LIGHT_COM_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
+#			elif currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL:
+#				taxProfit += (currTile.data[2]  * currTile.landValue * HEAVY_RES_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
+#				taxProfit += (currTile.data[0]  * currTile.landValue * HEAVY_RES_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
+#			elif currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
+#				taxProfit += (currTile.data[2]  * currTile.landValue * LIGHT_RES_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
+#				taxProfit += (currTile.data[0]  * currTile.landValue * LIGHT_RES_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
+			taxProfit += currTile.profitRate
 	city_income = taxProfit
 	return round(taxProfit)
 	
