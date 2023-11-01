@@ -27,24 +27,30 @@ const CITY_WEALTH_WEIGHT = 0.001
 
 const TAX_WEIGHT = -100
 
+const BASE_VALUE = 1.5
 func update_land_value():
 	for i in Global.mapWidth:
 		for j in Global.mapHeight:
 			if (Global.tileMap[i][j].is_zoned()):
 				var currTile = Global.tileMap[i][j]
-				var value = BASE_TILE_VALUE
+#				var value = BASE_TILE_VALUE
+#
+#				var waterValue = calc_presence_of_water(currTile)
+#				var baseValue = calc_tile_base(currTile)
+#				var zoneConnectionsValue = calc_zone_connections(currTile)
+#				var numZonesValue = calc_num_zones(currTile)
+#				var numPeopleValue = calc_num_people(currTile)
+#				var tileDamageValue = calc_tile_damage(currTile)
+#				var cityWealthValue = calc_city_wealth(currTile)
+#				var taxRateValue = calc_taxation_rate(currTile)
+#
+#				value += waterValue + baseValue + zoneConnectionsValue + numZonesValue + numPeopleValue - tileDamageValue + cityWealthValue + taxRateValue
+#				value = value / GLOBAL_TILE_VALUE_WEIGHT
+#				currTile.landValue = value
 				
-				var waterValue = calc_presence_of_water(currTile)
-				var baseValue = calc_tile_base(currTile)
-				var zoneConnectionsValue = calc_zone_connections(currTile)
-				var numZonesValue = calc_num_zones(currTile)
-				var numPeopleValue = calc_num_people(currTile)
-				var tileDamageValue = calc_tile_damage(currTile)
-				var cityWealthValue = calc_city_wealth(currTile)
-				var taxRateValue = calc_taxation_rate(currTile)
-				
-				value += waterValue + baseValue + zoneConnectionsValue + numZonesValue + numPeopleValue - tileDamageValue + cityWealthValue + taxRateValue
-				value = value / GLOBAL_TILE_VALUE_WEIGHT
+				var value = BASE_VALUE * currTile.desirability
+				if currTile.desirability < currTile.BASE_DESIRABILITY:
+					value -= .5
 				currTile.landValue = value
 
 func calc_presence_of_water(tile): #Return value of nearby water tiles within a radius
