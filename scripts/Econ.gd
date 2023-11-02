@@ -39,7 +39,7 @@ const PARK_UPKEEP_COST = 10
 const ROAD_UPKEEP_COST = 2
 
 # Player/Mayor Constants
-var money = 100000
+var money = 20000
 
 #Income and costs
 var city_income = 0 # Net Profit
@@ -153,7 +153,6 @@ func calc_profit_rates():
 						Econ.INCOME_TAX + currTile.data[0] * Econ.PROPERTY_TAX) * \
 						Econ.TAX_INCOME_MULTIPLIER * currTile.landValue
 					total_income += currTile.profitRate
-					print("res: ", currTile.profitRate)
 					res_tiles += 1
 				#commercial zones generate revenue via sales tax and property tax, 
 				#scaling how much sales tax based on the income of their surrounding area
@@ -168,7 +167,6 @@ func calc_profit_rates():
 						#the population bit is to help commercial profit scale with population
 						# it basically assumes that people will patronize all commercial zones equally
 					total_profit += currTile.profitRate
-					print("com: ", currTile.profitRate)
 					com_tiles += 1
 					
 	#avg income now represents the average tax revenue from the incomes of the employed people 
