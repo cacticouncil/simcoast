@@ -1,6 +1,7 @@
 extends Node
 
 const BASE_HAPPINESS = 50
+const HIGH_UNEMPLOYMENT_PENALTY = -15
 
 func update_happiness():
 	for i in Global.mapWidth:
@@ -13,6 +14,10 @@ func update_happiness():
 				var zoneConnectionsValue = UpdateValue.calc_zone_connections(currTile)
 				var tileDamageValue = UpdateValue.calc_tile_damage(currTile)
 				var taxRateValue = UpdateValue.calc_taxation_rate(currTile)
+				
+				#if unemployment is high, happiness takes a big hit
+				if UpdatePopulation.is_unemployment_high():
+					happiness += HIGH_UNEMPLOYMENT_PENALTY
 				
 				happiness = happiness + waterValue + zoneConnectionsValue + taxRateValue - tileDamageValue
 				

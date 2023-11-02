@@ -13,6 +13,8 @@ var SEVERE_DAMAGE_UNHAPPINESS = 30
 var RESIDENTS = 0
 var WORKERS = 0
 var BASE_EMPLOYMENT_RATE = .95
+#above 10% unemployment and people are unhappy 
+var UNEMPLOYMENT_LIMIT = .10
 
 var rng = RandomNumberGenerator.new()
 
@@ -101,3 +103,10 @@ func calc_pop_growth():
 	
 func get_growth():
 	return growth_rate
+	
+func is_unemployment_high() -> bool:
+	var rate = float((RESIDENTS - WORKERS) / 100.0)
+	if rate > UNEMPLOYMENT_LIMIT:
+		return true
+	return false
+
