@@ -52,18 +52,6 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	#tile_dmg_weight is a value that subtracts from desirability if a tile is damaged, doesn't add anything only removes
 	#desirability explains itself in the name, and is influenced by all the factors defined above
 	var desirability = tile.BASE_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + tile.tile_dmg_weight
-	
-	# Equation for calculating desirability
-#	var desirability = tile.BASE_DESIRABILITY + \
-#		int(tile.is_close_water) * tile.WATER_CLOSE + \
-#		int(tile.is_far_water) * tile.WATER_FAR + \
-#		int(tile.tile_base_dirt) * tile.BASE_DIRT + int(tile.tile_base_rock) * tile.BASE_ROCK + int(tile.tile_base_sand) * tile.BASE_SAND + \
-#		tile.residential_neighbors * tile.RESIDENTIAL_NEIGHBOR + tile.commercial_neighbors * tile.COMMERCIAL_NEIGHBOR + tile.industrial_neighbors * tile.INDUSTRIAL_NEIGHBOR + \
-#		Global.numZones * tile.NUMBER_ZONES + Global.numPeople * tile.NUMBER_PEOPLE + \
-#		tax_burden + \
-#		int(tile.is_neg_profit) * -tile.WEALTH_INFLUENCE + \
-#		tile.wealth_weight * tile.WEALTH_INFLUENCE + \
-#		tile.tile_dmg_weight
 
 	if desirability > UPPER_LIMIT:
 		desirability = UPPER_LIMIT
@@ -75,7 +63,6 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	check_empty(blackboard)
 	
 	return succeed()
-
 
 # Checks to see if the last item in the queue was consumed. Stops the AI
 func check_empty(blackboard: Blackboard) -> void:

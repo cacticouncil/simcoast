@@ -33,22 +33,10 @@ func update_land_value():
 		for j in Global.mapHeight:
 			if (Global.tileMap[i][j].is_zoned()):
 				var currTile = Global.tileMap[i][j]
-#				var value = BASE_TILE_VALUE
-#
-#				var waterValue = calc_presence_of_water(currTile)
-#				var baseValue = calc_tile_base(currTile)
-#				var zoneConnectionsValue = calc_zone_connections(currTile)
-#				var numZonesValue = calc_num_zones(currTile)
-#				var numPeopleValue = calc_num_people(currTile)
-#				var tileDamageValue = calc_tile_damage(currTile)
-#				var cityWealthValue = calc_city_wealth(currTile)
-#				var taxRateValue = calc_taxation_rate(currTile)
-#
-#				value += waterValue + baseValue + zoneConnectionsValue + numZonesValue + numPeopleValue - tileDamageValue + cityWealthValue + taxRateValue
-#				value = value / GLOBAL_TILE_VALUE_WEIGHT
-#				currTile.landValue = value
 				
+				#tile value is based on how desirable the land is
 				var value = BASE_VALUE * currTile.desirability
+				#if the tile is less desirable than an empty plot of land, value gets a penalty
 				if currTile.desirability < currTile.BASE_DESIRABILITY:
 					value -= .5
 				currTile.landValue = value

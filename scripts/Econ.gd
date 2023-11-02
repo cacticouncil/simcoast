@@ -6,8 +6,6 @@ const TILE_BASE_VALUE = 500
 const BUILDING_BASE_VALUE = 50
 const RESIDENT_PERSON_VALUE = 2000
 
-
-
 #tax rates
 #LEGACY VALUES, REMOVE WHEN DONE MAKING CHANGES
 const TAX_INCOME_MULTIPLIER = 1000
@@ -26,8 +24,6 @@ const SALES_TAX = 0.05 #5% sales tax to start, also neutral
 const INCOME_TAX = 0.025 #2.5% income tax, also neutral
 #neutrality is from desirability, meaning these taxes are neither light nor heavy
 
-
-
 # Tile Durability Constants
 const REMOVE_BUILDING_DAMAGE = 0.2
 const REMOVE_COMMERCIAL_BUILDING  = 0.3
@@ -36,7 +32,6 @@ const REMOVE_COMMERCIAL_BUILDING  = 0.3
 const UTILITIES_PLANT_COST = 10000
 const PARK_COST = 500
 const ROAD_COST = 100
-
 
 #Building upkeep costs
 const UTILITIES_PLANT_UPKEEP_COST = 100
@@ -72,11 +67,6 @@ func purchase_structure(structureCost):
 
 func calculate_upkeep_costs():
 	city_costs = ((City.numUtilityPlants * UTILITIES_PLANT_UPKEEP_COST) + (City.numParks * PARK_UPKEEP_COST) + (City.numRoads * ROAD_UPKEEP_COST))
-
-#func adjust_city_income(val):
-#	city_income = val
-#	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/City_Income").text = "$" + comma_values(str(city_income))
-#	print("$" + comma_values(str(city_income)))
 	
 func updateProfitDisplay():
 	var profit = round(city_income - city_costs)
@@ -88,29 +78,6 @@ func profit():
 	adjust_player_money(profit)
 	Announcer.notify(Event.new("Profit", "Money Made Each Month", profit))
 
-#10/25/23: Doesn't get called anywhere??? Why is this here?
-func collectTaxes():
-	var taxProfit = 0
-	var mapHeight = Global.mapHeight
-	var mapWidth = Global.mapWidth
-	for i in mapHeight:
-		for j in mapWidth:
-			var currTile = Global.tileMap[i][j]
-#			if currTile.zone == Tile.TileZone.HEAVY_COMMERCIAL:
-#				taxProfit += (currTile.data[2] * HEAVY_COM_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
-#				taxProfit += (currTile.data[0] * HEAVY_COM_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
-#			elif currTile.zone == Tile.TileZone.LIGHT_COMMERCIAL:
-#				taxProfit += (currTile.data[2] * LIGHT_COM_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
-#				taxProfit += (currTile.data[0] * LIGHT_COM_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
-#			elif currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL:
-#				taxProfit += (currTile.data[2] * HEAVY_RES_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
-#				taxProfit += (currTile.data[0] * HEAVY_RES_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
-#			elif currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
-#				taxProfit += (currTile.data[2] * LIGHT_RES_INCOME_RATE * currTile.landValue) #multiplied by some profit rate
-#				taxProfit += (currTile.data[0] * LIGHT_RES_PROPERTY_RATE * currTile.landValue) #multiplied by some land value
-			taxProfit += currTile.profitRate
-	adjust_player_money(round(taxProfit))
-	
 func calcCityIncome(): #Calculate tax profit
 	var taxProfit = 0
 	var mapHeight = Global.mapHeight
@@ -118,37 +85,9 @@ func calcCityIncome(): #Calculate tax profit
 	for i in mapHeight:
 		for j in mapWidth:
 			var currTile = Global.tileMap[i][j]
-#			if currTile.zone == Tile.TileZone.HEAVY_COMMERCIAL:
-#				taxProfit += (currTile.data[2]  * currTile.landValue * HEAVY_COM_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
-#				taxProfit += (currTile.data[0]  * currTile.landValue * HEAVY_COM_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
-#			elif currTile.zone == Tile.TileZone.LIGHT_COMMERCIAL:
-#				taxProfit += (currTile.data[2]  * currTile.landValue * LIGHT_COM_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
-#				taxProfit += (currTile.data[0]  * currTile.landValue * LIGHT_COM_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
-#			elif currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL:
-#				taxProfit += (currTile.data[2]  * currTile.landValue * HEAVY_RES_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
-#				taxProfit += (currTile.data[0]  * currTile.landValue * HEAVY_RES_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
-#			elif currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
-#				taxProfit += (currTile.data[2]  * currTile.landValue * LIGHT_RES_INCOME_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some profit rate
-#				taxProfit += (currTile.data[0]  * currTile.landValue * LIGHT_RES_PROPERTY_RATE * TAX_INCOME_MULTIPLIER) #multiplied by some land value
 			taxProfit += currTile.profitRate
 	city_income = taxProfit
 	return round(taxProfit)
-	
-	#var numOfZones = 0
-	#var totalIncome = 0
-	#var mapHeight = Global.mapHeight
-	#var mapWidth = Global.mapWidth
-	#for i in mapHeight:
-	#	for j in mapWidth:
-	#		var currTile = Global.tileMap[i][j]
-	#		if currTile.zone == Tile.TileZone.HEAVY_COMMERCIAL || currTile.zone == Tile.TileZone.LIGHT_COMMERCIAL:
-	#			totalIncome += currTile.profitRate
-	#			numOfZones += 1
-	#var avgIncome = 0
-	#if numOfZones != 0:
-	#	avgIncome = totalIncome / numOfZones
-	#adjust_city_income(avgIncome)
-	#return avgIncome
 
 func adjust_tax_rate(val):
 	BASE_TAX_RATE += val
