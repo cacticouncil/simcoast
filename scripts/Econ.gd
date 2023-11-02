@@ -49,7 +49,8 @@ var money = 100000
 #Income and costs
 var city_income = 0 # Net Profit
 var city_costs = 0 # Upkeep costs
-
+var avg_income = 0 #avg income of a res tile
+var avg_profit = 0 #avg profit of a commercial tile
 #Probably not needed
 var city_tax_rate = BASE_TAX_RATE
 var property_tax_rate = 0.01 
@@ -192,6 +193,52 @@ func adjust_individual_tax_rate(num, dir):
 			currRate = HEAVY_COM_INCOME_RATE
 			currRate = adjust_individual_tax_rate_helper(currRate, dir)
 			HEAVY_COM_INCOME_RATE = currRate
+			
+func calc_profit_rates():
+	var total_income = 0
+	var total_profit = 0
+	var res_tiles = 0
+	var com_tiles = 0
+	#update the profit rate for all tiles and calc avg residential income and avg commercial profit
+	for x in Global.mapHeight:
+		for y in Global.mapWidth:
+			if is_valid_tile(x, y):
+				var currTile = Global.tileMap[x][y]
+				#city profit for res tiles is based on how many people are there and how many houses
+				if currTile.is_residential():
+					#no workers to pay income tax, so no revenue
+					if currTile.data[2] == 0:
+						currTile.profitRate = 0
+					else:
+						currTile.profitRate = (currTile.data[2] * UpdatePopulation.BASE_EMPLOYMENT_RATE * \
+						Econ.INCOME_TAX + currTile.data[0] * Econ.PROPERTY_TAX) * \
+						Econ.TAX_INCOME_MULTIPLIER * currTile.landValue
+					total_income += currTile.profitRate
+					print("res: ", currTile.profitRate)
+					res_tiles += 1
+				#commercial zones generate revenue via sales tax and property tax, 
+				#scaling how much sales tax based on the income of their surrounding area
+				if currTile.is_commercial():
+					#no workers to work, so no revenue from tile
+					if currTile.data[2] == 0:
+						currTile.profitRate = 0
+					else:
+						currTile.profitRate = (avg_income_around_tile(currTile.i, currTile.j) * Econ.SALES_TAX) * \
+						(UpdatePopulation.get_population() / Global.numCommercialZones) + \
+						currTile.data[0] * Econ.PROPERTY_TAX * Econ.TAX_INCOME_MULTIPLIER * currTile.landValue
+						#the population bit is to help commercial profit scale with population
+						# it basically assumes that people will patronize all commercial zones equally
+					total_profit += currTile.profitRate
+					print("com: ", currTile.profitRate)
+					com_tiles += 1
+					
+	#avg income now represents the average tax revenue from the incomes of the employed people 
+	#in the city and the value of the houses where they live
+	if (res_tiles != 0):
+		avg_income = total_income / res_tiles
+	#avg_profit represents the average amount of money a commercial tile makes in the city
+	if (com_tiles != 0):
+		avg_profit = total_profit / com_tiles
 
 # Helper Functions
 func comma_values(val):
@@ -223,3 +270,31 @@ func adjust_individual_tax_rate_helper(currRate, dir):
 		currRate = 1
 	
 	return currRate
+	
+func avg_income_around_tile(i, j):
+	var total_income = 0
+	var res_tiles = 0
+	var local_avg_income = 0
+	if is_valid_tile(i, j):
+		var tile = Global.tileMap[i][j]
+		for x in range(tile.i-1, tile.i+2):
+			for y in range(tile.j-1, tile.j+2):
+				if is_valid_tile(x, y):
+					var currTile = Global.tileMap[x][y]
+					if currTile.is_residential():
+						var tile_income = (currTile.data[2] * UpdatePopulation.BASE_EMPLOYMENT_RATE * \
+						Econ.INCOME_TAX + currTile.data[0] * Econ.PROPERTY_TAX) * \
+						Econ.TAX_INCOME_MULTIPLIER * currTile.landValue
+						total_income += tile_income
+						res_tiles += 1
+		if res_tiles != 0:
+			local_avg_income = total_income / res_tiles
+	return local_avg_income
+	
+#copied from presence_of_water.gd for use in above function as a helper
+func is_valid_tile(i, j) -> bool:
+	if i < 0 || Global.mapHeight <= i:
+		return false
+	if j < 0 || Global.mapWidth <= j:
+		return false
+	return true
