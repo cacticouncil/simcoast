@@ -23,6 +23,9 @@ var year = 2022
 
 func update_date():
 	ticksSinceLastMonthChange += 1
+	#update profit display weekly
+	if ticksSinceLastMonthChange % (MONTH_TICKS/4) == 0:
+		Econ.updateProfitDisplay()
 	if (ticksSinceLastMonthChange >= MONTH_TICKS):
 		ticksSinceLastMonthChange = 0
 		if (month == Months.December):

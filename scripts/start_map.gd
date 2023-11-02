@@ -439,6 +439,7 @@ func update_game_state():
 	UpdatePopulation.update_population()
 	UpdateDemand.get_demand()
 	UpdateErosion.update_erosion()
+	Econ.calc_profit_rates()
 	Econ.calcCityIncome()
 	Econ.calculate_upkeep_costs()
 	UpdateDate.update_date()
@@ -446,7 +447,7 @@ func update_game_state():
 func update_graphics():
 	#print("Updating graphics on tick: " + str(numTicks))
 	UpdateGraphics.update_graphics()
-	Econ.updateProfitDisplay()
+#	Econ.updateProfitDisplay()
 
 func _on_play_button_toggled(button_pressed:bool):
 	Global.isPaused = button_pressed
