@@ -12,6 +12,9 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var commercial_neighbor = 0
 	var industrial_neighbor = 0
 	var public_works_neighbors = 0
+	var parks = 0
+	var museums = 0
+	var libraries = 0
 	
 	# Get all neighbors in a circular radius.
 	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1],
@@ -38,6 +41,13 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 					commercial_neighbor += 2
 				Tile.TileZone.PUBLIC_WORKS:
 					public_works_neighbors += 1
+					match(neighbor.inf):
+						Tile.TileInf.PARK:
+							parks += 1
+						Tile.TileInf.LIBRARY:
+							libraries += 1
+						Tile.TileInf.MUSEUM:
+							museums += 1
 				_:
 					continue
 	
@@ -55,6 +65,9 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	tile.commercial_neighbors = commercial_neighbor
 	tile.industrial_neighbors = industrial_neighbor
 	tile.public_works_neighbors = public_works_neighbors
+	tile.public_works_dictionary['parks'] = parks
+	tile.public_works_dictionary['libraries'] = libraries
+	tile.public_works_dictionary['museums'] = museums
 	
 	return succeed()
 

@@ -623,7 +623,7 @@ text = "Industrial"
 align = 1
 valign = 1
 
-[node name="power_plant_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Industrial"]
+[node name="utility_plant_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Industrial"]
 margin_left = 20.66
 margin_top = 27.0
 margin_right = 64.66
@@ -637,7 +637,7 @@ texture_pressed = ExtResource( 94 )
 texture_hover = ExtResource( 93 )
 texture_focused = ExtResource( 94 )
 
-[node name="Label" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Industrial/power_plant_button"]
+[node name="Label" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Industrial/utility_plant_button"]
 margin_left = -20.0
 margin_top = 40.0
 margin_right = 64.0

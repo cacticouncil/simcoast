@@ -144,6 +144,11 @@ var residential_neighbors = 0
 var commercial_neighbors = 0
 var industrial_neighbors = 0
 var public_works_neighbors = 0
+var public_works_dictionary = {
+	"parks": 0,
+	"libraries": 0,
+	"museums": 0
+}
 var prop_tax_weight = 0
 var is_sales_tax_heavy = false
 var is_sales_tax_neutral = false

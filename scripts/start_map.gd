@@ -292,6 +292,7 @@ func _unhandled_input(event):
 						if (Econ.purchase_structure(Econ.LIBRARY_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.LIBRARY
+							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numLibraries += 1
 							#TODO: not tracking libraries currently
 							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
@@ -313,6 +314,7 @@ func _unhandled_input(event):
 						if (Econ.purchase_structure(Econ.MUSEUM_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.MUSEUM
+							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numMuseums += 1
 							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
