@@ -57,8 +57,8 @@ func button_hover(button):
 			toolInfo.text = "Build Hospital   (Right Click: Remove Hospital)"
 		'police_station_button':
 			toolInfo.text = "Build Police Station   (Right Click: Remove Police Station)"
-		'power_plant_button':
-			toolInfo.text = "Build Power Plant"
+		'utility_plant_button':
+			toolInfo.text = "Build Utilities Plant"
 		'sewage_facility_button':
 			toolInfo.text = "Build Sewage Facility"
 		'waste_treatment_button':
@@ -140,8 +140,8 @@ func button_pressed():
 			Global.mapTool = Global.Tool.INF_HOSPITAL
 		'police_station_button':
 			Global.mapTool = Global.Tool.INF_POLICE_STATION
-		'power_plant_button':
-			Global.mapTool = Global.Tool.INF_POWER_PLANT
+		'utility_plant_button':
+			Global.mapTool = Global.Tool.INF_UTILITIES_PLANT
 		'sewage_facility_button':
 			Global.mapTool = Global.Tool.INF_SEWAGE_FACILITY
 		'waste_treatment_button':

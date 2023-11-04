@@ -39,6 +39,11 @@ var colRange = range(0, mapHeight, 1)
 # For Economy AI use only (see number_of_zones.gd)
 var numZones = 0
 var numPeople = 0
+var numResidentialZones = 0
+var numCommercialZones = 0
+
+# Economy AI constants
+const ZONE_BALANCE = -.01
 
 # To know if game is paused
 var isPaused = false
@@ -82,9 +87,9 @@ enum Tool {
 	INF_MUSEUM,
 	INF_ROAD,
 	INF_BRIDGE,
-	INF_POWER_PLANT,
 	INF_SEWAGE_FACILITY,
 	INF_WASTE_TREATMENT,
+	INF_UTILITIES_PLANT,
 	INF_BEACH_ROCKS,
 	INF_BEACH_GRASS,
 	CLEAR_TILE,
