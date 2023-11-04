@@ -141,6 +141,25 @@ func connectRoads(tile):
 			road.connections[2] = 1
 		if roadConnected(road, [road.i, road.j+1], maxHeightDiff):
 			road.connections[3] = 1
+
+func disconnectBridges(tile):
+	tile.bridge_connected_to_dirt = false
+	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
+	var checked = []
+	for n in neighbors:
+		checked.append(n)
+		if is_tile_inbounds(n[0], n[1]):
+			if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.BRIDGE:
+				var currTile = Global.tileMap[n[0]][n[1]]
+				currTile.bridge_connected_to_dirt = false
+				if not [currTile.i-1, currTile.j] in checked:
+					neighbors.append([currTile.i-1, currTile.j])
+				if not [currTile.i+1, currTile.j] in checked:
+					neighbors.append([currTile.i+1, currTile.j])
+				if not [currTile.i, currTile.j-1] in checked:
+					neighbors.append([currTile.i, currTile.j-1])
+				if not [currTile.i, currTile.j+1] in checked:
+					neighbors.append([currTile.i, currTile.j+1])
 	
 
 func roadConnected(tile, n, diff):

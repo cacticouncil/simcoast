@@ -459,6 +459,7 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.BRIDGE:
 						tile.clear_tile()
 						tile.bridgeHeight = 0
+						City.disconnectBridges(tile)
 						City.connectRoads(tile)
 						City.connectUtilities()
 						City.numBridges -= 1
