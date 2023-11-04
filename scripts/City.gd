@@ -101,7 +101,7 @@ func connectUtilities():
 
 				for n in neighbors:
 					if is_tile_inbounds(n[0], n[1]):
-						if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.ROAD:
+						if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.ROAD || Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.BRIDGE:
 							if roadConnected(road, n, Global.MAX_CONNECTION_HEIGHT):
 								if Global.tileMap[n[0]][n[1]].utilities == false:
 									queue.append(Global.tileMap[n[0]][n[1]])

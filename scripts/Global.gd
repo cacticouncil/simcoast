@@ -13,7 +13,7 @@ const MAX_HEIGHT = 40				# Maximum vertical height for any tile
 const MIN_MAP_SIZE = 8
 const MAX_MAP_SIZE = 64
 
-const MAX_CONNECTION_HEIGHT = 3		# Largest amount of height allowed to consider tiles connected
+const MAX_CONNECTION_HEIGHT = 100		# Largest amount of height allowed to consider tiles connected
 
 const TICK_DELAY = 0.05#Time between ticks
 

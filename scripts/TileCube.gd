@@ -146,7 +146,8 @@ func _draw():
 		for r in objects:
 			draw_polygon(r, PoolColorArray([Tile.ROAD_COLOR[0]]))
 	elif tile.inf == Tile.TileInf.BRIDGE:
-		for r in objects:
+		draw_polygon(objects[0], PoolColorArray([Tile.BRIDGE_COLOR[1]]))
+		for r in objects.slice(1, objects.size() - 1):
 			draw_polygon(r, PoolColorArray([Tile.BRIDGE_COLOR[0]]))
 
 func clear_objects():
@@ -485,6 +486,48 @@ func update_polygons():
 				]))
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		clear_objects()
+		#var tileHeight = Global.TILE_HEIGHT
+		var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
+		var numNeighbors = 0
+		h = 0
+		for n in neighbors:
+			if is_valid_tile(n[0], n[1]):
+				var neighbor = Global.tileMap[n[0]][n[1]]
+				if neighbor.get_base() == Tile.TileBase.DIRT:
+					h += neighbor.baseHeight
+					numNeighbors += 1
+		if numNeighbors > 0:
+			h = h / numNeighbors
+			tile.bridgeHeight = h
+			tile.bridge_connected_to_dirt = true
+		else:
+			#We have no dirt tiles, we should match bridge heights around us
+			for n in neighbors:
+				if is_valid_tile(n[0], n[1]):
+					var neighbor = Global.tileMap[n[0]][n[1]]
+					if neighbor.inf == Tile.TileInf.BRIDGE && neighbor.bridge_connected_to_dirt:
+						h += neighbor.bridgeHeight
+						numNeighbors += 1
+			if numNeighbors > 0:
+				h = h / numNeighbors
+				tile.bridgeHeight = h
+				tile.bridge_connected_to_dirt = true
+			else:
+				h = Global.oceanHeight
+				tile.bridgeHeight = h
+		var building_width = Global.TILE_WIDTH
+		var building_depth = building_width / 2.0
+		var building_height = 0
+		var cube_x = x
+		var cube_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		objects.append(PoolVector2Array([
+			Vector2(cube_x, cube_y - building_height), 
+			Vector2(cube_x + (building_width / 2.0), cube_y - building_height + (building_depth / 2.0)), 
+			Vector2(cube_x, cube_y - building_height + building_depth), 
+			Vector2(cube_x - (building_width / 2.0), cube_y - building_height + (building_depth / 2.0)), 
+			Vector2(cube_x, cube_y - building_height)
+			]))
 		
 		if tile.connections[(0 + Global.camDirection) % 4]:
 			objects.append(PoolVector2Array([
@@ -700,8 +743,8 @@ func get_cube_colors():
 			colors[3] = Tile.PARK_COLOR[1]
 		Tile.TileInf.ROAD:
 			colors[0] = Tile.ROCK_COLOR[0]
-		Tile.TileInf.BRIDGE:
-			colors[0] = Tile.ROCK_COLOR[0]
+		#Tile.TileInf.BRIDGE:
+			#colors[0] = Tile.ROCK_COLOR[0]
 
 	return colors
 
@@ -807,3 +850,10 @@ func adjust_coordinates(a, b):
 	x = (a * (Global.TILE_WIDTH / 2.0)) + (b * (-Global.TILE_WIDTH / 2.0))
 	y = (a * (Global.TILE_HEIGHT / 2.0)) + (b * (Global.TILE_HEIGHT / 2.0))
 	update_polygons()
+
+func is_valid_tile(i, j) -> bool:
+	if i < 0 || Global.mapWidth <= i:
+		return false
+	if j < 0 || Global.mapHeight <= j:
+		return false
+	return true

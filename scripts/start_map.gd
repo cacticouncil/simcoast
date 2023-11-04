@@ -458,6 +458,7 @@ func _unhandled_input(event):
 				elif Input.is_action_pressed("right_click"):
 					if tile.inf == Tile.TileInf.BRIDGE:
 						tile.clear_tile()
+						tile.bridgeHeight = 0
 						City.connectRoads(tile)
 						City.connectUtilities()
 						City.numBridges -= 1

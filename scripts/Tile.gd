@@ -91,6 +91,7 @@ var i
 var j
 var baseHeight = 0
 var waterHeight = 0
+var bridgeHeight = 0
 var base = 0
 var zone = 0
 var inf = 0
@@ -149,6 +150,7 @@ const GROWTH = .001
 # Economy AI: Equation variable booleans & values
 var is_close_water = false
 var is_far_water = false
+var bridge_connected_to_dirt = false
 var tile_base_dirt = false
 var tile_base_rock = false
 var tile_base_sand = false
