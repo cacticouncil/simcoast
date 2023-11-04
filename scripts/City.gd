@@ -216,6 +216,9 @@ func adjust_tile_height(tile):
 	elif Input.is_action_pressed("right_click"):
 		tile.lower_tile()
 
+func make_tile_water(tile):
+	tile.set_height_zero()
+
 # Change water height of tile
 func adjust_tile_water(tile):
 	if Input.is_action_pressed("left_click"):

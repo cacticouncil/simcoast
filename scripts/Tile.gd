@@ -125,6 +125,12 @@ const PARK_NEIGHBORS = 0.1
 const LIBRARY_NEIGHBORS = 0.2
 const MUSEUM_NEIGHBORS = 0.2
 const SCHOOL_NEIGHBORS = 0.2
+
+#These 3 give a one time boost
+const FIRE_STATION_NEIGHBORS = 0.3
+const POLICE_STATION_NEIGHBORS = 0.3
+const HOSPITAL_NEIGHBORS = 0.3
+
 const NUMBER_ZONES = 0.01
 const NUMBER_PEOPLE = 0.001
 const PROP_TAX_HEAVY = -0.1
@@ -154,7 +160,10 @@ var public_works_dictionary = {
 	"parks": 0,
 	"libraries": 0,
 	"museums": 0,
-	"school": 0
+	"school": 0,
+	"fire_stations": 0,
+	"hospitals": 0,
+	"police_stations": 0
 }
 var prop_tax_weight = 0
 var is_sales_tax_heavy = false
@@ -244,6 +253,9 @@ func lower_tile():
 	baseHeight -= 1
 	if baseHeight < 0:
 		baseHeight = 0
+
+func set_height_zero():
+	baseHeight = 0
 
 func raise_water():
 	waterHeight += 3
@@ -459,6 +471,12 @@ func get_public_works_value():
 		schoolValue -= 0.025
 		if schoolValue <= 0:
 			break
+	if public_works_dictionary['fire_stations'] > 0:
+		value += FIRE_STATION_NEIGHBORS
+	if public_works_dictionary['hospitals'] > 0:
+		value += HOSPITAL_NEIGHBORS
+	if public_works_dictionary['police_stations'] > 0:
+		value += POLICE_STATION_NEIGHBORS
 	return value
 
 func _ready():

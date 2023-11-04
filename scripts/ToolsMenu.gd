@@ -35,6 +35,8 @@ func button_hover(button):
 			toolInfo.text = "Replace base tile with sand / Raise and base tile height   (Right Click: Lower sand base tile height)"
 		'ocean_button':
 			toolInfo.text = "Replace base tile with ocean"
+		'water_button':
+			toolInfo.text = "Turns tile to water"
 		'lt_res_zone_button':
 			toolInfo.text = "Light Residential Zone   (Right Click: Remove zoning)"
 		'hv_res_zone_button':
@@ -119,6 +121,8 @@ func button_pressed():
 		'sand_button':
 			Global.mapTool = Global.Tool.BASE_SAND
 		'ocean_button':
+			Global.mapTool = Global.Tool.BASE_OCEAN
+		'water_button':
 			Global.mapTool = Global.Tool.BASE_OCEAN
 		'lt_res_zone_button':
 			Global.mapTool = Global.Tool.ZONE_LT_RES

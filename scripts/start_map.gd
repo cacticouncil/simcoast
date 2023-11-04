@@ -142,6 +142,9 @@ func _unhandled_input(event):
 					tile.set_base(Tile.TileBase.OCEAN)
 					tile.set_base_height(Global.oceanHeight)
 					tile.set_water_height(0)
+			
+			Global.Tool.BASE_SAND:
+				City.adjust_tile_height(tile)
 	
 			# Clear and zone a tile (if it is not already of the same zone)
 			Global.Tool.ZONE_LT_RES, Global.Tool.ZONE_HV_RES, Global.Tool.ZONE_LT_COM, Global.Tool.ZONE_HV_COM:
