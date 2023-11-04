@@ -40,6 +40,12 @@ enum TileInf {
 	WASTE_TREATMENT
 }
 
+enum TileSensor {
+	NONE,
+	TIDE,
+	RAIN
+}
+
 # Flooding damage levels that can affect tiles
 enum TileStatus {
 	NONE,
@@ -108,6 +114,7 @@ var happiness = 0
 var changeInWaterHeight = 0
 # Tracks what connections a tile has to its neighbors with roads
 var connections = [0,0,0,0]
+var sensor = TileSensor.NONE
 
 # Economy AI: equation coefficient constants
 var desirability = 0.2
@@ -442,6 +449,9 @@ func clear_house():
 	while (data[0] > 0):
 		remove_building()
 	data = [0, 0, 0, 0, 0]
+
+func clear_sensor():
+	sensor = TileSensor.NONE
 
 func get_data():
 	return data

@@ -30,3 +30,6 @@ func remove_building(building):
 
 func get_number_of_buildings(building):
 	return items[building]
+
+func has_building(building):
+	return items[building] > 0

@@ -20,6 +20,11 @@ animations = [ {
 [node name="Tutorial" type="CanvasLayer"]
 script = ExtResource( 8 )
 
+[node name="BG" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.392157 )
+
 [node name="DialogueBox" type="ColorRect" parent="."]
 margin_left = 117.0
 margin_top = 494.0

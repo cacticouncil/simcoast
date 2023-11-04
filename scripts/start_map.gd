@@ -416,6 +416,25 @@ func _unhandled_input(event):
 						tile.clear_tile()
 						City.numSchools -= 1
 			
+			Global.Tool.SENSOR_TIDE:
+				#TODO: Museums don't do anything right now
+				if Input.is_action_pressed("left_click"):
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.sensor != Tile.TileSensor.TIDE):
+						if (Inventory.has_building("tide_sensor")):
+							tile.sensor = Tile.TileSensor.TIDE
+							#TODO: not tracking museums currently
+							Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
+							Inventory.remove_building("tide_sensor")
+						else:
+							print("No available sensors!")
+					elif (tile.sensor == Tile.TileSensor.TIDE):
+						actionText.text = "Sensor already here!"
+					else:
+						actionText.text = "Different sensor here"
+				elif Input.is_action_pressed("right_click"):
+					if tile.sensor == Tile.TileSensor.TIDE:
+						tile.clear_sensor()
+			
 			Global.Tool.INF_ROAD:
 				if Input.is_action_pressed("left_click"):
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.ROAD):

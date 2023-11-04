@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=2]
+[gd_scene load_steps=100 format=2]
 
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/buttons/library_normal.png" type="Texture" id=2]
@@ -45,6 +45,9 @@
 [ext_resource path="res://assets/buttons/water_hover.png" type="Texture" id=43]
 [ext_resource path="res://assets/ui/ui_money.png" type="Texture" id=44]
 [ext_resource path="res://assets/ui/ui_population.png" type="Texture" id=45]
+[ext_resource path="res://assets/buttons/tide_sensor_hover.png" type="Texture" id=46]
+[ext_resource path="res://assets/buttons/tide_sensor_normal.png" type="Texture" id=47]
+[ext_resource path="res://assets/buttons/tide_sensor_active.png" type="Texture" id=48]
 [ext_resource path="res://assets/buttons/lt_res_zone_hover.png" type="Texture" id=50]
 [ext_resource path="res://assets/buttons/hv_res_zone_normal.png" type="Texture" id=51]
 [ext_resource path="res://assets/buttons/hv_res_zone_active.png" type="Texture" id=52]
@@ -418,7 +421,7 @@ group = ExtResource( 16 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/ToolsMenu"]
 margin_right = 150.0
-margin_bottom = 1030.0
+margin_bottom = 955.0
 custom_constants/separation = 0
 
 [node name="ToolbarTitle" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer"]
@@ -949,9 +952,9 @@ valign = 1
 [node name="Sensors" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer"]
 margin_top = 865.0
 margin_right = 150.0
-margin_bottom = 1030.0
-rect_min_size = Vector2( 150, 165 )
-color = Color( 0.431373, 0.458824, 0.517647, 0.321569 )
+margin_bottom = 955.0
+rect_min_size = Vector2( 150, 90 )
+color = Color( 0.235294, 0.235294, 0.235294, 0.878431 )
 
 [node name="Title" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Sensors"]
 margin_top = 3.0
@@ -972,10 +975,10 @@ hint_tooltip = "Road/Power Tile"
 toggle_mode = true
 keep_pressed_outside = true
 group = ExtResource( 16 )
-texture_normal = ExtResource( 27 )
-texture_pressed = ExtResource( 25 )
-texture_hover = ExtResource( 24 )
-texture_focused = ExtResource( 25 )
+texture_normal = ExtResource( 47 )
+texture_pressed = ExtResource( 48 )
+texture_hover = ExtResource( 46 )
+texture_focused = ExtResource( 48 )
 
 [node name="Label" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Sensors/tide_sensor_button"]
 margin_left = -20.0
@@ -983,7 +986,7 @@ margin_top = 40.0
 margin_right = 64.0
 margin_bottom = 60.0
 custom_fonts/font = SubResource( 18 )
-text = "Park"
+text = "Tide Sensor"
 align = 1
 valign = 1
 
@@ -1007,55 +1010,7 @@ margin_top = 40.0
 margin_right = 64.0
 margin_bottom = 60.0
 custom_fonts/font = SubResource( 18 )
-text = "Library"
-align = 1
-valign = 1
-
-[node name="museum_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Sensors"]
-margin_left = 20.66
-margin_top = 96.0
-margin_right = 64.66
-margin_bottom = 139.0
-hint_tooltip = "Road/Power Tile"
-toggle_mode = true
-keep_pressed_outside = true
-group = ExtResource( 16 )
-texture_normal = ExtResource( 9 )
-texture_pressed = ExtResource( 10 )
-texture_hover = ExtResource( 8 )
-texture_focused = ExtResource( 10 )
-
-[node name="Label" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Sensors/museum_button"]
-margin_left = -20.0
-margin_top = 40.0
-margin_right = 64.0
-margin_bottom = 60.0
-custom_fonts/font = SubResource( 18 )
-text = "Museum"
-align = 1
-valign = 1
-
-[node name="school_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Sensors"]
-margin_left = 85.32
-margin_top = 96.0
-margin_right = 129.32
-margin_bottom = 139.0
-hint_tooltip = "Road/Power Tile"
-toggle_mode = true
-keep_pressed_outside = true
-group = ExtResource( 16 )
-texture_normal = ExtResource( 37 )
-texture_pressed = ExtResource( 38 )
-texture_hover = ExtResource( 40 )
-texture_focused = ExtResource( 38 )
-
-[node name="Label" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Sensors/school_button"]
-margin_left = -20.0
-margin_top = 40.0
-margin_right = 64.0
-margin_bottom = 60.0
-custom_fonts/font = SubResource( 18 )
-text = "School"
+text = "Rain Sensor"
 align = 1
 valign = 1
 

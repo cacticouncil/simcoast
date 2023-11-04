@@ -176,6 +176,8 @@ func button_pressed():
 			Global.mapTool = Global.Tool.LAYER_WATER
 		'clear_water_button':
 			Global.mapTool = Global.Tool.CLEAR_WATER
+		'tide_sensor_button':
+			Global.mapTool = Global.Tool.SENSOR_TIDE
 		
 		'raise_ocean_button':
 			Global.mapTool = Global.Tool.NONE
