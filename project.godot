@@ -100,6 +100,11 @@ _global_script_classes=[ {
 "path": "res://addons/behavior_tree/src/blackboard.gd"
 }, {
 "base": "Node",
+"class": "DialogueSystem",
+"language": "GDScript",
+"path": "res://scripts/Dialogue/DialogueSystem.gd"
+}, {
+"base": "Node",
 "class": "Event",
 "language": "GDScript",
 "path": "res://scripts/Event.gd"
@@ -109,15 +114,30 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://git_api.gdns"
 }, {
+"base": "Object",
+"class": "NPC",
+"language": "GDScript",
+"path": "res://scripts/NPC.gd"
+}, {
 "base": "Node",
 "class": "Observer",
 "language": "GDScript",
 "path": "res://scripts/Observers/Observer.gd"
 }, {
 "base": "Node",
+"class": "Sensor",
+"language": "GDScript",
+"path": "res://scripts/Sensor.gd"
+}, {
+"base": "Node",
 "class": "SfxObserver",
 "language": "GDScript",
 "path": "res://scripts/Observers/SfxObserver.gd"
+}, {
+"base": "Node",
+"class": "SuggestionSystem",
+"language": "GDScript",
+"path": "res://scripts/Dialogue/SuggestionSystem.gd"
 }, {
 "base": "Object",
 "class": "Tile",
@@ -148,10 +168,14 @@ _global_script_class_icons={
 "BTWait": "res://addons/behavior_tree/icons/btwait.svg",
 "BehaviorTree": "res://addons/behavior_tree/icons/bt.svg",
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
+"DialogueSystem": "",
 "Event": "",
 "GitAPI": "",
+"NPC": "",
 "Observer": "",
+"Sensor": "",
 "SfxObserver": "",
+"SuggestionSystem": "",
 "Tile": "",
 "TileCube": ""
 }
@@ -186,6 +210,8 @@ MissionObserver="*res://scripts/Observers/MissionObserver.gd"
 AchievementObserver="*res://scripts/Observers/AchievementObserver.gd"
 Stats="*res://scripts/Stats.gd"
 NpcObserver="*res://scripts/Observers/NpcObserver.gd"
+NPCOrganizer="*res://scripts/NPCOrganizer.gd"
+Introduction="*res://ui/NPC_Interactions/Introduction.gd"
 
 [display]
 
@@ -257,6 +283,21 @@ right_click={
 taxMenu={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+pick_first_option={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":49,"unicode":0,"echo":false,"script":null)
+ ]
+}
+pick_second_option={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":50,"unicode":0,"echo":false,"script":null)
+ ]
+}
+pick_third_option={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":51,"unicode":0,"echo":false,"script":null)
  ]
 }
 
