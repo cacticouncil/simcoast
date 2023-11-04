@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=2]
+[gd_scene load_steps=92 format=2]
 
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/buttons/library_normal.png" type="Texture" id=2]
@@ -36,7 +36,10 @@
 [ext_resource path="res://assets/buttons/road_hover.png" type="Texture" id=34]
 [ext_resource path="res://assets/buttons/road_normal.png" type="Texture" id=35]
 [ext_resource path="res://assets/buttons/road_active.png" type="Texture" id=36]
+[ext_resource path="res://assets/buttons/school_normal.png" type="Texture" id=37]
+[ext_resource path="res://assets/buttons/school_active.png" type="Texture" id=38]
 [ext_resource path="res://SaveDialog.gd" type="Script" id=39]
+[ext_resource path="res://assets/buttons/school_hover.png" type="Texture" id=40]
 [ext_resource path="res://assets/buttons/lt_res_zone_hover.png" type="Texture" id=50]
 [ext_resource path="res://assets/buttons/hv_res_zone_normal.png" type="Texture" id=51]
 [ext_resource path="res://assets/buttons/hv_res_zone_active.png" type="Texture" id=52]
@@ -871,6 +874,30 @@ margin_right = 64.0
 margin_bottom = 60.0
 custom_fonts/font = SubResource( 18 )
 text = "Museum"
+align = 1
+valign = 1
+
+[node name="school_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Public Services"]
+margin_left = 85.32
+margin_top = 96.0
+margin_right = 129.32
+margin_bottom = 139.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 16 )
+texture_normal = ExtResource( 37 )
+texture_pressed = ExtResource( 38 )
+texture_hover = ExtResource( 40 )
+texture_focused = ExtResource( 38 )
+
+[node name="Label" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Public Services/school_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 18 )
+text = "School"
 align = 1
 valign = 1
 

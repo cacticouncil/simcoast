@@ -6,6 +6,7 @@ var numRoads = 0
 var numBridges = 0
 var numLibraries = 0
 var numMuseums = 0
+var numSchools = 0
 var numFireStations = 0
 var numHospital = 0
 var numPoliceStations = 0

@@ -392,6 +392,27 @@ func _unhandled_input(event):
 						tile.clear_tile()
 						City.numPoliceStations -= 1
 			
+			Global.Tool.INF_SCHOOL:
+				#TODO: Museums don't do anything right now
+				if Input.is_action_pressed("left_click"):
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.SCHOOL):
+						if (Econ.purchase_structure(Econ.SCHOOL_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.SCHOOL
+							City.numSchools += 1
+							#TODO: not tracking museums currently
+							Announcer.notify(Event.new("Added Tile", "Added School", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.SCHOOL):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Schools must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.SCHOOL:
+						tile.clear_tile()
+						City.numSchools -= 1
+			
 			Global.Tool.INF_ROAD:
 				if Input.is_action_pressed("left_click"):
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.ROAD):
@@ -422,7 +443,7 @@ func _unhandled_input(event):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.BRIDGE
 							City.connectRoads(tile)
-							City.connectPower()
+							City.connectUtilities()
 							City.numBridges += 1
 							Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
 						else:
@@ -435,7 +456,7 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.BRIDGE:
 						tile.clear_tile()
 						City.connectRoads(tile)
-						City.connectPower()
+						City.connectUtilities()
 						City.numBridges -= 1
 
 			Global.Tool.INF_BEACH_ROCKS:

@@ -38,6 +38,7 @@ const ROAD_COST = 100
 const BRIDGE_COST = 200
 const LIBRARY_COST = 3000
 const MUSEUM_COST = 3000
+const SCHOOL_COST = 3000
 const FIRE_STATION_COST = 5000
 const HOSPITAL_COST = 5000
 const POLICE_STATION_COST = 5000
@@ -49,6 +50,7 @@ const ROAD_UPKEEP_COST = 2
 const BRIDGE_UPKEEP_COST = 4
 const LIBRARY_UPKEEP_COST = 50
 const MUSEUM_UPKEEP_COST = 50
+const SCHOOL_UPKEEP_COST = 50
 const FIRE_STATION_UPKEEP_COST = 100
 const HOSPITAL_UPKEEP_COST = 100
 const POLICE_STATION_UPKEEP_COST = 100
@@ -87,14 +89,15 @@ func calculate_upkeep_costs():
 	city_costs += City.numUtilityPlants * UTILITIES_PLANT_UPKEEP_COST
 	city_costs += City.numParks * PARK_UPKEEP_COST
 	city_costs += City.numRoads * ROAD_UPKEEP_COST
-	city_costs += City.numBridges * BRIDGE_COST
+	city_costs += City.numBridges * BRIDGE_UPKEEP_COST
 	city_costs += City.numLibraries * LIBRARY_UPKEEP_COST
 	city_costs += City.numMuseums * MUSEUM_UPKEEP_COST
+	city_costs += City.numSchools * SCHOOL_UPKEEP_COST
 	city_costs += City.numFireStations * FIRE_STATION_UPKEEP_COST
 	city_costs += City.numHospital * HOSPITAL_UPKEEP_COST
 	city_costs += City.numPoliceStations * POLICE_STATION_UPKEEP_COST
 	city_costs += City.numSewageFacilities * SEWAGE_FACILITY_UPKEEP_COST
-	city_costs += City.numWasteTreatment * WASTE_TREATMENT_COST
+	city_costs += City.numWasteTreatment * WASTE_TREATMENT_UPKEEP_COST
 
 #func adjust_city_income(val):
 #	city_income = val
