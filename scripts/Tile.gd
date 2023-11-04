@@ -439,18 +439,26 @@ func get_public_works_value():
 	for i in range(public_works_dictionary['parks']):
 		value += parkValue
 		parkValue -= 0.025
+		if parkValue <= 0:
+			break
 	var libraryValue = LIBRARY_NEIGHBORS
 	for i in range(public_works_dictionary['libraries']):
 		value += libraryValue
 		libraryValue -= 0.025
+		if libraryValue <= 0:
+			break
 	var museumValue = MUSEUM_NEIGHBORS
 	for i in range(public_works_dictionary['museums']):
 		value += museumValue
 		museumValue -= 0.025
+		if museumValue <= 0:
+			break
 	var schoolValue = SCHOOL_NEIGHBORS
 	for i in range(public_works_dictionary['schools']):
 		value += schoolValue
 		schoolValue -= 0.025
+		if schoolValue <= 0:
+			break
 	return value
 
 func _ready():
