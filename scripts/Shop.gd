@@ -12,13 +12,26 @@ func _ready():
 
 
 func _on_QuitShop_pressed():
+	$QuitShop.material.set_shader_param("value", 1)
+	get_node("/root/CityMap/HUD/TopBarBG/DashboardSelected").visible = true
+	get_node("/root/CityMap/HUD/TopBarBG/AchievementSelected").visible = false
 	get_parent().remove_child(self)
 
 func _on_CloseInfo_pressed():
 	$InformationBox.visible = false
 
 
-
 func _on_InfoButton1_pressed():
 	$InformationBox.visible = true
 	$InformationBox/infoText.bbcode_text = tide_info
+
+func _on_QuitShop_mouse_entered():
+	$QuitShop.material.set_shader_param("value", 0.3)
+
+
+func _on_QuitShop_mouse_exited():
+	$QuitShop.material.set_shader_param("value", 1)
+
+
+func _on_QuitShop_button_down():
+	$QuitShop.material.set_shader_param("value", 0.1)

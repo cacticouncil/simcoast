@@ -661,6 +661,12 @@ func _on_StoreButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = false
 	$HUD/TopBarBG/AchievementSelected.visible = false
 	$HUD/TopBarBG/StoreSelected.visible = true
+	var tut = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
+	var TutInstance = tut.instance()
+	add_child(TutInstance)
+	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
+	var TutorialInstance = tutorial.instance()
+	add_child(TutorialInstance)
 
 func _on_DashboardButton_mouse_entered():
 	$HUD/TopBarBG/DashboardHover.visible = true

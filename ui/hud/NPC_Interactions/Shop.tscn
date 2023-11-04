@@ -261,6 +261,9 @@ margin_right = 1260.0
 margin_bottom = 640.0
 color = Color( 0.85098, 0.85098, 0.85098, 1 )
 
+[connection signal="button_down" from="QuitShop" to="." method="_on_QuitShop_button_down"]
+[connection signal="mouse_entered" from="QuitShop" to="." method="_on_QuitShop_mouse_entered"]
+[connection signal="mouse_exited" from="QuitShop" to="." method="_on_QuitShop_mouse_exited"]
 [connection signal="pressed" from="QuitShop" to="." method="_on_QuitShop_pressed"]
 [connection signal="pressed" from="InformationBox/CloseInfo" to="." method="_on_CloseInfo_pressed"]
 [connection signal="pressed" from="Sensor1/SensorName/InfoButton1" to="." method="_on_InfoButton1_pressed"]

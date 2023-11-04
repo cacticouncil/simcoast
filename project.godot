@@ -210,6 +210,7 @@ MissionObserver="*res://scripts/Observers/MissionObserver.gd"
 AchievementObserver="*res://scripts/Observers/AchievementObserver.gd"
 Stats="*res://scripts/Stats.gd"
 NpcObserver="*res://scripts/Observers/NpcObserver.gd"
+NPCOrganizer="*res://scripts/NPCOrganizer.gd"
 
 [display]
 
