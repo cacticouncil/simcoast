@@ -18,9 +18,17 @@ var items = {
 	"rain_sensor": 0
 }
 
-# Called when the node enters the scene tree for the first time.
+var tide_info = " Used to measure the speed and\n height of the tide and other\n weather metrics."
+var rain_info = " Used to measure the amount of\n rain fall an area has had over\n a period of time."
+var gen_info = " This is a sensor that measures \n something. TBA"
+var sensors = []
+
 func _ready():
-	pass # Replace with function body.
+	sensors.append(Sensor.new("Tide Gauge", tide_info, " "))
+	sensors[0].set_status(true)
+	sensors.append(Sensor.new("Rain Gauge", rain_info, "Buy a Tide Gauge"))
+	sensors.append(Sensor.new("GEN1 Gauge", gen_info, "Buy a Rain Gauge"))
+	sensors.append(Sensor.new("GEN2 Gauge", gen_info, "Buy a GEN1 Gauge"))
 
 func add_building(building):
 	items[building] += 1
@@ -33,3 +41,30 @@ func get_number_of_buildings(building):
 
 func has_building(building):
 	return items[building] > 0
+	
+func get_sensor_status(var n):
+	for sensor in sensors:
+		if sensor.get_name() == n:
+			return sensor.get_status()
+	return null
+
+func change_sensor_status(var n, var s):
+	for sensor in sensors:
+		if sensor.get_name() == n:
+			sensor.set_status(s)
+
+func get_sensor_amount(var n):
+	for sensor in sensors:
+		if sensor.get_name() == n:
+			return sensor.get_amount()
+	return null
+
+func increase_sensor_amount(var n):
+	for sensor in sensors:
+		if sensor.get_name() == n:
+			sensor.increase_amount()
+
+func decrease_sensor_amount(var n):
+	for sensor in sensors:
+		if sensor.get_name() == n:
+			sensor.decrease_amount()

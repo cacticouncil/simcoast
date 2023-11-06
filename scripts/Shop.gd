@@ -1,14 +1,25 @@
 extends Node
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var tide_info = "A tide gauge is a device used to measure the change in sea level relative to the surface of land.\nSensors continuously record the height of the water level by measuring the distance to the water's surface and comparing it to the height of the land it is connected to.\nTide gauges are important sensors when predicting upcoming storms, since storms create higher waves."
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+
+	var container
+	
+	for i in range(Inventory.sensors.size()):
+		# We have 3 achievements side by side, then print on the next row
+		if i % 3 == 0:
+			container = HBoxContainer.new()
+			container.set("custom_constants/separation", 20)
+			$ScrollContainer/Sensor1/Sensor2.add_child(container)
+			# This random control node was the easiest way to get the first spacing
+			container.add_child(Control.new())
+		var Ach = preload("res://ui/hud/NPC_Interactions/SensorDisplay.tscn")
+		var AchInstance = Ach.instance()
+		
+		var currAch = Inventory.sensors[i]
+		AchInstance.updateValues(currAch.get_name(), currAch.get_info(), currAch.get_req(), currAch.get_status())
+		
+		container.add_child(AchInstance)
+
 
 
 func _on_QuitShop_pressed():
