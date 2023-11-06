@@ -42,8 +42,7 @@ func setName(id_, newName):
 	return
 
 #Access current dialogue and dialogue system
-func dialogueTrigger(id_):
-	npcDictionary[id_].dialogueSequence()
-	return
-func nextDialogue(id_):
-	return npcDictionary[id_].dialogueSystem.get_next_dialogue()
+func dialogueTrigger(id_, choice):
+	return npcDictionary[id_].dialogueSystem.dialogueSequence(choice)
+#func nextDialogue(id_):
+	#return npcDictionary[id_].dialogueSystem.get_next_dialogue()

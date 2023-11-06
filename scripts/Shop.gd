@@ -12,6 +12,8 @@ func _ready():
 
 
 func _on_QuitShop_pressed():
+	get_node("/root/CityMap/HUD/TopBarBG/DashboardSelected").visible = true
+	#get_node("/root/CityMap/HUD/TopBarBG/ShopSelected").visible = false
 	get_parent().remove_child(self)
 
 func _on_CloseInfo_pressed():

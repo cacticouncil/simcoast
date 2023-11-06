@@ -82,11 +82,8 @@ func dialogueSequence(n):
 			nextNPCLine(cd[0])
 			
 	cd = get_next_dialogue()
-	print(cd)
-	
 	if (typeof(cd) == TYPE_ARRAY && cd.size() != 1):
 		choices = true
-		
 	if(solo == true && int(currentNPC) == -2):
 		currentNPC = 0
 		currentPlayer = 0
@@ -100,7 +97,8 @@ func dialogueSequence(n):
 			turn = true
 			currentDialogue=""
 			currentSequence = 0
-		
+	return cd
+	
 
 #func _input(event):
 #	if event is InputEventKey and event.pressed:

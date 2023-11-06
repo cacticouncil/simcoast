@@ -58,40 +58,52 @@ margin_right = 714.0
 margin_bottom = 120.0
 custom_fonts/normal_font = ExtResource( 7 )
 
-[node name="Option 1" type="Button" parent="DialogueBox"]
-margin_left = 131.0
-margin_top = 123.0
-margin_right = 263.0
+[node name="Option3" type="Button" parent="DialogueBox"]
+margin_left = 479.0
+margin_top = 118.0
+margin_right = 635.0
+margin_bottom = 173.0
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogueBox/Option3"]
+margin_left = 2.0
+margin_top = -1.0
+margin_right = 155.0
+margin_bottom = 56.0
+mouse_filter = 2
+custom_fonts/normal_font = ExtResource( 7 )
+
+[node name="Option2" type="Button" parent="DialogueBox"]
+margin_left = 294.0
+margin_top = 119.0
+margin_right = 450.0
 margin_bottom = 174.0
 flat = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="DialogueBox/Option 1"]
-margin_right = 133.0
-margin_bottom = 51.0
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogueBox/Option2"]
+margin_left = 2.0
+margin_top = -1.0
+margin_right = 155.0
+margin_bottom = 56.0
+mouse_filter = 2
 custom_fonts/normal_font = ExtResource( 7 )
 
-[node name="Option 2" type="Button" parent="DialogueBox"]
-margin_left = 300.0
-margin_top = 124.0
-margin_right = 436.0
-margin_bottom = 175.0
+[node name="Option1" type="Button" parent="DialogueBox"]
+margin_left = 109.0
+margin_top = 121.0
+margin_right = 265.0
+margin_bottom = 176.0
 flat = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="DialogueBox/Option 2"]
-margin_right = 138.0
-margin_bottom = 51.0
-custom_fonts/normal_font = ExtResource( 7 )
-
-[node name="Option 3" type="Button" parent="DialogueBox"]
-margin_left = 493.0
-margin_top = 123.0
-margin_right = 612.0
-margin_bottom = 170.0
-flat = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="DialogueBox/Option 3"]
-margin_right = 121.0
-margin_bottom = 50.0
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogueBox/Option1"]
+margin_left = 2.0
+margin_top = -1.0
+margin_right = 155.0
+margin_bottom = 56.0
+mouse_filter = 2
 custom_fonts/normal_font = ExtResource( 7 )
 
 [connection signal="pressed" from="DialogueBox/NextButton" to="." method="_on_NextButton_pressed"]
+[connection signal="pressed" from="DialogueBox/Option3" to="." method="_on_Option3_pressed"]
+[connection signal="pressed" from="DialogueBox/Option2" to="." method="_on_Option2_pressed"]
+[connection signal="pressed" from="DialogueBox/Option1" to="." method="_on_Option1_pressed"]
