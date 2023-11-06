@@ -16,7 +16,8 @@ enum TileZone {
 	LIGHT_RESIDENTIAL,
 	HEAVY_RESIDENTIAL,
 	LIGHT_COMMERCIAL,
-	HEAVY_COMMERCIAL
+	HEAVY_COMMERCIAL,
+	PUBLIC_WORKS
 }
 
 enum TileInf {
@@ -27,7 +28,7 @@ enum TileInf {
 	BUILDING,
 	BEACH_ROCKS,
 	BEACH_GRASS,
-	POWER_PLANT
+	UTILITIES_PLANT
 }
 
 # Flooding damage levels that can affect tiles
@@ -50,10 +51,10 @@ const LT_COM_ZONE_COLOR = [Color("ffa0b4d0"), Color("ff2d5b82")]
 const HV_COM_ZONE_COLOR = [Color("ff7d9bbf"), Color("ff2d5b82")]
 
 const BUILDING_COLOR = [Color("ffaaaaaa"), Color("ff999999"), Color("ff888888"), Color("ff777777")]
-const UNPOWERED_BUILDING_COLOR = [Color("ff555555"), Color("ff444444"), Color("ff333333"), Color("ff333333")]
+const NO_UTILITIES_BUILDING_COLOR = [Color("ff555555"), Color("ff444444"), Color("ff333333"), Color("ff333333")]
 
-const POWER_PLANT_COLOR = [Color("ff777777"), Color("ff888888"), Color("ff999999"), Color("ff999999")]
-const POWER_STACK_COLOR = [Color("ff333333"), Color("ff950000"), Color("ff6a0000"), Color("ff333333")]
+const UTILITIES_PLANT_COLOR = [Color("ff777777"), Color("ff888888"), Color("ff999999"), Color("ff999999")]
+const UTILITIES_STACK_COLOR = [Color("ff333333"), Color("ff950000"), Color("ff6a0000"), Color("ff333333")]
 
 const RES_OCCUPANCY_COLOR = [Color("aa2a9d2d"), Color("aa1d851f")]
 const COM_OCCUPANCY_COLOR = [Color("aa3779a2"), Color("aa26648b")]
@@ -77,7 +78,7 @@ var zone = 0
 var inf = 0
 var cube = Area2D.new()
 var data = [0, 0, 0, 0, 0]
-var powered = false
+var utilities = false
 var tileDamage = 0
 var erosion = 0
 # Purchase price of a tile
@@ -94,19 +95,27 @@ var desirability = 0.2
 const BASE_DESIRABILITY = 0.2
 const WATER_CLOSE = 0.1
 const WATER_FAR = 0.05
+const WATER_WEIGHT = 0.025
 const BASE_DIRT = 0.05
 const BASE_ROCK = 0
 const BASE_SAND = -0.05
 const RESIDENTIAL_NEIGHBOR = 0.05
 const COMMERCIAL_NEIGHBOR = 0.10
 const INDUSTRIAL_NEIGHBOR = -0.2
+const PUBLIC_WORKS_NEIGHBORS = 0.075
 const NUMBER_ZONES = 0.01
 const NUMBER_PEOPLE = 0.001
 const PROP_TAX_HEAVY = -0.1
-const PROP_TAX_LOW = 0.05
+const PROP_TAX_NEUTRAL = 0
+const PROP_TAX_LIGHT = 0.05
 const SALES_TAX_HEAVY = -0.05
-const WEALTH_NEG = -0.05
-const WEALTH_DESIRE = 0.025
+const SALES_TAX_NEUTRAL = 0
+const SALES_TAX_LIGHT = .025
+const INCOME_TAX_HEAVY = -.15
+const INCOME_TAX_NEUTRAL = 0
+const INCOME_TAX_LIGHT = 0.075
+const WEALTH_INFLUENCE = 0.05
+const GROWTH = .001
 
 
 # Economy AI: Equation variable booleans & values
@@ -118,8 +127,17 @@ var tile_base_sand = false
 var residential_neighbors = 0
 var commercial_neighbors = 0
 var industrial_neighbors = 0
+var public_works_neighbors = 0
 var prop_tax_weight = 0
 var is_sales_tax_heavy = false
+var is_sales_tax_neutral = false
+var is_sales_tax_light = false
+var is_prop_tax_heavy = false
+var is_prop_tax_neutral = false
+var is_prop_tax_light = false
+var is_income_tax_heavy = false
+var is_income_tax_neutral = false
+var is_income_tax_light = false
 var is_neg_profit = false
 var wealth_weight = 0
 var tile_dmg_weight = 0
@@ -169,7 +187,7 @@ func clear_tile():
 		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
 	if tileDamage < 0:
 		tileDamage = 0
-	if inf == TileInf.POWER_PLANT:
+	if inf == TileInf.UTILITIES_PLANT:
 		Announcer.notify(Event.new("Removed Tile", "Removed Power Plant", 1))
 	elif inf == TileInf.ROAD:
 		Announcer.notify(Event.new("Removed Tile", "Removed Road", 1))
@@ -178,10 +196,10 @@ func clear_tile():
 	#reset zones
 	zone = TileZone.NONE
 	
-	#reconnect power if road or power plant is cleared
-	if (inf == TileInf.POWER_PLANT || inf == TileInf.ROAD):
+	#reconnect utility if road or utility plant is cleared
+	if (inf == TileInf.UTILITIES_PLANT || inf == TileInf.ROAD):
 		inf = TileInf.NONE
-		City.connectPower()
+		City.connectUtilities()
 		
 	#reset tile to base
 	inf = TileInf.NONE
@@ -297,8 +315,8 @@ func set_damage(n):
 		while data[0] > 0:
 			remove_building()
 
-func is_powered():
-	return powered
+func has_utilities():
+	return utilities
 
 func get_zone():
 	return zone
@@ -394,3 +412,32 @@ func is_residential():
 	
 func is_commercial():
 	return zone == TileZone.LIGHT_COMMERCIAL || zone == TileZone.HEAVY_COMMERCIAL
+
+func distance_to_water():
+#	 set distance to the maximum possible value any tile could be from water
+	var distance = max(Global.mapHeight, Global.mapWidth)
+#	checking a 6 tile radius circle around the current tile
+	for x in range(i-6, i+7):
+		for y in range(j-6, j+7):
+			if is_valid_tile(x, y):
+				if Global.tileMap[x][y].is_ocean():
+	#				this is the distance from our current tile to the base tile
+					var x2x1 = x - i
+					var y2y1 = y - j
+					var temp_distance = sqrt(x2x1*x2x1 - y2y1*y2y1)
+					if temp_distance < distance:
+						 distance = temp_distance
+	
+#	if the distance value has been changed, return it
+	if distance != max(Global.mapHeight, Global.mapWidth):
+		return distance
+	else:
+		 return null
+
+#copied from presence_of_water.gd for use in above function as a helper
+func is_valid_tile(i, j) -> bool:
+	if i < 0 || Global.mapHeight <= i:
+		return false
+	if j < 0 || Global.mapWidth <= j:
+		return false
+	return true

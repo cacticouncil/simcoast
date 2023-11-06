@@ -154,28 +154,28 @@ func _unhandled_input(event):
 						Global.Tool.ZONE_LT_RES:
 							if tile.get_zone() != Tile.TileZone.LIGHT_RESIDENTIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
-								if tile.is_powered():
+								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_RESIDENTIAL)
 						Global.Tool.ZONE_HV_RES:
 							if tile.get_zone() != Tile.TileZone.HEAVY_RESIDENTIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
-								if tile.is_powered():
+								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_RESIDENTIAL)
 						Global.Tool.ZONE_LT_COM:
 							if tile.get_zone() != Tile.TileZone.LIGHT_COMMERCIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
-								if tile.is_powered():
+								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.LIGHT_COMMERCIAL)
 						Global.Tool.ZONE_HV_COM:
 							if tile.get_zone() != Tile.TileZone.HEAVY_COMMERCIAL:
 								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
-								if tile.is_powered():
+								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.HEAVY_COMMERCIAL)
@@ -213,24 +213,24 @@ func _unhandled_input(event):
 			Global.Tool.CLEAR_TILE:
 				tile.clear_tile()
 				
-			Global.Tool.INF_POWER_PLANT:
+			Global.Tool.INF_UTILITIES_PLANT:
 				if Input.is_action_pressed("left_click"):
-					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.POWER_PLANT):
-						if (Econ.purchase_structure(Econ.POWER_PLANT_COST)):
+					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.UTILITIES_PLANT):
+						if (Econ.purchase_structure(Econ.UTILITIES_PLANT_COST)):
 							tile.clear_tile()
-							tile.inf = Tile.TileInf.POWER_PLANT
-							City.connectPower()
-							City.numPowerPlants += 1
+							tile.inf = Tile.TileInf.UTILITIES_PLANT
+							City.connectUtilities()
+							City.numUtilityPlants += 1
 							Announcer.notify(Event.new("Added Tile", "Added Power Plant", 1))
 						else:
 							actionText.text = "Not enough funds!"
-					elif (tile.inf == Tile.TileInf.POWER_PLANT):
+					elif (tile.inf == Tile.TileInf.UTILITIES_PLANT):
 						actionText.text = "Cannot build here!"
 				elif Input.is_action_pressed("right_click"):
-					if tile.inf == Tile.TileInf.POWER_PLANT:
+					if tile.inf == Tile.TileInf.UTILITIES_PLANT:
 						tile.clear_tile()
-						City.connectPower()
-						City.numPowerPlants -= 1
+						City.connectUtilities()
+						City.numUtilityPlants -= 1
 						
 			Global.Tool.INF_PARK:
 				if Input.is_action_pressed("left_click"):
@@ -238,6 +238,7 @@ func _unhandled_input(event):
 						if (Econ.purchase_structure(Econ.PARK_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.PARK
+							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
 							Announcer.notify(Event.new("Added Tile", "Added Park", 1))
 						else:
@@ -258,7 +259,7 @@ func _unhandled_input(event):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.ROAD
 							City.connectRoads(tile)
-							City.connectPower()
+							City.connectUtilities()
 							City.numRoads += 1
 							Announcer.notify(Event.new("Added Tile", "Added Road", 1))
 						else:
@@ -271,7 +272,7 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.ROAD:
 						tile.clear_tile()
 						City.connectRoads(tile)
-						City.connectPower()
+						City.connectUtilities()
 						City.numRoads -= 1
 
 			Global.Tool.INF_BEACH_ROCKS:
@@ -312,8 +313,8 @@ func _unhandled_input(event):
 			actionText.text = "Flood and erosion damange calculated"
 			City.calculate_damage()
 		elif event.scancode == KEY_P:
-			actionText.text = "Power grid recalculated"
-			City.connectPower()
+			actionText.text = "Utilities grid recalculated"
+			City.connectUtilities()
 		elif event.scancode == KEY_C:
 			actionText.text = "Select tile to copy"
 			Global.mapTool = Global.Tool.COPY_TILE
@@ -372,7 +373,7 @@ func loadMapData(mapPath):
 	var mapName = SaveLoad.loadData(mapPath)
 	$VectorMap.loadMap()
 	get_node("HUD/TopBar/ActionText").text = "Map file '%s'.json loaded" % [mapName]
-	City.connectPower()
+	City.connectUtilities()
 
 
 func _on_SaveButton_pressed():
@@ -438,6 +439,7 @@ func update_game_state():
 	UpdatePopulation.update_population()
 	UpdateDemand.get_demand()
 	UpdateErosion.update_erosion()
+	Econ.calc_profit_rates()
 	Econ.calcCityIncome()
 	Econ.calculate_upkeep_costs()
 	UpdateDate.update_date()
@@ -445,7 +447,6 @@ func update_game_state():
 func update_graphics():
 	#print("Updating graphics on tick: " + str(numTicks))
 	UpdateGraphics.update_graphics()
-	Econ.updateProfitDisplay()
 
 func _on_play_button_toggled(button_pressed:bool):
 	Global.isPaused = button_pressed

@@ -67,17 +67,17 @@ func _draw():
 			draw_polygon(t[0].get_polygon(), PoolColorArray([Tile.TREE_COLOR[0]]))
 			draw_polygon(t[1].get_polygon(), PoolColorArray([Tile.TREE_COLOR[1]]))
 			
-	elif tile.inf == Tile.TileInf.POWER_PLANT:
+	elif tile.inf == Tile.TileInf.UTILITIES_PLANT:
 		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.POWER_PLANT_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.POWER_PLANT_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.POWER_PLANT_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.POWER_PLANT_COLOR[3])
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.UTILITIES_PLANT_COLOR[3])
 		
 		for s in objects:
-			draw_polygon(s[1].get_polygon(), PoolColorArray([Tile.POWER_STACK_COLOR[1]]))
-			draw_polygon(s[2].get_polygon(), PoolColorArray([Tile.POWER_STACK_COLOR[2]]))
-			draw_polygon(s[0].get_polygon(), PoolColorArray([Tile.POWER_STACK_COLOR[0]]))
+			draw_polygon(s[1].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[1]]))
+			draw_polygon(s[2].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[2]]))
+			draw_polygon(s[0].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[0]]))
 			
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		for r in objects:
@@ -188,7 +188,7 @@ func update_polygons():
 					Vector2(grass_x, grass_y), Vector2(grass_x + 2, grass_y - 2)
 				]))
 
-	elif tile.inf == Tile.TileInf.POWER_PLANT:	
+	elif tile.inf == Tile.TileInf.UTILITIES_PLANT:	
 		clear_objects()
 		
 		var building_width = Global.TILE_WIDTH
@@ -410,9 +410,9 @@ func get_building_colors():
 		Tile.TileStatus.HEAVY_DAMAGE:
 			return Tile.HEAVY_DAMAGE_COLOR
 
-	# If building does not have power
-	if !Global.tileMap[i][j].powered:
-		return Tile.UNPOWERED_BUILDING_COLOR
+	# If building does not have utility
+	if !Global.tileMap[i][j].utilities:
+		return Tile.NO_UTILITIES_BUILDING_COLOR
 
 	# Return building color based on zone
 	return Tile.BUILDING_COLOR
