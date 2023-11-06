@@ -4,17 +4,21 @@ extends Node
 
 #Keeps track of NPC frame
 var currentFrame = 0
-
+var choice = 0
 #Called when scene first enters the tree
 func _ready():
-	getNextText()
+	getNextText(choice)
 
 #Gets and displays next text
-func getNextText():
-	var nextText = NPCOrganizer.nextDialogue(2)
+func getNextText(choice):
+	var nextText = NPCOrganizer.dialogueTrigger(1, choice)
 	#Node leaves scene when dialogue is done
 	if (nextText == null):
 		get_parent().remove_child(self)
+	#elif (typeof(nextText) == TYPE_ARRAY):
+		#$DialgueBox/Option1.bbcode_text = nextText[2]
+		#$DialogueBox/Option2.bbcode_text = nextText[0]
+		
 	else:
 		$DialogueBox/Dialogue.bbcode_text = nextText
 	return
@@ -23,6 +27,19 @@ func _on_NextButton_pressed():
 	if (currentFrame == 4):
 		currentFrame = 0
 	$DialogueBox/Teacher.frame += 1
-	getNextText()
+	getNextText(choice)
 	return
+func _on_Option1Button_pressed():
+	choice = 0
+	getNextText(choice)
+	return
+func _on_Option2Button_pressed():
+	choice = 1
+	getNextText(choice)
+	return
+func _on_Option3Button_pressed():
+	choice = 2
+	getNextText(choice)
+	return
+
 #TODO add JSON file to have "emotions" to set currentFrame

@@ -69,8 +69,6 @@
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/ContinueButton.tscn" type="PackedScene" id=113]
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/SaveButton.tscn" type="PackedScene" id=114]
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/QuitButton.tscn" type="PackedScene" id=115]
-[ext_resource path="res://assets/buttons/interaction_button_hover.png" type="Texture" id=116]
-[ext_resource path="res://assets/buttons/interaction_button_unpressed.png" type="Texture" id=117]
 [ext_resource path="res://assets/ui/ui_money.png" type="Texture" id=116]
 [ext_resource path="res://assets/ui/ui_population.png" type="Texture" id=117]
 [ext_resource path="res://assets/ui/ui_hapiness.png" type="Texture" id=118]
@@ -1072,10 +1070,10 @@ __meta__ = {
 }
 
 [node name="interaction_button" type="TextureButton" parent="HUD"]
-margin_left = 165.0
-margin_top = 29.0
-margin_right = 205.0
-margin_bottom = 69.0
+margin_left = 224.0
+margin_top = 45.0
+margin_right = 260.0
+margin_bottom = 80.0
 texture_normal = ExtResource( 117 )
 texture_hover = ExtResource( 116 )
 expand = true
