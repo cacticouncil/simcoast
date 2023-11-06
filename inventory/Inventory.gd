@@ -53,18 +53,10 @@ func change_sensor_status(var n, var s):
 		if sensor.get_name() == n:
 			sensor.set_status(s)
 
-func get_sensor_amount(var n):
+func update_sensor_amount():
 	for sensor in sensors:
-		if sensor.get_name() == n:
-			return sensor.get_amount()
-	return null
-
-func increase_sensor_amount(var n):
-	for sensor in sensors:
-		if sensor.get_name() == n:
-			sensor.increase_amount()
-
-func decrease_sensor_amount(var n):
-	for sensor in sensors:
-		if sensor.get_name() == n:
-			sensor.decrease_amount()
+		if sensor.get_name() == "Tide Gauge":
+			items["tide_sensor"] = sensor.get_amount()
+		if sensor.get_name() == "Rain Gauge":
+			items["rain_sensor"] = sensor.get_amount()
+	

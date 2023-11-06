@@ -27,3 +27,7 @@ func _on_BuyButton_pressed():
 		if i == j && happened == true:
 			sensor.set_status(true)
 		i +=1
+		
+	if happened==true:
+		Inventory.sensors[j-1].increase_amount()
+		Inventory.update_sensor_amount()
