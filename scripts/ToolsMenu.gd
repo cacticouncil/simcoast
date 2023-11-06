@@ -1,4 +1,4 @@
-extends Control
+extends ScrollContainer
 
 export(ButtonGroup) var group
 
@@ -9,6 +9,7 @@ var loadPopup
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.get_v_scrollbar().rect_scale.x = 0
 	for i in group.get_buttons():
 		i.connect("pressed", self, "button_pressed")
 		i.connect("mouse_entered", self, "button_hover", [i])
@@ -34,6 +35,8 @@ func button_hover(button):
 			toolInfo.text = "Replace base tile with sand / Raise and base tile height   (Right Click: Lower sand base tile height)"
 		'ocean_button':
 			toolInfo.text = "Replace base tile with ocean"
+		'water_button':
+			toolInfo.text = "Turns tile to water"
 		'lt_res_zone_button':
 			toolInfo.text = "Light Residential Zone   (Right Click: Remove zoning)"
 		'hv_res_zone_button':
@@ -50,12 +53,30 @@ func button_hover(button):
 			toolInfo.text = "Add building to commercial zone   (Right Click: Remove building)"
 		'add_employee_button':
 			toolInfo.text = "Add employee to commercial zone   (Right Click: Remove employee)"
-		'power_plant_button':
-			toolInfo.text = "Build Power Plant"
+		'fire_station_button':
+			toolInfo.text = "Build Fire Station   (Right Click: Remove Fire Station)"
+		'hospital_button':
+			toolInfo.text = "Build Hospital   (Right Click: Remove Hospital)"
+		'police_station_button':
+			toolInfo.text = "Build Police Station   (Right Click: Remove Police Station)"
+		'utility_plant_button':
+			toolInfo.text = "Build Utilities Plant"
+		'sewage_facility_button':
+			toolInfo.text = "Build Sewage Facility"
+		'waste_treatment_button':
+			toolInfo.text = "Build Waste Treatment Facility"
 		'road_button':
-			toolInfo.text = "Built infrastructure (road/power/water) tile   (Right Click: Remove infrastructure)"
+			toolInfo.text = "Build infrastructure (road/power/water) tile   (Right Click: Remove infrastructure)"
+		'bridge_button':
+			toolInfo.text = "Build infrastructure tile over water   (Right Click: Remove infrastructure)"
 		'park_button':
-			toolInfo.text = "Built Park   (Right Click: Remove park)"	
+			toolInfo.text = "Build Park   (Right Click: Remove park)"	
+		'library_button':
+			toolInfo.text = "Build Library   (Right Click: Remove Library)"
+		'museum_button':
+			toolInfo.text = "Build Museum   (Right Click: Remove Museum)"
+		'school_button':
+			toolInfo.text = "Build School   (Right Click: Remove Museum)"
 		'beach_rocks_button':
 			toolInfo.text = "Add beach rocks to sand tile   (Right Click: Remove rocks)"
 		'beach_grass_button':
@@ -101,6 +122,8 @@ func button_pressed():
 			Global.mapTool = Global.Tool.BASE_SAND
 		'ocean_button':
 			Global.mapTool = Global.Tool.BASE_OCEAN
+		'water_button':
+			Global.mapTool = Global.Tool.BASE_OCEAN
 		'lt_res_zone_button':
 			Global.mapTool = Global.Tool.ZONE_LT_RES
 		'hv_res_zone_button':
@@ -117,12 +140,30 @@ func button_pressed():
 			Global.mapTool = Global.Tool.ADD_COM_BLDG
 		'add_employee_button':
 			Global.mapTool = Global.Tool.ADD_COM_PERSON
-		'power_plant_button':
-			Global.mapTool = Global.Tool.INF_POWER_PLANT
+		'fire_station_button':
+			Global.mapTool = Global.Tool.INF_FIRE_STATION
+		'hospital_button':
+			Global.mapTool = Global.Tool.INF_HOSPITAL
+		'police_station_button':
+			Global.mapTool = Global.Tool.INF_POLICE_STATION
+		'utility_plant_button':
+			Global.mapTool = Global.Tool.INF_UTILITIES_PLANT
+		'sewage_facility_button':
+			Global.mapTool = Global.Tool.INF_SEWAGE_FACILITY
+		'waste_treatment_button':
+			Global.mapTool = Global.Tool.INF_WASTE_TREATMENT
 		'park_button':
 			Global.mapTool = Global.Tool.INF_PARK
+		'library_button':
+			Global.mapTool = Global.Tool.INF_LIBRARY
+		'museum_button':
+			Global.mapTool = Global.Tool.INF_MUSEUM
+		'school_button':
+			Global.mapTool = Global.Tool.INF_SCHOOL
 		'road_button':
 			Global.mapTool = Global.Tool.INF_ROAD
+		'bridges_button':
+			Global.mapTool = Global.Tool.INF_BRIDGE
 		'beach_rocks_button':
 			Global.mapTool = Global.Tool.INF_BEACH_ROCKS
 		'beach_grass_button':
@@ -141,14 +182,14 @@ func button_pressed():
 			if Global.oceanHeight < Global.MAX_HEIGHT:
 				Global.oceanHeight += 1
 				City.updateOceanHeight(1)
-				get_node("../TopBar/ActionText").text = "Ocean height raised to %s" % [Global.oceanHeight]
+				get_node("../BottomBar/HoverText").text = "Ocean height raised to %s" % [Global.oceanHeight]
 		
 		'lower_ocean_button':
 			Global.mapTool = Global.Tool.NONE
 			if Global.oceanHeight > 0:
 				Global.oceanHeight -= 1
 				City.updateOceanHeight(-1)
-				get_node("../TopBar/ActionText").text = "Ocean height lowered to %s" % [Global.oceanHeight]
+				get_node("../BottomBar/HoverText").text = "Ocean height lowered to %s" % [Global.oceanHeight]
 		
 		'damage_button':
 			Global.mapTool = Global.Tool.NONE
@@ -157,13 +198,13 @@ func button_pressed():
 		'satisfaction_button':
 			Global.mapTool = Global.Tool.NONE
 			City.calculate_satisfaction()
-			get_node("../TopBar/ActionText").text = "Flooding damage calculated"
+			get_node("../BottomBar/HoverText").text = "Flooding damage calculated"
 		
 		'quicksave_button':
 			Global.mapTool = Global.Tool.NONE
 			if not Global.mapPath.empty():
 				SaveLoad.saveMapData(Global.mapPath)
-				get_node("../TopBar/ActionText").text = "Map data saved"
+				get_node("../BottomBar/HoverText").text = "Map data saved"
 			else:
 				OS.alert('There is no existing save file to quicksave to, please use the Save button to make a new save file.', 'No Save File')
 		

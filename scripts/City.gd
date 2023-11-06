@@ -1,8 +1,17 @@
 extends Node
 
 var numParks = 0
-var numPowerPlants = 0
+var numUtilityPlants = 0
 var numRoads = 0
+var numBridges = 0
+var numLibraries = 0
+var numMuseums = 0
+var numSchools = 0
+var numFireStations = 0
+var numHospital = 0
+var numPoliceStations = 0
+var numSewageFacilities = 0
+var numWasteTreatment = 0
 
 # Delete the last row and column of the map
 func reduce_map():
@@ -24,7 +33,7 @@ func reduce_map():
 	for i in Global.tileMap.size():
 		Global.tileMap[i].pop_back()
 	
-	get_node("HUD/TopBar/ActionText").text = "Map size reduced to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
+	get_node("HUD/BottomBar/HoverText").text = "Map size reduced to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
 	
 # Add a new row and column of empty tiles
 func extend_map():
@@ -47,28 +56,28 @@ func extend_map():
 	
 	Global.mapWidth += 1
 
-	get_node("HUD/TopBar/ActionText").text = "Map size extended to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
+	get_node("HUD/BottomBar/HoverText").text = "Map size extended to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
 	
 
-# Starting from each power plant, trace power distribution and power tiles if they are connected
-func connectPower():
-	var powerPlants = []
+# Starting from each utility plant, trace utility distribution and utility tiles if they are connected
+func connectUtilities():
+	var utilityPlants = []
 	
-	# De-power every tile on the map, find location of any power plants
+	# De-utility every tile on the map, find location of any utility plants
 	for i in Global.mapWidth:
 		for j in Global.mapHeight:
-			Global.tileMap[i][j].powered = false
+			Global.tileMap[i][j].utilities = false
 			#Global.tileMap[i][j].cube.update()
-			if Global.tileMap[i][j].inf == Tile.TileInf.POWER_PLANT:
-				powerPlants.append(Global.tileMap[i][j])
+			if Global.tileMap[i][j].inf == Tile.TileInf.UTILITIES_PLANT:
+				utilityPlants.append(Global.tileMap[i][j])
 	
 	# For the announcer to keep track of the number of specific tiles powered
 	var roadsPowered = 0
 	var commsPowered = 0
 	var resPowered = 0
 
-	for plant in powerPlants:
-		plant.powered = true
+	for plant in utilityPlants:
+		plant.utilities = true
 
 		var queue = []
 		var neighbors = [[plant.i-1, plant.j], [plant.i+1, plant.j], [plant.i, plant.j-1], [plant.i, plant.j+1]]
@@ -78,23 +87,23 @@ func connectPower():
 			if roadConnected(plant, n, Global.MAX_CONNECTION_HEIGHT):
 				queue.append(Global.tileMap[n[0]][n[1]])
 		
-		# Add each connected road tile that hasn't yet been checked to the queue, power adjacent tiles
+		# Add each connected road tile that hasn't yet been checked to the queue, utility adjacent tiles
 		while !queue.empty():
 			var road = queue.pop_front()
 			
 			# If road is not powered, it hasn't yet been checked
-			if !road.powered:
+			if !road.utilities:
 				roadsPowered += 1
-				road.powered = true
+				road.utilities = true
 			
-				# Check neighbors: if it's a connected road, add it to the queue; otherwise, power tile
+				# Check neighbors: if it's a connected road, add it to the queue; otherwise, utility tile
 				neighbors = [[road.i-1, road.j], [road.i+1, road.j], [road.i, road.j-1], [road.i, road.j+1]]
 
 				for n in neighbors:
 					if is_tile_inbounds(n[0], n[1]):
-						if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.ROAD:
+						if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.ROAD || Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.BRIDGE:
 							if roadConnected(road, n, Global.MAX_CONNECTION_HEIGHT):
-								if Global.tileMap[n[0]][n[1]].powered == false:
+								if Global.tileMap[n[0]][n[1]].utilities == false:
 									queue.append(Global.tileMap[n[0]][n[1]])
 						else:
 							var currTile = Global.tileMap[n[0]][n[1]]
@@ -103,7 +112,7 @@ func connectPower():
 								commsPowered += 1
 							elif currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL || currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
 								resPowered += 1
-							Global.tileMap[n[0]][n[1]].powered = true
+							currTile.utilities = true
 							#Global.tileMap[n[0]][n[1]].cube.update()
 	
 	Announcer.notify(Event.new("Tiles Powered", "Number of powered roads", roadsPowered))
@@ -132,12 +141,31 @@ func connectRoads(tile):
 			road.connections[2] = 1
 		if roadConnected(road, [road.i, road.j+1], maxHeightDiff):
 			road.connections[3] = 1
+
+func disconnectBridges(tile):
+	tile.bridge_connected_to_dirt = false
+	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
+	var checked = []
+	for n in neighbors:
+		checked.append(n)
+		if is_tile_inbounds(n[0], n[1]):
+			if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.BRIDGE:
+				var currTile = Global.tileMap[n[0]][n[1]]
+				currTile.bridge_connected_to_dirt = false
+				if not [currTile.i-1, currTile.j] in checked:
+					neighbors.append([currTile.i-1, currTile.j])
+				if not [currTile.i+1, currTile.j] in checked:
+					neighbors.append([currTile.i+1, currTile.j])
+				if not [currTile.i, currTile.j-1] in checked:
+					neighbors.append([currTile.i, currTile.j-1])
+				if not [currTile.i, currTile.j+1] in checked:
+					neighbors.append([currTile.i, currTile.j+1])
 	
 
 func roadConnected(tile, n, diff):
 	if !is_tile_inbounds(n[0], n[1]):
 		return false
-	if Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.ROAD:
+	if Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.ROAD && Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.BRIDGE:
 		return false
 	if abs(tile.get_base_height() - Global.tileMap[n[0]][n[1]].get_base_height()) > diff:
 		return false
@@ -206,6 +234,9 @@ func adjust_tile_height(tile):
 		tile.raise_tile()
 	elif Input.is_action_pressed("right_click"):
 		tile.lower_tile()
+
+func make_tile_water(tile):
+	tile.set_height_zero()
 
 # Change water height of tile
 func adjust_tile_water(tile):

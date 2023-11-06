@@ -13,7 +13,7 @@ const MAX_HEIGHT = 40				# Maximum vertical height for any tile
 const MIN_MAP_SIZE = 8
 const MAX_MAP_SIZE = 64
 
-const MAX_CONNECTION_HEIGHT = 3		# Largest amount of height allowed to consider tiles connected
+const MAX_CONNECTION_HEIGHT = 100		# Largest amount of height allowed to consider tiles connected
 
 const TICK_DELAY = 0.05#Time between ticks
 
@@ -39,6 +39,11 @@ var colRange = range(0, mapHeight, 1)
 # For Economy AI use only (see number_of_zones.gd)
 var numZones = 0
 var numPeople = 0
+var numResidentialZones = 0
+var numCommercialZones = 0
+
+# Economy AI constants
+const ZONE_BALANCE = -.01
 
 # To know if game is paused
 var isPaused = false
@@ -74,11 +79,21 @@ enum Tool {
 	ZONE_HV_COM,
 	ADD_COM_BLDG,
 	ADD_COM_PERSON,
+	INF_FIRE_STATION,
+	INF_HOSPITAL,
+	INF_POLICE_STATION,
 	INF_PARK,
+	INF_LIBRARY,
+	INF_MUSEUM,
+	INF_SCHOOL,
 	INF_ROAD,
-	INF_POWER_PLANT,
+	INF_BRIDGE,
+	INF_SEWAGE_FACILITY,
+	INF_WASTE_TREATMENT,
+	INF_UTILITIES_PLANT,
 	INF_BEACH_ROCKS,
 	INF_BEACH_GRASS,
+	WATER,
 	CLEAR_TILE,
 	REPAIR,
 	LAYER_WATER,

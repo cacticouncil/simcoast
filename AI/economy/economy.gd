@@ -46,14 +46,14 @@ func update_queue() -> Array:
 					accept = true
 				_:
 					accept = false	
-			# Check tile infrastructure if not zoned (roads & powerplants)
+			# Check tile infrastructure if not zoned (roads & utility plants)
 			if accept != true:
 				match(current.inf):
 					Tile.TileInf.ROAD:
 						accept = true
 					Tile.TileInf.PARK:
 						accept = true
-					Tile.TileInf.POWER_PLANT:
+					Tile.TileInf.UTILITIES_PLANT:
 						accept = true
 					_:
 						accept = false

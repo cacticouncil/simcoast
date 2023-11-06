@@ -12,7 +12,8 @@ var zone_values = {
 	Tile.TileZone.LIGHT_RESIDENTIAL: "Light Residential",
 	Tile.TileZone.HEAVY_RESIDENTIAL: "Heavy Residential",
 	Tile.TileZone.LIGHT_COMMERCIAL: "Light Commercial",
-	Tile.TileZone.HEAVY_COMMERCIAL: "Heavy Commercial"
+	Tile.TileZone.HEAVY_COMMERCIAL: "Heavy Commercial",
+	Tile.TileZone.PUBLIC_WORKS: "Public Works"
 }
 
 var inf_values = {
@@ -35,13 +36,13 @@ func update_tile_display(i, j):
 	$BottomBar/HoverText.text += "     BASE: %s     HEIGHT: %s     WATER HEIGHT %s     EROSION: %s%%" % [base_values[tile.get_base()], tile.get_base_height(), tile.waterHeight, tile.erosion]
 	if tile.get_zone() != Tile.TileZone.NONE:
 		$BottomBar/HoverText.text += "     Zone: %s, People: %s / %s, Tile Damage: %s%%, Happiness: %s%%, Tile Value: %s" % [zone_values[tile.get_zone()], tile.data[2], tile.data[3], tile.tileDamage*100, tile.happiness, tile.landValue]
-		if tile.powered:
-			$BottomBar/HoverText.text += "     Power: ON"
+		if tile.utilities:
+			$BottomBar/HoverText.text += "     Utilities: ON"
 		else:
-			$BottomBar/HoverText.text += "     Power: OFF"
-	elif tile.inf == Tile.TileInf.ROAD:
-		if tile.powered:
-			$BottomBar/HoverText.text += "     Power: ON"
+			$BottomBar/HoverText.text += "     Utilities: OFF"
+	elif tile.inf == Tile.TileInf.ROAD || tile.inf == Tile.TileInf.BRIDGE:
+		if tile.utilities:
+			$BottomBar/HoverText.text += "     Utilities: ON"
 		else:
-			$BottomBar/HoverText.text += "     Power: OFF"
+			$BottomBar/HoverText.text += "     Utilities: OFF"
 
