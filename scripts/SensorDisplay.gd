@@ -19,9 +19,11 @@ func updateValues(sName, sInfo, sReq, locked):
 func _on_BuyButton_pressed():
 	var i = 0
 	var j = 0
+	var happened = false
 	for sensor in Inventory.sensors:
 		if sensor.get_name() == $SensorsBG/SensorName.text:
 			j = i + 1
-		if i == j:
+			happened = true
+		if i == j && happened == true:
 			sensor.set_status(true)
 		i +=1

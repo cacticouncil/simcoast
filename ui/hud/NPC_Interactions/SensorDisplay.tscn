@@ -16,6 +16,7 @@ bg_color = Color( 0.258824, 0.258824, 0.258824, 1 )
 [node name="SensorDisplayBG" type="ColorRect"]
 margin_right = 400.0
 margin_bottom = 150.0
+rect_min_size = Vector2( 400, 150 )
 color = Color( 0.85098, 0.85098, 0.85098, 1 )
 script = ExtResource( 3 )
 
@@ -99,3 +100,5 @@ margin_right = 349.333
 margin_bottom = 178.0
 rect_scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 2 )
+
+[connection signal="pressed" from="SensorsBG/SensorName/BuyButton" to="." method="_on_BuyButton_pressed"]
