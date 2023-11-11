@@ -1,9 +1,9 @@
 extends VBoxContainer
 
-const seperation = 10
+export var seperation = 10
 
 #This value is derived by the pixel length of the icons, then 
-const iconSize = 64 + seperation
+var iconSize = 64 + seperation
 
 """
 Little explanation of the seperation and icon size stuff:
