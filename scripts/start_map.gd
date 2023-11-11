@@ -60,14 +60,6 @@ func initObservers():
 	$HUD/MissionsBG.margin_bottom = 28 + (14 * missions.size()) + (20 * (missions.size() + 1))
 	$HUD/Missions/VBoxContainer/Mission1.text = missions[0]
 	
-	#FIXME: This line should add hover text but isn't
-	""" For reference from ui_buttons.gd
-	for i in group.get_buttons():
-		i.connect("pressed", self, "button_pressed")
-		i.connect("mouse_entered", self, "button_hover", [i])
-		i.connect("mouse_exited", self, "button_exit")
-	"""
-	#$HUD/Missions/VBoxContainer/Mission1.connect("mouse_entered", self, "MissionObserver.hoverMission", [0])
 	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "show_mission_tip", [0])
 	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_exited", self, "clear_mission_tip")
 	if missions.size() > 1:
@@ -87,6 +79,21 @@ func initObservers():
 	var sfxObserver = load("res://scripts/Observers/SfxObserver.gd").new()
 	Announcer.addObserver(sfxObserver)
 	self.add_child(sfxObserver)
+	
+	#Add Badge Observer
+	Announcer.addObserver(get_node("/root/BadgeObserver"))
+	#Remove these, solely for testing purposes
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 2))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 2))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 2))
 	
 	# Just in case their's any action to take about this right away
 	Announcer.notify(Event.new("Money", "Amount of money", Econ.money))
@@ -455,3 +462,8 @@ func _on_play_button_toggled(button_pressed:bool):
 
 func _on_fastfwd_button_toggled(button_pressed:bool):
 	isFastFWD = button_pressed
+
+func _on_DashboardButton_pressed():
+	var Dashboard = preload("res://ui/testArea.tscn")
+	var DashboardInstance = Dashboard.instance()
+	add_child(DashboardInstance)

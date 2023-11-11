@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=2]
+[gd_scene load_steps=123 format=2]
 
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/buttons/add_water_hover.png" type="Texture" id=2]
@@ -115,6 +115,7 @@
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/ContinueButton.tscn" type="PackedScene" id=113]
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/SaveButton.tscn" type="PackedScene" id=114]
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/QuitButton.tscn" type="PackedScene" id=115]
+[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/DashboardButton.tscn" type="PackedScene" id=116]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.133333, 0.886275, 0.129412, 1 )
@@ -959,7 +960,7 @@ valign = 1
 [node name="PauseButtons" type="VBoxContainer" parent="PauseMenu/PauseMenu"]
 margin_top = 76.0
 margin_right = 1280.0
-margin_bottom = 292.0
+margin_bottom = 336.0
 
 [node name="ContinueButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 113 )]
 
@@ -975,9 +976,13 @@ margin_bottom = 128.0
 margin_top = 132.0
 margin_bottom = 172.0
 
-[node name="QuitButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 115 )]
+[node name="DashboardButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 116 )]
 margin_top = 176.0
 margin_bottom = 216.0
+
+[node name="QuitButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 115 )]
+margin_top = 220.0
+margin_bottom = 260.0
 
 [node name="Popups" type="CanvasLayer" parent="."]
 
@@ -1007,4 +1012,5 @@ script = ExtResource( 104 )
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/LoadButton" to="." method="_on_LoadButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/AchievementButton" to="." method="_on_AchievementButton_pressed"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/DashboardButton" to="." method="_on_DashboardButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/QuitButton" to="." method="_on_ExitButton_pressed"]
