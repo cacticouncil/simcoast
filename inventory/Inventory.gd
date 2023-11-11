@@ -14,10 +14,10 @@ var items = {
 	'road': 10,
 	'water': 0,
 	'bridges': 0,
-	'lt_res_zone': 0, #don''t use
-	'hv_res_zone': 0, #don''t use
-	'lt_com_zone': 0, #don''t use
-	'hv_com_zone': 0, #don''t use
+	'lt_res_zone': 0, #don't use
+	'hv_res_zone': 0, #don't use
+	'lt_com_zone': 0, #don't use
+	'hv_com_zone': 0, #don't use
 	"tide_sensor": 0,
 	"rain_sensor": 0
 }
