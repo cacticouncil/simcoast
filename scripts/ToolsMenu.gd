@@ -14,6 +14,7 @@ func _ready():
 		i.connect("pressed", self, "button_pressed")
 		i.connect("mouse_entered", self, "button_hover", [i])
 		i.connect("mouse_exited", self, "button_exit")
+	updateAmounts()
 
 func button_exit():
 	get_node("../BottomBar/HoverText").text = ""
@@ -233,3 +234,14 @@ func button_pressed():
 		# 'exit_button':
 		# 	Global.mapTool = Global.Tool.NONE
 		# 	get_tree().quit()
+
+func updateAmounts():
+	for i in group.get_buttons():
+		#The buttons are named in a way where they correspond to the items in inventory
+		var buttonName = i.get_name()
+		var item = buttonName.substr(0, buttonName.length() - 7)
+		if Inventory.items[item] > 0:
+			i.get_node("BG").visible = true
+			i.get_node("BG/Amount").text = str(Inventory.items[item])
+		else:
+			i.get_node("BG").visible = false

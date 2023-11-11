@@ -480,19 +480,17 @@ text = "Road"
 align = 1
 valign = 1
 
-[node name="ColorRect" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Infrastructure/road_button"]
-margin_left = 30.0
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Infrastructure/road_button"]
+margin_left = 35.0
 margin_top = 25.0
-margin_right = 50.0
+margin_right = 55.0
 margin_bottom = 45.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Label2" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Infrastructure/road_button"]
-margin_left = 30.0
-margin_top = 25.0
-margin_right = 50.0
-margin_bottom = 45.0
-text = "1"
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Infrastructure/road_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
 align = 1
 valign = 1
 
@@ -520,6 +518,20 @@ text = "Bridge"
 align = 1
 valign = 1
 
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Infrastructure/bridges_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Infrastructure/bridges_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
 [node name="water_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Infrastructure"]
 margin_left = 20.66
 margin_top = 96.0
@@ -541,6 +553,20 @@ margin_right = 64.0
 margin_bottom = 60.0
 custom_fonts/font = SubResource( 18 )
 text = "Water"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Infrastructure/water_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Infrastructure/water_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
 align = 1
 valign = 1
 
@@ -585,6 +611,20 @@ text = "House"
 align = 1
 valign = 1
 
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Zones/lt_res_zone_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Zones/lt_res_zone_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
 [node name="hv_res_zone_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Zones"]
 margin_left = 85.32
 margin_top = 30.0
@@ -606,6 +646,20 @@ margin_right = 54.33
 margin_bottom = 63.0
 custom_fonts/font = SubResource( 18 )
 text = "Apartment"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Zones/hv_res_zone_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Zones/hv_res_zone_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
 align = 1
 valign = 1
 
@@ -633,6 +687,20 @@ text = "Shop"
 align = 1
 valign = 1
 
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Zones/lt_com_zone_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Zones/lt_com_zone_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
 [node name="hv_com_zone_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Zones"]
 margin_left = 85.32
 margin_top = 96.0
@@ -654,6 +722,20 @@ margin_right = 54.33
 margin_bottom = 63.0
 custom_fonts/font = SubResource( 18 )
 text = "Super Shop"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Zones/hv_com_zone_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Zones/hv_com_zone_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
 align = 1
 valign = 1
 
@@ -698,6 +780,20 @@ text = "Utilities"
 align = 1
 valign = 1
 
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Industrial/utility_plant_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Industrial/utility_plant_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
 [node name="sewage_facility_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Industrial"]
 margin_left = 85.32
 margin_top = 27.0
@@ -719,6 +815,20 @@ margin_right = 64.0
 margin_bottom = 60.0
 custom_fonts/font = SubResource( 18 )
 text = "Sewage"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Industrial/sewage_facility_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Industrial/sewage_facility_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
 align = 1
 valign = 1
 
@@ -744,6 +854,20 @@ margin_bottom = 60.0
 custom_fonts/font = SubResource( 18 )
 text = "Waste 
 Treatment"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Industrial/waste_treatment_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Industrial/waste_treatment_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
 align = 1
 valign = 1
 
@@ -788,6 +912,20 @@ text = "Fire Station"
 align = 1
 valign = 1
 
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/EmergencyServices/fire_station_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/EmergencyServices/fire_station_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
 [node name="hospital_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/EmergencyServices"]
 margin_left = 85.32
 margin_top = 27.0
@@ -812,6 +950,20 @@ text = "Hospital"
 align = 1
 valign = 1
 
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/EmergencyServices/hospital_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/EmergencyServices/hospital_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
 [node name="police_station_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/EmergencyServices"]
 margin_left = 20.66
 margin_top = 96.0
@@ -833,6 +985,20 @@ margin_right = 64.0
 margin_bottom = 60.0
 custom_fonts/font = SubResource( 18 )
 text = "Police Station"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/EmergencyServices/police_station_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/EmergencyServices/police_station_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
 align = 1
 valign = 1
 
@@ -877,6 +1043,20 @@ text = "Park"
 align = 1
 valign = 1
 
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Public Services/park_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Public Services/park_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
 [node name="library_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Public Services"]
 margin_left = 85.32
 margin_top = 27.0
@@ -898,6 +1078,20 @@ margin_right = 64.0
 margin_bottom = 60.0
 custom_fonts/font = SubResource( 18 )
 text = "Library"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Public Services/library_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Public Services/library_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
 align = 1
 valign = 1
 
@@ -925,6 +1119,20 @@ text = "Museum"
 align = 1
 valign = 1
 
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Public Services/museum_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Public Services/museum_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
 [node name="school_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Public Services"]
 margin_left = 85.32
 margin_top = 96.0
@@ -946,6 +1154,20 @@ margin_right = 64.0
 margin_bottom = 60.0
 custom_fonts/font = SubResource( 18 )
 text = "School"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Public Services/school_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Public Services/school_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
 align = 1
 valign = 1
 
@@ -990,6 +1212,20 @@ text = "Tide Sensor"
 align = 1
 valign = 1
 
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Sensors/tide_sensor_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Sensors/tide_sensor_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
 [node name="rain_sensor_button" type="TextureButton" parent="HUD/ToolsMenu/VBoxContainer/Sensors"]
 margin_left = 85.32
 margin_top = 27.0
@@ -1011,6 +1247,20 @@ margin_right = 64.0
 margin_bottom = 60.0
 custom_fonts/font = SubResource( 18 )
 text = "Rain Sensor"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="HUD/ToolsMenu/VBoxContainer/Sensors/rain_sensor_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="HUD/ToolsMenu/VBoxContainer/Sensors/rain_sensor_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
 align = 1
 valign = 1
 
