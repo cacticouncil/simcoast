@@ -10,4 +10,4 @@ anchor_bottom = 1.0
 color = Color( 0.462745, 0.462745, 0.462745, 1 )
 
 [node name="UnlockedBadges" parent="." instance=ExtResource( 1 )]
-margin_right = 500.0
+margin_right = 800.0

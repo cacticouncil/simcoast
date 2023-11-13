@@ -8,8 +8,7 @@ var popupImagePath = "res://assets/achievement_icons/BadgeAchievement.png"
 
 func onNotify(event):
 	if event.eventName == "Unlocked Badge":
-		if event.eventDescription == "Badge Name 1":
-			badges.append(badgeScript.new(event.eventDescription, "Badge 1 Description", event.eventValue, "res://assets/badge_icons/test_badge.png"))
+		badges.append(badgeScript.new(event.eventDescription, event.eventDescription + " Description", event.eventValue, "res://assets/badge_icons/test_badge.png"))
 			#get_node("/root/Overlay").achievement_pop(event.eventDescription, popupImagePath)
 
 func getBadges():

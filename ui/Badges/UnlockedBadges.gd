@@ -3,7 +3,7 @@ extends VBoxContainer
 export var seperation = 10
 
 #This value is derived by the pixel length of the icons, then 
-var iconSize = 64 + seperation
+var iconSize = 96 + seperation
 
 """
 Little explanation of the seperation and icon size stuff:
@@ -31,6 +31,6 @@ func _ready():
 		var BadgeInstance = badge.instance()
 		
 		var currBadge = badges[i]
-		BadgeInstance.updateValues(currBadge.icon, currBadge.badgeTier)
+		BadgeInstance.updateValues(currBadge.badgeName ,currBadge.icon, currBadge.badgeTier)
 		
 		container.add_child(BadgeInstance)
