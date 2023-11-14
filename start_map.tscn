@@ -115,7 +115,7 @@
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/ContinueButton.tscn" type="PackedScene" id=113]
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/SaveButton.tscn" type="PackedScene" id=114]
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/QuitButton.tscn" type="PackedScene" id=115]
-[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/DashboardButton.tscn" type="PackedScene" id=116]
+[ext_resource path="res://assets/buttons/dashboard_default.png" type="Texture" id=116]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.133333, 0.886275, 0.129412, 1 )
@@ -877,9 +877,14 @@ margin_bottom = 68.0
 toggle_mode = true
 texture_normal = ExtResource( 107 )
 texture_pressed = ExtResource( 108 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="DashboardButton" type="TextureButton" parent="HUD"]
+margin_left = 171.0
+margin_top = 30.0
+margin_right = 203.0
+margin_bottom = 62.0
+toggle_mode = true
+texture_normal = ExtResource( 116 )
 
 [node name="TaxMenu" parent="HUD" instance=ExtResource( 109 )]
 
@@ -960,7 +965,7 @@ valign = 1
 [node name="PauseButtons" type="VBoxContainer" parent="PauseMenu/PauseMenu"]
 margin_top = 76.0
 margin_right = 1280.0
-margin_bottom = 336.0
+margin_bottom = 292.0
 
 [node name="ContinueButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 113 )]
 
@@ -976,13 +981,9 @@ margin_bottom = 128.0
 margin_top = 132.0
 margin_bottom = 172.0
 
-[node name="DashboardButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 116 )]
+[node name="QuitButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 115 )]
 margin_top = 176.0
 margin_bottom = 216.0
-
-[node name="QuitButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 115 )]
-margin_top = 220.0
-margin_bottom = 260.0
 
 [node name="Popups" type="CanvasLayer" parent="."]
 
@@ -1007,10 +1008,10 @@ script = ExtResource( 104 )
 
 [connection signal="toggled" from="HUD/play_button" to="." method="_on_play_button_toggled"]
 [connection signal="toggled" from="HUD/fastfwd_button" to="." method="_on_fastfwd_button_toggled"]
+[connection signal="pressed" from="HUD/DashboardButton" to="." method="_on_DashboardButton_pressed"]
 [connection signal="mouse_entered" from="HUD/Missions/VBoxContainer/Mission1" to="." method="_on_Mission1_mouse_entered"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/LoadButton" to="." method="_on_LoadButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/AchievementButton" to="." method="_on_AchievementButton_pressed"]
-[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/DashboardButton" to="." method="_on_DashboardButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/QuitButton" to="." method="_on_ExitButton_pressed"]

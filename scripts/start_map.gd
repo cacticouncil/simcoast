@@ -464,6 +464,6 @@ func _on_fastfwd_button_toggled(button_pressed:bool):
 	isFastFWD = button_pressed
 
 func _on_DashboardButton_pressed():
-	var Dashboard = preload("res://ui/testArea.tscn")
+	var Dashboard = preload("res://ui/Dashboard/Dashboard.tscn")
 	var DashboardInstance = Dashboard.instance()
 	add_child(DashboardInstance)
