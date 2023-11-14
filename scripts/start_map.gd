@@ -328,7 +328,7 @@ func _unhandled_input(event):
 		elif event.scancode == KEY_V:
 			actionText.text = "Paste tool selected"
 			Global.mapTool = Global.Tool.PASTE_TILE
-		elif event.scancode == KEY_ESCAPE && get_node("/root/CityMap/AchievementMenu") == null:
+		elif event.scancode == KEY_ESCAPE && get_node("/root/CityMap/AchievementMenu") == null && get_node("/root/CityMap/Dashboard") == null:
 			if $PauseMenu.visible:
 				$PauseMenu.visible = false
 				$HUD/play_button.pressed = false
