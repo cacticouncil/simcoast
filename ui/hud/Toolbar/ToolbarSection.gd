@@ -21,6 +21,8 @@ func add_button(sectionName, buttons):
 		currButton.set_up_button(buttons[i][0], buttons[i][1])
 		
 		container.add_child(currButton)
+	#Adds a bit of a space
+	add_child(Control.new())
 
 func set_bg(size, clr):
 	$Title/BG.rect_size = size

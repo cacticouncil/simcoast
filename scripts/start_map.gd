@@ -218,7 +218,7 @@ func _unhandled_input(event):
 			Global.Tool.INF_UTILITIES_PLANT:
 				if Input.is_action_pressed("left_click"):
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.UTILITIES_PLANT):
-						if (Inventory.removeIfHave('utility_plant')):
+						if (Inventory.removeIfHave('utility plant')):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.UTILITIES_PLANT
 							City.connectUtilities()
@@ -243,7 +243,7 @@ func _unhandled_input(event):
 			Global.Tool.INF_SEWAGE_FACILITY:
 				if Input.is_action_pressed("left_click"):
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.SEWAGE_FACILITY):
-						if (Inventory.removeIfHave('sewage_facility')):
+						if (Inventory.removeIfHave('sewage facility')):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.SEWAGE_FACILITY
 							City.numSewageFacilities += 1
@@ -265,7 +265,7 @@ func _unhandled_input(event):
 			Global.Tool.INF_WASTE_TREATMENT:
 				if Input.is_action_pressed("left_click"):
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.WASTE_TREATMENT):
-						if (Inventory.removeIfHave('waste_treatment')):
+						if (Inventory.removeIfHave('waste treatment')):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.WASTE_TREATMENT
 							City.numWasteTreatment += 1
@@ -372,7 +372,7 @@ func _unhandled_input(event):
 				#TODO: Museums don't do anything right now
 				if Input.is_action_pressed("left_click"):
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.FIRE_STATION):
-						if (Inventory.removeIfHave('fire_station')):
+						if (Inventory.removeIfHave('fire station')):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.FIRE_STATION
 							City.numFireStations += 1
@@ -426,7 +426,7 @@ func _unhandled_input(event):
 				#TODO: Museums don't do anything right now
 				if Input.is_action_pressed("left_click"):
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.POLICE_STATION):
-						if (Inventory.removeIfHave('police_station')):
+						if (Inventory.removeIfHave('police station')):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.POLICE_STATION
 							City.numPoliceStations += 1

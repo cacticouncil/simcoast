@@ -1,12 +1,12 @@
 extends Node
 
 var items = {
-	"utility_plant": 1,
-	'fire_station': 0,
+	"utility plant": 1,
+	'fire station': 0,
 	'hospital': 0,
-	'police_station': 0,
-	'sewage_facility': 0,
-	'waste_treatment': 0,
+	'police station': 0,
+	'sewage facility': 0,
+	'waste treatment': 0,
 	'park': 2,
 	'library': 0,
 	'museum': 0,
@@ -14,10 +14,10 @@ var items = {
 	'road': 10,
 	'water': 0,
 	'bridge': 0,
-	'lt_res_zone': 0, #don't use
-	'hv_res_zone': 0, #don't use
-	'lt_com_zone': 0, #don't use
-	'hv_com_zone': 0, #don't use
+	'house': 0, #don't use
+	'apartment': 0, #don't use
+	'shop': 0, #don't use
+	'super shop': 0, #don't use
 	"tide_sensor": 0,
 	"rain_sensor": 0
 }
