@@ -528,7 +528,7 @@ func _unhandled_input(event):
 			Global.Tool.INF_BRIDGE:
 				if Input.is_action_pressed("left_click"):
 					if (tile.get_base() == Tile.TileBase.OCEAN && tile.inf != Tile.TileInf.BRIDGE):
-						if (Inventory.removeIfHave('bridges')):
+						if (Inventory.removeIfHave('bridge')):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.BRIDGE
 							City.connectRoads(tile)

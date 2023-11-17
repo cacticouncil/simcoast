@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://ui/hud/Toolbar/ToolbarSection.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/toolbarTitle.tres" type="DynamicFont" id=2]
+
+[node name="ToolbarSection" type="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[node name="Title" type="Label" parent="."]
+margin_right = 150.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 150, 20 )
+custom_fonts/font = ExtResource( 2 )
+text = "Infrastructure"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="Title"]
+show_behind_parent = true
+margin_right = 40.0
+margin_bottom = 40.0
+color = Color( 1, 0, 0, 1 )

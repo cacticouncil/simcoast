@@ -1,20 +1,35 @@
 extends ScrollContainer
 
-export(ButtonGroup) var group
+var group = preload("res://toolbar_button_group.tres")
 
 var mapName
 var mapPath
 var savePopup
 var loadPopup
 
+var toolbarSectionScene = preload("res://ui/hud/Toolbar/ToolbarSection.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.get_v_scrollbar().rect_scale.x = 0
+	
+	var infrastructureButtons = [
+		["road", "res://assets/buttons/road"], 
+		["bridge", "res://assets/buttons/bridge"], 
+		["water", "res://assets/buttons/water"]
+	]
+	var infrastructureSection = toolbarSectionScene.instance()
+	infrastructureSection.add_button("Infrastructure", infrastructureButtons)
+	$VBoxContainer.add_child(infrastructureSection)
+	infrastructureSection.set_bg(infrastructureSection.rect_size, Color("e03c3c3c"))
+	
+	
 	for i in group.get_buttons():
 		i.connect("pressed", self, "button_pressed")
 		i.connect("mouse_entered", self, "button_hover", [i])
 		i.connect("mouse_exited", self, "button_exit")
 	updateAmounts()
+	
 
 func button_exit():
 	get_node("../BottomBar/HoverText").text = ""
@@ -163,7 +178,7 @@ func button_pressed():
 			Global.mapTool = Global.Tool.INF_SCHOOL
 		'road_button':
 			Global.mapTool = Global.Tool.INF_ROAD
-		'bridges_button':
+		'bridge_button':
 			Global.mapTool = Global.Tool.INF_BRIDGE
 		'beach_rocks_button':
 			Global.mapTool = Global.Tool.INF_BEACH_ROCKS

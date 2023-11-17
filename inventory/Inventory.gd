@@ -13,7 +13,7 @@ var items = {
 	'school': 0,
 	'road': 10,
 	'water': 0,
-	'bridges': 0,
+	'bridge': 0,
 	'lt_res_zone': 0, #don't use
 	'hv_res_zone': 0, #don't use
 	'lt_com_zone': 0, #don't use

@@ -1,0 +1,785 @@
+[gd_scene load_steps=53 format=2]
+
+[ext_resource path="res://toolbar_button_group.tres" type="ButtonGroup" id=1]
+[ext_resource path="res://assets/buttons/library_hover.png" type="Texture" id=2]
+[ext_resource path="res://assets/buttons/wasteTreatment_hover.png" type="Texture" id=3]
+[ext_resource path="res://assets/buttons/museum_hover.png" type="Texture" id=4]
+[ext_resource path="res://assets/buttons/wasteTreatment_normal.png" type="Texture" id=5]
+[ext_resource path="res://assets/buttons/museum_normal.png" type="Texture" id=6]
+[ext_resource path="res://assets/buttons/fireStation_hover.png" type="Texture" id=7]
+[ext_resource path="res://assets/buttons/policeStation_normal.png" type="Texture" id=8]
+[ext_resource path="res://assets/buttons/fireStation_normal.png" type="Texture" id=10]
+[ext_resource path="res://assets/buttons/fireStation_active.png" type="Texture" id=11]
+[ext_resource path="res://assets/buttons/hospital_hover.png" type="Texture" id=12]
+[ext_resource path="res://assets/buttons/hospital_normal.png" type="Texture" id=13]
+[ext_resource path="res://assets/buttons/library_normal.png" type="Texture" id=14]
+[ext_resource path="res://assets/buttons/museum_active.png" type="Texture" id=15]
+[ext_resource path="res://assets/buttons/hv_res_zone_hover.png" type="Texture" id=16]
+[ext_resource path="res://assets/buttons/library_active.png" type="Texture" id=17]
+[ext_resource path="res://assets/buttons/sewage_active.png" type="Texture" id=18]
+[ext_resource path="res://assets/buttons/sewage_hover.png" type="Texture" id=19]
+[ext_resource path="res://assets/buttons/park_hover.png" type="Texture" id=20]
+[ext_resource path="res://assets/buttons/policeStation_active.png" type="Texture" id=21]
+[ext_resource path="res://assets/buttons/park_active.png" type="Texture" id=22]
+[ext_resource path="res://assets/buttons/policeStation_hover.png" type="Texture" id=23]
+[ext_resource path="res://assets/buttons/hospital_active.png" type="Texture" id=24]
+[ext_resource path="res://assets/buttons/sewage_normal.png" type="Texture" id=25]
+[ext_resource path="res://assets/buttons/park_normal.png" type="Texture" id=26]
+[ext_resource path="res://assets/buttons/wasteTreatment_active.png" type="Texture" id=27]
+[ext_resource path="res://assets/buttons/school_normal.png" type="Texture" id=32]
+[ext_resource path="res://assets/buttons/tide_sensor_normal.png" type="Texture" id=34]
+[ext_resource path="res://assets/buttons/lt_res_zone_active.png" type="Texture" id=35]
+[ext_resource path="res://assets/buttons/power_plant_active.png" type="Texture" id=36]
+[ext_resource path="res://assets/buttons/lt_com_zone_hover.png" type="Texture" id=37]
+[ext_resource path="res://assets/buttons/hv_com_zone_normal.png" type="Texture" id=38]
+[ext_resource path="res://assets/buttons/hv_res_zone_normal.png" type="Texture" id=39]
+[ext_resource path="res://assets/buttons/hv_com_zone_active.png" type="Texture" id=40]
+[ext_resource path="res://assets/buttons/lt_res_zone_normal.png" type="Texture" id=41]
+[ext_resource path="res://assets/buttons/tide_sensor_active.png" type="Texture" id=43]
+[ext_resource path="res://assets/buttons/hv_res_zone_active.png" type="Texture" id=44]
+[ext_resource path="res://assets/buttons/hv_com_zone_hover.png" type="Texture" id=45]
+[ext_resource path="res://assets/buttons/power_plant_normal.png" type="Texture" id=47]
+[ext_resource path="res://assets/buttons/lt_res_zone_hover.png" type="Texture" id=48]
+[ext_resource path="res://assets/buttons/tide_sensor_hover.png" type="Texture" id=49]
+[ext_resource path="res://assets/buttons/lt_com_zone_normal.png" type="Texture" id=50]
+[ext_resource path="res://assets/buttons/power_plant_hover.png" type="Texture" id=51]
+[ext_resource path="res://assets/buttons/lt_com_zone_active.png" type="Texture" id=52]
+[ext_resource path="res://assets/fonts/toolbarTitle.tres" type="DynamicFont" id=54]
+[ext_resource path="res://assets/buttons/school_active.png" type="Texture" id=55]
+[ext_resource path="res://assets/buttons/school_hover.png" type="Texture" id=56]
+[ext_resource path="res://assets/fonts/Ubuntu-Bold.ttf" type="DynamicFontData" id=57]
+[ext_resource path="res://assets/fonts/Ubuntu-Regular.ttf" type="DynamicFontData" id=58]
+[ext_resource path="res://scripts/ToolsMenu.gd" type="Script" id=59]
+
+[sub_resource type="DynamicFont" id=1]
+size = 18
+font_data = ExtResource( 57 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 12
+font_data = ExtResource( 58 )
+
+[node name="ToolsMenu" type="ScrollContainer"]
+margin_top = 42.0
+margin_right = 162.0
+margin_bottom = 717.0
+script = ExtResource( 59 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 150.0
+margin_bottom = 30.0
+custom_constants/separation = 0
+
+[node name="ToolbarTitle" type="ColorRect" parent="VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 150, 30 )
+color = Color( 0, 0, 0, 0 )
+
+[node name="Tools" type="Label" parent="VBoxContainer/ToolbarTitle"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 150, 30 )
+custom_fonts/font = SubResource( 1 )
+text = "Tools"
+align = 1
+valign = 1
+
+[node name="Zones" type="ColorRect" parent="VBoxContainer"]
+visible = false
+margin_top = 30.0
+margin_right = 150.0
+margin_bottom = 195.0
+rect_min_size = Vector2( 150, 165 )
+color = Color( 0.235294, 0.235294, 0.235294, 0.878431 )
+
+[node name="Title" type="Label" parent="VBoxContainer/Zones"]
+margin_top = 3.0
+margin_right = 150.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 150, 20 )
+custom_fonts/font = ExtResource( 54 )
+text = "Zones"
+align = 1
+valign = 1
+
+[node name="lt_res_zone_button" type="TextureButton" parent="VBoxContainer/Zones"]
+margin_left = 20.66
+margin_top = 30.0
+margin_right = 64.66
+margin_bottom = 73.0
+hint_tooltip = "Light Residential Zoning"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 41 )
+texture_pressed = ExtResource( 35 )
+texture_hover = ExtResource( 48 )
+texture_focused = ExtResource( 35 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Zones/lt_res_zone_button"]
+margin_left = -10.33
+margin_top = 43.0
+margin_right = 54.33
+margin_bottom = 63.0
+custom_fonts/font = SubResource( 2 )
+text = "House"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Zones/lt_res_zone_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Zones/lt_res_zone_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="hv_res_zone_button" type="TextureButton" parent="VBoxContainer/Zones"]
+margin_left = 85.32
+margin_top = 30.0
+margin_right = 129.32
+margin_bottom = 73.0
+hint_tooltip = "Light Residential Zoning"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 39 )
+texture_pressed = ExtResource( 44 )
+texture_hover = ExtResource( 16 )
+texture_focused = ExtResource( 44 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Zones/hv_res_zone_button"]
+margin_left = -10.33
+margin_top = 43.0
+margin_right = 54.33
+margin_bottom = 63.0
+custom_fonts/font = SubResource( 2 )
+text = "Apartment"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Zones/hv_res_zone_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Zones/hv_res_zone_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="lt_com_zone_button" type="TextureButton" parent="VBoxContainer/Zones"]
+margin_left = 20.66
+margin_top = 96.0
+margin_right = 64.66
+margin_bottom = 139.0
+hint_tooltip = "Light Residential Zoning"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 50 )
+texture_pressed = ExtResource( 52 )
+texture_hover = ExtResource( 37 )
+texture_focused = ExtResource( 52 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Zones/lt_com_zone_button"]
+margin_left = -10.33
+margin_top = 43.0
+margin_right = 54.33
+margin_bottom = 63.0
+custom_fonts/font = SubResource( 2 )
+text = "Shop"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Zones/lt_com_zone_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Zones/lt_com_zone_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="hv_com_zone_button" type="TextureButton" parent="VBoxContainer/Zones"]
+margin_left = 85.32
+margin_top = 96.0
+margin_right = 129.32
+margin_bottom = 139.0
+hint_tooltip = "Light Residential Zoning"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 38 )
+texture_pressed = ExtResource( 40 )
+texture_hover = ExtResource( 45 )
+texture_focused = ExtResource( 40 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Zones/hv_com_zone_button"]
+margin_left = -10.33
+margin_top = 43.0
+margin_right = 54.33
+margin_bottom = 63.0
+custom_fonts/font = SubResource( 2 )
+text = "Super Shop"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Zones/hv_com_zone_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Zones/hv_com_zone_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="Industrial" type="ColorRect" parent="VBoxContainer"]
+visible = false
+margin_top = 30.0
+margin_right = 150.0
+margin_bottom = 205.0
+rect_min_size = Vector2( 150, 175 )
+color = Color( 0.431373, 0.458824, 0.517647, 0.321569 )
+
+[node name="Title" type="Label" parent="VBoxContainer/Industrial"]
+margin_top = 3.0
+margin_right = 150.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 150, 20 )
+custom_fonts/font = ExtResource( 54 )
+text = "Industrial"
+align = 1
+valign = 1
+
+[node name="utility_plant_button" type="TextureButton" parent="VBoxContainer/Industrial"]
+margin_left = 20.66
+margin_top = 27.0
+margin_right = 64.66
+margin_bottom = 67.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 47 )
+texture_pressed = ExtResource( 36 )
+texture_hover = ExtResource( 51 )
+texture_focused = ExtResource( 36 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Industrial/utility_plant_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "Utilities"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Industrial/utility_plant_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Industrial/utility_plant_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="sewage_facility_button" type="TextureButton" parent="VBoxContainer/Industrial"]
+margin_left = 85.32
+margin_top = 27.0
+margin_right = 129.32
+margin_bottom = 70.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 25 )
+texture_pressed = ExtResource( 18 )
+texture_hover = ExtResource( 19 )
+texture_focused = ExtResource( 18 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Industrial/sewage_facility_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "Sewage"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Industrial/sewage_facility_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Industrial/sewage_facility_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="waste_treatment_button" type="TextureButton" parent="VBoxContainer/Industrial"]
+margin_left = 20.66
+margin_top = 92.0
+margin_right = 64.66
+margin_bottom = 135.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 27 )
+texture_hover = ExtResource( 3 )
+texture_focused = ExtResource( 27 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Industrial/waste_treatment_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "Waste 
+Treatment"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Industrial/waste_treatment_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Industrial/waste_treatment_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="EmergencyServices" type="ColorRect" parent="VBoxContainer"]
+visible = false
+margin_top = 30.0
+margin_right = 150.0
+margin_bottom = 195.0
+rect_min_size = Vector2( 150, 165 )
+color = Color( 0.235294, 0.235294, 0.235294, 0.878431 )
+
+[node name="Title" type="Label" parent="VBoxContainer/EmergencyServices"]
+margin_top = 3.0
+margin_right = 150.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 150, 20 )
+custom_fonts/font = ExtResource( 54 )
+text = "Services"
+align = 1
+valign = 1
+
+[node name="fire_station_button" type="TextureButton" parent="VBoxContainer/EmergencyServices"]
+margin_left = 20.66
+margin_top = 27.0
+margin_right = 64.66
+margin_bottom = 67.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
+texture_hover = ExtResource( 7 )
+texture_focused = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="VBoxContainer/EmergencyServices/fire_station_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "Fire Station"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/EmergencyServices/fire_station_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/EmergencyServices/fire_station_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="hospital_button" type="TextureButton" parent="VBoxContainer/EmergencyServices"]
+margin_left = 85.32
+margin_top = 27.0
+margin_right = 129.32
+margin_bottom = 70.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 24 )
+texture_hover = ExtResource( 12 )
+texture_focused = ExtResource( 24 )
+
+[node name="Label" type="Label" parent="VBoxContainer/EmergencyServices/hospital_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "Hospital"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/EmergencyServices/hospital_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/EmergencyServices/hospital_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="police_station_button" type="TextureButton" parent="VBoxContainer/EmergencyServices"]
+margin_left = 20.66
+margin_top = 96.0
+margin_right = 64.66
+margin_bottom = 139.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 21 )
+texture_hover = ExtResource( 23 )
+texture_focused = ExtResource( 21 )
+
+[node name="Label" type="Label" parent="VBoxContainer/EmergencyServices/police_station_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "Police Station"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/EmergencyServices/police_station_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/EmergencyServices/police_station_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="Public Services" type="ColorRect" parent="VBoxContainer"]
+visible = false
+margin_top = 30.0
+margin_right = 150.0
+margin_bottom = 195.0
+rect_min_size = Vector2( 150, 165 )
+color = Color( 0.431373, 0.458824, 0.517647, 0.321569 )
+
+[node name="Title" type="Label" parent="VBoxContainer/Public Services"]
+margin_top = 3.0
+margin_right = 150.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 150, 20 )
+custom_fonts/font = ExtResource( 54 )
+text = "Public Services"
+align = 1
+valign = 1
+
+[node name="park_button" type="TextureButton" parent="VBoxContainer/Public Services"]
+margin_left = 20.66
+margin_top = 27.0
+margin_right = 64.66
+margin_bottom = 67.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 26 )
+texture_pressed = ExtResource( 22 )
+texture_hover = ExtResource( 20 )
+texture_focused = ExtResource( 22 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Public Services/park_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "Park"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Public Services/park_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Public Services/park_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="library_button" type="TextureButton" parent="VBoxContainer/Public Services"]
+margin_left = 85.32
+margin_top = 27.0
+margin_right = 129.32
+margin_bottom = 70.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 17 )
+texture_hover = ExtResource( 2 )
+texture_focused = ExtResource( 17 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Public Services/library_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "Library"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Public Services/library_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Public Services/library_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="museum_button" type="TextureButton" parent="VBoxContainer/Public Services"]
+margin_left = 20.66
+margin_top = 96.0
+margin_right = 64.66
+margin_bottom = 139.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 4 )
+texture_focused = ExtResource( 15 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Public Services/museum_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "Museum"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Public Services/museum_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Public Services/museum_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="school_button" type="TextureButton" parent="VBoxContainer/Public Services"]
+margin_left = 85.32
+margin_top = 96.0
+margin_right = 129.32
+margin_bottom = 139.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 32 )
+texture_pressed = ExtResource( 55 )
+texture_hover = ExtResource( 56 )
+texture_focused = ExtResource( 55 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Public Services/school_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "School"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Public Services/school_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Public Services/school_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="Sensors" type="ColorRect" parent="VBoxContainer"]
+visible = false
+margin_top = 30.0
+margin_right = 150.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 150, 90 )
+color = Color( 0.235294, 0.235294, 0.235294, 0.878431 )
+
+[node name="Title" type="Label" parent="VBoxContainer/Sensors"]
+margin_top = 3.0
+margin_right = 150.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 150, 20 )
+custom_fonts/font = ExtResource( 54 )
+text = "Sensors"
+align = 1
+valign = 1
+
+[node name="tide_sensor_button" type="TextureButton" parent="VBoxContainer/Sensors"]
+margin_left = 20.66
+margin_top = 27.0
+margin_right = 64.66
+margin_bottom = 67.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 34 )
+texture_pressed = ExtResource( 43 )
+texture_hover = ExtResource( 49 )
+texture_focused = ExtResource( 43 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Sensors/tide_sensor_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "Tide Sensor"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Sensors/tide_sensor_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Sensors/tide_sensor_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
+
+[node name="rain_sensor_button" type="TextureButton" parent="VBoxContainer/Sensors"]
+margin_left = 85.32
+margin_top = 27.0
+margin_right = 129.32
+margin_bottom = 70.0
+hint_tooltip = "Road/Power Tile"
+toggle_mode = true
+keep_pressed_outside = true
+group = ExtResource( 1 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 17 )
+texture_hover = ExtResource( 2 )
+texture_focused = ExtResource( 17 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Sensors/rain_sensor_button"]
+margin_left = -20.0
+margin_top = 40.0
+margin_right = 64.0
+margin_bottom = 60.0
+custom_fonts/font = SubResource( 2 )
+text = "Rain Sensor"
+align = 1
+valign = 1
+
+[node name="BG" type="ColorRect" parent="VBoxContainer/Sensors/rain_sensor_button"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 55.0
+margin_bottom = 45.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Amount" type="Label" parent="VBoxContainer/Sensors/rain_sensor_button/BG"]
+margin_right = 20.0
+margin_bottom = 20.0
+text = "99"
+align = 1
+valign = 1
