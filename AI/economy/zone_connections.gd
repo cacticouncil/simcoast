@@ -40,14 +40,15 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 				Tile.TileZone.HEAVY_RESIDENTIAL:
 					residential_neighbor += 2
 				Tile.TileZone.LIGHT_COMMERCIAL:
-					commercial_neighbor += 	1
+					commercial_neighbor += 1
 				Tile.TileZone.HEAVY_COMMERCIAL:
 					commercial_neighbor += 2
 				Tile.TileZone.PUBLIC_WORKS:
 					public_works_neighbors += 1
 					match(neighbor.inf):
 						Tile.TileInf.PARK:
-							parks += 1
+							if neighbor.utilities:
+								parks += 1
 						Tile.TileInf.LIBRARY:
 							if neighbor.utilities:
 								libraries += 1
