@@ -12,7 +12,7 @@ func add_button(sectionName, buttons):
 		# We have 3 achievements side by side, then print on the next row
 		if i % 2 == 0:
 			container = HBoxContainer.new()
-			container.set("custom_constants/separation", 21)
+			container.set("custom_constants/separation", 0)
 			add_child(container)
 			# This random control node was the easiest way to get the first spacing
 			container.add_child(Control.new())

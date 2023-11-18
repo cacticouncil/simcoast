@@ -311,7 +311,6 @@ func _unhandled_input(event):
 						City.numParks -= 1
 			
 			Global.Tool.INF_LIBRARY:
-				#TODO: Libraries don't do anything right now
 				if Input.is_action_pressed("left_click"):
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.LIBRARY):
 						if (Inventory.removeIfHave('library')):
@@ -319,14 +318,12 @@ func _unhandled_input(event):
 							tile.inf = Tile.TileInf.LIBRARY
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numLibraries += 1
-							#TODO: not tracking libraries currently
 							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
 						elif (Econ.purchase_structure(Econ.LIBRARY_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.LIBRARY
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numLibraries += 1
-							#TODO: not tracking libraries currently
 							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
 						else:
 							actionText.text = "Not enough funds!"
@@ -340,7 +337,6 @@ func _unhandled_input(event):
 						City.numLibraries -= 1
 			
 			Global.Tool.INF_MUSEUM:
-				#TODO: Museums don't do anything right now
 				if Input.is_action_pressed("left_click"):
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.MUSEUM):
 						if (Inventory.removeIfHave('museum')):
@@ -348,14 +344,12 @@ func _unhandled_input(event):
 							tile.inf = Tile.TileInf.MUSEUM
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numMuseums += 1
-							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
 						elif (Econ.purchase_structure(Econ.MUSEUM_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.MUSEUM
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numMuseums += 1
-							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
 						else:
 							actionText.text = "Not enough funds!"
@@ -369,20 +363,17 @@ func _unhandled_input(event):
 						City.numMuseums -= 1
 			
 			Global.Tool.INF_FIRE_STATION:
-				#TODO: Museums don't do anything right now
 				if Input.is_action_pressed("left_click"):
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.FIRE_STATION):
 						if (Inventory.removeIfHave('fire station')):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.FIRE_STATION
 							City.numFireStations += 1
-							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Tile", "Added Fire Station", 1))
 						elif (Econ.purchase_structure(Econ.FIRE_STATION_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.FIRE_STATION
 							City.numFireStations += 1
-							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Tile", "Added Fire Station", 1))
 						else:
 							actionText.text = "Not enough funds!"
@@ -396,20 +387,17 @@ func _unhandled_input(event):
 						City.numFireStations -= 1
 			
 			Global.Tool.INF_HOSPITAL:
-				#TODO: Museums don't do anything right now
 				if Input.is_action_pressed("left_click"):
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.HOSPITAL):
 						if (Inventory.removeIfHave('hospital')):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.HOSPITAL
 							City.numHospital += 1
-							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Tile", "Added Hospital", 1))
 						elif (Econ.purchase_structure(Econ.HOSPITAL_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.HOSPITAL
 							City.numHospital += 1
-							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Tile", "Added Hospital", 1))
 						else:
 							actionText.text = "Not enough funds!"
@@ -423,20 +411,17 @@ func _unhandled_input(event):
 						City.numHospital -= 1
 			
 			Global.Tool.INF_POLICE_STATION:
-				#TODO: Museums don't do anything right now
 				if Input.is_action_pressed("left_click"):
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.POLICE_STATION):
 						if (Inventory.removeIfHave('police station')):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.POLICE_STATION
 							City.numPoliceStations += 1
-							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Tile", "Added Police Station", 1))
 						elif (Econ.purchase_structure(Econ.POLICE_STATION_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.POLICE_STATION
 							City.numPoliceStations += 1
-							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Tile", "Added Police Station", 1))
 						else:
 							actionText.text = "Not enough funds!"
@@ -450,20 +435,17 @@ func _unhandled_input(event):
 						City.numPoliceStations -= 1
 			
 			Global.Tool.INF_SCHOOL:
-				#TODO: Museums don't do anything right now
 				if Input.is_action_pressed("left_click"):
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.SCHOOL):
 						if (Inventory.removeIfHave('school')):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.SCHOOL
 							City.numSchools += 1
-							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Tile", "Added School", 1))
 						elif (Econ.purchase_structure(Econ.SCHOOL_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.SCHOOL
 							City.numSchools += 1
-							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Tile", "Added School", 1))
 						else:
 							actionText.text = "Not enough funds!"
@@ -477,12 +459,10 @@ func _unhandled_input(event):
 						City.numSchools -= 1
 			
 			Global.Tool.SENSOR_TIDE:
-				#TODO: Museums don't do anything right now
 				if Input.is_action_pressed("left_click"):
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.sensor != Tile.TileSensor.TIDE):
 						if (Inventory.has_building("tide sensor")):
 							tile.sensor = Tile.TileSensor.TIDE
-							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
 							Inventory.remove_building("tide sensor")
 						else:
