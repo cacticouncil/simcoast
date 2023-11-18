@@ -67,7 +67,7 @@ func _ready():
 	
 	var sensorButtons = [
 		["tide sensor", "res://assets/buttons/tide_sensor"], 
-		["rain sensor", "res://assets/buttons/tide_sensor"]
+		["rain sensor", "res://assets/buttons/rain_gauge"]
 	]
 	var sensorSection = toolbarSectionScene.instance()
 	sensorSection.add_button("Sensors", sensorButtons)
