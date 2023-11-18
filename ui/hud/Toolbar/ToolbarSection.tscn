@@ -16,6 +16,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "Infrastructure"
 align = 1
 valign = 1
+autowrap = true
 
 [node name="BG" type="ColorRect" parent="Title"]
 show_behind_parent = true

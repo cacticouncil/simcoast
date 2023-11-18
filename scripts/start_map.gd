@@ -480,7 +480,7 @@ func _unhandled_input(event):
 				#TODO: Museums don't do anything right now
 				if Input.is_action_pressed("left_click"):
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.sensor != Tile.TileSensor.TIDE):
-						if (Inventory.has_building("tide_sensor")):
+						if (Inventory.has_building("tide sensor")):
 							tile.sensor = Tile.TileSensor.TIDE
 							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))

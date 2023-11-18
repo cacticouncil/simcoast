@@ -18,8 +18,8 @@ var items = {
 	'apartment': 0, #don't use
 	'shop': 0, #don't use
 	'super shop': 0, #don't use
-	"tide_sensor": 0,
-	"rain_sensor": 0
+	"tide sensor": 0,
+	"rain sensor": 0
 }
 
 var tide_info = " Used to measure the speed and\n height of the tide and other\n weather metrics."

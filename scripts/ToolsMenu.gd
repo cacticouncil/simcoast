@@ -50,7 +50,7 @@ func _ready():
 		["police station", "res://assets/buttons/policeStation"]
 	]
 	var emergencyServiceSection = toolbarSectionScene.instance()
-	emergencyServiceSection.add_button("Zones", emergencyServiceButtons)
+	emergencyServiceSection.add_button("Emergency Services", emergencyServiceButtons)
 	$VBoxContainer.add_child(emergencyServiceSection)
 	emergencyServiceSection.set_bg(emergencyServiceSection.rect_size, Color("e03c3c3c"))
 	
@@ -61,9 +61,18 @@ func _ready():
 		["school", "res://assets/buttons/school"]
 	]
 	var publicServiceSection = toolbarSectionScene.instance()
-	publicServiceSection.add_button("Zones", publicServiceButtons)
+	publicServiceSection.add_button("Public Services", publicServiceButtons)
 	$VBoxContainer.add_child(publicServiceSection)
 	publicServiceSection.set_bg(publicServiceSection.rect_size, Color("526e7584"))
+	
+	var sensorButtons = [
+		["tide sensor", "res://assets/buttons/tide_sensor"], 
+		["rain sensor", "res://assets/buttons/tide_sensor"]
+	]
+	var sensorSection = toolbarSectionScene.instance()
+	sensorSection.add_button("Sensors", sensorButtons)
+	$VBoxContainer.add_child(sensorSection)
+	sensorSection.set_bg(sensorSection.rect_size, Color("e03c3c3c"))
 	
 	for i in group.get_buttons():
 		i.connect("pressed", self, "button_pressed")
@@ -233,7 +242,7 @@ func button_pressed():
 			Global.mapTool = Global.Tool.LAYER_WATER
 		'clear_water_button':
 			Global.mapTool = Global.Tool.CLEAR_WATER
-		'tide_sensor_button':
+		'tide sensor_button':
 			Global.mapTool = Global.Tool.SENSOR_TIDE
 		
 		'raise_ocean_button':
