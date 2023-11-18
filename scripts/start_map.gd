@@ -484,7 +484,7 @@ func _unhandled_input(event):
 							tile.sensor = Tile.TileSensor.TIDE
 							#TODO: not tracking museums currently
 							Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
-							Inventory.remove_building("tide_sensor")
+							Inventory.remove_building("tide sensor")
 						else:
 							print("No available sensors!")
 					elif (tile.sensor == Tile.TileSensor.TIDE):

@@ -745,6 +745,10 @@ func get_cube_colors():
 			colors[0] = Tile.ROCK_COLOR[0]
 		#Tile.TileInf.BRIDGE:
 			#colors[0] = Tile.ROCK_COLOR[0]
+	
+	match tile.sensor:
+		Tile.TileSensor.TIDE:
+			colors[0] = Color("fff542a4")
 
 	return colors
 

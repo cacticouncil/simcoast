@@ -70,8 +70,8 @@ func change_sensor_status(var n, var s):
 func update_sensor_amount():
 	for sensor in sensors:
 		if sensor.get_name() == "Tide Gauge":
-			items["tide_sensor"] = sensor.get_amount()
+			items["tide sensor"] = sensor.get_amount()
 		if sensor.get_name() == "Rain Gauge":
-			items["rain_sensor"] = sensor.get_amount()
+			items["rain sensor"] = sensor.get_amount()
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
 	
