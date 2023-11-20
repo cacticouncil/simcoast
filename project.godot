@@ -212,6 +212,7 @@ Stats="*res://scripts/Stats.gd"
 NpcObserver="*res://scripts/Observers/NpcObserver.gd"
 NPCOrganizer="*res://scripts/NPCOrganizer.gd"
 Introduction="*res://ui/NPC_Interactions/Introduction.gd"
+BadgeObserver="*res://scripts/Observers/BadgeObserver.gd"
 
 [display]
 
