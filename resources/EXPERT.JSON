@@ -1,0 +1,20 @@
+[
+{
+	"dialogue":"Quiz time! Let's see what you've learned!",
+	"next":"0,1"
+},
+{
+	"dialogue":"Which of these is NOT in the water cycle?",
+	"next":"2,3"
+},
+	
+{
+	"dialogue":"Correct! You earn a bronze badge...",
+	"next":"-1"
+},
+{
+	"dialogue":"Sorry! That is incorrect! Better luck next time",
+	"next":"-1"
+	
+}
+]

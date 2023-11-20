@@ -1,0 +1,30 @@
+[
+{
+	"dialogue":"Let's do it!",
+	"next":"1"
+},
+{
+	"dialogue":"I need more time!",
+	"next":"-1"
+},
+	
+{
+	"dialogue":"Evaporation",
+	"next":"2"
+},
+{
+	"dialogue":"Inception",
+	"next":"3"
+	
+},
+
+{
+	"dialogue":":(",
+	"next":"-2"
+},
+{
+	"dialogue":"Claim",
+	"next":"-2"
+	
+}
+]

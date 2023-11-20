@@ -9,6 +9,7 @@ var npcCount = 0
 func _ready():
 	addNPC("Carl", 1, "res://resources/PLAYER.json", "res://resources/NPC.json")
 	addNPC("Lydia", 2, "res://resources/tutorial.json", "res://resources/tutorial.json")
+	addNPC("Expert", 3, "res://resources/PLAYER_EXPERT.json", "res://resources/EXPERT.json")
 
 #Gets the number of NPCs
 func getNPCCount():

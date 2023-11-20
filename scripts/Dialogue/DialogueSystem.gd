@@ -48,7 +48,7 @@ func get_next_dialogue():
 			currentDialogue = NPC_CONV[int(currentNPC)]["dialogue"]
 			# no player prompt
 			if(NPC_CONV[int(currentNPC)]["next"] == "-1"):
-				currentNPC = 4
+				currentNPC = -2
 			else:
 				currentPlayer = NPC_CONV[int(currentNPC)]["next"]
 				turn = false
@@ -57,8 +57,10 @@ func get_next_dialogue():
 		#player sequence
 		else:
 			# end dialogue
+			#print(currentPlayer)
 			if(currentPlayer == "-2"):
-				return
+				currentPlayer = -2
+				return null
 			currentDialogue=[]
 			var cp = currentPlayer.split(",")
 			for j in cp:
