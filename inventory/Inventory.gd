@@ -1,25 +1,25 @@
 extends Node
 
 var items = {
-	"utility_plant": 1,
-	'fire_station': 0,
+	"utility plant": 1,
+	'fire station': 0,
 	'hospital': 0,
-	'police_station': 0,
-	'sewage_facility': 0,
-	'waste_treatment': 0,
+	'police station': 0,
+	'sewage facility': 0,
+	'waste treatment': 0,
 	'park': 2,
 	'library': 0,
 	'museum': 0,
 	'school': 0,
 	'road': 10,
 	'water': 0,
-	'bridges': 0,
-	'lt_res_zone': 0, #don't use
-	'hv_res_zone': 0, #don't use
-	'lt_com_zone': 0, #don't use
-	'hv_com_zone': 0, #don't use
-	"tide_sensor": 0,
-	"rain_sensor": 0
+	'bridge': 0,
+	'house': 0, #don't use
+	'apartment': 0, #don't use
+	'shop': 0, #don't use
+	'super shop': 0, #don't use
+	"tide sensor": 0,
+	"rain sensor": 0
 }
 
 var tide_info = " Used to measure the speed and\n height of the tide and other\n weather metrics."
@@ -72,9 +72,9 @@ func change_sensor_status(var n, var s):
 func update_sensor_amount():
 	for sensor in sensors:
 		if sensor.get_name() == "Tide Gauge":
-			items["tide_sensor"] = sensor.get_amount()
+			items["tide sensor"] = sensor.get_amount()
 		if sensor.get_name() == "Rain Gauge":
-			items["rain_sensor"] = sensor.get_amount()
+			items["rain sensor"] = sensor.get_amount()
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
 	
 func set_current_sensor(var s):

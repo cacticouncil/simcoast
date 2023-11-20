@@ -1,20 +1,85 @@
 extends ScrollContainer
 
-export(ButtonGroup) var group
+var group = preload("res://toolbar_button_group.tres")
 
 var mapName
 var mapPath
 var savePopup
 var loadPopup
 
+var toolbarSectionScene = preload("res://ui/hud/Toolbar/ToolbarSection.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.get_v_scrollbar().rect_scale.x = 0
+	
+	var infrastructureButtons = [
+		["road", "res://assets/buttons/road"], 
+		["bridge", "res://assets/buttons/bridge"], 
+		["water", "res://assets/buttons/water"]
+	]
+	var infrastructureSection = toolbarSectionScene.instance()
+	infrastructureSection.add_button("Infrastructure", infrastructureButtons)
+	$VBoxContainer.add_child(infrastructureSection)
+	infrastructureSection.set_bg(infrastructureSection.rect_size, Color("526e7584"))
+	
+	var zoneButtons = [
+		["house", "res://assets/buttons/lt_res_zone"], 
+		["apartment", "res://assets/buttons/hv_res_zone"], 
+		["shop", "res://assets/buttons/lt_com_zone"],
+		["super shop", "res://assets/buttons/hv_com_zone"]
+	]
+	var zoneSection = toolbarSectionScene.instance()
+	zoneSection.add_button("Zones", zoneButtons)
+	$VBoxContainer.add_child(zoneSection)
+	zoneSection.set_bg(zoneSection.rect_size, Color("e03c3c3c"))
+	
+	var industrialButtons = [
+		["utility plant", "res://assets/buttons/power_plant"], 
+		["sewage facility", "res://assets/buttons/sewage"], 
+		["waste treatment", "res://assets/buttons/wasteTreatment"]
+	]
+	var industrialSection = toolbarSectionScene.instance()
+	industrialSection.add_button("Industrial", industrialButtons)
+	$VBoxContainer.add_child(industrialSection)
+	industrialSection.set_bg(industrialSection.rect_size, Color("526e7584"))
+	
+	var emergencyServiceButtons = [
+		["fire station", "res://assets/buttons/fireStation"], 
+		["hospital", "res://assets/buttons/hospital"], 
+		["police station", "res://assets/buttons/policeStation"]
+	]
+	var emergencyServiceSection = toolbarSectionScene.instance()
+	emergencyServiceSection.add_button("Emergency Services", emergencyServiceButtons)
+	$VBoxContainer.add_child(emergencyServiceSection)
+	emergencyServiceSection.set_bg(emergencyServiceSection.rect_size, Color("e03c3c3c"))
+	
+	var publicServiceButtons = [
+		["park", "res://assets/buttons/park"], 
+		["library", "res://assets/buttons/library"], 
+		["museum", "res://assets/buttons/museum"],
+		["school", "res://assets/buttons/school"]
+	]
+	var publicServiceSection = toolbarSectionScene.instance()
+	publicServiceSection.add_button("Public Services", publicServiceButtons)
+	$VBoxContainer.add_child(publicServiceSection)
+	publicServiceSection.set_bg(publicServiceSection.rect_size, Color("526e7584"))
+	
+	var sensorButtons = [
+		["tide sensor", "res://assets/buttons/tide_sensor"], 
+		["rain sensor", "res://assets/buttons/rain_gauge"]
+	]
+	var sensorSection = toolbarSectionScene.instance()
+	sensorSection.add_button("Sensors", sensorButtons)
+	$VBoxContainer.add_child(sensorSection)
+	sensorSection.set_bg(sensorSection.rect_size, Color("e03c3c3c"))
+	
 	for i in group.get_buttons():
 		i.connect("pressed", self, "button_pressed")
 		i.connect("mouse_entered", self, "button_hover", [i])
 		i.connect("mouse_exited", self, "button_exit")
 	updateAmounts()
+	
 
 func button_exit():
 	get_node("../BottomBar/HoverText").text = ""
@@ -38,33 +103,33 @@ func button_hover(button):
 			toolInfo.text = "Replace base tile with ocean"
 		'water_button':
 			toolInfo.text = "Turns tile to water"
-		'lt_res_zone_button':
+		'house_button':
 			toolInfo.text = "Light Residential Zone   (Right Click: Remove zoning)"
-		'hv_res_zone_button':
+		'apartment_button':
 			toolInfo.text = "Heavy Residential Zone   (Right Click: Remove zoning)"
 		'add_house_button':
 			toolInfo.text = "Add building to residential zone   (Right Click: Remove building)"
 		'add_resident_button':
 			toolInfo.text = "Add resident to residential zone   (Right Click: Remove person)"
-		'lt_com_zone_button':
+		'shop_button':
 			toolInfo.text = "Light Commercial Zone   (Right Click: Remove zoning)"
-		'hv_com_zone_button':
+		'super shop_button':
 			toolInfo.text = "Heavy Commercial Zone   (Right Click: Remove zoning)"
 		'add_building_button':
 			toolInfo.text = "Add building to commercial zone   (Right Click: Remove building)"
 		'add_employee_button':
 			toolInfo.text = "Add employee to commercial zone   (Right Click: Remove employee)"
-		'fire_station_button':
+		'fire station_button':
 			toolInfo.text = "Build Fire Station   (Right Click: Remove Fire Station)"
 		'hospital_button':
 			toolInfo.text = "Build Hospital   (Right Click: Remove Hospital)"
-		'police_station_button':
+		'police station_button':
 			toolInfo.text = "Build Police Station   (Right Click: Remove Police Station)"
-		'utility_plant_button':
+		'utility plant_button':
 			toolInfo.text = "Build Utilities Plant"
-		'sewage_facility_button':
+		'sewage facility_button':
 			toolInfo.text = "Build Sewage Facility"
-		'waste_treatment_button':
+		'waste treatment_button':
 			toolInfo.text = "Build Waste Treatment Facility"
 		'road_button':
 			toolInfo.text = "Build infrastructure (road/power/water) tile   (Right Click: Remove infrastructure)"
@@ -125,33 +190,33 @@ func button_pressed():
 			Global.mapTool = Global.Tool.BASE_OCEAN
 		'water_button':
 			Global.mapTool = Global.Tool.BASE_OCEAN
-		'lt_res_zone_button':
+		'house_button':
 			Global.mapTool = Global.Tool.ZONE_LT_RES
-		'hv_res_zone_button':
+		'apartment_button':
 			Global.mapTool = Global.Tool.ZONE_HV_RES
 		'add_house_button':
 			Global.mapTool = Global.Tool.ADD_RES_BLDG
 		'add_resident_button':
 			Global.mapTool = Global.Tool.ADD_RES_PERSON
-		'lt_com_zone_button':
+		'shop_button':
 			Global.mapTool = Global.Tool.ZONE_LT_COM
-		'hv_com_zone_button':
+		'super shop_button':
 			Global.mapTool = Global.Tool.ZONE_HV_COM
 		'add_building_button':
 			Global.mapTool = Global.Tool.ADD_COM_BLDG
 		'add_employee_button':
 			Global.mapTool = Global.Tool.ADD_COM_PERSON
-		'fire_station_button':
+		'fire station_button':
 			Global.mapTool = Global.Tool.INF_FIRE_STATION
 		'hospital_button':
 			Global.mapTool = Global.Tool.INF_HOSPITAL
-		'police_station_button':
+		'police station_button':
 			Global.mapTool = Global.Tool.INF_POLICE_STATION
-		'utility_plant_button':
+		'utility plant_button':
 			Global.mapTool = Global.Tool.INF_UTILITIES_PLANT
-		'sewage_facility_button':
+		'sewage facility_button':
 			Global.mapTool = Global.Tool.INF_SEWAGE_FACILITY
-		'waste_treatment_button':
+		'waste treatment_button':
 			Global.mapTool = Global.Tool.INF_WASTE_TREATMENT
 		'park_button':
 			Global.mapTool = Global.Tool.INF_PARK
@@ -163,7 +228,7 @@ func button_pressed():
 			Global.mapTool = Global.Tool.INF_SCHOOL
 		'road_button':
 			Global.mapTool = Global.Tool.INF_ROAD
-		'bridges_button':
+		'bridge_button':
 			Global.mapTool = Global.Tool.INF_BRIDGE
 		'beach_rocks_button':
 			Global.mapTool = Global.Tool.INF_BEACH_ROCKS
@@ -177,7 +242,7 @@ func button_pressed():
 			Global.mapTool = Global.Tool.LAYER_WATER
 		'clear_water_button':
 			Global.mapTool = Global.Tool.CLEAR_WATER
-		'tide_sensor_button':
+		'tide sensor_button':
 			Global.mapTool = Global.Tool.SENSOR_TIDE
 		
 		'raise_ocean_button':
