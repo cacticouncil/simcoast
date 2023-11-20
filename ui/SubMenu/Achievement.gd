@@ -2,7 +2,6 @@ extends Node
 
 var greyscale = preload("res://assets/shaders/greyscale.tres")
 
-# Called when the node enters the scene tree for the first time.
 func updateValues(aName, aDesc, aValue, aConst, aPic, completed):
 	$AchievementName.text = aName
 	$AchievementDescription.text = aDesc

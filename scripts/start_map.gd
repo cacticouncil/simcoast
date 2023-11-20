@@ -59,14 +59,6 @@ func initObservers():
 	$HUD/MissionsBG.margin_bottom = 28 + (14 * missions.size()) + (20 * (missions.size() + 1))
 	$HUD/Missions/VBoxContainer/Mission1.text = missions[0]
 	
-	#FIXME: This line should add hover text but isn't
-	""" For reference from ui_buttons.gd
-	for i in group.get_buttons():
-		i.connect("pressed", self, "button_pressed")
-		i.connect("mouse_entered", self, "button_hover", [i])
-		i.connect("mouse_exited", self, "button_exit")
-	"""
-	#$HUD/Missions/VBoxContainer/Mission1.connect("mouse_entered", self, "MissionObserver.hoverMission", [0])
 	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "show_mission_tip", [0])
 	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_exited", self, "clear_mission_tip")
 	if missions.size() > 1:
@@ -86,6 +78,21 @@ func initObservers():
 	var sfxObserver = load("res://scripts/Observers/SfxObserver.gd").new()
 	Announcer.addObserver(sfxObserver)
 	self.add_child(sfxObserver)
+	
+	#Add Badge Observer
+	Announcer.addObserver(get_node("/root/BadgeObserver"))
+	#Remove these, solely for testing purposes
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 1", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 2", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 3", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 4", 2))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 5", 2))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 6", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 7", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 8", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 9", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 10", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 11", 2))
 	
 	# Just in case their's any action to take about this right away
 	Announcer.notify(Event.new("Money", "Amount of money", Econ.money))
@@ -658,6 +665,9 @@ func _on_DashboardButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = true
 	$HUD/TopBarBG/AchievementSelected.visible = false
 	$HUD/TopBarBG/StoreSelected.visible = false
+	var Dashboard = preload("res://ui/testArea.tscn")
+	var DashboardInstance = Dashboard.instance()
+	add_child(DashboardInstance)
 
 func _on_UIAchievementButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = false
@@ -696,3 +706,4 @@ func _on_UIAchievementButton_mouse_exited():
 
 func _on_StoreButton_mouse_exited():
 	$HUD/TopBarBG/StoreHover.visible = false
+	
