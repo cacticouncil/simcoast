@@ -87,21 +87,18 @@ func dialogueSequence(n):
 	if (typeof(cd) == TYPE_ARRAY && cd.size() != 1):
 		choices = true
 	if(solo == true && int(currentNPC) == -2):
-		currentNPC = 0
-		currentPlayer = 0
-		turn = true
-		currentDialogue=""
-		currentSequence = 0
+		resetDialogue()
 	elif(solo == false):		
 		if(int(currentPlayer) == -2 && turn == false):
-			currentNPC = 0
-			currentPlayer = 0
-			turn = true
-			currentDialogue=""
-			currentSequence = 0
+			resetDialogue()
 	return cd
 	
-
+func resetDialogue():
+	currentNPC = 0
+	currentPlayer = 0
+	turn = true
+	currentDialogue = ""
+	currentSequence = 0
 #func _input(event):
 #	if event is InputEventKey and event.pressed:
 #		if event.keycode == KEY_1:

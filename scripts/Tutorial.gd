@@ -72,3 +72,8 @@ func _on_Option3_pressed():
 	return
 
 #TODO add JSON file to have "emotions" to set currentFrame
+
+
+func _on_Exit_pressed():
+	NPCOrganizer.dialogueReset(npc)
+	get_parent().remove_child(self)
