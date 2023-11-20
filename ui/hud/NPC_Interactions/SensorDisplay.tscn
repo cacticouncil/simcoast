@@ -101,4 +101,5 @@ margin_bottom = 178.0
 rect_scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 2 )
 
+[connection signal="pressed" from="SensorsBG/SensorName/InfoButton" to="." method="_on_InfoButton_pressed"]
 [connection signal="pressed" from="SensorsBG/SensorName/BuyButton" to="." method="_on_BuyButton_pressed"]

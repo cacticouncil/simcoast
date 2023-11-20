@@ -23,16 +23,18 @@ var items = {
 }
 
 var tide_info = " Used to measure the speed and\n height of the tide and other\n weather metrics."
+var tide_ext_info = "A tide gauge is a device used to measure the change in sea level relative to the surface of land.\nSensors continuously record the height of the water level by measuring the distance to the water's surface and comparing it to the height of the land it is connected to.\nTide gauges are important sensors when predicting upcoming storms, since storms create higher waves."
+var placeholder = " This is the extended sensor description. TBA"
 var rain_info = " Used to measure the amount of\n rain fall an area has had over\n a period of time."
 var gen_info = " This is a sensor that measures \n something. TBA"
 var sensors = []
-
+var current_sensor = ""
 func _ready():
-	sensors.append(Sensor.new("Tide Gauge", tide_info, " "))
+	sensors.append(Sensor.new("Tide Gauge", tide_info, tide_ext_info, " "))
 	sensors[0].set_status(true)
-	sensors.append(Sensor.new("Rain Gauge", rain_info, "Buy a Tide Gauge"))
-	sensors.append(Sensor.new("GEN1 Gauge", gen_info, "Buy a Rain Gauge"))
-	sensors.append(Sensor.new("GEN2 Gauge", gen_info, "Buy a GEN1 Gauge"))
+	sensors.append(Sensor.new("Rain Gauge", rain_info, placeholder,"Buy a Tide Gauge"))
+	sensors.append(Sensor.new("GEN1 Gauge", gen_info, placeholder, "Buy a Rain Gauge"))
+	sensors.append(Sensor.new("GEN2 Gauge", gen_info, placeholder, "Buy a GEN1 Gauge"))
 
 func add_building(building):
 	items[building] += 1
@@ -75,3 +77,10 @@ func update_sensor_amount():
 			items["rain_sensor"] = sensor.get_amount()
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
 	
+func set_current_sensor(var s):
+	current_sensor = s
+	
+func get_price(var n):
+	for sensor in sensors:
+		if sensor.get_name() == n:
+			return sensor.price

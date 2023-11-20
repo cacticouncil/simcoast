@@ -210,14 +210,15 @@ MissionObserver="*res://scripts/Observers/MissionObserver.gd"
 AchievementObserver="*res://scripts/Observers/AchievementObserver.gd"
 Stats="*res://scripts/Stats.gd"
 NpcObserver="*res://scripts/Observers/NpcObserver.gd"
+Inventory="*res://inventory/Inventory.gd"
 NPCOrganizer="*res://scripts/NPCOrganizer.gd"
-Inventory="*res://inventory/Inventory.tscn"
 
 [display]
 
 window/size/width=1280
 window/size/height=720
 window/size/resizable=false
+window/size/fullscreen=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
