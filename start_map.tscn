@@ -418,7 +418,6 @@ margin_bottom = 720.0
 theme = SubResource( 17 )
 scroll_horizontal_enabled = false
 script = ExtResource( 122 )
-group = ExtResource( 16 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/ToolsMenu"]
 margin_right = 150.0
@@ -1585,6 +1584,31 @@ margin_bottom = 200.0
 custom_fonts/font = ExtResource( 49 )
 text = "Ask for help"
 
+[node name="ColorRect" type="ColorRect" parent="SensorChoice/ColorRect/ChoiceBox/HelpButton"]
+visible = false
+margin_left = -5.0
+margin_top = -175.0
+margin_right = 210.0
+margin_bottom = 43.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 205.0
+margin_bottom = 165.0
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = ExtResource( 49 )
+text = "Professor X recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
+
+[node name="CloseHelpButton" type="Button" parent="SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect"]
+margin_left = 5.0
+margin_top = 175.0
+margin_right = 210.0
+margin_bottom = 200.0
+custom_fonts/font = ExtResource( 49 )
+text = "OK"
+
 [connection signal="mouse_entered" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_exited"]
 [connection signal="pressed" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_pressed"]
@@ -1602,3 +1626,7 @@ text = "Ask for help"
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/LoadButton" to="." method="_on_LoadButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/AchievementButton" to="." method="_on_AchievementButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/QuitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="pressed" from="SensorChoice/ColorRect/ChoiceBox/YesButton" to="." method="_on_YesButton_pressed"]
+[connection signal="pressed" from="SensorChoice/ColorRect/ChoiceBox/NoButton" to="." method="_on_NoButton_pressed"]
+[connection signal="pressed" from="SensorChoice/ColorRect/ChoiceBox/HelpButton" to="." method="_on_HelpButton_pressed"]
+[connection signal="pressed" from="SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/CloseHelpButton" to="." method="_on_CloseHelpButton_pressed"]

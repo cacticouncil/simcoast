@@ -32,8 +32,8 @@ func _process(delta):
 	var curr_desc = "Congrats! You just bought a " 
 	#var curr_name = $SensorsBG/SensorName.text
 	var curr_desc2 = "! You now have "
-	var curr_desc3 = " sensors."
-	var curr_desc3_1 = " sensor."
+	var curr_desc3 = " sensors in your inventory."
+	var curr_desc3_1 = " sensor in your inventory."
 	#var final_desc = curr_desc + curr_name + curr_desc2 + str(sensor_amount) + curr_desc3
 	
 	for sensor in Inventory.sensors:

@@ -115,7 +115,7 @@ var changeInWaterHeight = 0
 # Tracks what connections a tile has to its neighbors with roads
 var connections = [0,0,0,0]
 var sensor = TileSensor.NONE
-
+var sensor_active = false
 # Economy AI: equation coefficient constants
 var desirability = 0.2
 const BASE_DESIRABILITY = 0.2

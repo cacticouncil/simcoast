@@ -6,7 +6,7 @@ var copyTile				# Stores tile to use when copy/pasting tiles on the map
 var tickDelay = Global.TICK_DELAY #time in seconds between ticks
 var numTicks = 0 #time elapsed since start
 var isFastFWD = false
-
+var current_sensor_tile
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initCamera()
@@ -460,21 +460,37 @@ func _unhandled_input(event):
 			
 			Global.Tool.SENSOR_TIDE:
 				if Input.is_action_pressed("left_click"):
-					if (tile.get_base() == Tile.TileBase.DIRT && tile.sensor != Tile.TileSensor.TIDE):
-						if (Inventory.has_building("tide sensor")):
-							tile.sensor = Tile.TileSensor.TIDE
-							Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
-							Inventory.remove_building("tide sensor")
-						else:
-							print("No available sensors!")
-					elif (tile.sensor == Tile.TileSensor.TIDE):
-						actionText.text = "Sensor already here!"
+					#if (tile.get_base() == Tile.TileBase.DIRT && tile.sensor != Tile.TileSensor.TIDE):
+					if (Inventory.has_building("tide sensor")):
+						current_sensor_tile = tile
+						$SensorChoice/ColorRect.visible = true
 					else:
-						actionText.text = "Different sensor here"
+						print("No available sensors!")
+					#if(can_place_sensor):
+					#	if (tile.sensor != Tile.TileSensor.TIDE):
+					#		if (Inventory.has_building("tide sensor")):
+					#			tile.sensor = Tile.TileSensor.TIDE
+					#			Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
+					#			Inventory.remove_building("tide sensor")
+					#		else:
+					#			print("No available sensors!")
+					#	elif (tile.sensor == Tile.TileSensor.TIDE):
+					#		actionText.text = "Sensor already here!"
+					#	else:
+					#		actionText.text = "Different sensor here"
 				elif Input.is_action_pressed("right_click"):
 					if tile.sensor == Tile.TileSensor.TIDE:
 						tile.clear_sensor()
-			
+			Global.Tool.SENSOR_RAIN:
+				if Input.is_action_pressed("left_click"):
+					if (Inventory.has_building("rain sensor")):
+						current_sensor_tile = tile
+						$SensorChoice/ColorRect.visible = true
+					else:
+						print("No available sensors!")
+				elif Input.is_action_pressed("right_click"):
+					if tile.sensor == Tile.TileSensor.RAIN:
+						tile.clear_sensor()
 			Global.Tool.INF_ROAD:
 				if Input.is_action_pressed("left_click"):
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.ROAD):
@@ -766,3 +782,54 @@ func _on_interaction_button_pressed():
 	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 	var TutorialInstance = tutorial.instance()
 	add_child(TutorialInstance)
+
+
+func _on_YesButton_pressed():
+
+	$SensorChoice/ColorRect.visible = false
+	match Global.mapTool:
+		Global.Tool.SENSOR_TIDE:
+			if (current_sensor_tile.sensor != Tile.TileSensor.TIDE):
+				if (current_sensor_tile.get_base() == Tile.TileBase.OCEAN):
+					current_sensor_tile.sensor_active = true
+				else:
+					current_sensor_tile.sensor_active = false
+				current_sensor_tile.sensor = Tile.TileSensor.TIDE
+				Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
+				Inventory.remove_building("tide sensor")
+			elif (current_sensor_tile.sensor == Tile.TileSensor.TIDE):
+				print("Sensor already here!")
+			else:
+				print("Different sensor here")
+		Global.Tool.SENSOR_RAIN:
+			if (current_sensor_tile.sensor != Tile.TileSensor.RAIN):
+				if (current_sensor_tile.get_base() == Tile.TileBase.DIRT):
+					current_sensor_tile.sensor_active = true
+				else:
+					current_sensor_tile.sensor_active = false
+				current_sensor_tile.sensor = Tile.TileSensor.RAIN
+				Announcer.notify(Event.new("Added Sensor", "Added Rain Sensor", 1))
+				Inventory.remove_building("rain sensor")
+			elif (current_sensor_tile.sensor == Tile.TileSensor.RAIN):
+				print("Sensor already here!")
+			else:
+				print("Different sensor here")
+
+
+
+func _on_NoButton_pressed():
+	$SensorChoice/ColorRect.visible = false
+	
+
+
+func _on_HelpButton_pressed():
+	$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = true
+	match Global.mapTool:
+		Global.Tool.SENSOR_TIDE:
+			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "Professor X recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
+		Global.Tool.SENSOR_RAIN:
+			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "Professor X recommends putting rain sensors inland, near tall buildings, where they will be most effective."
+	
+
+func _on_CloseHelpButton_pressed():
+	$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = false

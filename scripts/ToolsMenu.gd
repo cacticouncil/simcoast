@@ -244,7 +244,8 @@ func button_pressed():
 			Global.mapTool = Global.Tool.CLEAR_WATER
 		'tide sensor_button':
 			Global.mapTool = Global.Tool.SENSOR_TIDE
-		
+		'rain sensor_button':
+			Global.mapTool = Global.Tool.SENSOR_RAIN
 		'raise_ocean_button':
 			Global.mapTool = Global.Tool.NONE
 			if Global.oceanHeight < Global.MAX_HEIGHT:

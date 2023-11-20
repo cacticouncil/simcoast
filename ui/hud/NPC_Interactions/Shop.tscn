@@ -127,6 +127,7 @@ margin_left = 825.0
 margin_top = 585.0
 margin_right = 895.0
 margin_bottom = 621.0
+custom_fonts/font = ExtResource( 4 )
 text = "Close"
 icon_align = 1
 
@@ -163,6 +164,7 @@ margin_left = 756.0
 margin_top = 349.0
 margin_right = 826.0
 margin_bottom = 385.0
+custom_fonts/font = ExtResource( 4 )
 text = "Close"
 icon_align = 1
 

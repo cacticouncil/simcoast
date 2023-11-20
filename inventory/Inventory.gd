@@ -18,6 +18,10 @@ var items = {
 	'apartment': 0, #don't use
 	'shop': 0, #don't use
 	'super shop': 0, #don't use
+	'lt_res_zone': 0, #don't use
+	'hv_res_zone': 0, #don't use
+	'lt_com_zone': 0, #don't use
+	'hv_com_zone': 0, #don't use
 	"tide sensor": 0,
 	"rain sensor": 0
 }
@@ -42,12 +46,28 @@ func add_building(building):
 
 func remove_building(building):
 	items[building] -= 1
+	if building == "tide sensor":
+		for sensor in sensors:
+			if sensor.get_name() == "Tide Gauge":
+				sensor.decrease_amount()
+	elif building == "rain sensor":
+		for sensor in sensors:
+			if sensor.get_name() == "Rain Gauge":
+				sensor.decrease_amount()
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
 
 func removeIfHave(building):
 	#Used to check if we have a building, remove it if we do. Returns true if sucessful
 	if items[building] > 0:
 		items[building] -= 1
+		if building == "tide sensor":
+			for sensor in sensors:
+				if sensor.get_name() == "Tide Gauge":
+					sensor.decrease_amount()
+		elif building == "rain sensor":
+			for sensor in sensors:
+				if sensor.get_name() == "Rain Gauge":
+					sensor.decrease_amount()
 		get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
 		return true
 	return false
