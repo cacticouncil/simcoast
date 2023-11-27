@@ -11,8 +11,7 @@ const BASE_ROCK_VALUE = -10
 
 const LIGHT_RES_VALUE = 1
 const HEAVY_RES_VALUE = 1
-const LIGHT_COM_VALUE = 1
-const HEAVY_COM_VALUE = -1
+const COM_VALUE = 0.5
 const UTILITIES_PLANT_VALUE = -10
 const PARK_VALUE = 3
 const ROAD_VALUE = 0
@@ -74,8 +73,7 @@ func calc_zone_connections(tile): #Return final value of the tiles surrounding s
 	
 	var light_residential_neighbor = 0
 	var heavy_residential_neighbor = 0
-	var light_commercial_neighbor = 0
-	var heavy_commercial_neighbor = 0
+	var commercial_neighbor = 0
 	var industrial_neighbor = 0
 	var park_neighbor = 0
 	var road_neighbor = 0
@@ -95,22 +93,17 @@ func calc_zone_connections(tile): #Return final value of the tiles surrounding s
 			
 			# Check what type of zone the neighbor is
 			var neighbor = Global.tileMap[n[0]][n[1]]
-			match(neighbor.zone):
-				Tile.TileZone.LIGHT_RESIDENTIAL:
-					light_residential_neighbor += 1
-				Tile.TileZone.HEAVY_RESIDENTIAL:
-					heavy_residential_neighbor += 1
-				Tile.TileZone.LIGHT_COMMERCIAL:
-					light_commercial_neighbor += 1
-				Tile.TileZone.HEAVY_COMMERCIAL:
-					heavy_commercial_neighbor += 1
-				_:
-					continue
+#			
+			if neighbor.is_commercial():
+				commercial_neighbor += 1
+			elif neighbor.get_zone() == Tile.TileZone.LIGHT_RESIDENTIAL:
+				light_residential_neighbor += 1
+			elif neighbor.get_zone() == Tile.TileZone.HEAVY_RESIDENTIAL:
+				heavy_residential_neighbor += 1
 	
 	return (LIGHT_RES_VALUE * light_residential_neighbor) + \
 			(HEAVY_RES_VALUE * heavy_residential_neighbor) + \
-			(LIGHT_COM_VALUE* light_commercial_neighbor) + \
-			(HEAVY_COM_VALUE * heavy_commercial_neighbor) + \
+			(COM_VALUE* commercial_neighbor) + \
 			(UTILITIES_PLANT_VALUE * industrial_neighbor) + \
 			(PARK_VALUE * park_neighbor) + \
 			(ROAD_VALUE * road_neighbor)
@@ -120,7 +113,7 @@ func calc_num_zones(tile): #Return value number of zones in city
 	for i in Global.mapWidth:
 		for j in Global.mapHeight:
 			var current = Global.tileMap[i][j]
-			if current.zone != Tile.TileZone.NONE:
+			if current.is_zoned():
 				numZones += 1
 	return ZONE_VALUE * numZones
 
@@ -146,10 +139,8 @@ func calc_taxation_rate(tile): #Return a weight depending on tax rate of tile
 			cityTaxValue = Econ.LIGHT_RES_PROPERTY_RATE + Econ.LIGHT_RES_PROPERTY_RATE
 		Tile.TileZone.HEAVY_RESIDENTIAL:
 			cityTaxValue = Econ.HEAVY_RES_PROPERTY_RATE + Econ.HEAVY_RES_PROPERTY_RATE
-		Tile.TileZone.LIGHT_COMMERCIAL:
-			cityTaxValue = Econ.LIGHT_COM_PROPERTY_RATE + Econ.LIGHT_COM_PROPERTY_RATE
-		Tile.TileZone.HEAVY_COMMERCIAL:
-			cityTaxValue = Econ.HEAVY_COM_PROPERTY_RATE + Econ.HEAVY_COM_PROPERTY_RATE
+		Tile.TileZone.COMMERCIAL:
+			cityTaxValue = Econ.COM_PROPERTY_RATE + Econ.COM_PROPERTY_RATE
 	
 	cityTaxValue = cityTaxValue * TAX_WEIGHT
 	return cityTaxValue

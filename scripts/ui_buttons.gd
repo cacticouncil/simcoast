@@ -42,10 +42,8 @@ func button_hover(button):
 			toolInfo.text = "Add building to residential zone   (Right Click: Remove building)"
 		'add_resident_button':
 			toolInfo.text = "Add resident to residential zone   (Right Click: Remove person)"
-		'lt_com_zone_button':
-			toolInfo.text = "Light Commercial Zone   (Right Click: Remove zoning)"
-		'hv_com_zone_button':
-			toolInfo.text = "Heavy Commercial Zone   (Right Click: Remove zoning)"
+		'com_zone_button':
+			toolInfo.text = "Commercial Zone   (Right Click: Remove zoning)"
 		'add_building_button':
 			toolInfo.text = "Add building to commercial zone   (Right Click: Remove building)"
 		'add_employee_button':
@@ -109,10 +107,8 @@ func button_pressed():
 			Global.mapTool = Global.Tool.ADD_RES_BLDG
 		'add_resident_button':
 			Global.mapTool = Global.Tool.ADD_RES_PERSON
-		'lt_com_zone_button':
-			Global.mapTool = Global.Tool.ZONE_LT_COM
-		'hv_com_zone_button':
-			Global.mapTool = Global.Tool.ZONE_HV_COM
+		'com_zone_button':
+			Global.mapTool = Global.Tool.ZONE_COM
 		'add_building_button':
 			Global.mapTool = Global.Tool.ADD_COM_BLDG
 		'add_employee_button':

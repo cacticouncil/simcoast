@@ -14,10 +14,8 @@ var LIGHT_RES_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
 var LIGHT_RES_INCOME_RATE = BASE_TAX_RATE #land value * num people
 var HEAVY_RES_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
 var HEAVY_RES_INCOME_RATE = BASE_TAX_RATE #land value * num people
-var LIGHT_COM_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
-var LIGHT_COM_INCOME_RATE = BASE_TAX_RATE #land value * num people
-var HEAVY_COM_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
-var HEAVY_COM_INCOME_RATE = BASE_TAX_RATE #land value * num people
+var COM_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
+var COM_INCOME_RATE = BASE_TAX_RATE #land value * num people
 
 const PROPERTY_TAX = 0.01 #property tax gets set at 1% to start, which is neutral
 const SALES_TAX = 0.05 #5% sales tax to start, also neutral
@@ -117,21 +115,21 @@ func adjust_individual_tax_rate(num, dir):
 			currRate = adjust_individual_tax_rate_helper(currRate, dir)
 			HEAVY_RES_INCOME_RATE = currRate
 		4:
-			currRate = LIGHT_COM_PROPERTY_RATE
+			currRate = COM_PROPERTY_RATE
 			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			LIGHT_COM_PROPERTY_RATE = currRate
+			COM_PROPERTY_RATE = currRate
 		5:
-			currRate = LIGHT_COM_INCOME_RATE
+			currRate = COM_INCOME_RATE
 			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			LIGHT_COM_INCOME_RATE = currRate
+			COM_INCOME_RATE = currRate
 		6:
-			currRate = HEAVY_COM_PROPERTY_RATE
+			currRate = COM_PROPERTY_RATE
 			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			HEAVY_COM_PROPERTY_RATE = currRate
+			COM_PROPERTY_RATE = currRate
 		7:
-			currRate = HEAVY_COM_INCOME_RATE
+			currRate = COM_INCOME_RATE
 			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			HEAVY_COM_INCOME_RATE = currRate
+			COM_INCOME_RATE = currRate
 			
 func calc_profit_rates():
 	var total_income = 0

@@ -55,7 +55,7 @@ func _draw():
 				if tile.get_zone() == Tile.TileZone.LIGHT_RESIDENTIAL || tile.get_zone() == Tile.TileZone.HEAVY_RESIDENTIAL:
 					draw_polygon(b[3].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[0]]))
 					draw_polygon(b[4].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[1]]))
-				elif tile.get_zone() == Tile.TileZone.LIGHT_COMMERCIAL || tile.get_zone() == Tile.TileZone.HEAVY_COMMERCIAL:
+				elif tile.is_commercial():
 					draw_polygon(b[3].get_polygon(), PoolColorArray([Tile.COM_OCCUPANCY_COLOR[0]]))
 					draw_polygon(b[4].get_polygon(), PoolColorArray([Tile.COM_OCCUPANCY_COLOR[1]]))
 			
@@ -442,12 +442,9 @@ func get_cube_colors():
 		Tile.TileZone.HEAVY_RESIDENTIAL:
 			colors[0] = Tile.HV_RES_ZONE_COLOR[0]
 			colors[3] = Tile.HV_RES_ZONE_COLOR[1]
-		Tile.TileZone.LIGHT_COMMERCIAL:
-			colors[0] = Tile.LT_COM_ZONE_COLOR[0]
-			colors[3] = Tile.LT_COM_ZONE_COLOR[1]
-		Tile.TileZone.HEAVY_COMMERCIAL:
-			colors[0] = Tile.HV_COM_ZONE_COLOR[0]
-			colors[3] = Tile.HV_COM_ZONE_COLOR[1]
+		Tile.TileZone.COMMERCIAL:
+			colors[0] = Tile.COM_ZONE_COLOR[0]
+			colors[3] = Tile.COM_ZONE_COLOR[1]
 
 	match tile.inf:
 		Tile.TileInf.PARK:

@@ -18,7 +18,7 @@ func calcResidentialDemand():
 	for i in mapHeight:
 		for j in mapWidth:
 			var currTile = Global.tileMap[i][j]
-			if currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL || currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL:
+			if currTile.is_residential():
 				# calc chance of pop moving in (based on updatePopulation chance)
 				avgmove += (currTile.happiness)
 				# calc of pop leaving (based on updatePopulation chance)
@@ -67,9 +67,7 @@ func calcCommercialDemand():
 				pop += currTile.data[2]
 			elif currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
 				pop += currTile.data[2]
-			elif currTile.zone == Tile.TileZone.HEAVY_COMMERCIAL:
-				comzones += 2
-			elif currTile.zone == Tile.TileZone.LIGHT_COMMERCIAL:
+			elif currTile.zone == Tile.TileZone.COMMERCIAL:
 				comzones += 1
 	# for every 48 residential pop (3 full residential zones), demand 1 commercial zone
 	comDemand = round(pop/48)
