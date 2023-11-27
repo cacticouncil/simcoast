@@ -1,14 +1,10 @@
 extends "res://scripts/Observers/Observer.gd"
-#Handles SFX
+#Handles NPC triggers
 
-#export var sfxPlayer : AudioStreamPlayer
 
 func onNotify(event):
 	# Plays some banger royalty free construction sfx
-	if event.eventName == "Completed Mission":
-		if event.eventValue == 0:
-			print("Mission 0 Dialogue Start")
-			triggerDialogue("Inputs here")
+	pass
 
 func triggerDialogue(dialogue):
 	pass # Happens when dialogue is triggered
