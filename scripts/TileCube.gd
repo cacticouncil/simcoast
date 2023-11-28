@@ -324,69 +324,108 @@ func update_polygons():
 		var building_height = 0
 		var building_x = 0
 		var building_y = 0
-
-		if tile.is_light_zoned():
-			building_width = Global.TILE_WIDTH / 4.0
-			building_depth = building_width / 2.0
-			building_height = 5
-			
-			if w > building_height:
-				building_visible = false
-			else:
-				building_visible = true
-			
-			for z in num_buildings:
-				var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-				var occupancy = 0.0
+		match tile.get_zone():
+			Tile.TileZone.COMMERCIAL:
+				building_width = Global.TILE_WIDTH / 4.0
+				building_depth = building_width / 2.0
+				building_height = 5
 				
-				match z:
-					0:
-						building_x = x
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
-						if tile.data[2] > 0:
-							occupancy = 1.0
-					1:
-						building_x = x
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
-						if tile.data[2] > 4:
-							occupancy = 1.0
-					2:
-						building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
-						if tile.data[2] > 8:
-							occupancy = 1.0
-					3:
-						building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
-						if tile.data[2] > 12:
-							occupancy = 1.0
-			
-				update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
-				objects.append(b)
+				if w > building_height:
+					building_visible = false
+				else:
+					building_visible = true
+				
+				for z in num_buildings:
+					var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+					var occupancy = 0.0
+					
+					match z:
+						0:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
+							if tile.data[2] > 0:
+								occupancy = 1.0
+						1:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
+							if tile.data[2] > 4:
+								occupancy = 1.0
+						2:
+							building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 8:
+								occupancy = 1.0
+						3:
+							building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 12:
+								occupancy = 1.0
+				
+					update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
+					objects.append(b)
+					
+			Tile.TileZone.SINGLE_FAMILY:
+				building_width = Global.TILE_WIDTH / 4.0
+				building_depth = building_width / 2.0
+				building_height = 5
+
+				if w > building_height:
+					building_visible = false
+				else:
+					building_visible = true
+
+				for z in num_buildings:
+					var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+					var occupancy = 0.0
+
+					match z:
+						0:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
+							if tile.data[2] > 0:
+								occupancy = 1.0
+						1:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
+							if tile.data[2] > 1:
+								occupancy = 1.0
+						2:
+							building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 2:
+								occupancy = 1.0
+						3:
+							building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 3:
+								occupancy = 1.0
+
+					update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
+					objects.append(b)
 
 		# Draws a single building whose size is scaled to number of buildings
-		elif tile.is_heavy_zoned():
-			building_width = (Global.TILE_WIDTH / 2.0) + (2 * num_buildings) 
-			building_depth = building_width / 2.0
-			building_height = 10 + (3 * num_buildings)
+			Tile.TileZone.MULTI_FAMILY:
+				building_width = (Global.TILE_WIDTH / 2.0) + (2 * num_buildings) 
+				building_depth = building_width / 2.0
+				building_height = 10 + (3 * num_buildings)
 
-			if w > building_height:
-				building_visible = false
-			else:
-				building_visible = true
-			
-			var occupancy = 0
-			if tile.data[3] != 0:
-				occupancy = float(tile.data[2]) / float(tile.data[3])
-			
-			var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-			
-			building_x = x
-			building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+				if w > building_height:
+					building_visible = false
+				else:
+					building_visible = true
+				
+				var occupancy = 0
+				if tile.data[3] != 0:
+					occupancy = float(tile.data[2]) / float(tile.data[3])
+				
+				var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+				
+				building_x = x
+				building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
 
-			update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
+				update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
 
-			objects.append(b)
+				objects.append(b)
 	
 	# Set the clickable area of the polygon (the entire base cube)
 	coll.set_polygon(PoolVector2Array([
