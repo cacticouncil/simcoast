@@ -66,7 +66,8 @@ func purchase_structure(structureCost):
 		return false
 
 func calculate_upkeep_costs():
-	city_costs = ((City.numUtilityPlants * UTILITIES_PLANT_UPKEEP_COST) + (City.numParks * PARK_UPKEEP_COST) + (City.numRoads * ROAD_UPKEEP_COST))
+	city_costs = ((City.numUtilityPlants * UTILITIES_PLANT_UPKEEP_COST) + (City.numParks * PARK_UPKEEP_COST) + (City.numRoads * ROAD_UPKEEP_COST) + \
+	Global.numSingleFamilyZones * SINGLE_FAMILY_UPKEEP_COST + Global.numMultiFamilyZones * MULTI_FAMILY_UPKEEP_COST)
 	
 func updateProfitDisplay():
 	var profit = round(city_income - city_costs)
