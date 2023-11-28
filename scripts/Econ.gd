@@ -37,6 +37,7 @@ const PARK_UPKEEP_COST = 10
 const ROAD_UPKEEP_COST = 2
 const MULTI_FAMILY_UPKEEP_COST = 50
 const SINGLE_FAMILY_UPKEEP_COST = 10
+const UPKEEP_PER_PERSON = 2
 
 # Player/Mayor Constants
 var money = 20000
@@ -67,7 +68,8 @@ func purchase_structure(structureCost):
 
 func calculate_upkeep_costs():
 	city_costs = ((City.numUtilityPlants * UTILITIES_PLANT_UPKEEP_COST) + (City.numParks * PARK_UPKEEP_COST) + (City.numRoads * ROAD_UPKEEP_COST) + \
-	Global.numSingleFamilyZones * SINGLE_FAMILY_UPKEEP_COST + Global.numMultiFamilyZones * MULTI_FAMILY_UPKEEP_COST)
+	City.numSingleFamilyZones * SINGLE_FAMILY_UPKEEP_COST + City.numMultiFamilyZones * MULTI_FAMILY_UPKEEP_COST + \
+	UpdatePopulation.get_population() * UPKEEP_PER_PERSON)
 	
 func updateProfitDisplay():
 	var profit = round(city_income - city_costs)
@@ -170,11 +172,11 @@ func calc_profit_rates():
 					
 	#avg income now represents the average tax revenue from the incomes of the employed people 
 	#in the city and the value of the houses where they live
-	if (Global.numResidentialZones != 0):
-		avg_income = total_income / Global.numResidentialZones
+	if (City.numResidentialZones != 0):
+		avg_income = total_income / City.numResidentialZones
 	#avg_profit represents the average amount of money a commercial tile makes in the city
-	if (Global.numCommercialZones != 0):
-		avg_profit = total_profit / Global.numCommercialZones
+	if (City.numCommercialZones != 0):
+		avg_profit = total_profit / City.numCommercialZones
 
 # Helper Functions
 func comma_values(val):
