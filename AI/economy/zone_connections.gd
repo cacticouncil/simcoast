@@ -28,9 +28,9 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 			# Check what type of zone the neighbor is
 			var neighbor = Global.tileMap[n[0]][n[1]]
 			match(neighbor.zone):
-				Tile.TileZone.LIGHT_RESIDENTIAL:
+				Tile.TileZone.SINGLE_FAMILY:
 					residential_neighbor += 1
-				Tile.TileZone.HEAVY_RESIDENTIAL:
+				Tile.TileZone.MULTI_FAMILY:
 					residential_neighbor += 2
 				Tile.TileZone.COMMERCIAL:
 					commercial_neighbor += 	1

@@ -28,10 +28,10 @@ func calcResidentialDemand():
 					avgleave += DAMAGE_UNHAPPINESS
 				elif currTile.get_status() == Tile.TileStatus.HEAVY_DAMAGE:
 					avgleave += SEVERE_DAMAGE_UNHAPPINESS
-				if currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
+				if currTile.zone == Tile.TileZone.SINGLE_FAMILY:
 					maxpop += 16
 				else:
-					maxpop += 16 #TODO may need to be changed if heavy residential zoning is changed
+					maxpop += 16 #TODO may need to be changed if Multi Family zoning is changed
 				currpop += currTile.data[2]
 				resZones += 1
 	if avgleave == 0 && avgmove == 0:
@@ -63,9 +63,9 @@ func calcCommercialDemand():
 	for i in mapHeight:
 		for j in mapWidth:
 			var currTile = Global.tileMap[i][j]
-			if currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL:
+			if currTile.zone == Tile.TileZone.MULTI_FAMILY:
 				pop += currTile.data[2]
-			elif currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
+			elif currTile.zone == Tile.TileZone.SINGLE_FAMILY:
 				pop += currTile.data[2]
 			elif currTile.zone == Tile.TileZone.COMMERCIAL:
 				comzones += 1

@@ -52,7 +52,7 @@ func _draw():
 			
 			# If building is undamaged, draw occupancy percentage colors on the sides of the buildings
 			if tile.get_status() == Tile.TileStatus.NONE:
-				if tile.get_zone() == Tile.TileZone.LIGHT_RESIDENTIAL || tile.get_zone() == Tile.TileZone.HEAVY_RESIDENTIAL:
+				if tile.get_zone() == Tile.TileZone.SINGLE_FAMILY || tile.get_zone() == Tile.TileZone.MULTI_FAMILY:
 					draw_polygon(b[3].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[0]]))
 					draw_polygon(b[4].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[1]]))
 				elif tile.is_commercial():
@@ -436,10 +436,10 @@ func get_cube_colors():
 
 	# Change base top color and outline if tile is zoned
 	match tile.get_zone():
-		Tile.TileZone.LIGHT_RESIDENTIAL:
+		Tile.TileZone.SINGLE_FAMILY:
 			colors[0] = Tile.LT_RES_ZONE_COLOR[0]
 			colors[3] = Tile.LT_RES_ZONE_COLOR[1]
-		Tile.TileZone.HEAVY_RESIDENTIAL:
+		Tile.TileZone.MULTI_FAMILY:
 			colors[0] = Tile.HV_RES_ZONE_COLOR[0]
 			colors[3] = Tile.HV_RES_ZONE_COLOR[1]
 		Tile.TileZone.COMMERCIAL:

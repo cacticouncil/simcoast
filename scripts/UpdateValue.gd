@@ -71,8 +71,8 @@ func calc_zone_connections(tile): #Return final value of the tiles surrounding s
 			[tile.i-2, tile.j], [tile.i+2, tile.j], [tile.i, tile.j-2], [tile.i, tile.j+2],
 			[tile.i+1, tile.j+1], [tile.i-1, tile.j+1], [tile.i-1, tile.j-1], [tile.i+1, tile.j-1]]
 	
-	var light_residential_neighbor = 0
-	var heavy_residential_neighbor = 0
+	var SINGLE_FAMILY_neighbor = 0
+	var multi_family_neighbor = 0
 	var commercial_neighbor = 0
 	var industrial_neighbor = 0
 	var park_neighbor = 0
@@ -96,13 +96,13 @@ func calc_zone_connections(tile): #Return final value of the tiles surrounding s
 #			
 			if neighbor.is_commercial():
 				commercial_neighbor += 1
-			elif neighbor.get_zone() == Tile.TileZone.LIGHT_RESIDENTIAL:
-				light_residential_neighbor += 1
-			elif neighbor.get_zone() == Tile.TileZone.HEAVY_RESIDENTIAL:
-				heavy_residential_neighbor += 1
+			elif neighbor.get_zone() == Tile.TileZone.SINGLE_FAMILY:
+				SINGLE_FAMILY_neighbor += 1
+			elif neighbor.get_zone() == Tile.TileZone.MULTI_FAMILY:
+				multi_family_neighbor += 1
 	
-	return (LIGHT_RES_VALUE * light_residential_neighbor) + \
-			(HEAVY_RES_VALUE * heavy_residential_neighbor) + \
+	return (LIGHT_RES_VALUE * SINGLE_FAMILY_neighbor) + \
+			(HEAVY_RES_VALUE * multi_family_neighbor) + \
 			(COM_VALUE* commercial_neighbor) + \
 			(UTILITIES_PLANT_VALUE * industrial_neighbor) + \
 			(PARK_VALUE * park_neighbor) + \
@@ -135,9 +135,9 @@ func calc_taxation_rate(tile): #Return a weight depending on tax rate of tile
 	var cityTaxValue = 0
 	
 	match(tile.zone):
-		Tile.TileZone.LIGHT_RESIDENTIAL:
+		Tile.TileZone.SINGLE_FAMILY:
 			cityTaxValue = Econ.LIGHT_RES_PROPERTY_RATE + Econ.LIGHT_RES_PROPERTY_RATE
-		Tile.TileZone.HEAVY_RESIDENTIAL:
+		Tile.TileZone.MULTI_FAMILY:
 			cityTaxValue = Econ.HEAVY_RES_PROPERTY_RATE + Econ.HEAVY_RES_PROPERTY_RATE
 		Tile.TileZone.COMMERCIAL:
 			cityTaxValue = Econ.COM_PROPERTY_RATE + Econ.COM_PROPERTY_RATE

@@ -13,8 +13,8 @@ enum TileBase {
 
 enum TileZone {
 	NONE,
-	LIGHT_RESIDENTIAL,
-	HEAVY_RESIDENTIAL,
+	SINGLE_FAMILY,
+	MULTI_FAMILY,
 	COMMERCIAL,
 	PUBLIC_WORKS
 }
@@ -256,10 +256,10 @@ func is_zoned():
 	return zone != TileZone.NONE
 
 func is_light_zoned():
-	return zone == TileZone.LIGHT_RESIDENTIAL || zone == TileZone.COMMERCIAL
+	return zone == TileZone.SINGLE_FAMILY || zone == TileZone.COMMERCIAL
 
 func is_heavy_zoned():
-	return zone == TileZone.HEAVY_RESIDENTIAL || zone == TileZone.COMMERCIAL
+	return zone == TileZone.MULTI_FAMILY || zone == TileZone.COMMERCIAL
 
 func set_base_height(h):
 	if 0 <= h && h <= Global.MAX_HEIGHT:
@@ -270,7 +270,7 @@ func set_water_height(w):
 		waterHeight = w
 
 func can_build():
-	if zone == TileZone.LIGHT_RESIDENTIAL || zone == TileZone.HEAVY_RESIDENTIAL:
+	if zone == TileZone.SINGLE_FAMILY || zone == TileZone.MULTI_FAMILY:
 		return true
 	elif zone == TileZone.COMMERCIAL:
 		return true
@@ -398,7 +398,7 @@ func _ready():
 	pass
 
 func is_residential():
-	return zone == TileZone.LIGHT_RESIDENTIAL || zone == TileZone.HEAVY_RESIDENTIAL
+	return zone == TileZone.SINGLE_FAMILY || zone == TileZone.MULTI_FAMILY
 	
 func is_commercial():
 	return zone == TileZone.COMMERCIAL

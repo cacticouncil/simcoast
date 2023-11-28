@@ -35,9 +35,9 @@ func button_hover(button):
 		'ocean_button':
 			toolInfo.text = "Replace base tile with ocean"
 		'lt_res_zone_button':
-			toolInfo.text = "Light Residential Zone   (Right Click: Remove zoning)"
+			toolInfo.text = "Single Family Zone   (Right Click: Remove zoning)"
 		'hv_res_zone_button':
-			toolInfo.text = "Heavy Residential Zone   (Right Click: Remove zoning)"
+			toolInfo.text = "Multi Family Zone   (Right Click: Remove zoning)"
 		'add_house_button':
 			toolInfo.text = "Add building to residential zone   (Right Click: Remove building)"
 		'add_resident_button':

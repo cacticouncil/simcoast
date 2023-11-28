@@ -152,19 +152,19 @@ func _unhandled_input(event):
 				if Input.is_action_pressed("left_click"):
 					match Global.mapTool:
 						Global.Tool.ZONE_LT_RES:
-							if tile.get_zone() != Tile.TileZone.LIGHT_RESIDENTIAL:
+							if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.LIGHT_RESIDENTIAL)
+								tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
 						Global.Tool.ZONE_HV_RES:
-							if tile.get_zone() != Tile.TileZone.HEAVY_RESIDENTIAL:
+							if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.HEAVY_RESIDENTIAL)
+								tile.set_zone(Tile.TileZone.MULTI_FAMILY)
 						Global.Tool.ZONE_COM:
 							if !tile.is_commercial():
 								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
