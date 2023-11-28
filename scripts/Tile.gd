@@ -44,8 +44,8 @@ const SAND_COLOR = [Color("ffd9d3bf"), Color("ffc9bf99"), Color("ffaca075"), Col
 const WATER_COLOR = [Color("ff9cd5e2"), Color("ff8bc4d1"), Color("ff83bcc9"), Color("ff5b8c97")]
 const ROCK_COLOR = [Color("ffc2c2c2"), Color("ffcacaca"), Color("ffaaaaaa"), Color("ff666666")]
 
-const LT_RES_ZONE_COLOR = [Color("ffbdd0a0"), Color("ff60822d")]
-const HV_RES_ZONE_COLOR = [Color("ffa5bf7d"), Color("ff60822d")]
+const SINGLE_FAMILY_ZONE_COLOR = [Color("ffbdd0a0"), Color("ff60822d")]
+const MULTI_FAMILY_ZONE_COLOR = [Color("ffa5bf7d"), Color("ff60822d")]
 #const LT_COM_ZONE_COLOR = [Color("ffa0b4d0"), Color("ff2d5b82")]
 const COM_ZONE_COLOR = [Color("ff7d9bbf"), Color("ff2d5b82")]
 

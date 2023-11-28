@@ -34,9 +34,9 @@ func button_hover(button):
 			toolInfo.text = "Replace base tile with sand / Raise and base tile height   (Right Click: Lower sand base tile height)"
 		'ocean_button':
 			toolInfo.text = "Replace base tile with ocean"
-		'lt_res_zone_button':
+		'single_family_zone_button':
 			toolInfo.text = "Single Family Zone   (Right Click: Remove zoning)"
-		'hv_res_zone_button':
+		'multi_family_zone_button':
 			toolInfo.text = "Multi Family Zone   (Right Click: Remove zoning)"
 		'add_house_button':
 			toolInfo.text = "Add building to residential zone   (Right Click: Remove building)"
@@ -99,10 +99,10 @@ func button_pressed():
 			Global.mapTool = Global.Tool.BASE_SAND
 		'ocean_button':
 			Global.mapTool = Global.Tool.BASE_OCEAN
-		'lt_res_zone_button':
-			Global.mapTool = Global.Tool.ZONE_LT_RES
-		'hv_res_zone_button':
-			Global.mapTool = Global.Tool.ZONE_HV_RES
+		'single_family_zone_button':
+			Global.mapTool = Global.Tool.ZONE_SINGLE_FAMILY
+		'multi_family_zone_button':
+			Global.mapTool = Global.Tool.ZONE_MULTI_FAMILY
 		'add_house_button':
 			Global.mapTool = Global.Tool.ADD_RES_BLDG
 		'add_resident_button':

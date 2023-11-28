@@ -145,20 +145,20 @@ func _unhandled_input(event):
 					tile.set_water_height(0)
 	
 			# Clear and zone a tile (if it is not already of the same zone)
-			Global.Tool.ZONE_LT_RES, Global.Tool.ZONE_HV_RES, Global.Tool.ZONE_COM:
+			Global.Tool.ZONE_SINGLE_FAMILY, Global.Tool.ZONE_MULTI_FAMILY, Global.Tool.ZONE_COM:
 				if !tile.can_zone():
 					return
 
 				if Input.is_action_pressed("left_click"):
 					match Global.mapTool:
-						Global.Tool.ZONE_LT_RES:
+						Global.Tool.ZONE_SINGLE_FAMILY:
 							if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
 								tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
-						Global.Tool.ZONE_HV_RES:
+						Global.Tool.ZONE_MULTI_FAMILY:
 							if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								if tile.has_utilities():

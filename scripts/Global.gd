@@ -41,6 +41,8 @@ var numZones = 0
 var numPeople = 0
 var numResidentialZones = 0
 var numCommercialZones = 0
+var numSingleFamilyZones = 0
+var numMultiFamilyZones = 0
 
 # Economy AI constants
 const ZONE_BALANCE = -.01
@@ -71,8 +73,8 @@ enum Tool {
 	BASE_ROCK,
 	BASE_SAND,
 	BASE_OCEAN,
-	ZONE_LT_RES,
-	ZONE_HV_RES,
+	ZONE_SINGLE_FAMILY,
+	ZONE_MULTI_FAMILY,
 	ADD_RES_BLDG,
 	ADD_RES_PERSON,
 	ZONE_COM,

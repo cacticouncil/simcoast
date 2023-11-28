@@ -437,11 +437,11 @@ func get_cube_colors():
 	# Change base top color and outline if tile is zoned
 	match tile.get_zone():
 		Tile.TileZone.SINGLE_FAMILY:
-			colors[0] = Tile.LT_RES_ZONE_COLOR[0]
-			colors[3] = Tile.LT_RES_ZONE_COLOR[1]
+			colors[0] = Tile.SINGLE_FAMILY_ZONE_COLOR[0]
+			colors[3] = Tile.SINGLE_FAMILY_ZONE_COLOR[1]
 		Tile.TileZone.MULTI_FAMILY:
-			colors[0] = Tile.HV_RES_ZONE_COLOR[0]
-			colors[3] = Tile.HV_RES_ZONE_COLOR[1]
+			colors[0] = Tile.MULTI_FAMILY_ZONE_COLOR[0]
+			colors[3] = Tile.MULTI_FAMILY_ZONE_COLOR[1]
 		Tile.TileZone.COMMERCIAL:
 			colors[0] = Tile.COM_ZONE_COLOR[0]
 			colors[3] = Tile.COM_ZONE_COLOR[1]
