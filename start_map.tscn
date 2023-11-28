@@ -354,10 +354,10 @@ margin_top = 126.0
 margin_right = 68.0
 margin_bottom = 158.0
 
-[node name="lt_res_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR3"]
+[node name="single_family_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR3"]
 margin_right = 32.0
 margin_bottom = 32.0
-hint_tooltip = "Light Residential Zoning"
+hint_tooltip = "Single Family Zoning"
 toggle_mode = true
 keep_pressed_outside = true
 group = ExtResource( 16 )
@@ -366,11 +366,11 @@ texture_pressed = ExtResource( 53 )
 texture_hover = ExtResource( 50 )
 texture_focused = ExtResource( 53 )
 
-[node name="hv_res_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR3"]
+[node name="multi_family_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR3"]
 margin_left = 36.0
 margin_right = 68.0
 margin_bottom = 32.0
-hint_tooltip = "Heavy Residential Zoning"
+hint_tooltip = "Multi Family Zoning"
 toggle_mode = true
 keep_pressed_outside = true
 group = ExtResource( 16 )
@@ -414,7 +414,7 @@ margin_bottom = 230.0
 [node name="com_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR5"]
 margin_right = 32.0
 margin_bottom = 32.0
-hint_tooltip = "Heavy Commercial Zoning"
+hint_tooltip = "Commercial Zoning"
 toggle_mode = true
 keep_pressed_outside = true
 group = ExtResource( 16 )

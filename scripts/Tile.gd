@@ -325,17 +325,43 @@ func has_building():
 
 func set_zone(type):
 	zone = type
-	if type == TileZone.COMMERCIAL:
-		profitRate = 10000
-	data = [0, 4, 0, 0, 0]
+	match zone: 
+		#single family and commercial have 4 houses max
+		TileZone.SINGLE_FAMILY, TileZone.COMMERCIAL:
+			data = [0, 4, 0, 0, 0]
+		#multi family has 18 houses max
+		TileZone.MULTI_FAMILY:
+			data = [0, 18, 0, 0, 0]
+		_:
+			data = [0, 0, 0, 0, 0]
 
-func add_building():		
+func add_building():
+	#if there is something that isn't a building already on this tile, do nothing
+	if inf != TileInf.NONE && inf != TileInf.BUILDING:
+		return		
 	inf = TileInf.BUILDING
 	if data[0] < data[1]:
-		data[0] += 1
-		data[3] += 4
+#		data[0] += 1
+#		data[3] += 4
+		match zone: 
+			#single family homes hold 1, so 4 houses for 4 people
+			TileZone.SINGLE_FAMILY:
+				data[0] += 1
+				data[3] += 1
+			#multi family holds 4 and so does commercial
+			#represents many businesses and many apartments in one zone, 
+			#while single family is much less dense
+			TileZone.MULTI_FAMILY, TileZone.COMMERCIAL:
+				data[0] += 1
+				data[3] += 4
+			#no other zone type should be affected
+			_:
+				pass
 
-func remove_building():		
+func remove_building():
+	#if there is not a building, nothing to remove
+	if inf != TileInf.BUILDING:
+		return		
 	# if there is only one building
 	if data[0] <= 1:
 		data[0] = 0
@@ -346,8 +372,18 @@ func remove_building():
 		
 	#if there is more than 1 building
 	else:
-		data[0] -= 1
-		data[3] -= 4
+#		data[0] -= 1
+#		data[3] -= 4
+		match zone:
+			TileZone.SINGLE_FAMILY:
+				data[0] -= 1
+				data[3] -= 1
+			TileZone.MULTI_FAMILY:
+				data[0] -= 1
+				data[3] -= 4
+			_:
+				data[0] -= 1
+				data[3] -= 4
 		if data[2] > data[3]:
 #			data[2] = data[3]
 			var diff = data[2] - data[3]
