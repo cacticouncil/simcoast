@@ -8,19 +8,23 @@ const PEOPLE_CAP = 100
 func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var tile = blackboard.get_data("queue").front()
 	var numResidentialZones = 0
+	var numSingleFamily = 0
+	var numMultiFamily = 0
 	var numCommercialZones = 0
 	
 	# Count number of zones
 	for i in Global.mapHeight:
 		for j in Global.mapWidth:
 			var current = Global.tileMap[i][j]
-			
-			if current.is_commercial():
-				numCommercialZones += 1
-			elif current.is_residential():
-				numResidentialZones += 1
+			match current.get_zone():
+				Tile.TileZone.SINGLE_FAMILY:
+					numSingleFamily += 1
+				Tile.TileZone.MULTI_FAMILY:
+					numMultiFamily += 1
+				Tile.TileZone.COMMERCIAL:
+					numCommercialZones += 1
 					
-	
+	numResidentialZones = numSingleFamily + numMultiFamily
 	# Cap the counted values as needed	
 	if numCommercialZones > ZONE_CAP:
 		numCommercialZones = ZONE_CAP
@@ -30,5 +34,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	# Set the associated Global values
 	Global.numCommercialZones = numCommercialZones
 	Global.numResidentialZones = numResidentialZones
+	Global.numSingleFamilyZones = numSingleFamily
+	Global.numMultiFamilyZones = numMultiFamily
 	
 	return succeed()

@@ -35,6 +35,8 @@ const ROAD_COST = 100
 const UTILITIES_PLANT_UPKEEP_COST = 100
 const PARK_UPKEEP_COST = 10
 const ROAD_UPKEEP_COST = 2
+const MULTI_FAMILY_UPKEEP_COST = 50
+const SINGLE_FAMILY_UPKEEP_COST = 10
 
 # Player/Mayor Constants
 var money = 20000
@@ -151,7 +153,6 @@ func calc_profit_rates():
 						Econ.INCOME_TAX + currTile.data[0] * Econ.PROPERTY_TAX) * \
 						Econ.TAX_INCOME_MULTIPLIER * currTile.landValue
 					total_income += currTile.profitRate
-					res_tiles += 1
 				#commercial zones generate revenue via sales tax and property tax, 
 				#scaling how much sales tax based on the income of their surrounding area
 				if currTile.is_commercial():
@@ -165,15 +166,14 @@ func calc_profit_rates():
 						#the population bit is to help commercial profit scale with population
 						# it basically assumes that people will patronize all commercial zones equally
 					total_profit += currTile.profitRate
-					com_tiles += 1
 					
 	#avg income now represents the average tax revenue from the incomes of the employed people 
 	#in the city and the value of the houses where they live
-	if (res_tiles != 0):
-		avg_income = total_income / res_tiles
+	if (Global.numResidentialZones != 0):
+		avg_income = total_income / Global.numResidentialZones
 	#avg_profit represents the average amount of money a commercial tile makes in the city
-	if (com_tiles != 0):
-		avg_profit = total_profit / com_tiles
+	if (Global.numCommercialZones != 0):
+		avg_profit = total_profit / Global.numCommercialZones
 
 # Helper Functions
 func comma_values(val):
