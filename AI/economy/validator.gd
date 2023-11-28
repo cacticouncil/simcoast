@@ -26,7 +26,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 # may need more refinement; a 1-1 relationship between commercial and residential isn't really viable, but under the current 
 # system of commercial zones and residential zones having the same 'population' per tile, having fewer commercial zones than 
 # residential zones means there aren't enough jobs to go around, so it stays for now
-	var zone_balance = abs(Global.numCommercialZones - Global.numResidentialZones) * Global.ZONE_BALANCE
+	var zone_balance = abs(City.numCommercialZones - City.numResidentialZones) * Global.ZONE_BALANCE
 	
 	#this variable positively influences desirability the more people there are in the city, up to 100. This means the max
 #	impact that this variable can have on desirability is .1. 

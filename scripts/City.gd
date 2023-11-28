@@ -3,6 +3,10 @@ extends Node
 var numParks = 0
 var numUtilityPlants = 0
 var numRoads = 0
+var numResidentialZones = 0
+var numCommercialZones = 0
+var numSingleFamilyZones = 0
+var numMultiFamilyZones = 0
 
 # Delete the last row and column of the map
 func reduce_map():

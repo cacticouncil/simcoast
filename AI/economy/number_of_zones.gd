@@ -32,9 +32,9 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 		numResidentialZones = ZONE_CAP
 	
 	# Set the associated Global values
-	Global.numCommercialZones = numCommercialZones
-	Global.numResidentialZones = numResidentialZones
-	Global.numSingleFamilyZones = numSingleFamily
-	Global.numMultiFamilyZones = numMultiFamily
+	City.numCommercialZones = numCommercialZones
+	City.numResidentialZones = numResidentialZones
+	City.numSingleFamilyZones = numSingleFamily
+	City.numMultiFamilyZones = numMultiFamily
 	
 	return succeed()

@@ -39,10 +39,7 @@ var colRange = range(0, mapHeight, 1)
 # For Economy AI use only (see number_of_zones.gd)
 var numZones = 0
 var numPeople = 0
-var numResidentialZones = 0
-var numCommercialZones = 0
-var numSingleFamilyZones = 0
-var numMultiFamilyZones = 0
+
 
 # Economy AI constants
 const ZONE_BALANCE = -.01
