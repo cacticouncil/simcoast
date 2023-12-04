@@ -11,18 +11,23 @@ var toolbarSectionScene = preload("res://ui/hud/Toolbar/ToolbarSection.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#Removes the scroll bar
 	self.get_v_scrollbar().rect_scale.x = 0
 	
+	#Info for each button, button name will be the first part + '_button'.
+	#Second parameter is for images, utilizes the fact that all file names end in second part + '_normal' or '_active' or '_hover'
 	var infrastructureButtons = [
 		["road", "res://assets/buttons/road"], 
 		["bridge", "res://assets/buttons/bridge"], 
 		["water", "res://assets/buttons/water"]
 	]
 	var infrastructureSection = toolbarSectionScene.instance()
+	#Creates a section of the buttons and takes in the list of ones to add
 	infrastructureSection.add_button("Infrastructure", infrastructureButtons)
 	$VBoxContainer.add_child(infrastructureSection)
 	infrastructureSection.set_bg(infrastructureSection.rect_size, Color("526e7584"))
 	
+	#Rest of sections all act like above one.
 	var zoneButtons = [
 		["house", "res://assets/buttons/lt_res_zone"], 
 		["apartment", "res://assets/buttons/hv_res_zone"], 
@@ -74,10 +79,15 @@ func _ready():
 	$VBoxContainer.add_child(sensorSection)
 	sensorSection.set_bg(sensorSection.rect_size, Color("e03c3c3c"))
 	
+	#Once we create all the buttons, we want to add the functionality to each of them
 	for i in group.get_buttons():
+		#Handles button presses
 		i.connect("pressed", self, "button_pressed")
+		#Handles adding hover text to bottom bar
 		i.connect("mouse_entered", self, "button_hover", [i])
+		#Handles removing hover text
 		i.connect("mouse_exited", self, "button_exit")
+	#Updates the little icon that indicates how much of each item we have
 	updateAmounts()
 	
 
@@ -88,6 +98,7 @@ func button_exit():
 func button_hover(button):
 	var toolInfo = get_node("../BottomBar/HoverText")
 
+	#Based on button name, add respective hover text
 	match button.get_name():
 		'increase_tax_button':
 			toolInfo.text = "Increase city tax rate by 1%"
@@ -169,17 +180,15 @@ func button_hover(button):
 			toolInfo.text = "Quicksave current map"
 
 func button_pressed():
-	var mapNode = get_node("../../")
-	
+	#Adds function for when button is pressed.
+	#Most just set the map tool, code for handling what to do when map tool used is in start_map.gd
 	match group.get_pressed_button().get_name():
+		#TODO: some of these buttons are depreciated. Thought the code could be useful at some point
+		#but they should be removed from here eventually.
 		'increase_tax_button':
 			Econ.adjust_tax_rate(0.01)
-			#City.extend_map()
-			#mapNode.initCamera()
 		'decrease_tax_button':
 			Econ.adjust_tax_rate(-0.01)
-			#City.reduce_map()
-			#mapNode.initCamera()
 		'dirt_button':
 			Global.mapTool = Global.Tool.BASE_DIRT
 		'rock_button':
@@ -290,24 +299,18 @@ func button_pressed():
 			print("ZOOMIN")
 			get_node("../../Camera2D").zoom_in()
 			Global.mapTool = Global.Tool.NONE
-		# 'save_button':
-		# 	print("SAVE")
-		# 	Global.mapTool = Global.Tool.NONE
-		# 	savePopup.popup_centered()
-		# 'load_button':
-		# 	Global.mapTool = Global.Tool.NONE
-		# 	loadPopup.popup_centered()
-		# 'exit_button':
-		# 	Global.mapTool = Global.Tool.NONE
-		# 	get_tree().quit()
 
 func updateAmounts():
+	#The buttons are all part of a button group so we can get them all this way
 	for i in group.get_buttons():
 		#The buttons are named in a way where they correspond to the items in inventory
 		var buttonName = i.get_name()
+		#Removes the text at the end that says '_button'
 		var item = buttonName.substr(0, buttonName.length() - 7)
 		if Inventory.items[item] > 0:
+			# Only add the inventory indicator if we have some of that item.
 			i.get_node("BG").visible = true
 			i.get_node("BG/Amount").text = str(Inventory.items[item])
 		else:
+			#If we have none, hide the indicator
 			i.get_node("BG").visible = false
