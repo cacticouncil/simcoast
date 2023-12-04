@@ -21,7 +21,6 @@
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/ContinueButton.tscn" type="PackedScene" id=113]
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/SaveButton.tscn" type="PackedScene" id=114]
 [ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/QuitButton.tscn" type="PackedScene" id=115]
-[ext_resource path="res://assets/buttons/dashboard_default.png" type="Texture" id=116]
 [ext_resource path="res://assets/buttons/interaction_button_hover.png" type="Texture" id=116]
 [ext_resource path="res://assets/buttons/interaction_button_unpressed.png" type="Texture" id=117]
 [ext_resource path="res://assets/ui/ui_hapiness.png" type="Texture" id=118]
@@ -96,6 +95,7 @@ margin_bottom = 37.0
 color = Color( 0.254902, 0.247059, 0.247059, 0.737255 )
 
 [node name="DashboardSelected" type="ColorRect" parent="HUD/TopBarBG"]
+visible = false
 margin_left = 159.0
 margin_top = 34.0
 margin_right = 258.0
@@ -488,15 +488,6 @@ toggle_mode = true
 texture_normal = ExtResource( 107 )
 texture_pressed = ExtResource( 108 )
 
-[node name="DashboardButton" type="TextureButton" parent="HUD"]
-margin_left = 171.0
-margin_top = 30.0
-margin_right = 203.0
-margin_bottom = 62.0
-rect_scale = Vector2( 1.00575, 0.955467 )
-toggle_mode = true
-texture_normal = ExtResource( 116 )
-
 [node name="interaction_button" type="TextureButton" parent="HUD"]
 visible = false
 margin_left = 165.0
@@ -712,7 +703,6 @@ text = "OK"
 [connection signal="pressed" from="HUD/TopBarMenu/StoreButton" to="." method="_on_StoreButton_pressed"]
 [connection signal="toggled" from="HUD/play_button" to="." method="_on_play_button_toggled"]
 [connection signal="toggled" from="HUD/fastfwd_button" to="." method="_on_fastfwd_button_toggled"]
-[connection signal="pressed" from="HUD/DashboardButton" to="." method="_on_DashboardButton_pressed"]
 [connection signal="mouse_entered" from="HUD/Missions/VBoxContainer/Mission1" to="." method="_on_Mission1_mouse_entered"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/SaveButton" to="." method="_on_SaveButton_pressed"]

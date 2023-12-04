@@ -58,8 +58,9 @@ func _process(delta):
 
 func _on_QuitShop_pressed():
 	$QuitShop.material.set_shader_param("value", 1)
-	get_node("/root/CityMap/HUD/TopBarBG/DashboardSelected").visible = true
+	get_node("/root/CityMap/HUD/TopBarBG/DashboardSelected").visible = false
 	get_node("/root/CityMap/HUD/TopBarBG/AchievementSelected").visible = false
+	get_node("/root/CityMap/HUD/TopBarBG/StoreSelected").visible = false
 	get_parent().remove_child(self)
 
 func _on_CloseInfo_pressed():
