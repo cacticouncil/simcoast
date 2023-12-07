@@ -92,6 +92,7 @@ var connections = [0,0,0,0]
 # Economy AI: equation coefficient constants
 var desirability = 0.2
 const BASE_DESIRABILITY = 0.2
+const BASE_SINGLE_FAMILY_DESIRABILITY = 0.4
 const WATER_CLOSE = 0.1
 const WATER_FAR = 0.05
 const WATER_WEIGHT = 0.025
