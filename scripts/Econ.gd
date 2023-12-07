@@ -164,7 +164,7 @@ func calc_profit_rates():
 						currTile.profitRate = 0
 					else:
 						currTile.profitRate = (avg_income_around_tile(currTile.i, currTile.j) * Econ.SALES_TAX) * \
-						(UpdatePopulation.get_population() / Global.numCommercialZones) + \
+						(UpdatePopulation.get_population() /City.numCommercialZones) + \
 						currTile.data[0] * Econ.PROPERTY_TAX * Econ.TAX_INCOME_MULTIPLIER * currTile.landValue
 						#the population bit is to help commercial profit scale with population
 						# it basically assumes that people will patronize all commercial zones equally
