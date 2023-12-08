@@ -7,9 +7,9 @@ var currentFrame = 0
 var choice = 0
 var npc = 3
 #Called when scene first enters the tree
-func _ready():
+func dialogueSetup(npc_):
+	npc = npc_
 	getNextText(npc, choice)
-
 #Called to intiialize the scene's variables
 #func _init(npc_):
 	#npc = npc_

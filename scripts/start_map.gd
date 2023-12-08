@@ -686,6 +686,7 @@ func _on_StoreButton_pressed():
 	add_child(TutInstance)
 	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 	var TutorialInstance = tutorial.instance()
+	TutorialInstance.dialogueSetup(1)
 	add_child(TutorialInstance)
 	
 
