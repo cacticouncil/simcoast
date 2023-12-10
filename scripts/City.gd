@@ -12,6 +12,10 @@ var numHospital = 0
 var numPoliceStations = 0
 var numSewageFacilities = 0
 var numWasteTreatment = 0
+var numResidentialZones = 0
+var numCommercialZones = 0
+var numSingleFamilyZones = 0
+var numMultiFamilyZones = 0
 
 # Delete the last row and column of the map
 func reduce_map():
@@ -107,10 +111,9 @@ func connectUtilities():
 									queue.append(Global.tileMap[n[0]][n[1]])
 						else:
 							var currTile = Global.tileMap[n[0]][n[1]]
-							# if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
-							if currTile.zone == Tile.TileZone.HEAVY_COMMERCIAL || currTile.zone == Tile.TileZone.LIGHT_COMMERCIAL:
+							if currTile.is_commercial():
 								commsPowered += 1
-							elif currTile.zone == Tile.TileZone.HEAVY_RESIDENTIAL || currTile.zone == Tile.TileZone.LIGHT_RESIDENTIAL:
+							elif currTile.is_residential():
 								resPowered += 1
 							currTile.utilities = true
 							#Global.tileMap[n[0]][n[1]].cube.update()
