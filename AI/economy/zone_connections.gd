@@ -38,7 +38,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 				Tile.TileZone.SINGLE_FAMILY:
 					residential_neighbor += 1
 				Tile.TileZone.MULTI_FAMILY:
-					residential_neighbor += 
+					residential_neighbor += 1
 				Tile.TileZone.COMMERCIAL:
 					commercial_neighbor += 	1
 				Tile.TileZone.PUBLIC_WORKS:

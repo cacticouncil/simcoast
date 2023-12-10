@@ -31,8 +31,7 @@ func _ready():
 	var zoneButtons = [
 		["house", "res://assets/buttons/lt_res_zone"], 
 		["apartment", "res://assets/buttons/hv_res_zone"], 
-		["shop", "res://assets/buttons/lt_com_zone"],
-		["super shop", "res://assets/buttons/hv_com_zone"]
+		["shop", "res://assets/buttons/lt_com_zone"]
 	]
 	var zoneSection = toolbarSectionScene.instance()
 	zoneSection.add_button("Zones", zoneButtons)
@@ -115,8 +114,6 @@ func button_hover(button):
 			toolInfo.text = "Add resident to residential zone   (Right Click: Remove person)"
 		'shop_button':
 			toolInfo.text = "Light Commercial Zone   (Right Click: Remove zoning)"
-		'super shop_button':
-			toolInfo.text = "Heavy Commercial Zone   (Right Click: Remove zoning)"
 		'add_building_button':
 			toolInfo.text = "Add building to commercial zone   (Right Click: Remove building)"
 		'add_employee_button':
@@ -191,17 +188,15 @@ func button_pressed():
 		'water_button':
 			Global.mapTool = Global.Tool.BASE_OCEAN
 		'house_button':
-			Global.mapTool = Global.Tool.ZONE_LT_RES
+			Global.mapTool = Global.Tool.ZONE_SINGLE_FAMILY
 		'apartment_button':
-			Global.mapTool = Global.Tool.ZONE_HV_RES
+			Global.mapTool = Global.Tool.ZONE_MULTI_FAMILY
 		'add_house_button':
 			Global.mapTool = Global.Tool.ADD_RES_BLDG
 		'add_resident_button':
 			Global.mapTool = Global.Tool.ADD_RES_PERSON
 		'shop_button':
-			Global.mapTool = Global.Tool.ZONE_LT_COM
-		'super shop_button':
-			Global.mapTool = Global.Tool.ZONE_HV_COM
+			Global.mapTool = Global.Tool.ZONE_COM
 		'add_building_button':
 			Global.mapTool = Global.Tool.ADD_COM_BLDG
 		'add_employee_button':
