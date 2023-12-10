@@ -750,12 +750,6 @@ func _on_StoreButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = false
 	$HUD/TopBarBG/AchievementSelected.visible = false
 	$HUD/TopBarBG/StoreSelected.visible = true
-	var tut = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
-	var TutInstance = tut.instance()
-	add_child(TutInstance)
-	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
-	var TutorialInstance = tutorial.instance()
-	add_child(TutorialInstance)
 
 func _on_DashboardButton_mouse_entered():
 	$HUD/TopBarBG/DashboardHover.visible = true
@@ -774,62 +768,6 @@ func _on_UIAchievementButton_mouse_exited():
 
 func _on_StoreButton_mouse_exited():
 	$HUD/TopBarBG/StoreHover.visible = false
-
-func _on_interaction_button_pressed():
-	var tut = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
-	var TutInstance = tut.instance()
-	add_child(TutInstance)
-	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
-	var TutorialInstance = tutorial.instance()
-	add_child(TutorialInstance)
-
-
-func _on_YesButton_pressed():
-
-	$SensorChoice/ColorRect.visible = false
-	match Global.mapTool:
-		Global.Tool.SENSOR_TIDE:
-			if (current_sensor_tile.sensor != Tile.TileSensor.TIDE):
-				if (current_sensor_tile.get_base() == Tile.TileBase.OCEAN):
-					current_sensor_tile.sensor_active = true
-				else:
-					current_sensor_tile.sensor_active = false
-				current_sensor_tile.sensor = Tile.TileSensor.TIDE
-				Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
-				Inventory.remove_building("tide sensor")
-			elif (current_sensor_tile.sensor == Tile.TileSensor.TIDE):
-				print("Sensor already here!")
-			else:
-				print("Different sensor here")
-		Global.Tool.SENSOR_RAIN:
-			if (current_sensor_tile.sensor != Tile.TileSensor.RAIN):
-				if (current_sensor_tile.get_base() == Tile.TileBase.DIRT):
-					current_sensor_tile.sensor_active = true
-				else:
-					current_sensor_tile.sensor_active = false
-				current_sensor_tile.sensor = Tile.TileSensor.RAIN
-				Announcer.notify(Event.new("Added Sensor", "Added Rain Sensor", 1))
-				Inventory.remove_building("rain sensor")
-			elif (current_sensor_tile.sensor == Tile.TileSensor.RAIN):
-				print("Sensor already here!")
-			else:
-				print("Different sensor here")
-
-
-
-func _on_NoButton_pressed():
-	$SensorChoice/ColorRect.visible = false
-	
-
-
-func _on_HelpButton_pressed():
-	$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = true
-	match Global.mapTool:
-		Global.Tool.SENSOR_TIDE:
-			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "Professor X recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
-		Global.Tool.SENSOR_RAIN:
-			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "Professor X recommends putting rain sensors inland, near tall buildings, where they will be most effective."
-	
 
 func _on_CloseHelpButton_pressed():
 	$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = false

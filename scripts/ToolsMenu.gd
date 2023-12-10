@@ -70,15 +70,6 @@ func _ready():
 	$VBoxContainer.add_child(publicServiceSection)
 	publicServiceSection.set_bg(publicServiceSection.rect_size, Color("526e7584"))
 	
-	var sensorButtons = [
-		["tide sensor", "res://assets/buttons/tide_sensor"], 
-		["rain sensor", "res://assets/buttons/rain_gauge"]
-	]
-	var sensorSection = toolbarSectionScene.instance()
-	sensorSection.add_button("Sensors", sensorButtons)
-	$VBoxContainer.add_child(sensorSection)
-	sensorSection.set_bg(sensorSection.rect_size, Color("e03c3c3c"))
-	
 	#Once we create all the buttons, we want to add the functionality to each of them
 	for i in group.get_buttons():
 		#Handles button presses
