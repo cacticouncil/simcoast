@@ -6,9 +6,11 @@ extends Node
 var currentFrame = 0
 var choice = 0
 var npc = 3
+var singular = true
 #Called when scene first enters the tree
 func dialogueSetup(npc_):
 	npc = npc_
+	singular = NPCOrganizer.npcDictionary[npc].dialogueSystem.solo
 	getNextText(npc, choice)
 #Called to intiialize the scene's variables
 #func _init(npc_):
@@ -16,6 +18,16 @@ func dialogueSetup(npc_):
 
 #Gets and displays next text
 func getNextText(npc, choice):
+	if (singular):
+		$DialogueBox/Option1.visible = false
+		$DialogueBox/Option2.visible = false
+		$DialogueBox/Option3.visible = false
+		var nextText = NPCOrganizer.dialogueTrigger(npc, choice)
+		if (nextText == null):
+			get_parent().remove_child(self)
+		else:
+			$DialogueBox/Dialogue.bbcode_text = nextText
+		return
 	var nextText = NPCOrganizer.dialogueTrigger(npc, choice)
 	#Node leaves scene when dialogue is done
 	if (nextText == null):
@@ -45,10 +57,7 @@ func _on_NextButton_pressed():
 	$DialogueBox/Teacher.frame += 1
 	getNextText(npc, choice)
 	return
-#func _on_Option1_pressed():
-	#choice = 0
-	#getNextText(choice)
-	#return
+
 func _on_Option1_pressed():
 	if (currentFrame == 4):
 		currentFrame = 0

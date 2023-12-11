@@ -5,7 +5,7 @@ var currentNPC = 0
 var currentPlayer = 0
 var turn = true
 var currentDialogue=""
-var currentSequence = 0
+var currentSequence = 1
 var choices = false
 var cd
 var solo = false
@@ -48,7 +48,7 @@ func get_next_dialogue():
 			currentDialogue = NPC_CONV[int(currentNPC)]["dialogue"]
 			# no player prompt
 			if(NPC_CONV[int(currentNPC)]["next"] == "-1"):
-				currentNPC = -2
+				currentNPC = 4
 			else:
 				currentPlayer = NPC_CONV[int(currentNPC)]["next"]
 				turn = false
@@ -59,8 +59,7 @@ func get_next_dialogue():
 			# end dialogue
 			#print(currentPlayer)
 			if(currentPlayer == "-2"):
-				currentPlayer = -2
-				return null
+				return
 			currentDialogue=[]
 			var cp = currentPlayer.split(",")
 			for j in cp:
@@ -75,6 +74,9 @@ func nextNPCLine(d):
 			turn = true
 
 func dialogueSequence(n):
+	if (currentSequence == 0):
+		currentSequence = 1
+		return null
 	if(choices == true):
 		if(n == 1):
 			nextNPCLine(cd[0])
@@ -87,10 +89,20 @@ func dialogueSequence(n):
 	if (typeof(cd) == TYPE_ARRAY && cd.size() != 1):
 		choices = true
 	if(solo == true && int(currentNPC) == -2):
-		resetDialogue()
+		currentNPC = 0
+		currentPlayer = 0
+		turn = true
+		currentDialogue = ""
+		currentSequence = 0
+		#cd = null
 	elif(solo == false):		
 		if(int(currentPlayer) == -2 && turn == false):
-			resetDialogue()
+			currentNPC = 0
+			currentPlayer = 0
+			turn = true
+			currentDialogue = ""
+			currentSequence = 0
+			#cd = null
 	return cd
 	
 func resetDialogue():
@@ -98,7 +110,7 @@ func resetDialogue():
 	currentPlayer = 0
 	turn = true
 	currentDialogue = ""
-	currentSequence = 0
+	currentSequence = 1
 #func _input(event):
 #	if event is InputEventKey and event.pressed:
 #		if event.keycode == KEY_1:
