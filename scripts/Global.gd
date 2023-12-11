@@ -39,8 +39,7 @@ var colRange = range(0, mapHeight, 1)
 # For Economy AI use only (see number_of_zones.gd)
 var numZones = 0
 var numPeople = 0
-var numResidentialZones = 0
-var numCommercialZones = 0
+
 
 # Economy AI constants
 const ZONE_BALANCE = -.01
@@ -71,12 +70,11 @@ enum Tool {
 	BASE_ROCK,
 	BASE_SAND,
 	BASE_OCEAN,
-	ZONE_LT_RES,
-	ZONE_HV_RES,
+	ZONE_SINGLE_FAMILY,
+	ZONE_MULTI_FAMILY,
 	ADD_RES_BLDG,
 	ADD_RES_PERSON,
-	ZONE_LT_COM,
-	ZONE_HV_COM,
+	ZONE_COM,
 	ADD_COM_BLDG,
 	ADD_COM_PERSON,
 	INF_PARK,

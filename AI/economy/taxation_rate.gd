@@ -20,16 +20,6 @@ const light_income_tax = 0.02 #income tax below 2% is light
 # Tax rates change how valuable a zone is through a negative relationship
 func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var tile = blackboard.get_data("queue").front()
-#	if avg_property_tax_rate > Econ.property_tax_rate:
-#		tile.prop_tax_weight = tile.PROP_TAX_LIGHT
-#	elif avg_property_tax_rate < Econ.property_tax_rate:
-#		tile.prop_tax_weight = tile.PROP_TAX_HEAVY
-#	else:
-#		tile.prop_tax_weight = 0
-#	if avg_sales_tax < Econ.city_tax_rate:
-#		tile.is_sales_tax_heavy = true
-#	else:
-#		tile.is_sales_tax_heavy = false
 #determining if the property tax is heavy, light, or neutral, and setting booleans accordingly
 	if light_prop_tax > Econ.PROPERTY_TAX:
 		tile.is_prop_tax_heavy = false

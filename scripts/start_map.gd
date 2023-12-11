@@ -145,51 +145,44 @@ func _unhandled_input(event):
 					tile.set_water_height(0)
 	
 			# Clear and zone a tile (if it is not already of the same zone)
-			Global.Tool.ZONE_LT_RES, Global.Tool.ZONE_HV_RES, Global.Tool.ZONE_LT_COM, Global.Tool.ZONE_HV_COM:
+			Global.Tool.ZONE_SINGLE_FAMILY, Global.Tool.ZONE_MULTI_FAMILY, Global.Tool.ZONE_COM:
 				if !tile.can_zone():
 					return
 
 				if Input.is_action_pressed("left_click"):
 					match Global.mapTool:
-						Global.Tool.ZONE_LT_RES:
-							if tile.get_zone() != Tile.TileZone.LIGHT_RESIDENTIAL:
+						Global.Tool.ZONE_SINGLE_FAMILY:
+							if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.LIGHT_RESIDENTIAL)
-						Global.Tool.ZONE_HV_RES:
-							if tile.get_zone() != Tile.TileZone.HEAVY_RESIDENTIAL:
+								tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
+						Global.Tool.ZONE_MULTI_FAMILY:
+							if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.HEAVY_RESIDENTIAL)
-						Global.Tool.ZONE_LT_COM:
-							if tile.get_zone() != Tile.TileZone.LIGHT_COMMERCIAL:
+								tile.set_zone(Tile.TileZone.MULTI_FAMILY)
+						Global.Tool.ZONE_COM:
+							if !tile.is_commercial():
 								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
 								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.LIGHT_COMMERCIAL)
-						Global.Tool.ZONE_HV_COM:
-							if tile.get_zone() != Tile.TileZone.HEAVY_COMMERCIAL:
-								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
-								if tile.has_utilities():
-									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
-								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.HEAVY_COMMERCIAL)
+								tile.set_zone(Tile.TileZone.COMMERCIAL)
 								
 				elif Input.is_action_pressed("right_click"):	
 					tile.clear_tile()					
 
 			# Add/Remove Buildings
 			Global.Tool.ADD_RES_BLDG:
-				if tile.get_zone() == Tile.TileZone.LIGHT_RESIDENTIAL || tile.get_zone() == Tile.TileZone.HEAVY_RESIDENTIAL:
+				if tile.is_residential():
 					City.adjust_building_number(tile)
 
 			Global.Tool.ADD_COM_BLDG:
-				if tile.get_zone() == Tile.TileZone.LIGHT_COMMERCIAL || tile.get_zone() == Tile.TileZone.HEAVY_COMMERCIAL:
+				if tile.is_commercial():
 					City.adjust_building_number(tile)
 
 			# Add/Remove People

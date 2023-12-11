@@ -26,7 +26,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 # may need more refinement; a 1-1 relationship between commercial and residential isn't really viable, but under the current 
 # system of commercial zones and residential zones having the same 'population' per tile, having fewer commercial zones than 
 # residential zones means there aren't enough jobs to go around, so it stays for now
-	var zone_balance = abs(Global.numCommercialZones - Global.numResidentialZones) * Global.ZONE_BALANCE
+	var zone_balance = abs(City.numCommercialZones - City.numResidentialZones) * Global.ZONE_BALANCE
 	
 	#this variable positively influences desirability the more people there are in the city, up to 100. This means the max
 #	impact that this variable can have on desirability is .1. 
@@ -51,7 +51,12 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	
 	#tile_dmg_weight is a value that subtracts from desirability if a tile is damaged, doesn't add anything only removes
 	#desirability explains itself in the name, and is influenced by all the factors defined above
-	var desirability = tile.BASE_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + tile.tile_dmg_weight
+	#single family zones are very desirable, so they have a different base desirability than everyone else
+	var desirability = 0
+	if (tile.zone == Tile.TileZone.SINGLE_FAMILY):
+		desirability = tile.BASE_SINGLE_FAMILY_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + tile.tile_dmg_weight
+	else:
+		desirability = tile.BASE_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + tile.tile_dmg_weight
 
 	if desirability > UPPER_LIMIT:
 		desirability = UPPER_LIMIT

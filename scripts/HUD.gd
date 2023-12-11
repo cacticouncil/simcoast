@@ -9,10 +9,9 @@ var base_values = {
 
 var zone_values = {	
 	Tile.TileZone.NONE: "None",
-	Tile.TileZone.LIGHT_RESIDENTIAL: "Light Residential",
-	Tile.TileZone.HEAVY_RESIDENTIAL: "Heavy Residential",
-	Tile.TileZone.LIGHT_COMMERCIAL: "Light Commercial",
-	Tile.TileZone.HEAVY_COMMERCIAL: "Heavy Commercial",
+	Tile.TileZone.SINGLE_FAMILY: "Single Family",
+	Tile.TileZone.MULTI_FAMILY: "Multi Family",
+	Tile.TileZone.COMMERCIAL: "Commercial",
 	Tile.TileZone.PUBLIC_WORKS: "Public Works"
 }
 
