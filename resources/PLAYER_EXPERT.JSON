@@ -5,26 +5,16 @@
 },
 {
 	"dialogue":"I need more time!",
-	"next":"-1"
+	"next":"4"
 },
 	
 {
 	"dialogue":"Evaporation",
-	"next":"2"
+	"next":"3"
 },
 {
 	"dialogue":"Inception",
-	"next":"3"
-	
-},
-
-{
-	"dialogue":":(",
-	"next":"-2"
-},
-{
-	"dialogue":"Claim",
-	"next":"-2"
+	"next":"2"
 	
 }
 ]

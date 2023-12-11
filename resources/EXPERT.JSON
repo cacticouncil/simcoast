@@ -10,11 +10,15 @@
 	
 {
 	"dialogue":"Correct! You earn a bronze badge...",
-	"next":"-1"
+	"next":"-2"
 },
 {
 	"dialogue":"Sorry! That is incorrect! Better luck next time",
-	"next":"-1"
+	"next":"-2"
 	
+},
+{
+	"dialogue":"No problem! Come back when you're ready!",
+	"next":"-2"
 }
 ]

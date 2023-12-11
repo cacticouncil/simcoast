@@ -26,7 +26,7 @@ func getNextText(npc, choice):
 		if (nextText == null):
 			get_parent().remove_child(self)
 		else:
-			$DialogueBox/Dialogue.bbcode_text = nextText
+			updateDialogueBox(nextText)
 		return
 	var nextText = NPCOrganizer.dialogueTrigger(npc, choice)
 	#Node leaves scene when dialogue is done
@@ -34,21 +34,11 @@ func getNextText(npc, choice):
 		get_parent().remove_child(self)
 	elif (typeof(nextText) == TYPE_ARRAY):
 		#Reset dialogue boxes
-		$DialogueBox/Option2.visible = false
-		$DialogueBox/Option3.visible = false
-		
-		$DialogueBox/Option1.visible = true
-		$DialogueBox/Option1/RichTextLabel.bbcode_text = nextText[0]
-		if (nextText.size() > 1):
-			$DialogueBox/Option2.visible = true
-			$DialogueBox/Option2/RichTextLabel.bbcode_text = nextText[1]
-		if (nextText.size() > 2):
-			$DialogueBox/Option3.visible = true
-			$DialogueBox/Option3/RichTextLabel.bbcode_text = nextText[2]
+		updateChoices(nextText)
 	else:
 		if (nextText.find("Correct") != -1):
 			Announcer.notify(Event.new("Unlocked Badge", "Water Cycle", 0))
-		$DialogueBox/Dialogue.bbcode_text = nextText
+		updateDialogueBox(nextText)
 	return
 func _on_NextButton_pressed():
 	#Switches position of the character in a loop
@@ -81,7 +71,22 @@ func _on_Option3_pressed():
 	return
 
 #TODO add JSON file to have "emotions" to set currentFrame
-
+func updateDialogueBox(text):
+	#do something
+	$DialogueBox/Dialogue.bbcode_text = text
+func updateChoices(text):
+	#do something else
+	$DialogueBox/Option2.visible = false
+	$DialogueBox/Option3.visible = false
+		
+	$DialogueBox/Option1.visible = true
+	$DialogueBox/Option1/RichTextLabel.bbcode_text = text[0]
+	if (text.size() > 1):
+		$DialogueBox/Option2.visible = true
+		$DialogueBox/Option2/RichTextLabel.bbcode_text = text[1]
+	if (text.size() > 2):
+		$DialogueBox/Option3.visible = true
+		$DialogueBox/Option3/RichTextLabel.bbcode_text = text[2]
 
 func _on_Exit_pressed():
 	NPCOrganizer.dialogueReset(npc)
