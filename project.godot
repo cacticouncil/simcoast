@@ -199,8 +199,8 @@ UpdateDate="*res://scripts/updateDate.gd"
 UpdateValue="*res://scripts/UpdateValue.gd"
 UpdateHappiness="*res://scripts/UpdateHappiness.gd"
 UpdateDemand="*res://scripts/updateDemand.gd"
-Weather="*res://scripts/Weather.gd"
-UpdateWeather="*res://scripts/UpdateWeather.gd"
+Weather="res://scripts/Weather.gd"
+UpdateWeather="res://scripts/UpdateWeather.gd"
 UpdateGraphics="*res://scripts/updateGraphics.gd"
 UpdateErosion="*res://scripts/updateErosion.gd"
 UpdateWater="*res://scripts/updateWater.gd"
@@ -214,6 +214,10 @@ NPCOrganizer="*res://scripts/NPCOrganizer.gd"
 Inventory="*res://inventory/Inventory.tscn"
 BadgeObserver="*res://scripts/Observers/BadgeObserver.gd"
 
+[debug]
+
+gdscript/warnings/enable=false
+
 [display]
 
 window/size/width=1280
@@ -225,6 +229,8 @@ window/stretch/aspect="keep"
 [editor]
 
 main_run_args="--verbose"
+version_control_autoload_on_startup=true
+version_control_plugin_name="GitAPI"
 
 [editor_plugins]
 
@@ -238,6 +244,7 @@ singletons=[ "res://git_api.gdnlib" ]
 
 "dynamic font"=false
 "dynamic fonts"=false
+git=false
 
 [input]
 
