@@ -1,19 +1,26 @@
 class_name Sensor extends Node
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+# name of sensor
 var sensor_name
+# sensor information
 var sensor_info
+# information that goes on the popup
 var sensor_ext_info
+#whether sensor is unlocked or not
 var sensor_status
+# current available to use sensors of this type
 var sensor_amount
+# requirements to unlock sensor
 var sensor_req
+# used to activate buy popup display
 var buy_bttn = false
+# used to activate information popup display
 var info_bttn = false
+# current price of the sensor
 var price = 5000
+# if player cannot buy sensor
 var cant_buy = false
+
 # Called when the node enters the scene tree for the first time.
 func _init(var n, var info, var e, var r):
 	sensor_ext_info = e

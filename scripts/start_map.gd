@@ -460,6 +460,7 @@ func _unhandled_input(event):
 			
 			Global.Tool.SENSOR_TIDE:
 				if Input.is_action_pressed("left_click"):
+					# bug workaround to not add sensors to already occupied tiles
 					if (tile.inf == Tile.TileInf.NONE && !(tile.has_building())):
 						if (Inventory.has_building("tide sensor")):
 							current_sensor_tile = tile
@@ -473,6 +474,7 @@ func _unhandled_input(event):
 						tile.clear_sensor()
 			Global.Tool.SENSOR_RAIN:
 				if Input.is_action_pressed("left_click"):
+					# bug workaround to not add sensors to already occupied tiles
 					if (tile.inf == Tile.TileInf.NONE && !(tile.has_building())):
 						if (Inventory.has_building("rain sensor")):
 							current_sensor_tile = tile
@@ -778,11 +780,13 @@ func _on_interaction_button_pressed():
 
 
 # sensor options -> yes, no, or ask for help
+# yes adds sensor to tile
 func _on_YesButton_pressed():
 
 	$SensorChoice/ColorRect.visible = false
 	match Global.mapTool:
 		Global.Tool.SENSOR_TIDE:
+			# different colors to represent if sensor is active or not
 			if (current_sensor_tile.sensor != Tile.TileSensor.TIDE):
 				if (current_sensor_tile.get_base() == Tile.TileBase.OCEAN):
 					current_sensor_tile.sensor_active = true
@@ -798,6 +802,7 @@ func _on_YesButton_pressed():
 				print("Different sensor here")
 		Global.Tool.SENSOR_RAIN:
 			if (current_sensor_tile.sensor != Tile.TileSensor.RAIN):
+				# different colors to represent if sensor is active or not
 				if (current_sensor_tile.get_base() == Tile.TileBase.DIRT):
 					current_sensor_tile.sensor_active = true
 				else:
@@ -811,16 +816,18 @@ func _on_YesButton_pressed():
 			else:
 				print("Different sensor here")
 
+#does not add sensor to tile
 func _on_NoButton_pressed():
 	$SensorChoice/ColorRect.visible = false
 
+# help display
 func _on_HelpButton_pressed():
 	$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = true
 	match Global.mapTool:
 		Global.Tool.SENSOR_TIDE:
-			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "Professor X recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
+			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
 		Global.Tool.SENSOR_RAIN:
-			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "Professor X recommends putting rain sensors inland, near tall buildings, where they will be most effective."
+			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting rain sensors inland, near tall buildings, where they will be most effective."
 	
 
 func _on_CloseHelpButton_pressed():
