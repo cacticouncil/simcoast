@@ -22,6 +22,8 @@ func _init(var n, var info, var e, var r):
 	sensor_status = false
 	sensor_amount = 0
 	sensor_req = r
+	if n == "Tide Gauge":
+		price = 0
 	
 func get_status():
 	return sensor_status

@@ -37,8 +37,6 @@ func _ready():
 	sensors.append(Sensor.new("Tide Gauge", tide_info, tide_ext_info, " "))
 	sensors[0].set_status(true)
 	sensors.append(Sensor.new("Rain Gauge", rain_info, placeholder,"Buy a Tide Gauge"))
-	sensors.append(Sensor.new("GEN1 Gauge", gen_info, placeholder, "Buy a Rain Gauge"))
-	sensors.append(Sensor.new("GEN2 Gauge", gen_info, placeholder, "Buy a GEN1 Gauge"))
 
 func add_building(building):
 	items[building] += 1

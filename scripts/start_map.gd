@@ -460,34 +460,27 @@ func _unhandled_input(event):
 			
 			Global.Tool.SENSOR_TIDE:
 				if Input.is_action_pressed("left_click"):
-					#if (tile.get_base() == Tile.TileBase.DIRT && tile.sensor != Tile.TileSensor.TIDE):
-					if (Inventory.has_building("tide sensor")):
-						current_sensor_tile = tile
-						$SensorChoice/ColorRect.visible = true
+					if (tile.inf == Tile.TileInf.NONE && !(tile.has_building())):
+						if (Inventory.has_building("tide sensor")):
+							current_sensor_tile = tile
+							$SensorChoice/ColorRect.visible = true
+						else:
+							print("No available sensors!")
 					else:
-						print("No available sensors!")
-					#if(can_place_sensor):
-					#	if (tile.sensor != Tile.TileSensor.TIDE):
-					#		if (Inventory.has_building("tide sensor")):
-					#			tile.sensor = Tile.TileSensor.TIDE
-					#			Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
-					#			Inventory.remove_building("tide sensor")
-					#		else:
-					#			print("No available sensors!")
-					#	elif (tile.sensor == Tile.TileSensor.TIDE):
-					#		actionText.text = "Sensor already here!"
-					#	else:
-					#		actionText.text = "Different sensor here"
+						$SensorNo/ColorRect.visible = true
 				elif Input.is_action_pressed("right_click"):
 					if tile.sensor == Tile.TileSensor.TIDE:
 						tile.clear_sensor()
 			Global.Tool.SENSOR_RAIN:
 				if Input.is_action_pressed("left_click"):
-					if (Inventory.has_building("rain sensor")):
-						current_sensor_tile = tile
-						$SensorChoice/ColorRect.visible = true
+					if (tile.inf == Tile.TileInf.NONE && !(tile.has_building())):
+						if (Inventory.has_building("rain sensor")):
+							current_sensor_tile = tile
+							$SensorChoice/ColorRect.visible = true
+						else:
+							print("No available sensors!")
 					else:
-						print("No available sensors!")
+						$SensorNo/ColorRect.visible = true
 				elif Input.is_action_pressed("right_click"):
 					if tile.sensor == Tile.TileSensor.RAIN:
 						tile.clear_sensor()
@@ -784,6 +777,7 @@ func _on_interaction_button_pressed():
 	add_child(TutorialInstance)
 
 
+# sensor options -> yes, no, or ask for help
 func _on_YesButton_pressed():
 
 	$SensorChoice/ColorRect.visible = false
@@ -794,6 +788,7 @@ func _on_YesButton_pressed():
 					current_sensor_tile.sensor_active = true
 				else:
 					current_sensor_tile.sensor_active = false
+				current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.TIDE
 				Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
 				Inventory.remove_building("tide sensor")
@@ -807,6 +802,7 @@ func _on_YesButton_pressed():
 					current_sensor_tile.sensor_active = true
 				else:
 					current_sensor_tile.sensor_active = false
+				current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.RAIN
 				Announcer.notify(Event.new("Added Sensor", "Added Rain Sensor", 1))
 				Inventory.remove_building("rain sensor")
@@ -815,12 +811,8 @@ func _on_YesButton_pressed():
 			else:
 				print("Different sensor here")
 
-
-
 func _on_NoButton_pressed():
 	$SensorChoice/ColorRect.visible = false
-	
-
 
 func _on_HelpButton_pressed():
 	$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = true
@@ -833,3 +825,8 @@ func _on_HelpButton_pressed():
 
 func _on_CloseHelpButton_pressed():
 	$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = false
+
+
+# bug fix for no sensors on buildings
+func _on_CloseNoButton_pressed():
+	$SensorNo/ColorRect.visible = false # Replace with function body.

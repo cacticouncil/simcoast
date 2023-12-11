@@ -1,5 +1,5 @@
 extends Node
-
+var free_tide = 1
 # Called when the node enters the scene tree for the first time.
 #func updateValues(sName, sInfo, sReq, aPic, locked):
 func updateValues(sName, sInfo, sReq, locked):
@@ -33,7 +33,11 @@ func _on_BuyButton_pressed():
 			i +=1
 		
 		if happened==true:
-			var new_price = curr_price*2
+			var new_price
+			if curr_price == 0:
+				new_price=5000
+			else:
+				new_price= curr_price*2				
 			Inventory.sensors[j-1].price = new_price
 			Inventory.sensors[j-1].increase_amount()
 			Inventory.update_sensor_amount()

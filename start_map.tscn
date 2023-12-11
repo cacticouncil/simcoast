@@ -694,6 +694,37 @@ margin_bottom = 200.0
 custom_fonts/font = ExtResource( 49 )
 text = "OK"
 
+[node name="SensorNo" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="SensorNo"]
+visible = false
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 0.196078 )
+
+[node name="BoxNo" type="ColorRect" parent="SensorNo/ColorRect"]
+margin_left = 600.0
+margin_top = 155.0
+margin_right = 815.0
+margin_bottom = 370.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="LabelNo" type="RichTextLabel" parent="SensorNo/ColorRect/BoxNo"]
+margin_left = 15.0
+margin_top = 10.0
+margin_right = 208.0
+margin_bottom = 218.0
+custom_fonts/normal_font = ExtResource( 49 )
+text = "For now, you are not allowed to place a sensor in a tile that is already assigned. Please pick an empty tile."
+
+[node name="CloseNoButton" type="Button" parent="SensorNo/ColorRect/BoxNo"]
+margin_left = 130.0
+margin_top = 176.0
+margin_right = 199.0
+margin_bottom = 200.0
+custom_fonts/font = ExtResource( 49 )
+text = "OK"
+
 [connection signal="mouse_entered" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_exited"]
 [connection signal="pressed" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_pressed"]
@@ -715,3 +746,4 @@ text = "OK"
 [connection signal="pressed" from="SensorChoice/ColorRect/ChoiceBox/NoButton" to="." method="_on_NoButton_pressed"]
 [connection signal="pressed" from="SensorChoice/ColorRect/ChoiceBox/HelpButton" to="." method="_on_HelpButton_pressed"]
 [connection signal="pressed" from="SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/CloseHelpButton" to="." method="_on_CloseHelpButton_pressed"]
+[connection signal="pressed" from="SensorNo/ColorRect/BoxNo/CloseNoButton" to="." method="_on_CloseNoButton_pressed"]

@@ -247,6 +247,7 @@ func clear_tile():
 		inf = TileInf.NONE
 		City.connectUtilities()
 		
+	sensor = TileSensor.NONE	
 	#reset tile to base
 	inf = TileInf.NONE
 	data = [0, 0, 0, 0, 0]
