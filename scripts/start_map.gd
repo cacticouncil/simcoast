@@ -82,17 +82,17 @@ func initObservers():
 	#Add Badge Observer
 	Announcer.addObserver(get_node("/root/BadgeObserver"))
 	#Remove these, solely for testing purposes
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 2))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 2))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Name 1", 2))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 1", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 2", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 3", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 4", 2))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 5", 2))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 6", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 7", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 8", 0))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 9", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 10", 1))
+	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 11", 2))
 	
 	# Just in case their's any action to take about this right away
 	Announcer.notify(Event.new("Money", "Amount of money", Econ.money))
