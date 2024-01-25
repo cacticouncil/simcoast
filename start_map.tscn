@@ -1,9 +1,10 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/Toolbar/Toolbar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/start_map.gd" type="Script" id=3]
 [ext_resource path="res://scripts/Camera2D.gd" type="Script" id=4]
+[ext_resource path="res://assets/building_assets/scene.gltf" type="PackedScene" id=5]
 [ext_resource path="res://scripts/VectorMap.gd" type="Script" id=7]
 [ext_resource path="res://SaveDialog.gd" type="Script" id=39]
 [ext_resource path="res://assets/ui/ui_money.png" type="Texture" id=44]
@@ -693,6 +694,12 @@ margin_right = 210.0
 margin_bottom = 200.0
 custom_fonts/font = ExtResource( 49 )
 text = "OK"
+
+[node name="scene" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.858438, 0, 2.00395 )
+
+[node name="scene2" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3375, 0, -6.57596 )
 
 [connection signal="mouse_entered" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_exited"]
