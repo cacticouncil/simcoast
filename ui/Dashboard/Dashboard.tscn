@@ -1,10 +1,13 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://ui/Dashboard/Dashboard.gd" type="Script" id=1]
 [ext_resource path="res://ui/Badges/UnlockedBadges.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/achievement_icons/XIcon.png" type="Texture" id=4]
 [ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=5]
+[ext_resource path="res://assets/fonts/toolbarTitle.tres" type="DynamicFont" id=6]
+[ext_resource path="res://ui/Dashboard/MoneyInformation.gd" type="Script" id=7]
+[ext_resource path="res://assets/buttons/Info_button.png" type="Texture" id=8]
 
 [sub_resource type="GDScript" id=4]
 
@@ -42,6 +45,16 @@ scancode = 16777217
 
 [sub_resource type="ShortCut" id=17]
 shortcut = SubResource( 10 )
+
+[sub_resource type="StyleBoxEmpty" id=26]
+
+[sub_resource type="StyleBoxEmpty" id=24]
+
+[sub_resource type="StyleBoxEmpty" id=25]
+
+[sub_resource type="StyleBoxEmpty" id=22]
+
+[sub_resource type="StyleBoxEmpty" id=18]
 
 [node name="Dashboard" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -141,19 +154,203 @@ color = Color( 0.333333, 0.333333, 0.333333, 1 )
 [node name="Label3" type="Label" parent="ColorRect3"]
 anchor_right = 0.138
 anchor_bottom = 0.411
-margin_left = 10.0
+margin_left = 9.0
 margin_top = 15.0
-margin_right = 129.36
+margin_right = 128.36
 margin_bottom = -124.4
 custom_fonts/font = ExtResource( 5 )
 text = "City Stats"
 
 [node name="CityStatsBar" type="VBoxContainer" parent="ColorRect3"]
-margin_top = 39.0
-margin_right = 280.0
-margin_bottom = 670.0
+margin_left = 10.0
+margin_top = 50.0
+margin_right = 270.0
+margin_bottom = 660.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect3/CityStatsBar"]
+margin_right = 262.0
+margin_bottom = 20.0
+
+[node name="MoneyTitle" type="Label" parent="ColorRect3/CityStatsBar/HBoxContainer"]
+margin_top = 2.0
+margin_right = 51.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 6 )
+text = "Money"
+
+[node name="Spacer" type="Control" parent="ColorRect3/CityStatsBar/HBoxContainer"]
+margin_left = 55.0
+margin_right = 240.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 185, 20 )
+
+[node name="MoneyInfoButton" type="Button" parent="ColorRect3/CityStatsBar/HBoxContainer"]
+margin_left = 244.0
+margin_right = 260.0
+margin_bottom = 20.0
+custom_styles/hover = SubResource( 26 )
+custom_styles/pressed = SubResource( 24 )
+custom_styles/focus = SubResource( 25 )
+custom_styles/disabled = SubResource( 22 )
+custom_styles/normal = SubResource( 18 )
+icon = ExtResource( 8 )
+
+[node name="MoneyInformation" type="PopupPanel" parent="ColorRect3/CityStatsBar"]
+margin_top = 24.0
+margin_right = 260.0
+margin_bottom = 63.0
+script = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="ColorRect3/CityStatsBar/MoneyInformation"]
+anchor_left = 0.032
+anchor_top = 0.153
+anchor_right = 0.968
+anchor_bottom = 1.0
+margin_left = -4.32
+margin_top = -1.967
+margin_right = 4.32001
+margin_bottom = -4.0
+rect_min_size = Vector2( 246, 20 )
+text = "Whenever you need money, 
+here I am"
+
+[node name="Money" type="Label" parent="ColorRect3/CityStatsBar"]
+margin_top = 24.0
+margin_right = 262.0
+margin_bottom = 38.0
+
+[node name="HSeparator" type="HSeparator" parent="ColorRect3/CityStatsBar"]
+margin_top = 42.0
+margin_right = 262.0
+margin_bottom = 46.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect3/CityStatsBar"]
+margin_top = 50.0
+margin_right = 262.0
+margin_bottom = 70.0
+
+[node name="PopulationTitle" type="Label" parent="ColorRect3/CityStatsBar/HBoxContainer2"]
+margin_top = 2.0
+margin_right = 98.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 6 )
+text = "Population"
+
+[node name="Spacer" type="Control" parent="ColorRect3/CityStatsBar/HBoxContainer2"]
+margin_left = 102.0
+margin_right = 242.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 140, 20 )
+
+[node name="Population" type="Label" parent="ColorRect3/CityStatsBar"]
+margin_top = 74.0
+margin_right = 262.0
+margin_bottom = 88.0
+
+[node name="HSeparator2" type="HSeparator" parent="ColorRect3/CityStatsBar"]
+margin_top = 92.0
+margin_right = 262.0
+margin_bottom = 96.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ColorRect3/CityStatsBar"]
+margin_top = 100.0
+margin_right = 262.0
+margin_bottom = 115.0
+
+[node name="HappinessTitle" type="Label" parent="ColorRect3/CityStatsBar/HBoxContainer3"]
+margin_right = 89.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 6 )
+text = "Happiness"
+
+[node name="Happiness" type="Label" parent="ColorRect3/CityStatsBar"]
+margin_top = 119.0
+margin_right = 262.0
+margin_bottom = 133.0
+text = "???"
+
+[node name="HSeparator3" type="HSeparator" parent="ColorRect3/CityStatsBar"]
+margin_top = 137.0
+margin_right = 262.0
+margin_bottom = 141.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ColorRect3/CityStatsBar"]
+margin_top = 145.0
+margin_right = 262.0
+margin_bottom = 160.0
+
+[node name="EconomicGrowthTitle" type="Label" parent="ColorRect3/CityStatsBar/HBoxContainer4"]
+margin_right = 146.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 6 )
+text = "Economic Growth"
+
+[node name="EconomicGrowth" type="Label" parent="ColorRect3/CityStatsBar"]
+margin_top = 164.0
+margin_right = 262.0
+margin_bottom = 178.0
+text = "???"
+
+[node name="HSeparator4" type="HSeparator" parent="ColorRect3/CityStatsBar"]
+margin_top = 182.0
+margin_right = 262.0
+margin_bottom = 186.0
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="ColorRect3/CityStatsBar"]
+margin_top = 190.0
+margin_right = 262.0
+margin_bottom = 205.0
+
+[node name="WeatherPrepTitle" type="Label" parent="ColorRect3/CityStatsBar/HBoxContainer5"]
+margin_right = 196.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 6 )
+text = "Weather Preparedness"
+
+[node name="WeatherPreparedness" type="Label" parent="ColorRect3/CityStatsBar"]
+margin_top = 209.0
+margin_right = 262.0
+margin_bottom = 223.0
+text = "???"
+
+[node name="HSeparator5" type="HSeparator" parent="ColorRect3/CityStatsBar"]
+margin_top = 227.0
+margin_right = 262.0
+margin_bottom = 231.0
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="ColorRect3/CityStatsBar"]
+margin_top = 235.0
+margin_right = 262.0
+margin_bottom = 250.0
+
+[node name="TaxesTitle" type="Label" parent="ColorRect3/CityStatsBar/HBoxContainer6"]
+margin_right = 73.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 6 )
+text = "City Tax"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="ColorRect3/CityStatsBar"]
+margin_top = 254.0
+margin_right = 262.0
+margin_bottom = 270.0
+
+[node name="HSlider" type="HSlider" parent="ColorRect3/CityStatsBar/HBoxContainer7"]
+margin_right = 230.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 230, 16 )
+value = 100.0
+
+[node name="TaxValue" type="Label" parent="ColorRect3/CityStatsBar/HBoxContainer7"]
+margin_left = 234.0
+margin_top = 1.0
+margin_right = 262.0
+margin_bottom = 15.0
+text = "35%"
 
 [connection signal="button_down" from="QuitButton" to="." method="_on_QuitButton_button_down"]
 [connection signal="mouse_entered" from="QuitButton" to="." method="_on_QuitButton_mouse_entered"]
 [connection signal="mouse_exited" from="QuitButton" to="." method="_on_QuitButton_mouse_exited"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="button_down" from="ColorRect3/CityStatsBar/HBoxContainer/MoneyInfoButton" to="." method="_on_MoneyInfoButton_button_down"]
+[connection signal="pressed" from="ColorRect3/CityStatsBar/HBoxContainer/MoneyInfoButton" to="ColorRect3/CityStatsBar/MoneyInformation" method="_on_MoneyInfoButton_pressed"]
+[connection signal="value_changed" from="ColorRect3/CityStatsBar/HBoxContainer7/HSlider" to="." method="_on_HSlider_value_changed"]
