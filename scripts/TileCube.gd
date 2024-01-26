@@ -879,6 +879,7 @@ func update_cube(cube, cube_x, cube_y, width, depth, height, offset, occupancy):
 		height = 0
 		offset = 0
 
+	#I can't tell what these are doing, and if they're even useful. - Logan
 	# Left side of cube (occupancy percentage)
 	cube[3].set_polygon(PoolVector2Array([
 		Vector2(cube_x, cube_y - offset + depth),
