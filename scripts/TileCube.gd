@@ -115,11 +115,18 @@ func _draw():
 		draw_polyline(b[0].get_polygon(), Tile.SCHOOL_COLOR[3])
 		
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
+		"""
 		var b = objects.pop_front()
 		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[1]]))
 		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[2]]))
 		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[0]]))
 		draw_polyline(b[0].get_polygon(), Tile.FIRE_STATION_COLOR[3])
+		"""
+		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
+		var textureRect = TextureRect.new()
+		textureRect.texture = image
+		add_child(textureRect)
+		
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		var b = objects.pop_front()
 		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[1]]))
