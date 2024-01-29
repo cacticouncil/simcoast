@@ -200,17 +200,15 @@ func button_pressed():
 		'water_button':
 			Global.mapTool = Global.Tool.BASE_OCEAN
 		'house_button':
-			Global.mapTool = Global.Tool.ZONE_LT_RES
+			Global.mapTool = Global.Tool.ZONE_SINGLE_FAMILY
 		'apartment_button':
-			Global.mapTool = Global.Tool.ZONE_HV_RES
+			Global.mapTool = Global.Tool.ZONE_MULTI_FAMILY
 		'add_house_button':
 			Global.mapTool = Global.Tool.ADD_RES_BLDG
 		'add_resident_button':
 			Global.mapTool = Global.Tool.ADD_RES_PERSON
 		'shop_button':
-			Global.mapTool = Global.Tool.ZONE_LT_COM
-		'super shop_button':
-			Global.mapTool = Global.Tool.ZONE_HV_COM
+			Global.mapTool = Global.Tool.ZONE_COM
 		'add_building_button':
 			Global.mapTool = Global.Tool.ADD_COM_BLDG
 		'add_employee_button':
