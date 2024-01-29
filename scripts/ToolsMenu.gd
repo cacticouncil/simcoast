@@ -31,8 +31,7 @@ func _ready():
 	var zoneButtons = [
 		["house", "res://assets/buttons/lt_res_zone"], 
 		["apartment", "res://assets/buttons/hv_res_zone"], 
-		["shop", "res://assets/buttons/lt_com_zone"],
-		["super shop", "res://assets/buttons/hv_com_zone"]
+		["shop", "res://assets/buttons/lt_com_zone"]
 	]
 	var zoneSection = toolbarSectionScene.instance()
 	zoneSection.add_button("Zones", zoneButtons)
@@ -124,8 +123,6 @@ func button_hover(button):
 			toolInfo.text = "Add resident to residential zone   (Right Click: Remove person)"
 		'shop_button':
 			toolInfo.text = "Light Commercial Zone   (Right Click: Remove zoning)"
-		'super shop_button':
-			toolInfo.text = "Heavy Commercial Zone   (Right Click: Remove zoning)"
 		'add_building_button':
 			toolInfo.text = "Add building to commercial zone   (Right Click: Remove building)"
 		'add_employee_button':

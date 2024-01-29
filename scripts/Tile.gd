@@ -478,6 +478,9 @@ func clear_house():
 		remove_building()
 	data = [0, 0, 0, 0, 0]
 
+func get_sensor():
+	return sensor
+	
 func clear_sensor():
 	sensor = TileSensor.NONE
 
