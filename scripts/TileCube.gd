@@ -13,6 +13,8 @@ var building_visible = true
 var base_cube = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
 var water_cube = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
 var objects = []
+var buildingSprite = null
+var haveDrawnBuilding = false
 
 var coll = CollisionPolygon2D.new()
 
@@ -122,10 +124,13 @@ func _draw():
 		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[0]]))
 		draw_polyline(b[0].get_polygon(), Tile.FIRE_STATION_COLOR[3])
 		"""
-		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
-		var textureRect = TextureRect.new()
-		textureRect.texture = image
-		add_child(textureRect)
+		if buildingSprite != null && !haveDrawnBuilding:
+			get_parent().add_child(buildingSprite)
+			buildingSprite.rect_position = Vector2(-25.6, 0)
+			buildingSprite.mouse_filter = 2 #Makes it so you can click through images
+			buildingSprite.rect_scale = Vector2(0.1, 0.1)
+			buildingSprite = null
+			haveDrawnBuilding = true
 		
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		var b = objects.pop_front()
@@ -177,6 +182,7 @@ func clear_objects():
 			if typeof(p) != TYPE_VECTOR2:
 				p.queue_free()
 	objects.clear()
+	buildingSprite = null
 
 func update_polygons():
 	var tile = Global.tileMap[i][j]
@@ -410,6 +416,7 @@ func update_polygons():
 
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
 		clear_objects()
+		"""
 		var building_width = Global.TILE_WIDTH - 10
 		var building_depth = building_width / 2.0
 		var building_height = 15
@@ -426,6 +433,10 @@ func update_polygons():
 		
 		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
 		objects.append(b)
+		"""
+		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
+		buildingSprite = TextureRect.new()
+		buildingSprite.texture = image
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		clear_objects()
