@@ -137,7 +137,7 @@ func _unhandled_input(event):
 					City.adjust_tile_height(tile)
 			
 			Global.Tool.BASE_OCEAN:
-				if tile.get_base() != Tile.TileBase.OCEAN:
+				if tile.get_base() != Tile.TileBase.OCEAN && Econ.purchase_structure(Econ.WATER_COST):
 					tile.clear_tile()
 					tile.set_base(Tile.TileBase.OCEAN)
 					tile.set_base_height(Global.oceanHeight)
