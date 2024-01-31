@@ -6,15 +6,21 @@ var BASE_BUILD_CHANCE = 0.01
 var BASE_MOVE_CHANCE = 0.01
 var BASE_LEAVE_CHANCE = 0.01
 
-var NO_POWER_UNHAPPINESS = 10
+var NO_UTILITIES_UNHAPPINESS = 10
 var DAMAGE_UNHAPPINESS = 10
 var SEVERE_DAMAGE_UNHAPPINESS = 30
 
 var RESIDENTS = 0
 var WORKERS = 0
 var BASE_EMPLOYMENT_RATE = .95
+#above 10% unemployment and people are unhappy 
+var UNEMPLOYMENT_LIMIT = .10
 
 var rng = RandomNumberGenerator.new()
+
+# metrics for Economy AI
+var growth_rate = 0
+var previous_population = 0
 
 #Update buildings and population
 func update_population():
@@ -25,8 +31,8 @@ func update_population():
 			var maxRange = currTile.landValue + currTile.happiness
 			var selectTile = BASE_BUILD_CHANCE * (currTile.landValue + currTile.happiness)
 			
-			# cannot add buldings or people without power, zoning, or if the tile is damaged
-			if currTile.is_zoned() && currTile.is_powered() && currTile.tileDamage == 0:
+			# cannot add buldings or people without utility, zoning, or if the tile is damaged
+			if currTile.is_zoned() && currTile.has_utilities() && currTile.tileDamage == 0:
 				rng.randomize()
 				#only add buildings to tiles that already have buildings if a tile is at over 50% capacity 
 				if (selectTile > rng.randf_range(0, maxRange) && currTile.data[3] != 0 && currTile.data[2]/currTile.data[3] > .5):
@@ -48,8 +54,8 @@ func update_population():
 				var leaveChance = 0
 				var status = currTile.get_status()
 				
-				if (!currTile.is_powered()):
-					leaveChance += NO_POWER_UNHAPPINESS 
+				if (!currTile.has_utilities()):
+					leaveChance += NO_UTILITIES_UNHAPPINESS 
 				if (status == Tile.TileStatus.LIGHT_DAMAGE || status == Tile.TileStatus.MEDIUM_DAMAGE):
 					leaveChance += DAMAGE_UNHAPPINESS
 				elif (status == Tile.TileStatus.HEAVY_DAMAGE):
@@ -66,12 +72,13 @@ func update_population():
 					
 	
 	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Population").text = "Total Population: " + str(RESIDENTS)
+	Announcer.notify(Event.new("Total Population", "Number of Citizens", RESIDENTS))
 					
 func get_population():
 	return RESIDENTS
 	
 func change_workers(n):
-	if (n > 0 && WORKERS + n >= RESIDENTS * BASE_EMPLOYMENT_RATE):
+	if (n > 0 && (WORKERS + n) >= (RESIDENTS * BASE_EMPLOYMENT_RATE)):
 		WORKERS = RESIDENTS
 	else:
 		WORKERS += n
@@ -82,3 +89,24 @@ func change_residents(n):
 	RESIDENTS += n
 	if (RESIDENTS < 0):
 		RESIDENTS = 0
+		
+func calc_pop_growth():
+	#this function gets called once a month in UpdateDate.gd, so growth is calculated monthly
+	#formula is (pop at t1 - pop at t0)/(pop at t0) * 100
+	var diff = RESIDENTS - previous_population
+	if previous_population != 0:
+		growth_rate = (diff/previous_population) * 100
+	else:
+		growth_rate = diff * 100
+#	update previous population for next time
+	previous_population = RESIDENTS
+	
+func get_growth():
+	return growth_rate
+	
+func is_unemployment_high() -> bool:
+	var rate = float((RESIDENTS - WORKERS) / 100.0)
+	if rate > UNEMPLOYMENT_LIMIT:
+		return true
+	return false
+

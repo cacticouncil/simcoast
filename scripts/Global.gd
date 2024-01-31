@@ -42,6 +42,12 @@ var numPeople = 0
 
 var currentWeatherState = 0;
 
+# Economy AI constants
+const ZONE_BALANCE = -.01
+
+# To know if game is paused
+var isPaused = false
+
 func initTileMap():
 	var tm = []
 	
@@ -65,17 +71,16 @@ enum Tool {
 	BASE_ROCK,
 	BASE_SAND,
 	BASE_OCEAN,
-	ZONE_LT_RES,
-	ZONE_HV_RES,
+	ZONE_SINGLE_FAMILY,
+	ZONE_MULTI_FAMILY,
 	ADD_RES_BLDG,
 	ADD_RES_PERSON,
-	ZONE_LT_COM,
-	ZONE_HV_COM,
+	ZONE_COM,
 	ADD_COM_BLDG,
 	ADD_COM_PERSON,
 	INF_PARK,
 	INF_ROAD,
-	INF_POWER_PLANT,
+	INF_UTILITIES_PLANT,
 	INF_BEACH_ROCKS,
 	INF_BEACH_GRASS,
 	CLEAR_TILE,

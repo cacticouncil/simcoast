@@ -34,26 +34,24 @@ func button_hover(button):
 			toolInfo.text = "Replace base tile with sand / Raise and base tile height   (Right Click: Lower sand base tile height)"
 		'ocean_button':
 			toolInfo.text = "Replace base tile with ocean"
-		'lt_res_zone_button':
-			toolInfo.text = "Light Residential Zone   (Right Click: Remove zoning)"
-		'hv_res_zone_button':
-			toolInfo.text = "Heavy Residential Zone   (Right Click: Remove zoning)"
+		'single_family_zone_button':
+			toolInfo.text = "Single Family Zone   (Right Click: Remove zoning)"
+		'multi_family_zone_button':
+			toolInfo.text = "Multi Family Zone   (Right Click: Remove zoning)"
 		'add_house_button':
 			toolInfo.text = "Add building to residential zone   (Right Click: Remove building)"
 		'add_resident_button':
 			toolInfo.text = "Add resident to residential zone   (Right Click: Remove person)"
-		'lt_com_zone_button':
-			toolInfo.text = "Light Commercial Zone   (Right Click: Remove zoning)"
-		'hv_com_zone_button':
-			toolInfo.text = "Heavy Commercial Zone   (Right Click: Remove zoning)"
+		'com_zone_button':
+			toolInfo.text = "Commercial Zone   (Right Click: Remove zoning)"
 		'add_building_button':
 			toolInfo.text = "Add building to commercial zone   (Right Click: Remove building)"
 		'add_employee_button':
 			toolInfo.text = "Add employee to commercial zone   (Right Click: Remove employee)"
-		'power_plant_button':
-			toolInfo.text = "Build Power Plant"
+		'utility_plant_button':
+			toolInfo.text = "Build Utilities Plant"
 		'road_button':
-			toolInfo.text = "Built infrastructure (road/power/water) tile   (Right Click: Remove infrastructure)"
+			toolInfo.text = "Built infrastructure (road/utility/water) tile   (Right Click: Remove infrastructure)"
 		'park_button':
 			toolInfo.text = "Built Park   (Right Click: Remove park)"	
 		'beach_rocks_button':
@@ -101,24 +99,22 @@ func button_pressed():
 			Global.mapTool = Global.Tool.BASE_SAND
 		'ocean_button':
 			Global.mapTool = Global.Tool.BASE_OCEAN
-		'lt_res_zone_button':
-			Global.mapTool = Global.Tool.ZONE_LT_RES
-		'hv_res_zone_button':
-			Global.mapTool = Global.Tool.ZONE_HV_RES
+		'single_family_zone_button':
+			Global.mapTool = Global.Tool.ZONE_SINGLE_FAMILY
+		'multi_family_zone_button':
+			Global.mapTool = Global.Tool.ZONE_MULTI_FAMILY
 		'add_house_button':
 			Global.mapTool = Global.Tool.ADD_RES_BLDG
 		'add_resident_button':
 			Global.mapTool = Global.Tool.ADD_RES_PERSON
-		'lt_com_zone_button':
-			Global.mapTool = Global.Tool.ZONE_LT_COM
-		'hv_com_zone_button':
-			Global.mapTool = Global.Tool.ZONE_HV_COM
+		'com_zone_button':
+			Global.mapTool = Global.Tool.ZONE_COM
 		'add_building_button':
 			Global.mapTool = Global.Tool.ADD_COM_BLDG
 		'add_employee_button':
 			Global.mapTool = Global.Tool.ADD_COM_PERSON
-		'power_plant_button':
-			Global.mapTool = Global.Tool.INF_POWER_PLANT
+		'utility_plant_button':
+			Global.mapTool = Global.Tool.INF_UTILITIES_PLANT
 		'park_button':
 			Global.mapTool = Global.Tool.INF_PARK
 		'road_button':

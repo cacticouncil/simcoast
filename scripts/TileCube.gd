@@ -52,10 +52,10 @@ func _draw():
 			
 			# If building is undamaged, draw occupancy percentage colors on the sides of the buildings
 			if tile.get_status() == Tile.TileStatus.NONE:
-				if tile.get_zone() == Tile.TileZone.LIGHT_RESIDENTIAL || tile.get_zone() == Tile.TileZone.HEAVY_RESIDENTIAL:
+				if tile.get_zone() == Tile.TileZone.SINGLE_FAMILY || tile.get_zone() == Tile.TileZone.MULTI_FAMILY:
 					draw_polygon(b[3].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[0]]))
 					draw_polygon(b[4].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[1]]))
-				elif tile.get_zone() == Tile.TileZone.LIGHT_COMMERCIAL || tile.get_zone() == Tile.TileZone.HEAVY_COMMERCIAL:
+				elif tile.is_commercial():
 					draw_polygon(b[3].get_polygon(), PoolColorArray([Tile.COM_OCCUPANCY_COLOR[0]]))
 					draw_polygon(b[4].get_polygon(), PoolColorArray([Tile.COM_OCCUPANCY_COLOR[1]]))
 			
@@ -67,17 +67,17 @@ func _draw():
 			draw_polygon(t[0].get_polygon(), PoolColorArray([Tile.TREE_COLOR[0]]))
 			draw_polygon(t[1].get_polygon(), PoolColorArray([Tile.TREE_COLOR[1]]))
 			
-	elif tile.inf == Tile.TileInf.POWER_PLANT:
+	elif tile.inf == Tile.TileInf.UTILITIES_PLANT:
 		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.POWER_PLANT_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.POWER_PLANT_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.POWER_PLANT_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.POWER_PLANT_COLOR[3])
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.UTILITIES_PLANT_COLOR[3])
 		
 		for s in objects:
-			draw_polygon(s[1].get_polygon(), PoolColorArray([Tile.POWER_STACK_COLOR[1]]))
-			draw_polygon(s[2].get_polygon(), PoolColorArray([Tile.POWER_STACK_COLOR[2]]))
-			draw_polygon(s[0].get_polygon(), PoolColorArray([Tile.POWER_STACK_COLOR[0]]))
+			draw_polygon(s[1].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[1]]))
+			draw_polygon(s[2].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[2]]))
+			draw_polygon(s[0].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[0]]))
 			
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		for r in objects:
@@ -188,7 +188,7 @@ func update_polygons():
 					Vector2(grass_x, grass_y), Vector2(grass_x + 2, grass_y - 2)
 				]))
 
-	elif tile.inf == Tile.TileInf.POWER_PLANT:	
+	elif tile.inf == Tile.TileInf.UTILITIES_PLANT:	
 		clear_objects()
 		
 		var building_width = Global.TILE_WIDTH
@@ -324,69 +324,108 @@ func update_polygons():
 		var building_height = 0
 		var building_x = 0
 		var building_y = 0
-
-		if tile.is_light_zoned():
-			building_width = Global.TILE_WIDTH / 4.0
-			building_depth = building_width / 2.0
-			building_height = 5
-			
-			if w > building_height:
-				building_visible = false
-			else:
-				building_visible = true
-			
-			for z in num_buildings:
-				var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-				var occupancy = 0.0
+		match tile.get_zone():
+			Tile.TileZone.COMMERCIAL:
+				building_width = Global.TILE_WIDTH / 4.0
+				building_depth = building_width / 2.0
+				building_height = 5
 				
-				match z:
-					0:
-						building_x = x
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
-						if tile.data[2] > 0:
-							occupancy = 1.0
-					1:
-						building_x = x
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
-						if tile.data[2] > 4:
-							occupancy = 1.0
-					2:
-						building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
-						if tile.data[2] > 8:
-							occupancy = 1.0
-					3:
-						building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
-						if tile.data[2] > 12:
-							occupancy = 1.0
-			
-				update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
-				objects.append(b)
+				if w > building_height:
+					building_visible = false
+				else:
+					building_visible = true
+				
+				for z in num_buildings:
+					var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+					var occupancy = 0.0
+					
+					match z:
+						0:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
+							if tile.data[2] > 0:
+								occupancy = 1.0
+						1:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
+							if tile.data[2] > 4:
+								occupancy = 1.0
+						2:
+							building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 8:
+								occupancy = 1.0
+						3:
+							building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 12:
+								occupancy = 1.0
+				
+					update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
+					objects.append(b)
+					
+			Tile.TileZone.SINGLE_FAMILY:
+				building_width = Global.TILE_WIDTH / 4.0
+				building_depth = building_width / 2.0
+				building_height = 5
+
+				if w > building_height:
+					building_visible = false
+				else:
+					building_visible = true
+
+				for z in num_buildings:
+					var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+					var occupancy = 0.0
+
+					match z:
+						0:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
+							if tile.data[2] > 0:
+								occupancy = 1.0
+						1:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
+							if tile.data[2] > 1:
+								occupancy = 1.0
+						2:
+							building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 2:
+								occupancy = 1.0
+						3:
+							building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 3:
+								occupancy = 1.0
+
+					update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
+					objects.append(b)
 
 		# Draws a single building whose size is scaled to number of buildings
-		elif tile.is_heavy_zoned():
-			building_width = (Global.TILE_WIDTH / 2.0) + (2 * num_buildings) 
-			building_depth = building_width / 2.0
-			building_height = 10 + (3 * num_buildings)
+			Tile.TileZone.MULTI_FAMILY:
+				building_width = (Global.TILE_WIDTH / 2.0) + (2 * num_buildings) 
+				building_depth = building_width / 2.0
+				building_height = 10 + (3 * num_buildings)
 
-			if w > building_height:
-				building_visible = false
-			else:
-				building_visible = true
-			
-			var occupancy = 0
-			if tile.data[3] != 0:
-				occupancy = float(tile.data[2]) / float(tile.data[3])
-			
-			var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-			
-			building_x = x
-			building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+				if w > building_height:
+					building_visible = false
+				else:
+					building_visible = true
+				
+				var occupancy = 0
+				if tile.data[3] != 0:
+					occupancy = float(tile.data[2]) / float(tile.data[3])
+				
+				var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+				
+				building_x = x
+				building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
 
-			update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
+				update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
 
-			objects.append(b)
+				objects.append(b)
 	
 	# Set the clickable area of the polygon (the entire base cube)
 	coll.set_polygon(PoolVector2Array([
@@ -410,9 +449,9 @@ func get_building_colors():
 		Tile.TileStatus.HEAVY_DAMAGE:
 			return Tile.HEAVY_DAMAGE_COLOR
 
-	# If building does not have power
-	if !Global.tileMap[i][j].powered:
-		return Tile.UNPOWERED_BUILDING_COLOR
+	# If building does not have utility
+	if !Global.tileMap[i][j].utilities:
+		return Tile.NO_UTILITIES_BUILDING_COLOR
 
 	# Return building color based on zone
 	return Tile.BUILDING_COLOR
@@ -436,18 +475,15 @@ func get_cube_colors():
 
 	# Change base top color and outline if tile is zoned
 	match tile.get_zone():
-		Tile.TileZone.LIGHT_RESIDENTIAL:
-			colors[0] = Tile.LT_RES_ZONE_COLOR[0]
-			colors[3] = Tile.LT_RES_ZONE_COLOR[1]
-		Tile.TileZone.HEAVY_RESIDENTIAL:
-			colors[0] = Tile.HV_RES_ZONE_COLOR[0]
-			colors[3] = Tile.HV_RES_ZONE_COLOR[1]
-		Tile.TileZone.LIGHT_COMMERCIAL:
-			colors[0] = Tile.LT_COM_ZONE_COLOR[0]
-			colors[3] = Tile.LT_COM_ZONE_COLOR[1]
-		Tile.TileZone.HEAVY_COMMERCIAL:
-			colors[0] = Tile.HV_COM_ZONE_COLOR[0]
-			colors[3] = Tile.HV_COM_ZONE_COLOR[1]
+		Tile.TileZone.SINGLE_FAMILY:
+			colors[0] = Tile.SINGLE_FAMILY_ZONE_COLOR[0]
+			colors[3] = Tile.SINGLE_FAMILY_ZONE_COLOR[1]
+		Tile.TileZone.MULTI_FAMILY:
+			colors[0] = Tile.MULTI_FAMILY_ZONE_COLOR[0]
+			colors[3] = Tile.MULTI_FAMILY_ZONE_COLOR[1]
+		Tile.TileZone.COMMERCIAL:
+			colors[0] = Tile.COM_ZONE_COLOR[0]
+			colors[3] = Tile.COM_ZONE_COLOR[1]
 
 	match tile.inf:
 		Tile.TileInf.PARK:

@@ -41,15 +41,15 @@ func _process(delta):
 	var move_vector = Vector2()
 	
 	# Horizontal map panning via keyboard
-	if Input.is_action_pressed("pan_left") && self.position.x - cam_x > self.limit_left:
+	if Input.is_action_pressed("pan_left") && self.position.x - cam_x > self.limit_left && !Global.isPaused:
 		move_vector.x -= 1
-	elif Input.is_action_pressed("pan_right") && self.position.x + cam_x < self.limit_right:
+	elif Input.is_action_pressed("pan_right") && self.position.x + cam_x < self.limit_right && !Global.isPaused:
 		move_vector.x += 1
 
 	# Vertical map panning via keyboard
-	if Input.is_action_pressed("pan_up") && self.position.y - cam_y > self.limit_top:
+	if Input.is_action_pressed("pan_up") && self.position.y - cam_y > self.limit_top && !Global.isPaused:
 		move_vector.y -= 1
-	elif Input.is_action_pressed("pan_down") && self.position.y + cam_y < self.limit_bottom:
+	elif Input.is_action_pressed("pan_down") && self.position.y + cam_y < self.limit_bottom && !Global.isPaused:
 		move_vector.y += 1
 
 	# Zooming out via keyboard

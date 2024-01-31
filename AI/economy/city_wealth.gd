@@ -1,18 +1,31 @@
 extends BTLeaf
 
-
-# What is the city income? Proportionate to number of zones
 func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var tile = blackboard.get_data("queue").front()
-	var avgIncome = Econ.calcCityIncome()
-	if tile.profitRate < 0:
-		tile.is_neg_profit = true
-	elif tile.profitRate < avgIncome - 1000:
-		tile.wealth_weight = 0
-	elif avgIncome - 1000 <= tile.profitRate && tile.profitRate < avgIncome:
-		tile.wealth_weight = 1
-	elif avgIncome <= tile.profitRate && tile.profitRate < avgIncome + 1000:
-		tile.wealth_weight = 2
-	else:
-		tile.wealth_weight = 4
+	
+	#wealth weights are set based on how far the income deviates from the average
+	if tile.is_commercial():
+		#high negative influence if tile is losing money
+		if tile.profitRate < 0:
+			tile.wealth_weight = -2
+		#mild negative influence if tile is below average but still green
+		elif tile.profitRate < Econ.avg_profit - 1000:
+			tile.wealth_weight = -1
+		#mild positive influence if tile is around the average
+		elif Econ.avg_profit - 1000 < tile.profitRate && tile.profitRate < Econ.avg_profit + 1000:
+			tile.wealth_weight = 1
+		#high positive influence if tile is above average
+		else:
+			tile.wealth_weight = 2 
+	elif tile.is_residential():
+		if tile.profitRate < 0:
+				tile.wealth_weight = -2
+		elif tile.profitRate < Econ.avg_income - 1000:
+			tile.wealth_weight = -1
+		elif Econ.avg_income - 1000 < tile.profitRate && tile.profitRate < Econ.avg_income + 1000:
+			tile.wealth_weight = 1
+		else:
+			tile.wealth_weight = 2 			
+		
 	return succeed()
+		

@@ -5,7 +5,6 @@ var currMapPath # Current file path of the map loaded
 var copyTile				# Stores tile to use when copy/pasting tiles on the map
 var tickDelay = Global.TICK_DELAY #time in seconds between ticks
 var numTicks = 0 #time elapsed since start
-var isPaused = false
 var isFastFWD = false
 
 # Called when the node enters the scene tree for the first time.
@@ -49,6 +48,10 @@ func initObservers():
 	Announcer.addObserver(get_node("/root/AchievementObserver"))
 	AchievementObserver.createAchievements()
 	
+	#Add npc observers
+	Announcer.addObserver(get_node("/root/NpcObserver"))
+	NpcObserver.initializeNPCs()
+	
 	#Add mission observer
 	var missObs = get_node("/root/MissionObserver")
 	Announcer.addObserver(missObs)
@@ -65,13 +68,18 @@ func initObservers():
 		i.connect("mouse_exited", self, "button_exit")
 	"""
 	#$HUD/Missions/VBoxContainer/Mission1.connect("mouse_entered", self, "MissionObserver.hoverMission", [0])
-	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "testHover")
+	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "show_mission_tip", [0])
+	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_exited", self, "clear_mission_tip")
 	if missions.size() > 1:
 		$HUD/Missions/VBoxContainer/Mission2.text = missions[1]
+		get_node("HUD/Missions/VBoxContainer/Mission2").connect("mouse_entered", self, "show_mission_tip", [1])
+		get_node("HUD/Missions/VBoxContainer/Mission2").connect("mouse_exited", self, "clear_mission_tip")
 	else:
 		$HUD/Missions/VBoxContainer/Mission2.visible = false
 	if missions.size() > 2:
 		$HUD/Missions/VBoxContainer/Mission3.text = missions[2]
+		get_node("HUD/Missions/VBoxContainer/Mission3").connect("mouse_entered", self, "show_mission_tip", [2])
+		get_node("HUD/Missions/VBoxContainer/Mission3").connect("mouse_exited", self, "clear_mission_tip")
 	else:
 		$HUD/Missions/VBoxContainer/Mission3.visible = false
 	
@@ -79,9 +87,15 @@ func initObservers():
 	var sfxObserver = load("res://scripts/Observers/SfxObserver.gd").new()
 	Announcer.addObserver(sfxObserver)
 	self.add_child(sfxObserver)
+	
+	# Just in case their's any action to take about this right away
+	Announcer.notify(Event.new("Money", "Amount of money", Econ.money))
 
-func testHover():
-	print("working")
+func show_mission_tip(num):
+	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = MissionObserver.getMissionsDescriptions()[num]
+
+func clear_mission_tip():
+	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = ""
 
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):
@@ -131,43 +145,44 @@ func _unhandled_input(event):
 					tile.set_water_height(0)
 	
 			# Clear and zone a tile (if it is not already of the same zone)
-			Global.Tool.ZONE_LT_RES, Global.Tool.ZONE_HV_RES, Global.Tool.ZONE_LT_COM, Global.Tool.ZONE_HV_COM:
+			Global.Tool.ZONE_SINGLE_FAMILY, Global.Tool.ZONE_MULTI_FAMILY, Global.Tool.ZONE_COM:
 				if !tile.can_zone():
 					return
 
 				if Input.is_action_pressed("left_click"):
 					match Global.mapTool:
-						Global.Tool.ZONE_LT_RES:
-							if tile.get_zone() != Tile.TileZone.LIGHT_RESIDENTIAL:
+						Global.Tool.ZONE_SINGLE_FAMILY:
+							if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+								if tile.has_utilities():
+									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.LIGHT_RESIDENTIAL)
-						Global.Tool.ZONE_HV_RES:
-							if tile.get_zone() != Tile.TileZone.HEAVY_RESIDENTIAL:
+								tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
+						Global.Tool.ZONE_MULTI_FAMILY:
+							if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+								if tile.has_utilities():
+									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.HEAVY_RESIDENTIAL)
-						Global.Tool.ZONE_LT_COM:
-							if tile.get_zone() != Tile.TileZone.LIGHT_COMMERCIAL:
+								tile.set_zone(Tile.TileZone.MULTI_FAMILY)
+						Global.Tool.ZONE_COM:
+							if !tile.is_commercial():
 								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
+								if tile.has_utilities():
+									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.LIGHT_COMMERCIAL)
-						Global.Tool.ZONE_HV_COM:
-							if tile.get_zone() != Tile.TileZone.HEAVY_COMMERCIAL:
-								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
-								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.HEAVY_COMMERCIAL)
+								tile.set_zone(Tile.TileZone.COMMERCIAL)
 								
 				elif Input.is_action_pressed("right_click"):	
 					tile.clear_tile()					
 
 			# Add/Remove Buildings
 			Global.Tool.ADD_RES_BLDG:
-				if tile.get_zone() == Tile.TileZone.LIGHT_RESIDENTIAL || tile.get_zone() == Tile.TileZone.HEAVY_RESIDENTIAL:
+				if tile.is_residential():
 					City.adjust_building_number(tile)
 
 			Global.Tool.ADD_COM_BLDG:
-				if tile.get_zone() == Tile.TileZone.LIGHT_COMMERCIAL || tile.get_zone() == Tile.TileZone.HEAVY_COMMERCIAL:
+				if tile.is_commercial():
 					City.adjust_building_number(tile)
 
 			# Add/Remove People
@@ -191,23 +206,24 @@ func _unhandled_input(event):
 			Global.Tool.CLEAR_TILE:
 				tile.clear_tile()
 				
-			Global.Tool.INF_POWER_PLANT:
+			Global.Tool.INF_UTILITIES_PLANT:
 				if Input.is_action_pressed("left_click"):
-					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.POWER_PLANT):
-						if (Econ.purchase_structure(Econ.POWER_PLANT_COST)):
+					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.UTILITIES_PLANT):
+						if (Econ.purchase_structure(Econ.UTILITIES_PLANT_COST)):
 							tile.clear_tile()
-							tile.inf = Tile.TileInf.POWER_PLANT
-							City.connectPower()
-							City.numPowerPlants += 1
+							tile.inf = Tile.TileInf.UTILITIES_PLANT
+							City.connectUtilities()
+							City.numUtilityPlants += 1
+							Announcer.notify(Event.new("Added Tile", "Added Power Plant", 1))
 						else:
 							actionText.text = "Not enough funds!"
-					elif (tile.inf == Tile.TileInf.POWER_PLANT):
+					elif (tile.inf == Tile.TileInf.UTILITIES_PLANT):
 						actionText.text = "Cannot build here!"
 				elif Input.is_action_pressed("right_click"):
-					if tile.inf == Tile.TileInf.POWER_PLANT:
+					if tile.inf == Tile.TileInf.UTILITIES_PLANT:
 						tile.clear_tile()
-						City.connectPower()
-						City.numPowerPlants -= 1
+						City.connectUtilities()
+						City.numUtilityPlants -= 1
 						
 			Global.Tool.INF_PARK:
 				if Input.is_action_pressed("left_click"):
@@ -215,7 +231,9 @@ func _unhandled_input(event):
 						if (Econ.purchase_structure(Econ.PARK_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.PARK
+							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
+							Announcer.notify(Event.new("Added Tile", "Added Park", 1))
 						else:
 							actionText.text = "Not enough funds!"
 					elif (tile.inf == Tile.TileInf.PARK):
@@ -234,8 +252,9 @@ func _unhandled_input(event):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.ROAD
 							City.connectRoads(tile)
-							City.connectPower()
+							City.connectUtilities()
 							City.numRoads += 1
+							Announcer.notify(Event.new("Added Tile", "Added Road", 1))
 						else:
 							actionText.text = "Not enough funds!"
 					elif (tile.inf == Tile.TileInf.ROAD):
@@ -246,7 +265,7 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.ROAD:
 						tile.clear_tile()
 						City.connectRoads(tile)
-						City.connectPower()
+						City.connectUtilities()
 						City.numRoads -= 1
 
 			Global.Tool.INF_BEACH_ROCKS:
@@ -287,14 +306,23 @@ func _unhandled_input(event):
 			actionText.text = "Flood and erosion damange calculated"
 			City.calculate_damage()
 		elif event.scancode == KEY_P:
-			actionText.text = "Power grid recalculated"
-			City.connectPower()
+			actionText.text = "Utilities grid recalculated"
+			City.connectUtilities()
 		elif event.scancode == KEY_C:
 			actionText.text = "Select tile to copy"
 			Global.mapTool = Global.Tool.COPY_TILE
 		elif event.scancode == KEY_V:
 			actionText.text = "Paste tool selected"
 			Global.mapTool = Global.Tool.PASTE_TILE
+		elif event.scancode == KEY_ESCAPE && get_node("/root/CityMap/AchievementMenu") == null:
+			if $PauseMenu.visible:
+				$PauseMenu.visible = false
+				$HUD/play_button.pressed = false
+				Global.isPaused = false
+			else:
+				$PauseMenu.visible = true
+				$HUD/play_button.pressed = true
+				Global.isPaused = true
 
 	elif event is InputEventMouseMotion:		
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
@@ -338,13 +366,15 @@ func loadMapData(mapPath):
 	var mapName = SaveLoad.loadData(mapPath)
 	$VectorMap.loadMap()
 	get_node("HUD/TopBar/ActionText").text = "Map file '%s'.json loaded" % [mapName]
-	City.connectPower()
+	City.connectUtilities()
 
 
 func _on_SaveButton_pressed():
+	print("Save Button Pressed")
 	$Popups/SaveDialog.popup_centered()
 
 func _on_LoadButton_pressed():
+	print("Load Button Pressed")
 	$Popups/LoadDialog.popup_centered()
 
 func _on_file_selected_load(filePath):
@@ -363,9 +393,20 @@ func _on_file_selected_save(filePath):
 func _on_ExitButton_pressed():
 	get_tree().quit()
 
+func _on_AchievementButton_pressed():
+	var AchMenu = preload("res://ui/SubMenu/AchievementMenu.tscn")
+	var AchMenuInstance = AchMenu.instance()
+	add_child(AchMenuInstance)
+	#AchMenuInstance.setup()
+
+func _on_ContinueButton_pressed():
+	$PauseMenu.visible = false
+	$HUD/play_button.pressed = false
+	Global.isPaused = false
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !isPaused:
+	if !Global.isPaused:
 		tickDelay -= delta
 		if tickDelay <= 0:
 			
@@ -393,6 +434,7 @@ func update_game_state():
 	UpdatePopulation.update_population()
 	UpdateDemand.get_demand()
 	UpdateErosion.update_erosion()
+	Econ.calc_profit_rates()
 	Econ.calcCityIncome()
 	Econ.calculate_upkeep_costs()
 	UpdateDate.update_date()
@@ -400,10 +442,11 @@ func update_game_state():
 func update_graphics():
 	#print("Updating graphics on tick: " + str(numTicks))
 	UpdateGraphics.update_graphics()
-	Econ.updateProfitDisplay()
 
 func _on_play_button_toggled(button_pressed:bool):
-	isPaused = button_pressed
+	Global.isPaused = button_pressed
+	if Global.isPaused:
+		$PauseMenu.visible = true
 
 func _on_fastfwd_button_toggled(button_pressed:bool):
 	isFastFWD = button_pressed

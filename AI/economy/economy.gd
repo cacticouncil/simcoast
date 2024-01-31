@@ -35,25 +35,18 @@ func update_queue() -> Array:
 			var current = Global.tileMap[i][j]
 			var accept		
 			# Check tile zone type. If it's zoned, accept the tile into the queue
-			match(current.zone):
-				Tile.TileZone.LIGHT_RESIDENTIAL:
-					accept = true
-				Tile.TileZone.HEAVY_RESIDENTIAL:
-					accept = true
-				Tile.TileZone.LIGHT_COMMERCIAL:
-					accept = true
-				Tile.TileZone.HEAVY_COMMERCIAL:
-					accept = true
-				_:
-					accept = false	
-			# Check tile infrastructure if not zoned (roads & powerplants)
+			if current.is_zoned():
+				accept = true
+			else:
+				accept = false
+			# Check tile infrastructure if not zoned (roads & utility plants)
 			if accept != true:
 				match(current.inf):
 					Tile.TileInf.ROAD:
 						accept = true
 					Tile.TileInf.PARK:
 						accept = true
-					Tile.TileInf.POWER_PLANT:
+					Tile.TileInf.UTILITIES_PLANT:
 						accept = true
 					_:
 						accept = false

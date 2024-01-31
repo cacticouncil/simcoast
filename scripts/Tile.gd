@@ -13,10 +13,10 @@ enum TileBase {
 
 enum TileZone {
 	NONE,
-	LIGHT_RESIDENTIAL,
-	HEAVY_RESIDENTIAL,
-	LIGHT_COMMERCIAL,
-	HEAVY_COMMERCIAL
+	SINGLE_FAMILY,
+	MULTI_FAMILY,
+	COMMERCIAL,
+	PUBLIC_WORKS
 }
 
 enum TileInf {
@@ -27,7 +27,7 @@ enum TileInf {
 	BUILDING,
 	BEACH_ROCKS,
 	BEACH_GRASS,
-	POWER_PLANT
+	UTILITIES_PLANT
 }
 
 # Flooding damage levels that can affect tiles
@@ -44,16 +44,16 @@ const SAND_COLOR = [Color("ffd9d3bf"), Color("ffc9bf99"), Color("ffaca075"), Col
 const WATER_COLOR = [Color("ff9cd5e2"), Color("ff8bc4d1"), Color("ff83bcc9"), Color("ff5b8c97")]
 const ROCK_COLOR = [Color("ffc2c2c2"), Color("ffcacaca"), Color("ffaaaaaa"), Color("ff666666")]
 
-const LT_RES_ZONE_COLOR = [Color("ffbdd0a0"), Color("ff60822d")]
-const HV_RES_ZONE_COLOR = [Color("ffa5bf7d"), Color("ff60822d")]
-const LT_COM_ZONE_COLOR = [Color("ffa0b4d0"), Color("ff2d5b82")]
-const HV_COM_ZONE_COLOR = [Color("ff7d9bbf"), Color("ff2d5b82")]
+const SINGLE_FAMILY_ZONE_COLOR = [Color("ffbdd0a0"), Color("ff60822d")]
+const MULTI_FAMILY_ZONE_COLOR = [Color("ffa5bf7d"), Color("ff60822d")]
+#const LT_COM_ZONE_COLOR = [Color("ffa0b4d0"), Color("ff2d5b82")]
+const COM_ZONE_COLOR = [Color("ff7d9bbf"), Color("ff2d5b82")]
 
 const BUILDING_COLOR = [Color("ffaaaaaa"), Color("ff999999"), Color("ff888888"), Color("ff777777")]
-const UNPOWERED_BUILDING_COLOR = [Color("ff555555"), Color("ff444444"), Color("ff333333"), Color("ff333333")]
+const NO_UTILITIES_BUILDING_COLOR = [Color("ff555555"), Color("ff444444"), Color("ff333333"), Color("ff333333")]
 
-const POWER_PLANT_COLOR = [Color("ff777777"), Color("ff888888"), Color("ff999999"), Color("ff999999")]
-const POWER_STACK_COLOR = [Color("ff333333"), Color("ff950000"), Color("ff6a0000"), Color("ff333333")]
+const UTILITIES_PLANT_COLOR = [Color("ff777777"), Color("ff888888"), Color("ff999999"), Color("ff999999")]
+const UTILITIES_STACK_COLOR = [Color("ff333333"), Color("ff950000"), Color("ff6a0000"), Color("ff333333")]
 
 const RES_OCCUPANCY_COLOR = [Color("aa2a9d2d"), Color("aa1d851f")]
 const COM_OCCUPANCY_COLOR = [Color("aa3779a2"), Color("aa26648b")]
@@ -77,7 +77,7 @@ var zone = 0
 var inf = 0
 var cube = Area2D.new()
 var data = [0, 0, 0, 0, 0]
-var powered = false
+var utilities = false
 var tileDamage = 0
 var erosion = 0
 # Purchase price of a tile
@@ -92,21 +92,30 @@ var connections = [0,0,0,0]
 # Economy AI: equation coefficient constants
 var desirability = 0.2
 const BASE_DESIRABILITY = 0.2
+const BASE_SINGLE_FAMILY_DESIRABILITY = 0.4
 const WATER_CLOSE = 0.1
 const WATER_FAR = 0.05
+const WATER_WEIGHT = 0.025
 const BASE_DIRT = 0.05
 const BASE_ROCK = 0
 const BASE_SAND = -0.05
 const RESIDENTIAL_NEIGHBOR = 0.05
 const COMMERCIAL_NEIGHBOR = 0.10
 const INDUSTRIAL_NEIGHBOR = -0.2
+const PUBLIC_WORKS_NEIGHBORS = 0.075
 const NUMBER_ZONES = 0.01
 const NUMBER_PEOPLE = 0.001
 const PROP_TAX_HEAVY = -0.1
-const PROP_TAX_LOW = 0.05
+const PROP_TAX_NEUTRAL = 0
+const PROP_TAX_LIGHT = 0.05
 const SALES_TAX_HEAVY = -0.05
-const WEALTH_NEG = -0.05
-const WEALTH_DESIRE = 0.025
+const SALES_TAX_NEUTRAL = 0
+const SALES_TAX_LIGHT = .025
+const INCOME_TAX_HEAVY = -.15
+const INCOME_TAX_NEUTRAL = 0
+const INCOME_TAX_LIGHT = 0.075
+const WEALTH_INFLUENCE = 0.05
+const GROWTH = .001
 
 
 # Economy AI: Equation variable booleans & values
@@ -118,8 +127,17 @@ var tile_base_sand = false
 var residential_neighbors = 0
 var commercial_neighbors = 0
 var industrial_neighbors = 0
+var public_works_neighbors = 0
 var prop_tax_weight = 0
 var is_sales_tax_heavy = false
+var is_sales_tax_neutral = false
+var is_sales_tax_light = false
+var is_prop_tax_heavy = false
+var is_prop_tax_neutral = false
+var is_prop_tax_light = false
+var is_income_tax_heavy = false
+var is_income_tax_neutral = false
+var is_income_tax_light = false
 var is_neg_profit = false
 var wealth_weight = 0
 var tile_dmg_weight = 0
@@ -160,17 +178,28 @@ func clear_tile():
 		remove_building()
 	
 	#inform the Announcer that we have removed a zone
-	if zone == TileZone.HEAVY_COMMERCIAL || zone == TileZone.LIGHT_COMMERCIAL:
+	if is_commercial():
 			Announcer.notify(Event.new("Removed Tile", "Removed Commercial Area", 1))
-	elif zone == TileZone.HEAVY_RESIDENTIAL || zone == TileZone.LIGHT_RESIDENTIAL:
-			Announcer.notify(Event.new("Removed Tile", "Removed Residential Area", 1))
+	elif is_residential():
+		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
+		Announcer.notify(Event.new("Removed Tile", "Removed Residential Area", 1))
+	else:
+		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
+	if tileDamage < 0:
+		tileDamage = 0
+	if inf == TileInf.UTILITIES_PLANT:
+		Announcer.notify(Event.new("Removed Tile", "Removed Power Plant", 1))
+	elif inf == TileInf.ROAD:
+		Announcer.notify(Event.new("Removed Tile", "Removed Road", 1))
+	elif inf == TileInf.PARK:
+		Announcer.notify(Event.new("Removed Tile", "Removed Park", 1))
 	#reset zones
 	zone = TileZone.NONE
 	
-	#reconnect power if road or power plant is cleared
-	if (inf == TileInf.POWER_PLANT || inf == TileInf.ROAD):
+	#reconnect utility if road or utility plant is cleared
+	if (inf == TileInf.UTILITIES_PLANT || inf == TileInf.ROAD):
 		inf = TileInf.NONE
-		City.connectPower()
+		City.connectUtilities()
 		
 	#reset tile to base
 	inf = TileInf.NONE
@@ -225,13 +254,13 @@ func get_number_of_buildings():
 		return 0
 
 func is_zoned():
-	return is_light_zoned() || is_heavy_zoned()
+	return zone != TileZone.NONE
 
 func is_light_zoned():
-	return zone == TileZone.LIGHT_RESIDENTIAL || zone == TileZone.LIGHT_COMMERCIAL
+	return zone == TileZone.SINGLE_FAMILY || zone == TileZone.COMMERCIAL
 
 func is_heavy_zoned():
-	return zone == TileZone.HEAVY_RESIDENTIAL || zone == TileZone.HEAVY_COMMERCIAL
+	return zone == TileZone.MULTI_FAMILY || zone == TileZone.COMMERCIAL
 
 func set_base_height(h):
 	if 0 <= h && h <= Global.MAX_HEIGHT:
@@ -242,9 +271,9 @@ func set_water_height(w):
 		waterHeight = w
 
 func can_build():
-	if zone == TileZone.LIGHT_RESIDENTIAL || zone == TileZone.HEAVY_RESIDENTIAL:
+	if zone == TileZone.SINGLE_FAMILY || zone == TileZone.MULTI_FAMILY:
 		return true
-	elif zone == TileZone.LIGHT_COMMERCIAL || zone == TileZone.HEAVY_COMMERCIAL:
+	elif zone == TileZone.COMMERCIAL:
 		return true
 	return false
 
@@ -289,8 +318,8 @@ func set_damage(n):
 		while data[0] > 0:
 			remove_building()
 
-func is_powered():
-	return powered
+func has_utilities():
+	return utilities
 
 func get_zone():
 	return zone
@@ -300,26 +329,43 @@ func has_building():
 
 func set_zone(type):
 	zone = type
-	if type == TileZone.HEAVY_COMMERCIAL || type == TileZone.LIGHT_COMMERCIAL:
-		profitRate = 10000
-	data = [0, 4, 0, 0, 0]
+	match zone: 
+		#single family and commercial have 4 houses max
+		TileZone.SINGLE_FAMILY, TileZone.COMMERCIAL:
+			data = [0, 4, 0, 0, 0]
+		#multi family has 18 houses max
+		TileZone.MULTI_FAMILY:
+			data = [0, 18, 0, 0, 0]
+		_:
+			data = [0, 0, 0, 0, 0]
 
-func add_building():		
+func add_building():
+	#if there is something that isn't a building already on this tile, do nothing
+	if inf != TileInf.NONE && inf != TileInf.BUILDING:
+		return		
 	inf = TileInf.BUILDING
 	if data[0] < data[1]:
-		data[0] += 1
-		data[3] += 4
-	#match(zone):
-	#	TileZone.HEAVY_RESIDENTIAL:
-	#		Econ.adjust_player_money(-30000)
-	#	TileZone.HEAVY_COMMERCIAL:
-	#		Econ.adjust_player_money(-40000)
-	#	TileZone.LIGHT_COMMERCIAL:
-	#		Econ.adjust_player_money(-20000)
-	#	TileZone.LIGHT_RESIDENTIAL:
-	#		Econ.adjust_player_money(-10000)
+#		data[0] += 1
+#		data[3] += 4
+		match zone: 
+			#single family homes hold 1, so 4 houses for 4 people
+			TileZone.SINGLE_FAMILY:
+				data[0] += 1
+				data[3] += 1
+			#multi family holds 4 and so does commercial
+			#represents many businesses and many apartments in one zone, 
+			#while single family is much less dense
+			TileZone.MULTI_FAMILY, TileZone.COMMERCIAL:
+				data[0] += 1
+				data[3] += 4
+			#no other zone type should be affected
+			_:
+				pass
 
-func remove_building():		
+func remove_building():
+	#if there is not a building, nothing to remove
+	if inf != TileInf.BUILDING:
+		return		
 	# if there is only one building
 	if data[0] <= 1:
 		data[0] = 0
@@ -330,8 +376,18 @@ func remove_building():
 		
 	#if there is more than 1 building
 	else:
-		data[0] -= 1
-		data[3] -= 4
+#		data[0] -= 1
+#		data[3] -= 4
+		match zone:
+			TileZone.SINGLE_FAMILY:
+				data[0] -= 1
+				data[3] -= 1
+			TileZone.MULTI_FAMILY:
+				data[0] -= 1
+				data[3] -= 4
+			_:
+				data[0] -= 1
+				data[3] -= 4
 		if data[2] > data[3]:
 #			data[2] = data[3]
 			var diff = data[2] - data[3]
@@ -382,7 +438,36 @@ func _ready():
 	pass
 
 func is_residential():
-	return zone == TileZone.LIGHT_RESIDENTIAL || zone == TileZone.HEAVY_RESIDENTIAL
+	return zone == TileZone.SINGLE_FAMILY || zone == TileZone.MULTI_FAMILY
 	
 func is_commercial():
-	return zone == TileZone.LIGHT_COMMERCIAL || zone == TileZone.HEAVY_COMMERCIAL
+	return zone == TileZone.COMMERCIAL
+
+func distance_to_water():
+#	 set distance to the maximum possible value any tile could be from water
+	var distance = sqrt(pow(Global.mapWidth, 2) - pow(Global.mapHeight, 2))
+#	checking a 6 tile radius circle around the current tile
+	for x in range(i-6, i+7):
+		for y in range(j-6, j+7):
+			if is_valid_tile(x, y):
+				if Global.tileMap[x][y].is_ocean():
+	#				this is the distance from our current tile to the base tile
+					var x2x1 = x - i
+					var y2y1 = y - j
+					var temp_distance = sqrt(x2x1*x2x1 - y2y1*y2y1)
+					if temp_distance < distance:
+						 distance = temp_distance
+	
+#	if the distance value has been changed, return it
+	if distance != max(Global.mapHeight, Global.mapWidth):
+		return distance
+	else:
+		 return null
+
+#copied from presence_of_water.gd for use in above function as a helper
+func is_valid_tile(i, j) -> bool:
+	if i < 0 || Global.mapHeight <= i:
+		return false
+	if j < 0 || Global.mapWidth <= j:
+		return false
+	return true

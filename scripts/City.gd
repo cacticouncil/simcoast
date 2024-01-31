@@ -1,8 +1,12 @@
 extends Node
 
 var numParks = 0
-var numPowerPlants = 0
+var numUtilityPlants = 0
 var numRoads = 0
+var numResidentialZones = 0
+var numCommercialZones = 0
+var numSingleFamilyZones = 0
+var numMultiFamilyZones = 0
 
 # Delete the last row and column of the map
 func reduce_map():
@@ -50,20 +54,25 @@ func extend_map():
 	get_node("HUD/TopBar/ActionText").text = "Map size extended to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
 	
 
-# Starting from each power plant, trace power distribution and power tiles if they are connected
-func connectPower():
-	var powerPlants = []
+# Starting from each utility plant, trace utility distribution and utility tiles if they are connected
+func connectUtilities():
+	var utilityPlants = []
 	
-	# De-power every tile on the map, find location of any power plants
+	# De-utility every tile on the map, find location of any utility plants
 	for i in Global.mapWidth:
 		for j in Global.mapHeight:
-			Global.tileMap[i][j].powered = false
+			Global.tileMap[i][j].utilities = false
 			#Global.tileMap[i][j].cube.update()
-			if Global.tileMap[i][j].inf == Tile.TileInf.POWER_PLANT:
-				powerPlants.append(Global.tileMap[i][j])
+			if Global.tileMap[i][j].inf == Tile.TileInf.UTILITIES_PLANT:
+				utilityPlants.append(Global.tileMap[i][j])
+	
+	# For the announcer to keep track of the number of specific tiles powered
+	var roadsPowered = 0
+	var commsPowered = 0
+	var resPowered = 0
 
-	for plant in powerPlants:
-		plant.powered = true
+	for plant in utilityPlants:
+		plant.utilities = true
 
 		var queue = []
 		var neighbors = [[plant.i-1, plant.j], [plant.i+1, plant.j], [plant.i, plant.j-1], [plant.i, plant.j+1]]
@@ -73,26 +82,36 @@ func connectPower():
 			if roadConnected(plant, n, Global.MAX_CONNECTION_HEIGHT):
 				queue.append(Global.tileMap[n[0]][n[1]])
 		
-		# Add each connected road tile that hasn't yet been checked to the queue, power adjacent tiles
+		# Add each connected road tile that hasn't yet been checked to the queue, utility adjacent tiles
 		while !queue.empty():
 			var road = queue.pop_front()
 			
 			# If road is not powered, it hasn't yet been checked
-			if !road.powered:
-				road.powered = true
+			if !road.utilities:
+				roadsPowered += 1
+				road.utilities = true
 			
-				# Check neighbors: if it's a connected road, add it to the queue; otherwise, power tile
+				# Check neighbors: if it's a connected road, add it to the queue; otherwise, utility tile
 				neighbors = [[road.i-1, road.j], [road.i+1, road.j], [road.i, road.j-1], [road.i, road.j+1]]
 
 				for n in neighbors:
 					if is_tile_inbounds(n[0], n[1]):
 						if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.ROAD:
 							if roadConnected(road, n, Global.MAX_CONNECTION_HEIGHT):
-								if Global.tileMap[n[0]][n[1]].powered == false:
+								if Global.tileMap[n[0]][n[1]].utilities == false:
 									queue.append(Global.tileMap[n[0]][n[1]])
 						else:
-							Global.tileMap[n[0]][n[1]].powered = true
+							var currTile = Global.tileMap[n[0]][n[1]]
+							if currTile.is_commercial():
+								commsPowered += 1
+							elif currTile.is_residential():
+								resPowered += 1
+							currTile.utilities = true
 							#Global.tileMap[n[0]][n[1]].cube.update()
+	
+	Announcer.notify(Event.new("Tiles Powered", "Number of powered roads", roadsPowered))
+	Announcer.notify(Event.new("Tiles Powered", "Number of powered commercial areas", commsPowered))
+	Announcer.notify(Event.new("Tiles Powered", "Number of powered residential areas", resPowered))
 
 # Check tile for neighboring road connections, and create connections from any connecting roads to tile
 func connectRoads(tile):

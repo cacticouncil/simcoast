@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=2]
+[gd_scene load_steps=119 format=2]
 
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/buttons/add_water_hover.png" type="Texture" id=2]
@@ -63,15 +63,12 @@
 [ext_resource path="res://assets/buttons/save_normal.png" type="Texture" id=61]
 [ext_resource path="res://assets/buttons/add_building_hover.png" type="Texture" id=62]
 [ext_resource path="res://assets/buttons/hv_com_zone_hover.png" type="Texture" id=63]
-[ext_resource path="res://assets/buttons/lt_com_zone_hover.png" type="Texture" id=64]
 [ext_resource path="res://assets/buttons/add_building_normal.png" type="Texture" id=65]
-[ext_resource path="res://assets/buttons/lt_com_zone_normal.png" type="Texture" id=66]
 [ext_resource path="res://assets/buttons/add_employee_hover.png" type="Texture" id=67]
 [ext_resource path="res://assets/buttons/add_employee_normal.png" type="Texture" id=68]
 [ext_resource path="res://assets/buttons/add_employee_active.png" type="Texture" id=69]
 [ext_resource path="res://assets/buttons/hv_com_zone_normal.png" type="Texture" id=70]
 [ext_resource path="res://assets/buttons/add_building_active.png" type="Texture" id=71]
-[ext_resource path="res://assets/buttons/lt_com_zone_active.png" type="Texture" id=72]
 [ext_resource path="res://assets/buttons/hv_com_zone_active.png" type="Texture" id=73]
 [ext_resource path="res://assets/buttons/repair_normal.png" type="Texture" id=74]
 [ext_resource path="res://assets/buttons/clear_water_active.png" type="Texture" id=75]
@@ -109,6 +106,12 @@
 [ext_resource path="res://assets/buttons/fast_forward_default.png" type="Texture" id=107]
 [ext_resource path="res://assets/buttons/fast_forward_pressed.png" type="Texture" id=108]
 [ext_resource path="res://ui/SubMenu/TaxMenu.tscn" type="PackedScene" id=109]
+[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/LoadButton.tscn" type="PackedScene" id=110]
+[ext_resource path="res://assets/fonts/upheavtt_80.tres" type="DynamicFont" id=111]
+[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/AchievementButton.tscn" type="PackedScene" id=112]
+[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/ContinueButton.tscn" type="PackedScene" id=113]
+[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/SaveButton.tscn" type="PackedScene" id=114]
+[ext_resource path="res://ui/title_scrn/buttons/PauseMenuButtons/QuitButton.tscn" type="PackedScene" id=115]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.133333, 0.886275, 0.129412, 1 )
@@ -222,9 +225,6 @@ custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HoverText" type="Label" parent="HUD/BottomBar"]
 margin_left = 10.0
@@ -237,17 +237,11 @@ valign = 1
 [node name="ToolsBG" type="Panel" parent="HUD"]
 anchor_bottom = 1.0
 margin_right = 90.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ToolMenu" type="Control" parent="HUD"]
 margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 17 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 group = ExtResource( 16 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/ToolMenu"]
@@ -360,10 +354,10 @@ margin_top = 126.0
 margin_right = 68.0
 margin_bottom = 158.0
 
-[node name="lt_res_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR3"]
+[node name="single_family_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR3"]
 margin_right = 32.0
 margin_bottom = 32.0
-hint_tooltip = "Light Residential Zoning"
+hint_tooltip = "Single Family Zoning"
 toggle_mode = true
 keep_pressed_outside = true
 group = ExtResource( 16 )
@@ -372,11 +366,11 @@ texture_pressed = ExtResource( 53 )
 texture_hover = ExtResource( 50 )
 texture_focused = ExtResource( 53 )
 
-[node name="hv_res_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR3"]
+[node name="multi_family_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR3"]
 margin_left = 36.0
 margin_right = 68.0
 margin_bottom = 32.0
-hint_tooltip = "Heavy Residential Zoning"
+hint_tooltip = "Multi Family Zoning"
 toggle_mode = true
 keep_pressed_outside = true
 group = ExtResource( 16 )
@@ -417,23 +411,10 @@ margin_top = 198.0
 margin_right = 68.0
 margin_bottom = 230.0
 
-[node name="lt_com_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR5"]
+[node name="com_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR5"]
 margin_right = 32.0
 margin_bottom = 32.0
-hint_tooltip = "Light Commercial Zoning"
-toggle_mode = true
-keep_pressed_outside = true
-group = ExtResource( 16 )
-texture_normal = ExtResource( 66 )
-texture_pressed = ExtResource( 72 )
-texture_hover = ExtResource( 64 )
-texture_focused = ExtResource( 72 )
-
-[node name="hv_com_zone_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR5"]
-margin_left = 36.0
-margin_right = 68.0
-margin_bottom = 32.0
-hint_tooltip = "Heavy Commercial Zoning"
+hint_tooltip = "Commercial Zoning"
 toggle_mode = true
 keep_pressed_outside = true
 group = ExtResource( 16 )
@@ -488,7 +469,7 @@ texture_pressed = ExtResource( 25 )
 texture_hover = ExtResource( 24 )
 texture_focused = ExtResource( 25 )
 
-[node name="power_plant_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR7"]
+[node name="utility_plant_button" type="TextureButton" parent="HUD/ToolMenu/VBoxContainer/HBoxR7"]
 margin_left = 36.0
 margin_right = 68.0
 margin_bottom = 32.0
@@ -870,9 +851,6 @@ margin_bottom = 68.0
 toggle_mode = true
 texture_normal = ExtResource( 106 )
 texture_pressed = ExtResource( 105 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="fastfwd_button" type="TextureButton" parent="HUD"]
 margin_left = 130.0
@@ -914,6 +892,7 @@ custom_constants/separation = 20
 [node name="Mission1" type="Label" parent="HUD/Missions/VBoxContainer"]
 margin_right = 260.0
 margin_bottom = 14.0
+mouse_filter = 1
 text = "Mission 1"
 align = 1
 
@@ -921,6 +900,7 @@ align = 1
 margin_top = 34.0
 margin_right = 260.0
 margin_bottom = 48.0
+mouse_filter = 1
 text = "Mission 2"
 align = 1
 
@@ -928,12 +908,60 @@ align = 1
 margin_top = 68.0
 margin_right = 260.0
 margin_bottom = 82.0
+mouse_filter = 1
 custom_colors/font_color = Color( 0, 0.568627, 0.0470588, 1 )
 text = "Mission 3"
 align = 1
 
 [node name="VectorMap" type="YSort" parent="."]
 script = ExtResource( 7 )
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+anchor_right = 1.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 0.392157 )
+
+[node name="PauseMenu" type="VBoxContainer" parent="PauseMenu"]
+anchor_right = 1.0
+margin_top = 185.0
+margin_bottom = 300.0
+
+[node name="PauseTitle" type="Label" parent="PauseMenu/PauseMenu"]
+margin_right = 1280.0
+margin_bottom = 72.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 5
+custom_fonts/font = ExtResource( 111 )
+text = "Paused"
+align = 1
+valign = 1
+
+[node name="PauseButtons" type="VBoxContainer" parent="PauseMenu/PauseMenu"]
+margin_top = 76.0
+margin_right = 1280.0
+margin_bottom = 292.0
+
+[node name="ContinueButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 113 )]
+
+[node name="SaveButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 114 )]
+margin_top = 44.0
+margin_bottom = 84.0
+
+[node name="LoadButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 110 )]
+margin_top = 88.0
+margin_bottom = 128.0
+
+[node name="AchievementButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 112 )]
+margin_top = 132.0
+margin_bottom = 172.0
+
+[node name="QuitButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 115 )]
+margin_top = 176.0
+margin_bottom = 216.0
 
 [node name="Popups" type="CanvasLayer" parent="."]
 
@@ -958,3 +986,9 @@ script = ExtResource( 104 )
 
 [connection signal="toggled" from="HUD/play_button" to="." method="_on_play_button_toggled"]
 [connection signal="toggled" from="HUD/fastfwd_button" to="." method="_on_fastfwd_button_toggled"]
+[connection signal="mouse_entered" from="HUD/Missions/VBoxContainer/Mission1" to="." method="_on_Mission1_mouse_entered"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/SaveButton" to="." method="_on_SaveButton_pressed"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/LoadButton" to="." method="_on_LoadButton_pressed"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/AchievementButton" to="." method="_on_AchievementButton_pressed"]
+[connection signal="pressed" from="PauseMenu/PauseMenu/PauseButtons/QuitButton" to="." method="_on_ExitButton_pressed"]

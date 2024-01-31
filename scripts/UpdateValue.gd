@@ -11,9 +11,8 @@ const BASE_ROCK_VALUE = -10
 
 const LIGHT_RES_VALUE = 1
 const HEAVY_RES_VALUE = 1
-const LIGHT_COM_VALUE = 1
-const HEAVY_COM_VALUE = -1
-const POWER_PLANT_VALUE = -10
+const COM_VALUE = 0.5
+const UTILITIES_PLANT_VALUE = -10
 const PARK_VALUE = 3
 const ROAD_VALUE = 0
 
@@ -27,24 +26,18 @@ const CITY_WEALTH_WEIGHT = 0.001
 
 const TAX_WEIGHT = -100
 
+const BASE_VALUE = 1.5
 func update_land_value():
 	for i in Global.mapWidth:
 		for j in Global.mapHeight:
 			if (Global.tileMap[i][j].is_zoned()):
 				var currTile = Global.tileMap[i][j]
-				var value = BASE_TILE_VALUE
 				
-				var waterValue = calc_presence_of_water(currTile)
-				var baseValue = calc_tile_base(currTile)
-				var zoneConnectionsValue = calc_zone_connections(currTile)
-				var numZonesValue = calc_num_zones(currTile)
-				var numPeopleValue = calc_num_people(currTile)
-				var tileDamageValue = calc_tile_damage(currTile)
-				var cityWealthValue = calc_city_wealth(currTile)
-				var taxRateValue = calc_taxation_rate(currTile)
-				
-				value += waterValue + baseValue + zoneConnectionsValue + numZonesValue + numPeopleValue - tileDamageValue + cityWealthValue + taxRateValue
-				value = value / GLOBAL_TILE_VALUE_WEIGHT
+				#tile value is based on how desirable the land is
+				var value = BASE_VALUE * currTile.desirability
+				#if the tile is less desirable than an empty plot of land, value gets a penalty
+				if currTile.desirability < currTile.BASE_DESIRABILITY:
+					value -= .5
 				currTile.landValue = value
 
 func calc_presence_of_water(tile): #Return value of nearby water tiles within a radius
@@ -78,18 +71,17 @@ func calc_zone_connections(tile): #Return final value of the tiles surrounding s
 			[tile.i-2, tile.j], [tile.i+2, tile.j], [tile.i, tile.j-2], [tile.i, tile.j+2],
 			[tile.i+1, tile.j+1], [tile.i-1, tile.j+1], [tile.i-1, tile.j-1], [tile.i+1, tile.j-1]]
 	
-	var light_residential_neighbor = 0
-	var heavy_residential_neighbor = 0
-	var light_commercial_neighbor = 0
-	var heavy_commercial_neighbor = 0
+	var SINGLE_FAMILY_neighbor = 0
+	var multi_family_neighbor = 0
+	var commercial_neighbor = 0
 	var industrial_neighbor = 0
 	var park_neighbor = 0
 	var road_neighbor = 0
 	
 	for n in neighbors:
 		if is_valid_tile(n[0], n[1]):
-			# Check if it's a powerplant
-			if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.POWER_PLANT:
+			# Check if it's a utility plant
+			if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.UTILITIES_PLANT:
 				industrial_neighbor += 1
 				continue
 			elif Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.PARK:
@@ -101,23 +93,18 @@ func calc_zone_connections(tile): #Return final value of the tiles surrounding s
 			
 			# Check what type of zone the neighbor is
 			var neighbor = Global.tileMap[n[0]][n[1]]
-			match(neighbor.zone):
-				Tile.TileZone.LIGHT_RESIDENTIAL:
-					light_residential_neighbor += 1
-				Tile.TileZone.HEAVY_RESIDENTIAL:
-					heavy_residential_neighbor += 1
-				Tile.TileZone.LIGHT_COMMERCIAL:
-					light_commercial_neighbor += 1
-				Tile.TileZone.HEAVY_COMMERCIAL:
-					heavy_commercial_neighbor += 1
-				_:
-					continue
+#			
+			if neighbor.is_commercial():
+				commercial_neighbor += 1
+			elif neighbor.get_zone() == Tile.TileZone.SINGLE_FAMILY:
+				SINGLE_FAMILY_neighbor += 1
+			elif neighbor.get_zone() == Tile.TileZone.MULTI_FAMILY:
+				multi_family_neighbor += 1
 	
-	return (LIGHT_RES_VALUE * light_residential_neighbor) + \
-			(HEAVY_RES_VALUE * heavy_residential_neighbor) + \
-			(LIGHT_COM_VALUE* light_commercial_neighbor) + \
-			(HEAVY_COM_VALUE * heavy_commercial_neighbor) + \
-			(POWER_PLANT_VALUE * industrial_neighbor) + \
+	return (LIGHT_RES_VALUE * SINGLE_FAMILY_neighbor) + \
+			(HEAVY_RES_VALUE * multi_family_neighbor) + \
+			(COM_VALUE* commercial_neighbor) + \
+			(UTILITIES_PLANT_VALUE * industrial_neighbor) + \
 			(PARK_VALUE * park_neighbor) + \
 			(ROAD_VALUE * road_neighbor)
 
@@ -126,7 +113,7 @@ func calc_num_zones(tile): #Return value number of zones in city
 	for i in Global.mapWidth:
 		for j in Global.mapHeight:
 			var current = Global.tileMap[i][j]
-			if current.zone != Tile.TileZone.NONE:
+			if current.is_zoned():
 				numZones += 1
 	return ZONE_VALUE * numZones
 
@@ -148,14 +135,12 @@ func calc_taxation_rate(tile): #Return a weight depending on tax rate of tile
 	var cityTaxValue = 0
 	
 	match(tile.zone):
-		Tile.TileZone.LIGHT_RESIDENTIAL:
+		Tile.TileZone.SINGLE_FAMILY:
 			cityTaxValue = Econ.LIGHT_RES_PROPERTY_RATE + Econ.LIGHT_RES_PROPERTY_RATE
-		Tile.TileZone.HEAVY_RESIDENTIAL:
+		Tile.TileZone.MULTI_FAMILY:
 			cityTaxValue = Econ.HEAVY_RES_PROPERTY_RATE + Econ.HEAVY_RES_PROPERTY_RATE
-		Tile.TileZone.LIGHT_COMMERCIAL:
-			cityTaxValue = Econ.LIGHT_COM_PROPERTY_RATE + Econ.LIGHT_COM_PROPERTY_RATE
-		Tile.TileZone.HEAVY_COMMERCIAL:
-			cityTaxValue = Econ.HEAVY_COM_PROPERTY_RATE + Econ.HEAVY_COM_PROPERTY_RATE
+		Tile.TileZone.COMMERCIAL:
+			cityTaxValue = Econ.COM_PROPERTY_RATE + Econ.COM_PROPERTY_RATE
 	
 	cityTaxValue = cityTaxValue * TAX_WEIGHT
 	return cityTaxValue
