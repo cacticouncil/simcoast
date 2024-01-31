@@ -460,6 +460,7 @@ func _unhandled_input(event):
 							$SensorChoice/ColorRect.visible = true
 						else:
 							print("No available sensors!")
+							$SensorChoice/ColorRect2.visible = true
 					else:
 						$SensorNo/ColorRect.visible = true
 				elif Input.is_action_pressed("right_click"):
@@ -474,6 +475,7 @@ func _unhandled_input(event):
 							$SensorChoice/ColorRect.visible = true
 						else:
 							print("No available sensors!")
+							$SensorChoice/ColorRect2.visible = true
 					else:
 						$SensorNo/ColorRect.visible = true
 				elif Input.is_action_pressed("right_click"):
@@ -830,3 +832,7 @@ func _on_CloseHelpButton_pressed():
 # bug fix for no sensors on buildings
 func _on_CloseNoButton_pressed():
 	$SensorNo/ColorRect.visible = false # Replace with function body.
+
+
+func _on_OkButton_pressed():
+	$SensorChoice/ColorRect2.visible = false # Replace with function body.
