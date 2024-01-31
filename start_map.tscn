@@ -70,6 +70,9 @@ bg_color = Color( 0.886275, 0.815686, 0.6, 1 )
 [node name="CityMap" type="Node2D"]
 position = Vector2( -2, 3 )
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 380.0 ]
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 rotating = true
@@ -651,7 +654,7 @@ margin_top = 95.0
 margin_right = 210.0
 margin_bottom = 120.0
 custom_fonts/font = ExtResource( 49 )
-text = "Yes! Place Sensor."
+text = "Yes, Place Sensor"
 
 [node name="NoButton" type="Button" parent="SensorChoice/ColorRect/ChoiceBox"]
 margin_left = 5.0
@@ -659,7 +662,7 @@ margin_top = 135.0
 margin_right = 210.0
 margin_bottom = 160.0
 custom_fonts/font = ExtResource( 49 )
-text = "I'm not sure."
+text = "No, not yet"
 
 [node name="HelpButton" type="Button" parent="SensorChoice/ColorRect/ChoiceBox"]
 margin_left = 5.0
