@@ -25,13 +25,5 @@ func _on_QuitButton_mouse_entered():
 func _on_QuitButton_mouse_exited():
 	$QuitButton.material.set_shader_param("value", 1)
 
-func _on_MoneyInfoButton_pressed():
-	$ColorRect3/CityStatsBar/MoneyInformation.visible = true
-
-
-func _on_MoneyInfoButton_button_down():
-		$QuitButton.material.set_shader_param("value", 0.1)
-
-
 func _on_HSlider_value_changed(value):
 	pass # Replace with function body.

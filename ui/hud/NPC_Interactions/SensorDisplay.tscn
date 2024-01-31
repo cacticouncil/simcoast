@@ -65,7 +65,7 @@ margin_top = 18.6667
 margin_right = 342.333
 margin_bottom = 120.667
 rect_scale = Vector2( 0.5, 0.7 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 1 )
 text = "Used to measure the speed and 
 height of the tide and other 
