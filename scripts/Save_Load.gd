@@ -36,10 +36,10 @@ func saveData(mapPath: String):
 
 func loadData(mapPath: String):
 	if not (".json" in mapPath):
-		return
+		return "not a json"
 	var file = File.new()
 	if not file.file_exists(mapPath):
-		return
+		return "file does not exist"
 	file.open(mapPath, File.READ)
 	var mapData = parse_json(file.get_as_text())
 	file.close()
