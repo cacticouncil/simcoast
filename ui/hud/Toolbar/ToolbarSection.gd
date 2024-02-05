@@ -18,7 +18,7 @@ func add_button(sectionName, buttons):
 			container.add_child(Control.new())
 		
 		var currButton = toolbarButtonScene.instance()
-		currButton.set_up_button(buttons[i][0], buttons[i][1])
+		currButton.set_up_button(buttons[i][0], buttons[i][1], buttons[i][2])
 		
 		container.add_child(currButton)
 	#Adds a bit of a space
