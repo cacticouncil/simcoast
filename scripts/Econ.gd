@@ -84,6 +84,7 @@ func purchase_structure(structureCost):
 		get_node("/root/CityMap/HUD/HBoxContainer/Money").text = "$" + comma_values(str(money))
 		return true
 	else:
+		get_node("/root/Overlay").error_pop("Insufficient Funds")
 		return false
 
 func calculate_upkeep_costs():
