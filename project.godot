@@ -104,10 +104,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Event.gd"
 }, {
-"base": "",
+"base": "EditorVCSInterface",
 "class": "GitAPI",
 "language": "NativeScript",
-"path": "res://git_api.gdns"
+"path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
 "base": "Node",
 "class": "Observer",
@@ -187,6 +187,10 @@ AchievementObserver="*res://scripts/Observers/AchievementObserver.gd"
 Stats="*res://scripts/Stats.gd"
 NpcObserver="*res://scripts/Observers/NpcObserver.gd"
 
+[debug]
+
+gdscript/warnings/enable=false
+
 [display]
 
 window/size/width=1280
@@ -198,6 +202,8 @@ window/stretch/aspect="keep"
 [editor]
 
 main_run_args="--verbose"
+version_control_autoload_on_startup=true
+version_control_plugin_name="GitAPI"
 
 [editor_plugins]
 
@@ -211,6 +217,7 @@ singletons=[ "res://git_api.gdnlib" ]
 
 "dynamic font"=false
 "dynamic fonts"=false
+git=false
 
 [input]
 
