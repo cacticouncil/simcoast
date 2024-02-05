@@ -137,7 +137,7 @@ func _unhandled_input(event):
 					City.adjust_tile_height(tile)
 			
 			Global.Tool.BASE_OCEAN:
-				if tile.get_base() != Tile.TileBase.OCEAN:
+				if tile.get_base() != Tile.TileBase.OCEAN && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE && Econ.purchase_structure(Econ.WATER_COST):
 					tile.clear_tile()
 					tile.set_base(Tile.TileBase.OCEAN)
 					tile.set_base_height(Global.oceanHeight)
@@ -151,7 +151,7 @@ func _unhandled_input(event):
 				if !tile.can_zone():
 					return
 
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					match Global.mapTool:
 						Global.Tool.ZONE_SINGLE_FAMILY:
 							if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
@@ -209,7 +209,7 @@ func _unhandled_input(event):
 				tile.clear_tile()
 				
 			Global.Tool.INF_UTILITIES_PLANT:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.UTILITIES_PLANT):
 						if (Inventory.removeIfHave('utility plant')):
 							tile.clear_tile()
@@ -234,7 +234,7 @@ func _unhandled_input(event):
 						City.numUtilityPlants -= 1
 			
 			Global.Tool.INF_SEWAGE_FACILITY:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.SEWAGE_FACILITY):
 						if (Inventory.removeIfHave('sewage facility')):
 							tile.clear_tile()
@@ -256,7 +256,7 @@ func _unhandled_input(event):
 						City.numSewageFacilities -= 1
 			
 			Global.Tool.INF_WASTE_TREATMENT:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.WASTE_TREATMENT):
 						if (Inventory.removeIfHave('waste treatment')):
 							tile.clear_tile()
@@ -278,7 +278,7 @@ func _unhandled_input(event):
 						City.numWasteTreatment -= 1
 						
 			Global.Tool.INF_PARK:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.PARK):
 						if (Inventory.removeIfHave('park')):
 							tile.clear_tile()
@@ -304,7 +304,7 @@ func _unhandled_input(event):
 						City.numParks -= 1
 			
 			Global.Tool.INF_LIBRARY:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.LIBRARY):
 						if (Inventory.removeIfHave('library')):
 							tile.clear_tile()
@@ -330,7 +330,7 @@ func _unhandled_input(event):
 						City.numLibraries -= 1
 			
 			Global.Tool.INF_MUSEUM:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.MUSEUM):
 						if (Inventory.removeIfHave('museum')):
 							tile.clear_tile()
@@ -356,7 +356,7 @@ func _unhandled_input(event):
 						City.numMuseums -= 1
 			
 			Global.Tool.INF_FIRE_STATION:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.FIRE_STATION):
 						if (Inventory.removeIfHave('fire station')):
 							tile.clear_tile()
@@ -380,7 +380,7 @@ func _unhandled_input(event):
 						City.numFireStations -= 1
 			
 			Global.Tool.INF_HOSPITAL:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.HOSPITAL):
 						if (Inventory.removeIfHave('hospital')):
 							tile.clear_tile()
@@ -404,7 +404,7 @@ func _unhandled_input(event):
 						City.numHospital -= 1
 			
 			Global.Tool.INF_POLICE_STATION:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.POLICE_STATION):
 						if (Inventory.removeIfHave('police station')):
 							tile.clear_tile()
@@ -428,7 +428,7 @@ func _unhandled_input(event):
 						City.numPoliceStations -= 1
 			
 			Global.Tool.INF_SCHOOL:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.SCHOOL):
 						if (Inventory.removeIfHave('school')):
 							tile.clear_tile()
@@ -485,7 +485,7 @@ func _unhandled_input(event):
 					if tile.sensor == Tile.TileSensor.RAIN:
 						tile.clear_sensor()
 			Global.Tool.INF_ROAD:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.ROAD):
 						if (Inventory.removeIfHave('road')):
 							tile.clear_tile()
@@ -515,7 +515,7 @@ func _unhandled_input(event):
 						City.numRoads -= 1
 			
 			Global.Tool.INF_BRIDGE:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if (tile.get_base() == Tile.TileBase.OCEAN && tile.inf != Tile.TileInf.BRIDGE):
 						if (Inventory.removeIfHave('bridge')):
 							tile.clear_tile()
