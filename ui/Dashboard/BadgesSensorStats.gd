@@ -13,10 +13,23 @@ func _ready():
 	$ScrollContainer/VBoxContainer/ColorRect2/DisplayCharacterCards.visible = false
 	
 func _on_BadgesButton_pressed():
-	$ScrollContainer/VBoxContainer/ColorRect.rect_min_size.y = 300
-	$ScrollContainer/VBoxContainer/ColorRect2.rect_min_size.y = 300
-	$ScrollContainer/VBoxContainer/ColorRect3.rect_min_size.y = 300	
-	$ScrollContainer/VBoxContainer/ColorRect/UnlockedBadges.visible = true
-	$ScrollContainer/VBoxContainer/ColorRect2/DisplayCharacterCards.visible = true
+	if $ScrollContainer/VBoxContainer/ColorRect.rect_min_size.y == 300:
+		$ScrollContainer/VBoxContainer/ColorRect.rect_min_size.y = 40
+	else:
+		$ScrollContainer/VBoxContainer/ColorRect.rect_min_size.y = 300
+	$ScrollContainer/VBoxContainer/ColorRect/UnlockedBadges.visible = !$ScrollContainer/VBoxContainer/ColorRect/UnlockedBadges.visible
+
+func _on_CharactersButton_pressed():
+	if $ScrollContainer/VBoxContainer/ColorRect2.rect_min_size.y == 300:
+		$ScrollContainer/VBoxContainer/ColorRect2.rect_min_size.y = 40
+	else:
+		$ScrollContainer/VBoxContainer/ColorRect2.rect_min_size.y = 300
+	$ScrollContainer/VBoxContainer/ColorRect2/DisplayCharacterCards.visible = !$ScrollContainer/VBoxContainer/ColorRect2/DisplayCharacterCards.visible
+
+func _on_SensorButton_pressed():
+	if $ScrollContainer/VBoxContainer/ColorRect3.rect_min_size.y == 300:
+		$ScrollContainer/VBoxContainer/ColorRect3.rect_min_size.y = 40
+	else:
+		$ScrollContainer/VBoxContainer/ColorRect3.rect_min_size.y = 300
 
 
