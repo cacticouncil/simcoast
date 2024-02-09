@@ -357,45 +357,40 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-25.6 + x, -25.6 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
 		buildingSprite.mouse_filter = 2
-		buildingSprite.rect_scale = Vector2(0.1, 0.1)
 	
 	elif tile.inf == Tile.TileInf.SCHOOL:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-25.6 + x, -25.6 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
 		buildingSprite.mouse_filter = 2
-		buildingSprite.rect_scale = Vector2(0.1, 0.1)
 
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-25.6 + x, -25.6 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
 		buildingSprite.mouse_filter = 2 #Makes it so you can click through images
-		buildingSprite.rect_scale = Vector2(0.1, 0.1)
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-25.6 + x, -25.6 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
 		buildingSprite.mouse_filter = 2
-		buildingSprite.rect_scale = Vector2(0.1, 0.1)
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-25.6 + x, -25.6 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
 		buildingSprite.mouse_filter = 2
-		buildingSprite.rect_scale = Vector2(0.1, 0.1)
 
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
