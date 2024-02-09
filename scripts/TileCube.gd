@@ -14,7 +14,6 @@ var base_cube = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.ne
 var water_cube = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
 var objects = []
 var buildingSprite = null
-var haveDrawnBuilding = false
 
 var coll = CollisionPolygon2D.new()
 
@@ -124,10 +123,7 @@ func _draw():
 		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[0]]))
 		draw_polyline(b[0].get_polygon(), Tile.FIRE_STATION_COLOR[3])
 		"""
-		if buildingSprite != null && !haveDrawnBuilding:
-			get_parent().add_child(buildingSprite)
-			buildingSprite = null
-			haveDrawnBuilding = true
+		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		var b = objects.pop_front()
@@ -189,6 +185,9 @@ func update_polygons():
 	update_cube(base_cube, x, y, Global.TILE_WIDTH, Global.TILE_HEIGHT, h, 0, 0)
 	update_cube(water_cube, x, y, Global.TILE_WIDTH, Global.TILE_HEIGHT, h + w, h, 0)
 	
+	if buildingSprite != null:
+		get_parent().remove_child(buildingSprite)
+	buildingSprite = null
 	# Create simple trees so landscape not so boring
 	if tile.inf == Tile.TileInf.PARK:
 		clear_objects()
