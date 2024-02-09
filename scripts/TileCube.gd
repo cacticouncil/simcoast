@@ -65,9 +65,7 @@ func _draw():
 			draw_polyline(b[0].get_polygon(), buildingColor[3])
 			
 	elif tile.inf == Tile.TileInf.PARK:
-		for t in objects:
-			draw_polygon(t[0].get_polygon(), PoolColorArray([Tile.TREE_COLOR[0]]))
-			draw_polygon(t[1].get_polygon(), PoolColorArray([Tile.TREE_COLOR[1]]))
+		get_parent().add_child(buildingSprite)
 			
 	elif tile.inf == Tile.TileInf.UTILITIES_PLANT:
 		var b = objects.pop_front()
@@ -96,11 +94,7 @@ func _draw():
 		draw_polyline(b[0].get_polygon(), Tile.WASTE_TREATMENT_COLOR[3])
 		
 	elif tile.inf == Tile.TileInf.LIBRARY:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.LIBRARY_COLOR[3])
+		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
 		get_parent().add_child(buildingSprite)
@@ -171,49 +165,11 @@ func update_polygons():
 	# Create simple trees so landscape not so boring
 	if tile.inf == Tile.TileInf.PARK:
 		clear_objects()
-		var tree_width = 0
-		var tree_depth = 0
-		var tree_height = 0
-		var tree_x = 0
-		var tree_y = 0
-		
-		for z in 3:
-			var t = [Polygon2D.new(), Polygon2D.new()]
-				
-			match z:
-				0:
-					tree_height = 12
-					if w >= tree_height:
-						tree_height = 0
-					
-					tree_width = tree_height
-					tree_depth = tree_width / 2.0
-					
-					tree_x = x + (Global.TILE_WIDTH / 4.0) - (tree_width / 2.0)
-					tree_y = y - h + ((Global.TILE_HEIGHT / 2.5)) - (tree_depth / 2.0)
-				1:
-					tree_height = 16
-					if w >= tree_height:
-						tree_height = 0
-					
-					tree_width = tree_height
-					tree_depth = tree_width / 2.0
-					
-					tree_x = x - (Global.TILE_WIDTH / 6.0)
-					tree_y = y - h + (Global.TILE_HEIGHT / 2.5) - (tree_depth / 2.0)
-				2:
-					tree_height = 10
-					if w >= tree_height:
-						tree_height = 0
-					
-					tree_width = tree_height
-					tree_depth = tree_width / 2.0
-					
-					tree_x = x
-					tree_y = y - h + (0.7 * Global.TILE_HEIGHT) - (tree_depth / 2.0)
-			
-			update_tree(t, tree_x, tree_y, tree_width, tree_depth, tree_height, w)
-			objects.append(t)
+		var image = load("res://assets/building_assets/2d Assets/Park.png")
+		buildingSprite = TextureRect.new()
+		buildingSprite.texture = image
+		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.mouse_filter = 2
 	
 	# Create some one pixel high blades of grass
 	elif tile.inf == Tile.TileInf.BEACH_GRASS:
@@ -334,6 +290,7 @@ func update_polygons():
 		objects.append(b)
 	
 	elif tile.inf == Tile.TileInf.LIBRARY:
+		"""
 		clear_objects()
 		var building_width = Global.TILE_WIDTH - 10
 		var building_depth = building_width / 2.0
@@ -351,10 +308,18 @@ func update_polygons():
 		
 		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
 		objects.append(b)
+		I wanted to leave an example one of how the boxes are done
+		"""
+		clear_objects()
+		var image = load("res://assets/building_assets/2d Assets/Library.png")
+		buildingSprite = TextureRect.new()
+		buildingSprite.texture = image
+		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.mouse_filter = 2
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
 		clear_objects()
-		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
+		var image = load("res://assets/building_assets/2d Assets/Museum.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
 		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
@@ -362,7 +327,7 @@ func update_polygons():
 	
 	elif tile.inf == Tile.TileInf.SCHOOL:
 		clear_objects()
-		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
+		var image = load("res://assets/building_assets/2d Assets/School.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
 		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
@@ -378,7 +343,7 @@ func update_polygons():
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		clear_objects()
-		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
+		var image = load("res://assets/building_assets/2d Assets/Hospital.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
 		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
@@ -386,7 +351,7 @@ func update_polygons():
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
 		clear_objects()
-		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
+		var image = load("res://assets/building_assets/2d Assets/PoliceStation.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
 		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
