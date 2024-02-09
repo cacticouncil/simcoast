@@ -19,6 +19,7 @@ var coll = CollisionPolygon2D.new()
 
 func _ready():
 	update_polygons()
+	z_index = -1
 	self.add_child(coll)
 
 func _draw():
