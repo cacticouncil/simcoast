@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://ui/Dashboard/Dashboard.gd" type="Script" id=1]
 [ext_resource path="res://ui/Badges/UnlockedBadges.tscn" type="PackedScene" id=2]
@@ -6,10 +6,41 @@
 [ext_resource path="res://assets/achievement_icons/XIcon.png" type="Texture" id=4]
 [ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/fonts/toolbarTitle.tres" type="DynamicFont" id=6]
+[ext_resource path="res://assets/buttons/plus_button.png" type="Texture" id=7]
 [ext_resource path="res://assets/buttons/Info_button.png" type="Texture" id=8]
 [ext_resource path="res://ui/Dashboard/VBoxContainer.gd" type="Script" id=14]
 [ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=15]
 [ext_resource path="res://ui/Dashboard/CityStatsBar.gd" type="Script" id=16]
+
+[sub_resource type="StyleBoxEmpty" id=44]
+
+[sub_resource type="StyleBoxEmpty" id=45]
+
+[sub_resource type="StyleBoxEmpty" id=46]
+
+[sub_resource type="StyleBoxEmpty" id=47]
+
+[sub_resource type="StyleBoxEmpty" id=48]
+
+[sub_resource type="StyleBoxEmpty" id=34]
+
+[sub_resource type="StyleBoxEmpty" id=35]
+
+[sub_resource type="StyleBoxEmpty" id=36]
+
+[sub_resource type="StyleBoxEmpty" id=37]
+
+[sub_resource type="StyleBoxEmpty" id=38]
+
+[sub_resource type="StyleBoxEmpty" id=39]
+
+[sub_resource type="StyleBoxEmpty" id=40]
+
+[sub_resource type="StyleBoxEmpty" id=41]
+
+[sub_resource type="StyleBoxEmpty" id=42]
+
+[sub_resource type="StyleBoxEmpty" id=43]
 
 [sub_resource type="GDScript" id=4]
 
@@ -113,10 +144,16 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 960, 40 )
 
 [node name="BadgesButton" type="Button" parent="BadgesSensorStats/ScrollContainer/VBoxContainer/ColorRect"]
-margin_left = 912.0
+margin_left = 940.0
 margin_top = 10.0
-margin_right = 943.0
-margin_bottom = 32.0
+margin_right = 970.0
+margin_bottom = 34.0
+custom_styles/hover = SubResource( 44 )
+custom_styles/pressed = SubResource( 45 )
+custom_styles/focus = SubResource( 46 )
+custom_styles/disabled = SubResource( 47 )
+custom_styles/normal = SubResource( 48 )
+icon = ExtResource( 7 )
 
 [node name="BadgesTitle" type="Label" parent="BadgesSensorStats/ScrollContainer/VBoxContainer/ColorRect"]
 anchor_right = 0.138
@@ -143,10 +180,16 @@ margin_bottom = 108.0
 rect_min_size = Vector2( 960, 40 )
 
 [node name="CharactersButton" type="Button" parent="BadgesSensorStats/ScrollContainer/VBoxContainer/ColorRect2"]
-margin_left = 910.0
-margin_top = 11.0
-margin_right = 942.0
-margin_bottom = 31.0
+margin_left = 940.0
+margin_top = 10.0
+margin_right = 970.0
+margin_bottom = 34.0
+custom_styles/hover = SubResource( 34 )
+custom_styles/pressed = SubResource( 35 )
+custom_styles/focus = SubResource( 36 )
+custom_styles/disabled = SubResource( 37 )
+custom_styles/normal = SubResource( 38 )
+icon = ExtResource( 7 )
 
 [node name="FieldProfTitle" type="Label" parent="BadgesSensorStats/ScrollContainer/VBoxContainer/ColorRect2"]
 anchor_right = 0.138
@@ -174,10 +217,16 @@ margin_bottom = 152.0
 rect_min_size = Vector2( 960, 40 )
 
 [node name="SensorButton" type="Button" parent="BadgesSensorStats/ScrollContainer/VBoxContainer/ColorRect3"]
-margin_left = 912.0
-margin_top = 7.0
-margin_right = 943.0
-margin_bottom = 31.0
+margin_left = 940.0
+margin_top = 10.0
+margin_right = 970.0
+margin_bottom = 34.0
+custom_styles/hover = SubResource( 39 )
+custom_styles/pressed = SubResource( 40 )
+custom_styles/focus = SubResource( 41 )
+custom_styles/disabled = SubResource( 42 )
+custom_styles/normal = SubResource( 43 )
+icon = ExtResource( 7 )
 
 [node name="SensorDataTitle" type="Label" parent="BadgesSensorStats/ScrollContainer/VBoxContainer/ColorRect3"]
 anchor_right = 0.138
