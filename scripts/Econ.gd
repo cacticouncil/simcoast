@@ -40,6 +40,7 @@ const SCHOOL_COST = 3000
 const FIRE_STATION_COST = 5000
 const HOSPITAL_COST = 5000
 const POLICE_STATION_COST = 5000
+const WATER_COST = 5000
 
 #Building upkeep costs
 const UTILITIES_PLANT_UPKEEP_COST = 100
@@ -83,6 +84,7 @@ func purchase_structure(structureCost):
 		get_node("/root/CityMap/HUD/HBoxContainer/Money").text = "$" + comma_values(str(money))
 		return true
 	else:
+		get_node("/root/Overlay").error_pop("Insufficient Funds")
 		return false
 
 func calculate_upkeep_costs():
