@@ -116,27 +116,14 @@ func _draw():
 		draw_polyline(b[0].get_polygon(), Tile.SCHOOL_COLOR[3])
 		
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
-		"""
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.FIRE_STATION_COLOR[3])
-		"""
 		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.HOSPITAL:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.HOSPITAL_COLOR[3])
+		get_parent().add_child(buildingSprite)
+		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.POLICE_STATION_COLOR[3])
+		get_parent().add_child(buildingSprite)
+		
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		for r in objects:
 			draw_polygon(r[1].get_polygon(), PoolColorArray([Tile.BEACH_ROCK_COLOR[1]]))
@@ -412,24 +399,6 @@ func update_polygons():
 
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
 		clear_objects()
-		"""
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
-		"""
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
@@ -439,41 +408,21 @@ func update_polygons():
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		clear_objects()
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
+		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
+		buildingSprite = TextureRect.new()
+		buildingSprite.texture = image
+		buildingSprite.rect_position = Vector2(-25.6 + x, -25.6 + y)
+		buildingSprite.mouse_filter = 2
+		buildingSprite.rect_scale = Vector2(0.1, 0.1)
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
 		clear_objects()
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
+		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
+		buildingSprite = TextureRect.new()
+		buildingSprite.texture = image
+		buildingSprite.rect_position = Vector2(-25.6 + x, -25.6 + y)
+		buildingSprite.mouse_filter = 2
+		buildingSprite.rect_scale = Vector2(0.1, 0.1)
 
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
