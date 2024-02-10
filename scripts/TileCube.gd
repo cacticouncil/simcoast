@@ -110,8 +110,7 @@ func _draw():
 			draw_polyline(g, Tile.TREE_COLOR[0])
 			
 	elif tile.inf == Tile.TileInf.ROAD:
-		for r in objects:
-			draw_polygon(r, PoolColorArray([Tile.ROAD_COLOR[0]]))
+		get_parent().add_child(buildingSprite)
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		draw_polygon(objects[0], PoolColorArray([Tile.BRIDGE_COLOR[1]]))
 		for r in objects.slice(1, objects.size() - 1):
@@ -156,7 +155,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Park.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
 		buildingSprite.mouse_filter = 2
 	
 	# Create some one pixel high blades of grass
@@ -197,7 +196,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/UtilityPlant.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
 		buildingSprite.mouse_filter = 2
 				
 	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
@@ -205,7 +204,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/SewageFacility.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
 		buildingSprite.mouse_filter = 2
 	
 	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
@@ -213,7 +212,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/WasteTreatment.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
 		buildingSprite.mouse_filter = 2
 	
 	elif tile.inf == Tile.TileInf.LIBRARY:
@@ -241,7 +240,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Library.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
 		buildingSprite.mouse_filter = 2
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
@@ -249,7 +248,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Museum.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
 		buildingSprite.mouse_filter = 2
 	
 	elif tile.inf == Tile.TileInf.SCHOOL:
@@ -257,7 +256,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/School.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
 		buildingSprite.mouse_filter = 2
 
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
@@ -265,7 +264,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
 		buildingSprite.mouse_filter = 2 #Makes it so you can click through images
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
@@ -273,7 +272,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Hospital.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
 		buildingSprite.mouse_filter = 2
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
@@ -281,49 +280,64 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/PoliceStation.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
 		buildingSprite.mouse_filter = 2
 
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
 		clear_objects()
+		var image
 		
 		if w == 0:
-			if tile.connections[(0 + Global.camDirection) % 4]:
-				objects.append(PoolVector2Array([
-					Vector2(x - (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (1.0 / 8.0))),
-					Vector2(x - (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (3.0 / 8.0))),
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
-					Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-				]))
-			if tile.connections[(1 + Global.camDirection) % 4]:
-				objects.append(PoolVector2Array([
-					Vector2(x + (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (1.0 / 8.0))),
-					Vector2(x + (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (3.0 / 8.0))),
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
-					Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-				]))
-			if tile.connections[(2 + Global.camDirection) % 4]:
-				objects.append(PoolVector2Array([
-					Vector2(x + (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (5.0 / 8.0))),
-					Vector2(x + (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (7.0 / 8.0))),
-					Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0))),
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0)))
-				]))
-			if tile.connections[(3 + Global.camDirection) % 4]:
-				objects.append(PoolVector2Array([
-					Vector2(x - (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (7.0 / 8.0))),
-					Vector2(x - (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (5.0 / 8.0))),
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0))),
-					Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-				]))
 			if !tile.connections[0] && !tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
-				objects.append(PoolVector2Array([
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0))),
-					Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0))),
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
-					Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-				]))
+				image = load("res://assets/building_assets/2d Assets/Road1.png")
+			elif tile.connections[0] && !tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road3.png")
+			elif !tile.connections[0] && tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road4.png")
+			elif !tile.connections[0] && !tile.connections[1] && tile.connections[2] && !tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road5.png")
+			elif !tile.connections[0] && !tile.connections[1] && !tile.connections[2] && tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road2.png")
+			elif tile.connections[0] && !tile.connections[1] && !tile.connections[2] && tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road23.png")
+			elif !tile.connections[0] && tile.connections[1] && !tile.connections[2] && tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road24.png")
+			elif !tile.connections[0] && !tile.connections[1] && tile.connections[2] && tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road25.png")
+			elif tile.connections[0] && tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road34.png")
+			elif tile.connections[0] && !tile.connections[1] && tile.connections[2] && !tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road35.png")
+			elif !tile.connections[0] && tile.connections[1] && tile.connections[2] && !tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road45.png")
+			elif tile.connections[0] && tile.connections[1] && !tile.connections[2] && tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road234.png")
+			elif tile.connections[0] && !tile.connections[1] && tile.connections[2] && tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road235.png")
+			elif !tile.connections[0] && tile.connections[1] && tile.connections[2] && tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road245.png")
+			elif tile.connections[0] && tile.connections[1] && tile.connections[2] && !tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road345.png")
+			else:
+				image = load("res://assets/building_assets/2d Assets/Road2345.png")
+			"""
+			if tile.connections[(0 + Global.camDirection) % 4]:
+				image = load("res://assets/building_assets/2d Assets/Road1.png")
+			if tile.connections[(1 + Global.camDirection) % 4]:
+				image = load("res://assets/building_assets/2d Assets/Road1.png")
+			if tile.connections[(2 + Global.camDirection) % 4]:
+				image = load("res://assets/building_assets/2d Assets/Road1.png")
+			if tile.connections[(3 + Global.camDirection) % 4]:
+				image = load("res://assets/building_assets/2d Assets/Road1.png")
+			if !tile.connections[0] && !tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/Road1.png")
+			"""
+		
+		buildingSprite = TextureRect.new()
+		buildingSprite.texture = image
+		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.mouse_filter = 2
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		clear_objects()
 		#var tileHeight = Global.TILE_HEIGHT
