@@ -148,7 +148,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Park.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
 		buildingSprite.mouse_filter = 2
 	
 	# Create some one pixel high blades of grass
@@ -189,7 +189,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/UtilityPlant.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
 		buildingSprite.mouse_filter = 2
 				
 	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
@@ -197,7 +197,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/SewageFacility.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
 		buildingSprite.mouse_filter = 2
 	
 	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
@@ -205,7 +205,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/WasteTreatment.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
 		buildingSprite.mouse_filter = 2
 	
 	elif tile.inf == Tile.TileInf.LIBRARY:
@@ -233,7 +233,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Library.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
 		buildingSprite.mouse_filter = 2
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
@@ -241,7 +241,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Museum.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
 		buildingSprite.mouse_filter = 2
 	
 	elif tile.inf == Tile.TileInf.SCHOOL:
@@ -249,7 +249,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/School.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
 		buildingSprite.mouse_filter = 2
 
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
@@ -257,7 +257,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
 		buildingSprite.mouse_filter = 2 #Makes it so you can click through images
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
@@ -265,7 +265,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Hospital.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
 		buildingSprite.mouse_filter = 2
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
@@ -273,7 +273,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/PoliceStation.png")
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
 		buildingSprite.mouse_filter = 2
 
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
@@ -329,7 +329,7 @@ func update_polygons():
 		
 		buildingSprite = TextureRect.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -42 + y)
+		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
 		buildingSprite.mouse_filter = 2
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		clear_objects()
