@@ -68,11 +68,7 @@ func _draw():
 		get_parent().add_child(buildingSprite)
 			
 	elif tile.inf == Tile.TileInf.UTILITIES_PLANT:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.UTILITIES_PLANT_COLOR[3])
+		get_parent().add_child(buildingSprite)
 		
 		for s in objects:
 			draw_polygon(s[1].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[1]]))
@@ -80,18 +76,10 @@ func _draw():
 			draw_polygon(s[0].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[0]]))
 			
 	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.SEWAGE_FACILITY_COLOR[3])
+		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.WASTE_TREATMENT_COLOR[3])
+		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.LIBRARY:
 		get_parent().add_child(buildingSprite)
@@ -206,88 +194,27 @@ func update_polygons():
 
 	elif tile.inf == Tile.TileInf.UTILITIES_PLANT:	
 		clear_objects()
-		
-		var building_width = Global.TILE_WIDTH
-		var building_depth = building_width / 2.0
-		var building_height = 10
-
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-			
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
-		
-		if true:
-			var stack_width = Global.TILE_WIDTH / 10.0
-			var stack_depth = stack_width / 2.0
-			var stack_height = 20
-			
-			for z in 4:
-				var s = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-				var stack_x = 0
-				var stack_y = 0
-				
-				match z:
-					0:
-						stack_x = x
-						stack_y = y - h + ((Global.TILE_HEIGHT / 2.0) - stack_depth) / 2.0
-					1:
-						stack_x = x
-						stack_y = y - h + ((Global.TILE_HEIGHT / 2.0) - stack_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
-					2:
-						stack_x = x - (((Global.TILE_WIDTH / 2.0) - stack_width) / 2.0) - (stack_width / 2.0)
-						stack_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (stack_depth / 2.0)
-					3:
-						stack_x = x + (((Global.TILE_WIDTH / 2.0) - stack_width) / 2.0) + (stack_width / 2.0)
-						stack_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (stack_depth / 2.0)
-			
-				update_cube(s, stack_x, stack_y, stack_width, stack_depth, stack_height, building_height, 0)
-				objects.append(s)
+		var image = load("res://assets/building_assets/2d Assets/UtilityPlant.png")
+		buildingSprite = TextureRect.new()
+		buildingSprite.texture = image
+		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.mouse_filter = 2
 				
 	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
 		clear_objects()
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
+		var image = load("res://assets/building_assets/2d Assets/SewageFacility.png")
+		buildingSprite = TextureRect.new()
+		buildingSprite.texture = image
+		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.mouse_filter = 2
 	
 	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
 		clear_objects()
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
+		var image = load("res://assets/building_assets/2d Assets/WasteTreatment.png")
+		buildingSprite = TextureRect.new()
+		buildingSprite.texture = image
+		buildingSprite.rect_position = Vector2(-32 + x, -43 + y)
+		buildingSprite.mouse_filter = 2
 	
 	elif tile.inf == Tile.TileInf.LIBRARY:
 		"""
