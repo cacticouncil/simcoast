@@ -82,5 +82,5 @@ func get_demand():
 	var comDemand = 0
 	resDemand = calcResidentialDemand()
 	comDemand = calcCommercialDemand()
-	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Demand").text = "Residential Demand: " + str(resDemand) + "/10" + " Commercial Demand: " + str(comDemand) + "/10"
+	#get_node("/root/CityMap/HUD/TopBar/HBoxContainer/Demand").text = "Residential Demand: " + str(resDemand) + "/10" + " Commercial Demand: " + str(comDemand) + "/10"
 	return

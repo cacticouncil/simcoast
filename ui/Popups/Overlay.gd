@@ -2,6 +2,7 @@ extends CanvasLayer
 
 #Source - https://www.youtube.com/watch?v=rJcy221LrYs
 var overlayPopup = preload("res://ui/Popups/OverlayPopup.tscn")
+var errorPopup = preload("res://ui/Popups/ErrorPopup.tscn")
 
 # A queue of the name of achievements, the first one is the next one displayed
 var queue = []
@@ -17,6 +18,18 @@ func achievement_pop(achName, achPic):
 	$OverlayControl.add_child(inst)
 	# Made a sick fade animation
 	$AnimationPlayer.queue("Fade")
+
+func error_pop(errorDesc):
+	#Only add popup if it doesn't already exist
+	if get_node_or_null("/root/Overlay/OverlayControl/Insufficient Funds") == null:
+		var inst = errorPopup.instance()
+		inst.set_values(errorDesc, "res://assets/achievement_icons/ErrorIcon.png")
+		inst.name = errorDesc
+		inst.visible = false
+		queue.append(errorDesc)
+		$OverlayControl.add_child(inst)
+		# Made a sick fade animation
+		$AnimationPlayer.queue("Fade")
 
 func animationStart():
 	get_node("/root/Overlay/OverlayControl/" + queue[0]).visible = true

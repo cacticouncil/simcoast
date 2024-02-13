@@ -22,12 +22,27 @@ enum TileZone {
 enum TileInf {
 	NONE,
 	ROAD,
+	BRIDGE,
 	PARK,
+	FIRE_STATION,
+	HOSPITAL,
+	POLICE_STATION,
+	LIBRARY,
+	MUSEUM,
+	SCHOOL,
 	HOUSE,
 	BUILDING,
 	BEACH_ROCKS,
 	BEACH_GRASS,
-	UTILITIES_PLANT
+	UTILITIES_PLANT,
+	SEWAGE_FACILITY,
+	WASTE_TREATMENT
+}
+
+enum TileSensor {
+	NONE,
+	TIDE,
+	RAIN
 }
 
 # Flooding damage levels that can affect tiles
@@ -54,6 +69,8 @@ const NO_UTILITIES_BUILDING_COLOR = [Color("ff555555"), Color("ff444444"), Color
 
 const UTILITIES_PLANT_COLOR = [Color("ff777777"), Color("ff888888"), Color("ff999999"), Color("ff999999")]
 const UTILITIES_STACK_COLOR = [Color("ff333333"), Color("ff950000"), Color("ff6a0000"), Color("ff333333")]
+const SEWAGE_FACILITY_COLOR = [Color("ff4d2817"), Color("ff663a24"), Color("ff945535"), Color("ff945535")]
+const WASTE_TREATMENT_COLOR = [Color("ff1f5922"), Color("ff3b943f"), Color("ff54d15a"), Color("ff54d15a")]
 
 const RES_OCCUPANCY_COLOR = [Color("aa2a9d2d"), Color("aa1d851f")]
 const COM_OCCUPANCY_COLOR = [Color("aa3779a2"), Color("aa26648b")]
@@ -62,16 +79,24 @@ const LIGHT_DAMAGE_COLOR = [Color("ff555555"), Color("ffd8bf09"), Color("ffc4ae0
 const MEDIUM_DAMAGE_COLOR = [Color("ff555555"), Color("ffd86909"), Color("ffac5100"), Color("ffac5100")]
 const HEAVY_DAMAGE_COLOR = [Color("ff555555"), Color("ffd80909"), Color("ff7c0000"), Color("ff590000")]
 
+const FIRE_STATION_COLOR = [Color("ff5e2821"), Color("ffa85145"), Color("fffc7462"), Color("fffc7462")]
+const HOSPITAL_COLOR = [Color("ff5c5c5c"), Color("ffb0b0b0"), Color("fffafafa"), Color("fffafafa")]
+const POLICE_STATION_COLOR = [Color("ff22246b"), Color("ff3d40a1"), Color("ff5f64fa"), Color("ff5f64fa")]
 const PARK_COLOR = [Color("ff8bb54a"), Color("ff60822d")]
 const TREE_COLOR = [Color("ff4a8a7d"), Color("ff286f61")]
+const LIBRARY_COLOR = [Color("ff666333"), Color("ff9c984c"), Color("ffe0db72"), Color("ffe0db72")]
+const MUSEUM_COLOR = [Color("ff6e472d"), Color("ffa8724d"), Color("fff7a66f"), Color("fff7a66f")]
+const SCHOOL_COLOR = [Color("ff45196e"), Color("ff6f31a8"), Color("ffa94dff"), Color("ffa94dff")]
 const BEACH_ROCK_COLOR = [Color("ffb8c5d4"), Color("ffa0b3cc"), Color("ff8ca4c0")]
 
 const ROAD_COLOR = [Color("ff6a6a6a"), Color("ff999999")]
+const BRIDGE_COLOR = [Color("ff6a6a6a"), Color("ff999999")]
 
 var i
 var j
 var baseHeight = 0
 var waterHeight = 0
+var bridgeHeight = 0
 var base = 0
 var zone = 0
 var inf = 0
@@ -88,7 +113,8 @@ var happiness = 0
 var changeInWaterHeight = 0
 # Tracks what connections a tile has to its neighbors with roads
 var connections = [0,0,0,0]
-
+var sensor = TileSensor.NONE
+var sensor_active = false
 # Economy AI: equation coefficient constants
 var desirability = 0.2
 const BASE_DESIRABILITY = 0.2
@@ -103,6 +129,16 @@ const RESIDENTIAL_NEIGHBOR = 0.05
 const COMMERCIAL_NEIGHBOR = 0.10
 const INDUSTRIAL_NEIGHBOR = -0.2
 const PUBLIC_WORKS_NEIGHBORS = 0.075
+const PARK_NEIGHBORS = 0.1
+const LIBRARY_NEIGHBORS = 0.2
+const MUSEUM_NEIGHBORS = 0.2
+const SCHOOL_NEIGHBORS = 0.2
+
+#These 3 give a one time boost
+const FIRE_STATION_NEIGHBORS = 0.3
+const POLICE_STATION_NEIGHBORS = 0.3
+const HOSPITAL_NEIGHBORS = 0.3
+
 const NUMBER_ZONES = 0.01
 const NUMBER_PEOPLE = 0.001
 const PROP_TAX_HEAVY = -0.1
@@ -121,6 +157,7 @@ const GROWTH = .001
 # Economy AI: Equation variable booleans & values
 var is_close_water = false
 var is_far_water = false
+var bridge_connected_to_dirt = false
 var tile_base_dirt = false
 var tile_base_rock = false
 var tile_base_sand = false
@@ -128,6 +165,15 @@ var residential_neighbors = 0
 var commercial_neighbors = 0
 var industrial_neighbors = 0
 var public_works_neighbors = 0
+var public_works_dictionary = {
+	"parks": 0,
+	"libraries": 0,
+	"museums": 0,
+	"school": 0,
+	"fire_stations": 0,
+	"hospitals": 0,
+	"police_stations": 0
+}
 var prop_tax_weight = 0
 var is_sales_tax_heavy = false
 var is_sales_tax_neutral = false
@@ -216,6 +262,9 @@ func lower_tile():
 	baseHeight -= 1
 	if baseHeight < 0:
 		baseHeight = 0
+
+func set_height_zero():
+	baseHeight = 0
 
 func raise_water():
 	waterHeight += 3
@@ -428,8 +477,46 @@ func clear_house():
 		remove_building()
 	data = [0, 0, 0, 0, 0]
 
+func clear_sensor():
+	sensor = TileSensor.NONE
+
 func get_data():
 	return data
+
+func get_public_works_value():
+	var value = 0
+	#This was the calculation I came up with for diminishing returns. Each of the same neighbor provides less value
+	var parkValue = PARK_NEIGHBORS
+	for i in range(public_works_dictionary['parks']):
+		value += parkValue
+		parkValue -= 0.025
+		if parkValue <= 0:
+			break
+	var libraryValue = LIBRARY_NEIGHBORS
+	for i in range(public_works_dictionary['libraries']):
+		value += libraryValue
+		libraryValue -= 0.025
+		if libraryValue <= 0:
+			break
+	var museumValue = MUSEUM_NEIGHBORS
+	for i in range(public_works_dictionary['museums']):
+		value += museumValue
+		museumValue -= 0.025
+		if museumValue <= 0:
+			break
+	var schoolValue = SCHOOL_NEIGHBORS
+	for i in range(public_works_dictionary['schools']):
+		value += schoolValue
+		schoolValue -= 0.025
+		if schoolValue <= 0:
+			break
+	if public_works_dictionary['fire_stations'] > 0:
+		value += FIRE_STATION_NEIGHBORS
+	if public_works_dictionary['hospitals'] > 0:
+		value += HOSPITAL_NEIGHBORS
+	if public_works_dictionary['police_stations'] > 0:
+		value += POLICE_STATION_NEIGHBORS
+	return value
 
 func _ready():
 	pass

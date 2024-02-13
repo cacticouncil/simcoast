@@ -13,7 +13,7 @@ const MAX_HEIGHT = 40				# Maximum vertical height for any tile
 const MIN_MAP_SIZE = 8
 const MAX_MAP_SIZE = 64
 
-const MAX_CONNECTION_HEIGHT = 3		# Largest amount of height allowed to consider tiles connected
+const MAX_CONNECTION_HEIGHT = 100		# Largest amount of height allowed to consider tiles connected
 
 const TICK_DELAY = 0.05#Time between ticks
 
@@ -77,11 +77,23 @@ enum Tool {
 	ZONE_COM,
 	ADD_COM_BLDG,
 	ADD_COM_PERSON,
+	INF_FIRE_STATION,
+	INF_HOSPITAL,
+	INF_POLICE_STATION,
 	INF_PARK,
+	INF_LIBRARY,
+	INF_MUSEUM,
+	INF_SCHOOL,
 	INF_ROAD,
+	INF_BRIDGE,
+	INF_SEWAGE_FACILITY,
+	INF_WASTE_TREATMENT,
 	INF_UTILITIES_PLANT,
 	INF_BEACH_ROCKS,
 	INF_BEACH_GRASS,
+	SENSOR_TIDE,
+	SENSOR_RAIN,
+	WATER,
 	CLEAR_TILE,
 	REPAIR,
 	LAYER_WATER,
