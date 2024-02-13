@@ -52,10 +52,10 @@ func _draw():
 			
 			# If building is undamaged, draw occupancy percentage colors on the sides of the buildings
 			if tile.get_status() == Tile.TileStatus.NONE:
-				if tile.get_zone() == Tile.TileZone.LIGHT_RESIDENTIAL || tile.get_zone() == Tile.TileZone.HEAVY_RESIDENTIAL:
+				if tile.get_zone() == Tile.TileZone.SINGLE_FAMILY || tile.get_zone() == Tile.TileZone.MULTI_FAMILY:
 					draw_polygon(b[3].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[0]]))
 					draw_polygon(b[4].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[1]]))
-				elif tile.get_zone() == Tile.TileZone.LIGHT_COMMERCIAL || tile.get_zone() == Tile.TileZone.HEAVY_COMMERCIAL:
+				elif tile.is_commercial():
 					draw_polygon(b[3].get_polygon(), PoolColorArray([Tile.COM_OCCUPANCY_COLOR[0]]))
 					draw_polygon(b[4].get_polygon(), PoolColorArray([Tile.COM_OCCUPANCY_COLOR[1]]))
 			
@@ -79,6 +79,59 @@ func _draw():
 			draw_polygon(s[2].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[2]]))
 			draw_polygon(s[0].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[0]]))
 			
+	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.SEWAGE_FACILITY_COLOR[3])
+		
+	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.WASTE_TREATMENT_COLOR[3])
+		
+	elif tile.inf == Tile.TileInf.LIBRARY:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.LIBRARY_COLOR[3])
+		
+	elif tile.inf == Tile.TileInf.MUSEUM:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.MUSEUM_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.MUSEUM_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.MUSEUM_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.MUSEUM_COLOR[3])
+		
+	elif tile.inf == Tile.TileInf.SCHOOL:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.SCHOOL_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.SCHOOL_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.SCHOOL_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.SCHOOL_COLOR[3])
+		
+	elif tile.inf == Tile.TileInf.FIRE_STATION:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.FIRE_STATION_COLOR[3])
+	elif tile.inf == Tile.TileInf.HOSPITAL:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.HOSPITAL_COLOR[3])
+	elif tile.inf == Tile.TileInf.POLICE_STATION:
+		var b = objects.pop_front()
+		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[1]]))
+		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[2]]))
+		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[0]]))
+		draw_polyline(b[0].get_polygon(), Tile.POLICE_STATION_COLOR[3])
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		for r in objects:
 			draw_polygon(r[1].get_polygon(), PoolColorArray([Tile.BEACH_ROCK_COLOR[1]]))
@@ -92,6 +145,24 @@ func _draw():
 	elif tile.inf == Tile.TileInf.ROAD:
 		for r in objects:
 			draw_polygon(r, PoolColorArray([Tile.ROAD_COLOR[0]]))
+	elif tile.inf == Tile.TileInf.BRIDGE:
+		draw_polygon(objects[0], PoolColorArray([Tile.BRIDGE_COLOR[1]]))
+		for r in objects.slice(1, objects.size() - 1):
+			draw_polygon(r, PoolColorArray([Tile.BRIDGE_COLOR[0]]))
+	elif tile.sensor == Tile.TileSensor.TIDE:
+		if tile.sensor_active == true:
+			for s in objects:
+				draw_circle(s,3,Color("D2042D"))
+		else:
+			for s in objects:
+				draw_circle(s,3,Color("808080"))
+	elif tile.sensor == Tile.TileSensor.RAIN:
+		if tile.sensor_active == true:
+			for s in objects:
+				draw_circle(s,3,Color("515ADD"))
+		else:
+			for s in objects:
+				draw_circle(s,3,Color("808080"))
 
 func clear_objects():
 	for o in objects:
@@ -235,6 +306,158 @@ func update_polygons():
 				update_cube(s, stack_x, stack_y, stack_width, stack_depth, stack_height, building_height, 0)
 				objects.append(s)
 				
+	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+	
+	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+	
+	elif tile.inf == Tile.TileInf.LIBRARY:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+		
+	elif tile.inf == Tile.TileInf.MUSEUM:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+	
+	elif tile.inf == Tile.TileInf.SCHOOL:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+
+	elif tile.inf == Tile.TileInf.FIRE_STATION:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+	
+	elif tile.inf == Tile.TileInf.HOSPITAL:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+		
+	elif tile.inf == Tile.TileInf.POLICE_STATION:
+		clear_objects()
+		var building_width = Global.TILE_WIDTH - 10
+		var building_depth = building_width / 2.0
+		var building_height = 15
+		
+		if w > building_height:
+			building_visible = false
+		else:
+			building_visible = true
+		
+		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+		
+		var building_x = x
+		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
+		objects.append(b)
+
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
 		clear_objects()
@@ -275,7 +498,86 @@ func update_polygons():
 					Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
 					Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
 				]))
-				
+	elif tile.inf == Tile.TileInf.BRIDGE:
+		clear_objects()
+		#var tileHeight = Global.TILE_HEIGHT
+		var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
+		var numNeighbors = 0
+		h = 0
+		for n in neighbors:
+			if is_valid_tile(n[0], n[1]):
+				var neighbor = Global.tileMap[n[0]][n[1]]
+				if neighbor.get_base() == Tile.TileBase.DIRT:
+					h += neighbor.baseHeight
+					numNeighbors += 1
+		if numNeighbors > 0:
+			h = h / numNeighbors
+			tile.bridgeHeight = h
+			tile.bridge_connected_to_dirt = true
+		else:
+			#We have no dirt tiles, we should match bridge heights around us
+			for n in neighbors:
+				if is_valid_tile(n[0], n[1]):
+					var neighbor = Global.tileMap[n[0]][n[1]]
+					if neighbor.inf == Tile.TileInf.BRIDGE && neighbor.bridge_connected_to_dirt:
+						h += neighbor.bridgeHeight
+						numNeighbors += 1
+			if numNeighbors > 0:
+				h = h / numNeighbors
+				tile.bridgeHeight = h
+				tile.bridge_connected_to_dirt = true
+			else:
+				h = Global.oceanHeight
+				tile.bridgeHeight = h
+		var building_width = Global.TILE_WIDTH
+		var building_depth = building_width / 2.0
+		var building_height = 0
+		var cube_x = x
+		var cube_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+		
+		objects.append(PoolVector2Array([
+			Vector2(cube_x, cube_y - building_height), 
+			Vector2(cube_x + (building_width / 2.0), cube_y - building_height + (building_depth / 2.0)), 
+			Vector2(cube_x, cube_y - building_height + building_depth), 
+			Vector2(cube_x - (building_width / 2.0), cube_y - building_height + (building_depth / 2.0)), 
+			Vector2(cube_x, cube_y - building_height)
+			]))
+		
+		if tile.connections[(0 + Global.camDirection) % 4]:
+			objects.append(PoolVector2Array([
+				Vector2(x - (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (1.0 / 8.0))),
+				Vector2(x - (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (3.0 / 8.0))),
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
+				Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
+			]))
+		if tile.connections[(1 + Global.camDirection) % 4]:
+			objects.append(PoolVector2Array([
+				Vector2(x + (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (1.0 / 8.0))),
+				Vector2(x + (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (3.0 / 8.0))),
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
+				Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
+			]))
+		if tile.connections[(2 + Global.camDirection) % 4]:
+			objects.append(PoolVector2Array([
+				Vector2(x + (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (5.0 / 8.0))),
+				Vector2(x + (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (7.0 / 8.0))),
+				Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0))),
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0)))
+			]))
+		if tile.connections[(3 + Global.camDirection) % 4]:
+			objects.append(PoolVector2Array([
+				Vector2(x - (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (7.0 / 8.0))),
+				Vector2(x - (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (5.0 / 8.0))),
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0))),
+				Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
+			]))
+		if !tile.connections[0] && !tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
+			objects.append(PoolVector2Array([
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0))),
+				Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0))),
+				Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
+				Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
+			]))
 	# Create simple rocks to display beach rocks
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		clear_objects()
@@ -313,6 +615,12 @@ func update_polygons():
 			
 			update_rock(r, rock_x, rock_y, rock_width, rock_depth, rock_height, w)
 			objects.append(r)
+	# tide sensor marker
+	elif tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN:
+		var sens_x = x
+		var sens_y = y - h + (Global.TILE_HEIGHT / 2.0) / 2.0
+			
+		objects.append(Vector2(sens_x, sens_y))
 	
 	# Generate building polygons depending on density and water height
 	elif tile.has_building():
@@ -324,69 +632,108 @@ func update_polygons():
 		var building_height = 0
 		var building_x = 0
 		var building_y = 0
-
-		if tile.is_light_zoned():
-			building_width = Global.TILE_WIDTH / 4.0
-			building_depth = building_width / 2.0
-			building_height = 5
-			
-			if w > building_height:
-				building_visible = false
-			else:
-				building_visible = true
-			
-			for z in num_buildings:
-				var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-				var occupancy = 0.0
+		match tile.get_zone():
+			Tile.TileZone.COMMERCIAL:
+				building_width = Global.TILE_WIDTH / 4.0
+				building_depth = building_width / 2.0
+				building_height = 5
 				
-				match z:
-					0:
-						building_x = x
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
-						if tile.data[2] > 0:
-							occupancy = 1.0
-					1:
-						building_x = x
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
-						if tile.data[2] > 4:
-							occupancy = 1.0
-					2:
-						building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
-						if tile.data[2] > 8:
-							occupancy = 1.0
-					3:
-						building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
-						building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
-						if tile.data[2] > 12:
-							occupancy = 1.0
-			
-				update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
-				objects.append(b)
+				if w > building_height:
+					building_visible = false
+				else:
+					building_visible = true
+				
+				for z in num_buildings:
+					var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+					var occupancy = 0.0
+					
+					match z:
+						0:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
+							if tile.data[2] > 0:
+								occupancy = 1.0
+						1:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
+							if tile.data[2] > 4:
+								occupancy = 1.0
+						2:
+							building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 8:
+								occupancy = 1.0
+						3:
+							building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 12:
+								occupancy = 1.0
+				
+					update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
+					objects.append(b)
+					
+			Tile.TileZone.SINGLE_FAMILY:
+				building_width = Global.TILE_WIDTH / 4.0
+				building_depth = building_width / 2.0
+				building_height = 5
+
+				if w > building_height:
+					building_visible = false
+				else:
+					building_visible = true
+
+				for z in num_buildings:
+					var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+					var occupancy = 0.0
+
+					match z:
+						0:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
+							if tile.data[2] > 0:
+								occupancy = 1.0
+						1:
+							building_x = x
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
+							if tile.data[2] > 1:
+								occupancy = 1.0
+						2:
+							building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 2:
+								occupancy = 1.0
+						3:
+							building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
+							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
+							if tile.data[2] > 3:
+								occupancy = 1.0
+
+					update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
+					objects.append(b)
 
 		# Draws a single building whose size is scaled to number of buildings
-		elif tile.is_heavy_zoned():
-			building_width = (Global.TILE_WIDTH / 2.0) + (2 * num_buildings) 
-			building_depth = building_width / 2.0
-			building_height = 10 + (3 * num_buildings)
+			Tile.TileZone.MULTI_FAMILY:
+				building_width = (Global.TILE_WIDTH / 2.0) + (2 * num_buildings) 
+				building_depth = building_width / 2.0
+				building_height = 10 + (3 * num_buildings)
 
-			if w > building_height:
-				building_visible = false
-			else:
-				building_visible = true
-			
-			var occupancy = 0
-			if tile.data[3] != 0:
-				occupancy = float(tile.data[2]) / float(tile.data[3])
-			
-			var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-			
-			building_x = x
-			building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
+				if w > building_height:
+					building_visible = false
+				else:
+					building_visible = true
+				
+				var occupancy = 0
+				if tile.data[3] != 0:
+					occupancy = float(tile.data[2]) / float(tile.data[3])
+				
+				var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+				
+				building_x = x
+				building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
 
-			update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
+				update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
 
-			objects.append(b)
+				objects.append(b)
 	
 	# Set the clickable area of the polygon (the entire base cube)
 	coll.set_polygon(PoolVector2Array([
@@ -436,18 +783,15 @@ func get_cube_colors():
 
 	# Change base top color and outline if tile is zoned
 	match tile.get_zone():
-		Tile.TileZone.LIGHT_RESIDENTIAL:
-			colors[0] = Tile.LT_RES_ZONE_COLOR[0]
-			colors[3] = Tile.LT_RES_ZONE_COLOR[1]
-		Tile.TileZone.HEAVY_RESIDENTIAL:
-			colors[0] = Tile.HV_RES_ZONE_COLOR[0]
-			colors[3] = Tile.HV_RES_ZONE_COLOR[1]
-		Tile.TileZone.LIGHT_COMMERCIAL:
-			colors[0] = Tile.LT_COM_ZONE_COLOR[0]
-			colors[3] = Tile.LT_COM_ZONE_COLOR[1]
-		Tile.TileZone.HEAVY_COMMERCIAL:
-			colors[0] = Tile.HV_COM_ZONE_COLOR[0]
-			colors[3] = Tile.HV_COM_ZONE_COLOR[1]
+		Tile.TileZone.SINGLE_FAMILY:
+			colors[0] = Tile.SINGLE_FAMILY_ZONE_COLOR[0]
+			colors[3] = Tile.SINGLE_FAMILY_ZONE_COLOR[1]
+		Tile.TileZone.MULTI_FAMILY:
+			colors[0] = Tile.MULTI_FAMILY_ZONE_COLOR[0]
+			colors[3] = Tile.MULTI_FAMILY_ZONE_COLOR[1]
+		Tile.TileZone.COMMERCIAL:
+			colors[0] = Tile.COM_ZONE_COLOR[0]
+			colors[3] = Tile.COM_ZONE_COLOR[1]
 
 	match tile.inf:
 		Tile.TileInf.PARK:
@@ -455,6 +799,9 @@ func get_cube_colors():
 			colors[3] = Tile.PARK_COLOR[1]
 		Tile.TileInf.ROAD:
 			colors[0] = Tile.ROCK_COLOR[0]
+		#Tile.TileInf.BRIDGE:
+			#colors[0] = Tile.ROCK_COLOR[0]
+	
 
 	return colors
 
@@ -560,3 +907,10 @@ func adjust_coordinates(a, b):
 	x = (a * (Global.TILE_WIDTH / 2.0)) + (b * (-Global.TILE_WIDTH / 2.0))
 	y = (a * (Global.TILE_HEIGHT / 2.0)) + (b * (Global.TILE_HEIGHT / 2.0))
 	update_polygons()
+
+func is_valid_tile(i, j) -> bool:
+	if i < 0 || Global.mapWidth <= i:
+		return false
+	if j < 0 || Global.mapHeight <= j:
+		return false
+	return true

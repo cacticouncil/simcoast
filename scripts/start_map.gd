@@ -6,7 +6,7 @@ var copyTile				# Stores tile to use when copy/pasting tiles on the map
 var tickDelay = Global.TICK_DELAY #time in seconds between ticks
 var numTicks = 0 #time elapsed since start
 var isFastFWD = false
-
+var current_sensor_tile
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initCamera()
@@ -14,22 +14,18 @@ func _ready():
 #	loadMapData("res://saves/default.json")
 	loadMapData("default.json")
 	initObservers()
-	$HUD/TopBar/HBoxContainer/Money.text = "Player Money: $" + Econ.comma_values(str(Econ.money))
-	$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
-	$HUD/TopBar/HBoxContainer/City_Tax_Rate.text = "Tax Rate: " + str(Econ.city_tax_rate * 100) + "%"
-	$HUD/TopBar/HBoxContainer/Population.text = "Total Population: " + str(UpdatePopulation.get_population())
-	$HUD/TopBar/HBoxContainer/Demand.text = "Residential Demand: " + str(UpdateDemand.calcResidentialDemand()) + "/10" + " Commercial Demand: " + str(UpdateDemand.calcCommercialDemand()) + "/10"
+	$HUD/HBoxContainer/Money.text = "$" + Econ.comma_values(str(Econ.money))
+	#$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
+	#$HUD/TopBar/HBoxContainer/City_Tax_Rate.text = "Tax Rate: " + str(Econ.city_tax_rate * 100) + "%"
+	$HUD/HBoxContainer/Population.text = str(UpdatePopulation.get_population())
+	#$HUD/TopBar/HBoxContainer/Demand.text = "Residential Demand: " + str(UpdateDemand.calcResidentialDemand()) + "/10" + " Commercial Demand: " + str(UpdateDemand.calcCommercialDemand()) + "/10"
 	$HUD/Date/Year.text = str(UpdateDate.year)
 	$HUD/Date/Month.text = UpdateDate.Months.keys()[UpdateDate.month]
 	
 
 func initSave_Exit():
-	$HUD/ToolMenu/VBoxContainer/VBoxContainer/save_button.connect("pressed", self, "_on_SaveButton_pressed")
-	$HUD/ToolMenu/VBoxContainer/VBoxContainer/load_button.connect("pressed", self, "_on_LoadButton_pressed")
 	$Popups/SaveDialog.connect("file_selected", self, "_on_file_selected_save")
 	$Popups/LoadDialog.connect("file_selected", self, "_on_file_selected_load")
-	$HUD/ToolMenu/VBoxContainer/VBoxContainer/exit_button.connect("pressed", self, "_on_ExitButton_pressed")
-
 # Set camera to start at middle of map, and set camera edge limits
 # Width/height is number of map tiles
 func initCamera():
@@ -38,6 +34,9 @@ func initCamera():
 	
 	# Use the player starting tile to calculate camera position
 	$Camera2D.position.y = mid_y
+	
+	#Change offeset so it's the center of the actual area
+	$Camera2D.offset.x = -75 #75 since toolbar is 150 so half of that
 	
 	$Camera2D.limit_left = (mid_x * -1) - Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_top = -Global.MAP_EDGE_BUFFER
@@ -100,7 +99,7 @@ func clear_mission_tip():
 
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):
-	var actionText = get_node("HUD/TopBar/ActionText")
+	var actionText = get_node("HUD/BottomBar/HoverText")
 	
 	if event is InputEventMouseButton and event.pressed:
 		actionText.text = ""
@@ -139,58 +138,54 @@ func _unhandled_input(event):
 					City.adjust_tile_height(tile)
 			
 			Global.Tool.BASE_OCEAN:
-				if tile.get_base() != Tile.TileBase.OCEAN:
+				if tile.get_base() != Tile.TileBase.OCEAN && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE && Econ.purchase_structure(Econ.WATER_COST):
 					tile.clear_tile()
 					tile.set_base(Tile.TileBase.OCEAN)
 					tile.set_base_height(Global.oceanHeight)
 					tile.set_water_height(0)
+			
+			Global.Tool.BASE_SAND:
+				City.adjust_tile_height(tile)
 	
 			# Clear and zone a tile (if it is not already of the same zone)
-			Global.Tool.ZONE_LT_RES, Global.Tool.ZONE_HV_RES, Global.Tool.ZONE_LT_COM, Global.Tool.ZONE_HV_COM:
+			Global.Tool.ZONE_SINGLE_FAMILY, Global.Tool.ZONE_MULTI_FAMILY, Global.Tool.ZONE_COM:
 				if !tile.can_zone():
 					return
 
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					match Global.mapTool:
-						Global.Tool.ZONE_LT_RES:
-							if tile.get_zone() != Tile.TileZone.LIGHT_RESIDENTIAL:
+						Global.Tool.ZONE_SINGLE_FAMILY:
+							if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.LIGHT_RESIDENTIAL)
-						Global.Tool.ZONE_HV_RES:
-							if tile.get_zone() != Tile.TileZone.HEAVY_RESIDENTIAL:
+								tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
+						Global.Tool.ZONE_MULTI_FAMILY:
+							if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
 								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
 								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.HEAVY_RESIDENTIAL)
-						Global.Tool.ZONE_LT_COM:
-							if tile.get_zone() != Tile.TileZone.LIGHT_COMMERCIAL:
+								tile.set_zone(Tile.TileZone.MULTI_FAMILY)
+						Global.Tool.ZONE_COM:
+							if !tile.is_commercial():
 								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
 								if tile.has_utilities():
 									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
 								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.LIGHT_COMMERCIAL)
-						Global.Tool.ZONE_HV_COM:
-							if tile.get_zone() != Tile.TileZone.HEAVY_COMMERCIAL:
-								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
-								if tile.has_utilities():
-									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
-								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.HEAVY_COMMERCIAL)
+								tile.set_zone(Tile.TileZone.COMMERCIAL)
 								
 				elif Input.is_action_pressed("right_click"):	
 					tile.clear_tile()					
 
 			# Add/Remove Buildings
 			Global.Tool.ADD_RES_BLDG:
-				if tile.get_zone() == Tile.TileZone.LIGHT_RESIDENTIAL || tile.get_zone() == Tile.TileZone.HEAVY_RESIDENTIAL:
+				if tile.is_residential():
 					City.adjust_building_number(tile)
 
 			Global.Tool.ADD_COM_BLDG:
-				if tile.get_zone() == Tile.TileZone.LIGHT_COMMERCIAL || tile.get_zone() == Tile.TileZone.HEAVY_COMMERCIAL:
+				if tile.is_commercial():
 					City.adjust_building_number(tile)
 
 			# Add/Remove People
@@ -215,9 +210,15 @@ func _unhandled_input(event):
 				tile.clear_tile()
 				
 			Global.Tool.INF_UTILITIES_PLANT:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.UTILITIES_PLANT):
-						if (Econ.purchase_structure(Econ.UTILITIES_PLANT_COST)):
+						if (Inventory.removeIfHave('utility plant')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.UTILITIES_PLANT
+							City.connectUtilities()
+							City.numUtilityPlants += 1
+							Announcer.notify(Event.new("Added Tile", "Added Power Plant", 1))
+						elif (Econ.purchase_structure(Econ.UTILITIES_PLANT_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.UTILITIES_PLANT
 							City.connectUtilities()
@@ -232,11 +233,61 @@ func _unhandled_input(event):
 						tile.clear_tile()
 						City.connectUtilities()
 						City.numUtilityPlants -= 1
+			
+			Global.Tool.INF_SEWAGE_FACILITY:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
+					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.SEWAGE_FACILITY):
+						if (Inventory.removeIfHave('sewage facility')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.SEWAGE_FACILITY
+							City.numSewageFacilities += 1
+							Announcer.notify(Event.new("Added Tile", "Added Sewage Facility", 1))
+						elif (Econ.purchase_structure(Econ.SEWAGE_FACILITY_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.SEWAGE_FACILITY
+							City.numSewageFacilities += 1
+							Announcer.notify(Event.new("Added Tile", "Added Sewage Facility", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.SEWAGE_FACILITY):
+						actionText.text = "Cannot build here!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.SEWAGE_FACILITY:
+						tile.clear_tile()
+						City.numSewageFacilities -= 1
+			
+			Global.Tool.INF_WASTE_TREATMENT:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
+					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.WASTE_TREATMENT):
+						if (Inventory.removeIfHave('waste treatment')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.WASTE_TREATMENT
+							City.numWasteTreatment += 1
+							Announcer.notify(Event.new("Added Tile", "Added Waste Treatment Facility", 1))
+						elif (Econ.purchase_structure(Econ.WASTE_TREATMENT_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.WASTE_TREATMENT
+							City.numWasteTreatment += 1
+							Announcer.notify(Event.new("Added Tile", "Added Waste Treatment Facility", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.WASTE_TREATMENT):
+						actionText.text = "Cannot build here!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.WASTE_TREATMENT:
+						tile.clear_tile()
+						City.numWasteTreatment -= 1
 						
 			Global.Tool.INF_PARK:
-				if Input.is_action_pressed("left_click"):
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.PARK):
-						if (Econ.purchase_structure(Econ.PARK_COST)):
+						if (Inventory.removeIfHave('park')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.PARK
+							tile.zone = Tile.TileZone.PUBLIC_WORKS
+							City.numParks += 1
+							Announcer.notify(Event.new("Added Tile", "Added Park", 1))
+						elif (Econ.purchase_structure(Econ.PARK_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.PARK
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
@@ -253,10 +304,198 @@ func _unhandled_input(event):
 						tile.clear_tile()
 						City.numParks -= 1
 			
-			Global.Tool.INF_ROAD:
+			Global.Tool.INF_LIBRARY:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.LIBRARY):
+						if (Inventory.removeIfHave('library')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.LIBRARY
+							tile.zone = Tile.TileZone.PUBLIC_WORKS
+							City.numLibraries += 1
+							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
+						elif (Econ.purchase_structure(Econ.LIBRARY_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.LIBRARY
+							tile.zone = Tile.TileZone.PUBLIC_WORKS
+							City.numLibraries += 1
+							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.LIBRARY):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Libraries must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.LIBRARY:
+						tile.clear_tile()
+						City.numLibraries -= 1
+			
+			Global.Tool.INF_MUSEUM:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.MUSEUM):
+						if (Inventory.removeIfHave('museum')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.MUSEUM
+							tile.zone = Tile.TileZone.PUBLIC_WORKS
+							City.numMuseums += 1
+							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
+						elif (Econ.purchase_structure(Econ.MUSEUM_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.MUSEUM
+							tile.zone = Tile.TileZone.PUBLIC_WORKS
+							City.numMuseums += 1
+							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.MUSEUM):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Museums must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.MUSEUM:
+						tile.clear_tile()
+						City.numMuseums -= 1
+			
+			Global.Tool.INF_FIRE_STATION:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.FIRE_STATION):
+						if (Inventory.removeIfHave('fire station')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.FIRE_STATION
+							City.numFireStations += 1
+							Announcer.notify(Event.new("Added Tile", "Added Fire Station", 1))
+						elif (Econ.purchase_structure(Econ.FIRE_STATION_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.FIRE_STATION
+							City.numFireStations += 1
+							Announcer.notify(Event.new("Added Tile", "Added Fire Station", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.FIRE_STATION):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Fire stations must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.FIRE_STATION:
+						tile.clear_tile()
+						City.numFireStations -= 1
+			
+			Global.Tool.INF_HOSPITAL:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.HOSPITAL):
+						if (Inventory.removeIfHave('hospital')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.HOSPITAL
+							City.numHospital += 1
+							Announcer.notify(Event.new("Added Tile", "Added Hospital", 1))
+						elif (Econ.purchase_structure(Econ.HOSPITAL_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.HOSPITAL
+							City.numHospital += 1
+							Announcer.notify(Event.new("Added Tile", "Added Hospital", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.HOSPITAL):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Hospitals must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.HOSPITAL:
+						tile.clear_tile()
+						City.numHospital -= 1
+			
+			Global.Tool.INF_POLICE_STATION:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.POLICE_STATION):
+						if (Inventory.removeIfHave('police station')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.POLICE_STATION
+							City.numPoliceStations += 1
+							Announcer.notify(Event.new("Added Tile", "Added Police Station", 1))
+						elif (Econ.purchase_structure(Econ.POLICE_STATION_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.POLICE_STATION
+							City.numPoliceStations += 1
+							Announcer.notify(Event.new("Added Tile", "Added Police Station", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.POLICE_STATION):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Police stations must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.POLICE_STATION:
+						tile.clear_tile()
+						City.numPoliceStations -= 1
+			
+			Global.Tool.INF_SCHOOL:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
+					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.SCHOOL):
+						if (Inventory.removeIfHave('school')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.SCHOOL
+							City.numSchools += 1
+							Announcer.notify(Event.new("Added Tile", "Added School", 1))
+						elif (Econ.purchase_structure(Econ.SCHOOL_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.SCHOOL
+							City.numSchools += 1
+							Announcer.notify(Event.new("Added Tile", "Added School", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.SCHOOL):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Schools must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.SCHOOL:
+						tile.clear_tile()
+						City.numSchools -= 1
+			
+			Global.Tool.SENSOR_TIDE:
 				if Input.is_action_pressed("left_click"):
+					#if (tile.get_base() == Tile.TileBase.DIRT && tile.sensor != Tile.TileSensor.TIDE):
+					if (Inventory.has_building("tide sensor")):
+						current_sensor_tile = tile
+						$SensorChoice/ColorRect.visible = true
+					else:
+						print("No available sensors!")
+					#if(can_place_sensor):
+					#	if (tile.sensor != Tile.TileSensor.TIDE):
+					#		if (Inventory.has_building("tide sensor")):
+					#			tile.sensor = Tile.TileSensor.TIDE
+					#			Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
+					#			Inventory.remove_building("tide sensor")
+					#		else:
+					#			print("No available sensors!")
+					#	elif (tile.sensor == Tile.TileSensor.TIDE):
+					#		actionText.text = "Sensor already here!"
+					#	else:
+					#		actionText.text = "Different sensor here"
+				elif Input.is_action_pressed("right_click"):
+					if tile.sensor == Tile.TileSensor.TIDE:
+						tile.clear_sensor()
+			Global.Tool.SENSOR_RAIN:
+				if Input.is_action_pressed("left_click"):
+					if (Inventory.has_building("rain sensor")):
+						current_sensor_tile = tile
+						$SensorChoice/ColorRect.visible = true
+					else:
+						print("No available sensors!")
+				elif Input.is_action_pressed("right_click"):
+					if tile.sensor == Tile.TileSensor.RAIN:
+						tile.clear_sensor()
+			Global.Tool.INF_ROAD:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.ROAD):
-						if (Econ.purchase_structure(Econ.ROAD_COST)):
+						if (Inventory.removeIfHave('road')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.ROAD
+							City.connectRoads(tile)
+							City.connectUtilities()
+							City.numRoads += 1
+							Announcer.notify(Event.new("Added Tile", "Added Road", 1))
+						elif (Econ.purchase_structure(Econ.ROAD_COST)):
 							tile.clear_tile()
 							tile.inf = Tile.TileInf.ROAD
 							City.connectRoads(tile)
@@ -275,6 +514,38 @@ func _unhandled_input(event):
 						City.connectRoads(tile)
 						City.connectUtilities()
 						City.numRoads -= 1
+			
+			Global.Tool.INF_BRIDGE:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
+					if (tile.get_base() == Tile.TileBase.OCEAN && tile.inf != Tile.TileInf.BRIDGE):
+						if (Inventory.removeIfHave('bridge')):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.BRIDGE
+							City.connectRoads(tile)
+							City.connectUtilities()
+							City.numBridges += 1
+							Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
+						elif (Econ.purchase_structure(Econ.BRIDGE_COST)):
+							tile.clear_tile()
+							tile.inf = Tile.TileInf.BRIDGE
+							City.connectRoads(tile)
+							City.connectUtilities()
+							City.numBridges += 1
+							Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
+						else:
+							actionText.text = "Not enough funds!"
+					elif (tile.inf == Tile.TileInf.BRIDGE):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Bridge not buildable on tile base type"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.BRIDGE:
+						tile.clear_tile()
+						tile.bridgeHeight = 0
+						City.disconnectBridges(tile)
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numBridges -= 1
 
 			Global.Tool.INF_BEACH_ROCKS:
 				if tile.get_base() == Tile.TileBase.SAND:
@@ -345,7 +616,7 @@ func saveMapData(mapPath):
 	var pathValues = SaveLoad.saveData(mapPath) 
 	var correctMapName = pathValues[0]
 	currMapPath = pathValues[1]
-	get_node("HUD/TopBar/ActionText").text = "Map file '%s'.json saved" % [correctMapName]
+	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json saved" % [correctMapName]
 
 func loadMapData(filename):
 	# var file = File.new()
@@ -386,7 +657,7 @@ func loadMapData(filename):
 
 	var mapName = SaveLoad.loadData(path_to_open)
 	$VectorMap.loadMap()
-	get_node("HUD/TopBar/ActionText").text = "Map file '%s'.json loaded" % [mapName]
+	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json loaded" % [mapName]
 	City.connectUtilities()
 
 
@@ -409,7 +680,7 @@ func _on_file_selected_load(filePath):
 func _on_file_selected_save(filePath):
 	print("File Selected: ", filePath)
 	saveMapData(filePath)
-	$HUD/TopBar/ActionText.text = "Map Data Saved"
+	$HUD/BottomBar/HoverText.text = "Map Data Saved"
 
 func _on_ExitButton_pressed():
 	get_tree().quit()
@@ -459,7 +730,6 @@ func update_game_state():
 	Econ.calcCityIncome()
 	Econ.calculate_upkeep_costs()
 	UpdateDate.update_date()
-	
 func update_graphics():
 	#print("Updating graphics on tick: " + str(numTicks))
 	UpdateGraphics.update_graphics()
@@ -471,3 +741,42 @@ func _on_play_button_toggled(button_pressed:bool):
 
 func _on_fastfwd_button_toggled(button_pressed:bool):
 	isFastFWD = button_pressed
+
+func _on_DashboardButton_pressed():
+	$HUD/TopBarBG/DashboardSelected.visible = true
+	$HUD/TopBarBG/AchievementSelected.visible = false
+	$HUD/TopBarBG/StoreSelected.visible = false
+
+func _on_UIAchievementButton_pressed():
+	$HUD/TopBarBG/DashboardSelected.visible = false
+	$HUD/TopBarBG/AchievementSelected.visible = true
+	$HUD/TopBarBG/StoreSelected.visible = false
+	var AchMenu = preload("res://ui/SubMenu/AchievementMenu.tscn")
+	var AchMenuInstance = AchMenu.instance()
+	add_child(AchMenuInstance)
+
+func _on_StoreButton_pressed():
+	$HUD/TopBarBG/DashboardSelected.visible = false
+	$HUD/TopBarBG/AchievementSelected.visible = false
+	$HUD/TopBarBG/StoreSelected.visible = true
+
+func _on_DashboardButton_mouse_entered():
+	$HUD/TopBarBG/DashboardHover.visible = true
+
+func _on_UIAchievementButton_mouse_entered():
+	$HUD/TopBarBG/AchievementHover.visible = true
+
+func _on_StoreButton_mouse_entered():
+	$HUD/TopBarBG/StoreHover.visible = true
+
+func _on_DashboardButton_mouse_exited():
+	$HUD/TopBarBG/DashboardHover.visible = false
+
+func _on_UIAchievementButton_mouse_exited():
+	$HUD/TopBarBG/AchievementHover.visible = false
+
+func _on_StoreButton_mouse_exited():
+	$HUD/TopBarBG/StoreHover.visible = false
+
+func _on_CloseHelpButton_pressed():
+	$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = false

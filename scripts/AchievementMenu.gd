@@ -51,6 +51,8 @@ func _ready():
 
 func _on_QuitButton_pressed():
 	$QuitButton.material.set_shader_param("value", 1)
+	get_node("/root/CityMap/HUD/TopBarBG/DashboardSelected").visible = true
+	get_node("/root/CityMap/HUD/TopBarBG/AchievementSelected").visible = false
 	get_parent().remove_child(self)
 
 

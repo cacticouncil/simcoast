@@ -12,6 +12,13 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var commercial_neighbor = 0
 	var industrial_neighbor = 0
 	var public_works_neighbors = 0
+	var parks = 0
+	var museums = 0
+	var libraries = 0
+	var schools = 0
+	var fire_stations = 0
+	var hospital = 0
+	var police_stations = 0
 	
 	# Get all neighbors in a circular radius.
 	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1],
@@ -28,16 +35,36 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 			# Check what type of zone the neighbor is
 			var neighbor = Global.tileMap[n[0]][n[1]]
 			match(neighbor.zone):
-				Tile.TileZone.LIGHT_RESIDENTIAL:
+				Tile.TileZone.SINGLE_FAMILY:
 					residential_neighbor += 1
-				Tile.TileZone.HEAVY_RESIDENTIAL:
-					residential_neighbor += 2
-				Tile.TileZone.LIGHT_COMMERCIAL:
+				Tile.TileZone.MULTI_FAMILY:
+					residential_neighbor += 1
+				Tile.TileZone.COMMERCIAL:
 					commercial_neighbor += 	1
-				Tile.TileZone.HEAVY_COMMERCIAL:
-					commercial_neighbor += 2
 				Tile.TileZone.PUBLIC_WORKS:
 					public_works_neighbors += 1
+					match(neighbor.inf):
+						Tile.TileInf.PARK:
+							if neighbor.utilities:
+								parks += 1
+						Tile.TileInf.LIBRARY:
+							if neighbor.utilities:
+								libraries += 1
+						Tile.TileInf.MUSEUM:
+							if neighbor.utilities:
+								museums += 1
+						Tile.TileInf.SCHOOL:
+							if neighbor.utilities:
+								schools += 1
+						Tile.TileInf.FIRE_STATION:
+							if neighbor.utilities:
+								fire_stations += 1
+						Tile.TileInf.HOSPITAL:
+							if neighbor.utilities:
+								hospital += 1
+						Tile.TileInf.POLICE_STATION:
+							if neighbor.utilities:
+								police_stations += 1
 				_:
 					continue
 	
@@ -55,6 +82,13 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	tile.commercial_neighbors = commercial_neighbor
 	tile.industrial_neighbors = industrial_neighbor
 	tile.public_works_neighbors = public_works_neighbors
+	tile.public_works_dictionary['parks'] = parks
+	tile.public_works_dictionary['libraries'] = libraries
+	tile.public_works_dictionary['museums'] = museums
+	tile.public_works_dictionary['schools'] = schools
+	tile.public_works_dictionary['fire_stations'] = fire_stations
+	tile.public_works_dictionary['hospital'] = hospital
+	tile.public_works_dictionary['police_stations'] = police_stations
 	
 	return succeed()
 

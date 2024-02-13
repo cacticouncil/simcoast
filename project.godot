@@ -100,6 +100,11 @@ _global_script_classes=[ {
 "path": "res://addons/behavior_tree/src/blackboard.gd"
 }, {
 "base": "Node",
+"class": "DialogueSystem",
+"language": "GDScript",
+"path": "res://scripts/Dialogue/DialogueSystem.gd"
+}, {
+"base": "Node",
 "class": "Event",
 "language": "GDScript",
 "path": "res://scripts/Event.gd"
@@ -109,15 +114,30 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
 }, {
+"base": "Object",
+"class": "NPC",
+"language": "GDScript",
+"path": "res://scripts/NPC.gd"
+}, {
 "base": "Node",
 "class": "Observer",
 "language": "GDScript",
 "path": "res://scripts/Observers/Observer.gd"
 }, {
 "base": "Node",
+"class": "Sensor",
+"language": "GDScript",
+"path": "res://scripts/Sensor.gd"
+}, {
+"base": "Node",
 "class": "SfxObserver",
 "language": "GDScript",
 "path": "res://scripts/Observers/SfxObserver.gd"
+}, {
+"base": "Node",
+"class": "SuggestionSystem",
+"language": "GDScript",
+"path": "res://scripts/Dialogue/SuggestionSystem.gd"
 }, {
 "base": "Object",
 "class": "Tile",
@@ -148,10 +168,14 @@ _global_script_class_icons={
 "BTWait": "res://addons/behavior_tree/icons/btwait.svg",
 "BehaviorTree": "res://addons/behavior_tree/icons/bt.svg",
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
+"DialogueSystem": "",
 "Event": "",
 "GitAPI": "",
+"NPC": "",
 "Observer": "",
+"Sensor": "",
 "SfxObserver": "",
+"SuggestionSystem": "",
 "Tile": "",
 "TileCube": ""
 }
@@ -175,8 +199,8 @@ UpdateDate="*res://scripts/updateDate.gd"
 UpdateValue="*res://scripts/UpdateValue.gd"
 UpdateHappiness="*res://scripts/UpdateHappiness.gd"
 UpdateDemand="*res://scripts/updateDemand.gd"
-Weather="*res://scripts/Weather.gd"
-UpdateWeather="*res://scripts/UpdateWeather.gd"
+Weather="res://scripts/Weather.gd"
+UpdateWeather="res://scripts/UpdateWeather.gd"
 UpdateGraphics="*res://scripts/updateGraphics.gd"
 UpdateErosion="*res://scripts/updateErosion.gd"
 UpdateWater="*res://scripts/updateWater.gd"
@@ -186,6 +210,13 @@ MissionObserver="*res://scripts/Observers/MissionObserver.gd"
 AchievementObserver="*res://scripts/Observers/AchievementObserver.gd"
 Stats="*res://scripts/Stats.gd"
 NpcObserver="*res://scripts/Observers/NpcObserver.gd"
+NPCOrganizer="*res://scripts/NPCOrganizer.gd"
+Inventory="*res://inventory/Inventory.tscn"
+BadgeObserver="*res://scripts/Observers/BadgeObserver.gd"
+
+[debug]
+
+gdscript/warnings/enable=false
 
 [debug]
 
