@@ -737,9 +737,12 @@ func _on_UIAchievementButton_pressed():
 	add_child(AchMenuInstance)
 
 func _on_StoreButton_pressed():
-	$HUD/TopBarBG/DashboardSelected.visible = false
-	$HUD/TopBarBG/AchievementSelected.visible = false
-	$HUD/TopBarBG/StoreSelected.visible = true
+	var tut = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
+	var TutInstance = tut.instance()
+	add_child(TutInstance)
+	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
+	var TutorialInstance = tutorial.instance()
+	add_child(TutorialInstance)
 
 func _on_DashboardButton_mouse_entered():
 	$HUD/TopBarBG/DashboardHover.visible = true
@@ -758,15 +761,6 @@ func _on_UIAchievementButton_mouse_exited():
 
 func _on_StoreButton_mouse_exited():
 	$HUD/TopBarBG/StoreHover.visible = false
-
-func _on_interaction_button_pressed():
-	var tut = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
-	var TutInstance = tut.instance()
-	add_child(TutInstance)
-	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
-	var TutorialInstance = tutorial.instance()
-	add_child(TutorialInstance)
-
 
 # sensor options -> yes, no, or ask for help
 # yes adds sensor to tile
