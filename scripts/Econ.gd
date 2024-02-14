@@ -40,6 +40,7 @@ const SCHOOL_COST = 3000
 const FIRE_STATION_COST = 5000
 const HOSPITAL_COST = 5000
 const POLICE_STATION_COST = 5000
+const WATER_COST = 5000
 
 #Building upkeep costs
 const UTILITIES_PLANT_UPKEEP_COST = 100
@@ -83,14 +84,26 @@ func purchase_structure(structureCost):
 		get_node("/root/CityMap/HUD/HBoxContainer/Money").text = "$" + comma_values(str(money))
 		return true
 	else:
+		get_node("/root/Overlay").error_pop("Insufficient Funds")
 		return false
 
 func calculate_upkeep_costs():
-
-	city_costs = ((City.numUtilityPlants * UTILITIES_PLANT_UPKEEP_COST) + (City.numParks * PARK_UPKEEP_COST) + (City.numRoads * ROAD_UPKEEP_COST) + \
-	City.numSingleFamilyZones * SINGLE_FAMILY_UPKEEP_COST + City.numMultiFamilyZones * MULTI_FAMILY_UPKEEP_COST + \
-	UpdatePopulation.get_population() * UPKEEP_PER_PERSON)
-
+	city_costs = 0
+	city_costs += City.numUtilityPlants * UTILITIES_PLANT_UPKEEP_COST
+	city_costs += City.numParks * PARK_UPKEEP_COST
+	city_costs += City.numRoads * ROAD_UPKEEP_COST
+	city_costs += City.numBridges * BRIDGE_UPKEEP_COST
+	city_costs += City.numLibraries * LIBRARY_UPKEEP_COST
+	city_costs += City.numMuseums * MUSEUM_UPKEEP_COST
+	city_costs += City.numSchools * SCHOOL_UPKEEP_COST
+	city_costs += City.numFireStations * FIRE_STATION_UPKEEP_COST
+	city_costs += City.numHospital * HOSPITAL_UPKEEP_COST
+	city_costs += City.numPoliceStations * POLICE_STATION_UPKEEP_COST
+	city_costs += City.numSewageFacilities * SEWAGE_FACILITY_UPKEEP_COST
+	city_costs += City.numWasteTreatment * WASTE_TREATMENT_UPKEEP_COST
+	city_costs += City.numSingleFamilyZones * SINGLE_FAMILY_UPKEEP_COST
+	city_costs += City.numMultiFamilyZones * MULTI_FAMILY_UPKEEP_COST
+	city_costs += UpdatePopulation.get_population() * UPKEEP_PER_PERSON
 	
 func updateProfitDisplay():
 	var profit = round(city_income - city_costs)

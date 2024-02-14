@@ -17,9 +17,9 @@ func _ready():
 	#Info for each button, button name will be the first part + '_button'.
 	#Second parameter is for images, utilizes the fact that all file names end in second part + '_normal' or '_active' or '_hover'
 	var infrastructureButtons = [
-		["road", "res://assets/buttons/road"], 
-		["bridge", "res://assets/buttons/bridge"], 
-		["water", "res://assets/buttons/water"]
+		["road", "res://assets/buttons/road", "Road/Power Tile"], 
+		["bridge", "res://assets/buttons/bridge", "Bridge/Power Tile"], 
+		["water", "res://assets/buttons/water", "Lowers tile to water level"]
 	]
 	var infrastructureSection = toolbarSectionScene.instance()
 	#Creates a section of the buttons and takes in the list of ones to add
@@ -29,9 +29,9 @@ func _ready():
 	
 	#Rest of sections all act like above one.
 	var zoneButtons = [
-		["house", "res://assets/buttons/lt_res_zone"], 
-		["apartment", "res://assets/buttons/hv_res_zone"], 
-		["shop", "res://assets/buttons/lt_com_zone"]
+		["house", "res://assets/buttons/lt_res_zone", "House Zone"], 
+		["apartment", "res://assets/buttons/hv_res_zone", "Apartment Zone"], 
+		["shop", "res://assets/buttons/lt_com_zone", "Shop Zone"]
 	]
 	var zoneSection = toolbarSectionScene.instance()
 	zoneSection.add_button("Zones", zoneButtons)
@@ -39,9 +39,9 @@ func _ready():
 	zoneSection.set_bg(zoneSection.rect_size, Color("e03c3c3c"))
 	
 	var industrialButtons = [
-		["utility plant", "res://assets/buttons/power_plant"], 
-		["sewage facility", "res://assets/buttons/sewage"], 
-		["waste treatment", "res://assets/buttons/wasteTreatment"]
+		["utility plant", "res://assets/buttons/power_plant", "Utility Plant"], 
+		["sewage facility", "res://assets/buttons/sewage", "Sewage Facility"], 
+		["waste treatment", "res://assets/buttons/wasteTreatment", "Waste Treatment"]
 	]
 	var industrialSection = toolbarSectionScene.instance()
 	industrialSection.add_button("Industrial", industrialButtons)
@@ -49,9 +49,9 @@ func _ready():
 	industrialSection.set_bg(industrialSection.rect_size, Color("526e7584"))
 	
 	var emergencyServiceButtons = [
-		["fire station", "res://assets/buttons/fireStation"], 
-		["hospital", "res://assets/buttons/hospital"], 
-		["police station", "res://assets/buttons/policeStation"]
+		["fire station", "res://assets/buttons/fireStation", "Fire Station"], 
+		["hospital", "res://assets/buttons/hospital", "Hospital"], 
+		["police station", "res://assets/buttons/policeStation", "Police Station"]
 	]
 	var emergencyServiceSection = toolbarSectionScene.instance()
 	emergencyServiceSection.add_button("Emergency Services", emergencyServiceButtons)
@@ -59,24 +59,15 @@ func _ready():
 	emergencyServiceSection.set_bg(emergencyServiceSection.rect_size, Color("e03c3c3c"))
 	
 	var publicServiceButtons = [
-		["park", "res://assets/buttons/park"], 
-		["library", "res://assets/buttons/library"], 
-		["museum", "res://assets/buttons/museum"],
-		["school", "res://assets/buttons/school"]
+		["park", "res://assets/buttons/park", "Park"], 
+		["library", "res://assets/buttons/library", "Library"], 
+		["museum", "res://assets/buttons/museum", "Museum"],
+		["school", "res://assets/buttons/school", "School"]
 	]
 	var publicServiceSection = toolbarSectionScene.instance()
 	publicServiceSection.add_button("Public Services", publicServiceButtons)
 	$VBoxContainer.add_child(publicServiceSection)
 	publicServiceSection.set_bg(publicServiceSection.rect_size, Color("526e7584"))
-	
-	var sensorButtons = [
-		["tide sensor", "res://assets/buttons/tide_sensor"], 
-		["rain sensor", "res://assets/buttons/rain_gauge"]
-	]
-	var sensorSection = toolbarSectionScene.instance()
-	sensorSection.add_button("Sensors", sensorButtons)
-	$VBoxContainer.add_child(sensorSection)
-	sensorSection.set_bg(sensorSection.rect_size, Color("e03c3c3c"))
 	
 	#Once we create all the buttons, we want to add the functionality to each of them
 	for i in group.get_buttons():

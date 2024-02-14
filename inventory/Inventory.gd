@@ -1,5 +1,6 @@
 extends Node
 
+#Giving players these items will make the next one free
 var items = {
 	"utility plant": 0,
 	'fire station': 0,
@@ -20,9 +21,7 @@ var items = {
 	'lt_res_zone': 0, #don't use
 	'hv_res_zone': 0, #don't use
 	'lt_com_zone': 0, #don't use
-	'hv_com_zone': 0, #don't use
-	"tide sensor": 0,
-	"rain sensor": 0
+	'hv_com_zone': 0 #don't use
 }
 
 var tide_info = " Used to measure the speed and\n height of the tide and other\n weather metrics."
@@ -46,28 +45,12 @@ func add_building(building):
 # remove building from inventory
 func remove_building(building):
 	items[building] -= 1
-	if building == "tide sensor":
-		for sensor in sensors:
-			if sensor.get_name() == "Tide Gauge":
-				sensor.decrease_amount()
-	elif building == "rain sensor":
-		for sensor in sensors:
-			if sensor.get_name() == "Rain Gauge":
-				sensor.decrease_amount()
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
 
 func removeIfHave(building):
 	#Used to check if we have a building, remove it if we do. Returns true if sucessful
 	if items[building] > 0:
 		items[building] -= 1
-		if building == "tide sensor":
-			for sensor in sensors:
-				if sensor.get_name() == "Tide Gauge":
-					sensor.decrease_amount()
-		elif building == "rain sensor":
-			for sensor in sensors:
-				if sensor.get_name() == "Rain Gauge":
-					sensor.decrease_amount()
 		get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
 		return true
 	return false
@@ -77,30 +60,3 @@ func get_number_of_buildings(building):
 
 func has_building(building):
 	return items[building] > 0
-	
-func get_sensor_status(var n):
-	for sensor in sensors:
-		if sensor.get_name() == n:
-			return sensor.get_status()
-	return null
-
-func change_sensor_status(var n, var s):
-	for sensor in sensors:
-		if sensor.get_name() == n:
-			sensor.set_status(s)
-
-func update_sensor_amount():
-	for sensor in sensors:
-		if sensor.get_name() == "Tide Gauge":
-			items["tide sensor"] = sensor.get_amount()
-		if sensor.get_name() == "Rain Gauge":
-			items["rain sensor"] = sensor.get_amount()
-	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
-	
-func set_current_sensor(var s):
-	current_sensor = s
-	
-func get_price(var n):
-	for sensor in sensors:
-		if sensor.get_name() == n:
-			return sensor.price
