@@ -247,6 +247,7 @@ func clear_tile():
 		inf = TileInf.NONE
 		City.connectUtilities()
 		
+	sensor = TileSensor.NONE	
 	#reset tile to base
 	inf = TileInf.NONE
 	data = [0, 0, 0, 0, 0]
@@ -480,6 +481,9 @@ func clear_house():
 		remove_building()
 	data = [0, 0, 0, 0, 0]
 
+func get_sensor():
+	return sensor
+	
 func clear_sensor():
 	sensor = TileSensor.NONE
 
@@ -508,7 +512,7 @@ func get_public_works_value():
 		if museumValue <= 0:
 			break
 	var schoolValue = SCHOOL_NEIGHBORS
-	for i in range(public_works_dictionary['schools']):
+	for i in range(public_works_dictionary['school']):
 		value += schoolValue
 		schoolValue -= 0.025
 		if schoolValue <= 0:

@@ -18,17 +18,31 @@ var items = {
 	'house': 0, #don't use
 	'apartment': 0, #don't use
 	'shop': 0, #don't use
-	'super shop': 0, #don't use
 	'lt_res_zone': 0, #don't use
 	'hv_res_zone': 0, #don't use
 	'lt_com_zone': 0, #don't use
 	'hv_com_zone': 0 #don't use
 }
 
+var tide_info = " Used to measure the speed and\n height of the tide and other\n weather metrics."
+var tide_ext_info = "A tide gauge is a device used to measure the change in sea level relative to the surface of land.\nSensors continuously record the height of the water level by measuring the distance to the water's surface and comparing it to the height of the land it is connected to.\nTide gauges are important sensors when predicting upcoming storms, since storms create higher waves."
+var placeholder = " This is the extended sensor description. TBA"
+var rain_info = " Used to measure the amount of\n rain fall an area has had over\n a period of time."
+var sensors = []
+var current_sensor = ""
+
+# adds all types of sensor currently available to inventory
+func _ready():
+	sensors.append(Sensor.new("Tide Gauge", tide_info, tide_ext_info, " "))
+	sensors[0].set_status(true)
+	sensors.append(Sensor.new("Rain Gauge", rain_info, placeholder,"Buy a Tide Gauge"))
+
+# add building to inventory
 func add_building(building):
 	items[building] += 1
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
 
+# remove building from inventory
 func remove_building(building):
 	items[building] -= 1
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
