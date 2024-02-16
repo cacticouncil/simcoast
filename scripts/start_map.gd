@@ -778,7 +778,7 @@ func _on_YesButton_pressed():
 				current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.TIDE
 				Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
-				Inventory.remove_building("tide sensor")
+				Inventory.remove_sensor("tide sensor")
 			elif (current_sensor_tile.sensor == Tile.TileSensor.TIDE):
 				print("Sensor already here!")
 			else:
@@ -793,7 +793,7 @@ func _on_YesButton_pressed():
 				current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.RAIN
 				Announcer.notify(Event.new("Added Sensor", "Added Rain Sensor", 1))
-				Inventory.remove_building("rain sensor")
+				Inventory.remove_sensor("rain sensor")
 			elif (current_sensor_tile.sensor == Tile.TileSensor.RAIN):
 				print("Sensor already here!")
 			else:

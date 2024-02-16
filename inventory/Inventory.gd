@@ -73,6 +73,18 @@ func change_sensor_status(var n, var s):
 	for sensor in sensors:
 		if sensor.get_name() == n:
 			sensor.set_status(s)
+			
+func remove_sensor(s):
+	items[s] -= 1
+	if s == "tide sensor":
+		for sensor in sensors:
+			if sensor.get_name() == "Tide Gauge":
+				sensor.decrease_amount()
+	elif s == "rain sensor":
+		for sensor in sensors:
+			if sensor.get_name() == "Rain Gauge":
+				sensor.decrease_amount()
+	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
 
 func update_sensor_amount():
 	for sensor in sensors:
