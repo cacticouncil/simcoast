@@ -565,18 +565,24 @@ func update_polygons():
 				else:
 					building_visible = true
 				
-				var occupancy = 0
-				if tile.data[3] != 0:
-					occupancy = float(tile.data[2]) / float(tile.data[3])
-				
-				var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+				var currentHeight = 0
+				var zIndex = 0
 				
 				building_x = x
 				building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-
-				update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
-
-				objects.append(b)
+				
+				for numOfFullFloors in tile.data[2] / 4:
+					var image = load("res://assets/building_assets/2d Assets/Full Apartment.png")
+					var currBuilding = Sprite.new()
+					currBuilding.texture = image
+					currBuilding.position = Vector2(x, y - h - currentHeight)
+					currBuilding.z_index = zIndex
+					#currBuilding.mouse_filter = 2
+					listOfBuildings.append(currBuilding)
+					currentHeight += 16
+					zIndex += 1
+				
+				listOfBuildings.invert()
 	
 	# Set the clickable area of the polygon (the entire base cube)
 	coll.set_polygon(PoolVector2Array([
