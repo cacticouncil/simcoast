@@ -14,6 +14,7 @@ var base_cube = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.ne
 var water_cube = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
 var objects = []
 var buildingSprite = null
+var listOfBuildings = []
 
 var coll = CollisionPolygon2D.new()
 
@@ -48,21 +49,8 @@ func _draw():
 
 	# Draw objects (buildings, infrastructure) if present
 	if tile.has_building() && building_visible:
-		for b in objects:
-			draw_polygon(b[1].get_polygon(), PoolColorArray([buildingColor[1]]))
-			draw_polygon(b[2].get_polygon(), PoolColorArray([buildingColor[2]]))
-			
-			# If building is undamaged, draw occupancy percentage colors on the sides of the buildings
-			if tile.get_status() == Tile.TileStatus.NONE:
-				if tile.get_zone() == Tile.TileZone.SINGLE_FAMILY || tile.get_zone() == Tile.TileZone.MULTI_FAMILY:
-					draw_polygon(b[3].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[0]]))
-					draw_polygon(b[4].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[1]]))
-				elif tile.is_commercial():
-					draw_polygon(b[3].get_polygon(), PoolColorArray([Tile.COM_OCCUPANCY_COLOR[0]]))
-					draw_polygon(b[4].get_polygon(), PoolColorArray([Tile.COM_OCCUPANCY_COLOR[1]]))
-			
-			draw_polygon(b[0].get_polygon(), PoolColorArray([buildingColor[0]]))
-			draw_polyline(b[0].get_polygon(), buildingColor[3])
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 			
 	elif tile.inf == Tile.TileInf.PARK:
 		get_parent().add_child(buildingSprite)
@@ -142,6 +130,12 @@ func update_polygons():
 	if buildingSprite != null:
 		get_parent().remove_child(buildingSprite)
 	buildingSprite = null
+	
+	if listOfBuildings.size() > 0:
+		for building in listOfBuildings:
+			get_parent().remove_child(building)
+	listOfBuildings.clear()
+	
 	# Create simple trees so landscape not so boring
 	if tile.inf == Tile.TileInf.PARK:
 		clear_objects()
@@ -471,34 +465,46 @@ func update_polygons():
 				else:
 					building_visible = true
 				
+				
 				for z in num_buildings:
-					var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-					var occupancy = 0.0
+					
+					var image
 					
 					match z:
 						0:
 							building_x = x
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
 							if tile.data[2] > 0:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied Shop.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						1:
 							building_x = x
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
 							if tile.data[2] > 4:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied Shop.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						2:
 							building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
 							if tile.data[2] > 8:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied Shop.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						3:
 							building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
 							if tile.data[2] > 12:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied Shop.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 				
-					update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
-					objects.append(b)
+					var currBuilding = TextureRect.new()
+					currBuilding.texture = image
+					currBuilding.rect_position = Vector2(-32 + building_x, -51 + building_y)
+					currBuilding.mouse_filter = 2
+					listOfBuildings.append(currBuilding)
 					
 			Tile.TileZone.SINGLE_FAMILY:
 				building_width = Global.TILE_WIDTH / 4.0
