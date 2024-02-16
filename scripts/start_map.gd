@@ -753,9 +753,12 @@ func _on_UIAchievementButton_pressed():
 	add_child(AchMenuInstance)
 
 func _on_StoreButton_pressed():
-	$HUD/TopBarBG/DashboardSelected.visible = false
-	$HUD/TopBarBG/AchievementSelected.visible = false
-	$HUD/TopBarBG/StoreSelected.visible = true
+	var tut = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
+	var TutInstance = tut.instance()
+	add_child(TutInstance)
+	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
+	var TutorialInstance = tutorial.instance()
+	add_child(TutorialInstance)
 
 func _on_DashboardButton_mouse_entered():
 	$HUD/TopBarBG/DashboardHover.visible = true
@@ -775,15 +778,6 @@ func _on_UIAchievementButton_mouse_exited():
 func _on_StoreButton_mouse_exited():
 	$HUD/TopBarBG/StoreHover.visible = false
 
-func _on_interaction_button_pressed():
-	var tut = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
-	var TutInstance = tut.instance()
-	add_child(TutInstance)
-	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
-	var TutorialInstance = tutorial.instance()
-	add_child(TutorialInstance)
-
-
 # sensor options -> yes, no, or ask for help
 # yes adds sensor to tile
 func _on_YesButton_pressed():
@@ -800,7 +794,7 @@ func _on_YesButton_pressed():
 				current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.TIDE
 				Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
-				Inventory.remove_building("tide sensor")
+				Inventory.remove_sensor("tide sensor")
 			elif (current_sensor_tile.sensor == Tile.TileSensor.TIDE):
 				print("Sensor already here!")
 			else:
@@ -815,7 +809,7 @@ func _on_YesButton_pressed():
 				current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.RAIN
 				Announcer.notify(Event.new("Added Sensor", "Added Rain Sensor", 1))
-				Inventory.remove_building("rain sensor")
+				Inventory.remove_sensor("rain sensor")
 			elif (current_sensor_tile.sensor == Tile.TileSensor.RAIN):
 				print("Sensor already here!")
 			else:
