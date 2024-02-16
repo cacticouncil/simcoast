@@ -577,12 +577,28 @@ func update_polygons():
 					currBuilding.texture = image
 					currBuilding.position = Vector2(x, y - h - currentHeight)
 					currBuilding.z_index = zIndex
-					#currBuilding.mouse_filter = 2
 					listOfBuildings.append(currBuilding)
 					currentHeight += 16
 					zIndex += 1
 				
-				listOfBuildings.invert()
+				var remainingResidents = tile.data[2] % 4
+				var image
+				
+				if tile.data[3] - tile.data[2] > 0:
+					if remainingResidents == 0:
+						image = load("res://assets/building_assets/2d Assets/Empty Apartment.png")
+					elif remainingResidents == 1:
+						image = load("res://assets/building_assets/2d Assets/Quarter Apartment.png")
+					elif remainingResidents == 2:
+						image = load("res://assets/building_assets/2d Assets/Half Apartment.png")
+					elif remainingResidents == 3:
+						image = load("res://assets/building_assets/2d Assets/ThreeQuarter Apartment.png")
+					
+					var currBuilding = Sprite.new()
+					currBuilding.texture = image
+					currBuilding.position = Vector2(x, y - h - currentHeight)
+					currBuilding.z_index = zIndex
+					listOfBuildings.append(currBuilding)
 	
 	# Set the clickable area of the polygon (the entire base cube)
 	coll.set_polygon(PoolVector2Array([
