@@ -20,7 +20,7 @@ var coll = CollisionPolygon2D.new()
 
 func _ready():
 	update_polygons()
-	z_index = -1
+	z_index = -10
 	self.add_child(coll)
 
 func _draw():
@@ -465,9 +465,7 @@ func update_polygons():
 				else:
 					building_visible = true
 				
-				
 				for z in num_buildings:
-					
 					var image
 					
 					match z:
@@ -510,43 +508,54 @@ func update_polygons():
 				building_width = Global.TILE_WIDTH / 4.0
 				building_depth = building_width / 2.0
 				building_height = 5
-
+				
 				if w > building_height:
 					building_visible = false
 				else:
 					building_visible = true
 
 				for z in num_buildings:
-					var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-					var occupancy = 0.0
-
+					var image
+					
 					match z:
 						0:
 							building_x = x
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
 							if tile.data[2] > 0:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied House.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						1:
 							building_x = x
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
 							if tile.data[2] > 1:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied House.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						2:
 							building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
 							if tile.data[2] > 2:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied House.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						3:
 							building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
 							if tile.data[2] > 3:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied House.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 
-					update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
-					objects.append(b)
+					var currBuilding = TextureRect.new()
+					currBuilding.texture = image
+					currBuilding.rect_position = Vector2(-32 + building_x, -51 + building_y)
+					currBuilding.mouse_filter = 2
+					listOfBuildings.append(currBuilding)
 
 		# Draws a single building whose size is scaled to number of buildings
 			Tile.TileZone.MULTI_FAMILY:
+				# I'm guessing tile.data[2] = current num of residents, tile.data[3] = max num of residents
 				building_width = (Global.TILE_WIDTH / 2.0) + (2 * num_buildings) 
 				building_depth = building_width / 2.0
 				building_height = 10 + (3 * num_buildings)
