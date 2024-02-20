@@ -140,10 +140,9 @@ func update_polygons():
 	if tile.inf == Tile.TileInf.PARK:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/Park.png")
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
-		buildingSprite.mouse_filter = 2
+		buildingSprite.position = Vector2(x, y - h)
 	
 	# Create some one pixel high blades of grass
 	elif tile.inf == Tile.TileInf.BEACH_GRASS:
@@ -181,26 +180,23 @@ func update_polygons():
 	elif tile.inf == Tile.TileInf.UTILITIES_PLANT:	
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/UtilityPlant.png")
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
-		buildingSprite.mouse_filter = 2
+		buildingSprite.position = Vector2(x, y - h)
 				
 	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/SewageFacility.png")
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
-		buildingSprite.mouse_filter = 2
+		buildingSprite.position = Vector2(x, y - h)
 	
 	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/WasteTreatment.png")
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
-		buildingSprite.mouse_filter = 2
+		buildingSprite.position = Vector2(x, y - h)
 	
 	elif tile.inf == Tile.TileInf.LIBRARY:
 		"""
@@ -225,50 +221,44 @@ func update_polygons():
 		"""
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/Library.png")
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
-		buildingSprite.mouse_filter = 2
+		buildingSprite.position = Vector2(x, y - h)
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/Museum.png")
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
-		buildingSprite.mouse_filter = 2
+		buildingSprite.position = Vector2(x, y - h)
 	
 	elif tile.inf == Tile.TileInf.SCHOOL:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/School.png")
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
-		buildingSprite.mouse_filter = 2
+		buildingSprite.position = Vector2(x, y - h)
 
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
-		buildingSprite.mouse_filter = 2 #Makes it so you can click through images
+		buildingSprite.position = Vector2(x, y - h)
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/Hospital.png")
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
-		buildingSprite.mouse_filter = 2
+		buildingSprite.position = Vector2(x, y - h)
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/PoliceStation.png")
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
-		buildingSprite.mouse_filter = 2
+		buildingSprite.position = Vector2(x, y - h)
 
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
@@ -321,10 +311,9 @@ func update_polygons():
 				image = load("res://assets/building_assets/2d Assets/Road1.png")
 			"""
 		
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + y - h)
-		buildingSprite.mouse_filter = 2
+		buildingSprite.position = Vector2(x, y - h)
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		clear_objects()
 		var image
@@ -396,10 +385,9 @@ func update_polygons():
 		else:
 			image = load("res://assets/building_assets/2d Assets/Road2345.png")
 		
-		buildingSprite = TextureRect.new()
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.rect_position = Vector2(-32 + x, -32 + cube_y - building_height)
-		buildingSprite.mouse_filter = 2
+		buildingSprite.position = Vector2(x, y - h)
 	# Create simple rocks to display beach rocks
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		clear_objects()
@@ -498,10 +486,9 @@ func update_polygons():
 							else:
 								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 				
-					var currBuilding = TextureRect.new()
+					var currBuilding = Sprite.new()
 					currBuilding.texture = image
-					currBuilding.rect_position = Vector2(-32 + building_x, -51 + building_y)
-					currBuilding.mouse_filter = 2
+					currBuilding.position = Vector2(building_x, building_y - 19)
 					listOfBuildings.append(currBuilding)
 					
 			Tile.TileZone.SINGLE_FAMILY:
@@ -547,10 +534,9 @@ func update_polygons():
 							else:
 								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 
-					var currBuilding = TextureRect.new()
+					var currBuilding = Sprite.new()
 					currBuilding.texture = image
-					currBuilding.rect_position = Vector2(-32 + building_x, -51 + building_y)
-					currBuilding.mouse_filter = 2
+					currBuilding.position = Vector2(building_x, building_y - 19)
 					listOfBuildings.append(currBuilding)
 
 		# Draws a single building whose size is scaled to number of buildings
