@@ -97,7 +97,9 @@ func _draw():
 			get_parent().add_child(building)
 	
 	elif tile.inf == Tile.TileInf.BRIDGE:
-		get_parent().add_child(buildingSprite)
+		for building in listOfBuildings:
+			get_parent().add_child(building)
+
 	elif tile.sensor == Tile.TileSensor.TIDE:
 		if tile.sensor_active == true:
 			for s in objects:
@@ -266,6 +268,7 @@ func update_polygons():
 	elif tile.inf == Tile.TileInf.ROAD:
 		clear_objects()
 		var image
+		var currBuilding
 		
 		if w == 0:
 			if tile.connections[0]:
@@ -273,45 +276,46 @@ func update_polygons():
 			else:
 				image = load("res://assets/building_assets/2d Assets/RoadNW.png")
 			
-			buildingSprite = Sprite.new()
-			buildingSprite.texture = image
-			buildingSprite.position = Vector2(x, y - h)
-			listOfBuildings.append(buildingSprite)
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			listOfBuildings.append(currBuilding)
 			
 			if tile.connections[1]:
 				image = load("res://assets/building_assets/2d Assets/RoadNEConnected.png")
 			else:
 				image = load("res://assets/building_assets/2d Assets/RoadNE.png")
 			
-			buildingSprite = Sprite.new()
-			buildingSprite.texture = image
-			buildingSprite.position = Vector2(x, y - h)
-			listOfBuildings.append(buildingSprite)
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			listOfBuildings.append(currBuilding)
 			
 			if tile.connections[2]:
 				image = load("res://assets/building_assets/2d Assets/RoadSEConnected.png")
 			else:
 				image = load("res://assets/building_assets/2d Assets/RoadSE.png")
 			
-			buildingSprite = Sprite.new()
-			buildingSprite.texture = image
-			buildingSprite.position = Vector2(x, y - h)
-			listOfBuildings.append(buildingSprite)
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			listOfBuildings.append(currBuilding)
 			
 			if tile.connections[3]:
 				image = load("res://assets/building_assets/2d Assets/RoadSWConnected.png")
 			else:
 				image = load("res://assets/building_assets/2d Assets/RoadSW.png")
 			
-			buildingSprite = Sprite.new()
-			buildingSprite.texture = image
-			buildingSprite.position = Vector2(x, y - h)
-			listOfBuildings.append(buildingSprite)
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			listOfBuildings.append(currBuilding)
 		
 		
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		clear_objects()
 		var image
+		var currBuilding
 		#var tileHeight = Global.TILE_HEIGHT
 		var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
 		var numNeighbors = 0
@@ -347,42 +351,46 @@ func update_polygons():
 		var cube_x = x
 		var cube_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
 		
-		if !tile.connections[0] && !tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road1.png")
-		elif tile.connections[0] && !tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road3.png")
-		elif !tile.connections[0] && tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road4.png")
-		elif !tile.connections[0] && !tile.connections[1] && tile.connections[2] && !tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road5.png")
-		elif !tile.connections[0] && !tile.connections[1] && !tile.connections[2] && tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road2.png")
-		elif tile.connections[0] && !tile.connections[1] && !tile.connections[2] && tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road23.png")
-		elif !tile.connections[0] && tile.connections[1] && !tile.connections[2] && tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road24.png")
-		elif !tile.connections[0] && !tile.connections[1] && tile.connections[2] && tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road25.png")
-		elif tile.connections[0] && tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road34.png")
-		elif tile.connections[0] && !tile.connections[1] && tile.connections[2] && !tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road35.png")
-		elif !tile.connections[0] && tile.connections[1] && tile.connections[2] && !tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road45.png")
-		elif tile.connections[0] && tile.connections[1] && !tile.connections[2] && tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road234.png")
-		elif tile.connections[0] && !tile.connections[1] && tile.connections[2] && tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road235.png")
-		elif !tile.connections[0] && tile.connections[1] && tile.connections[2] && tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road245.png")
-		elif tile.connections[0] && tile.connections[1] && tile.connections[2] && !tile.connections[3]:
-			image = load("res://assets/building_assets/2d Assets/Road345.png")
+		if tile.connections[0]:
+			image = load("res://assets/building_assets/2d Assets/RoadNWConnected.png")
 		else:
-			image = load("res://assets/building_assets/2d Assets/Road2345.png")
+			image = load("res://assets/building_assets/2d Assets/RoadNW.png")
 		
-		buildingSprite = Sprite.new()
-		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h)
+		currBuilding = Sprite.new()
+		currBuilding.texture = image
+		currBuilding.position = Vector2(x, y - h)
+		listOfBuildings.append(currBuilding)
+		
+		if tile.connections[1]:
+			image = load("res://assets/building_assets/2d Assets/RoadNEConnected.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/RoadNE.png")
+		
+		currBuilding = Sprite.new()
+		currBuilding.texture = image
+		currBuilding.position = Vector2(x, y - h)
+		listOfBuildings.append(currBuilding)
+		
+		if tile.connections[2]:
+			image = load("res://assets/building_assets/2d Assets/RoadSEConnected.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/RoadSE.png")
+		
+		currBuilding = Sprite.new()
+		currBuilding.texture = image
+		currBuilding.position = Vector2(x, y - h)
+		listOfBuildings.append(currBuilding)
+		
+		if tile.connections[3]:
+			image = load("res://assets/building_assets/2d Assets/RoadSWConnected.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/RoadSW.png")
+		
+		currBuilding = Sprite.new()
+		currBuilding.texture = image
+		currBuilding.position = Vector2(x, y - h)
+		listOfBuildings.append(currBuilding)
+		
 	# Create simple rocks to display beach rocks
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		clear_objects()
