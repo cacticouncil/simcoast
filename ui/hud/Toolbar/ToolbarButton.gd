@@ -2,14 +2,17 @@ extends VBoxContainer
 
 var buttonGroup = preload("res://toolbar_button_group.tres")
 
-func set_up_button(buttonName, iconPath):
+func set_up_button(buttonName, iconPath, hoverText):
+	#buttons are stored without caps but this makes it look nicer
 	$Name.text = buttonName.capitalize()
 	
+	#Utilizes naming convention of buttons
 	$CenterContainer/button.texture_normal = load(iconPath + "_normal.png")
 	$CenterContainer/button.texture_pressed = load(iconPath + "_active.png")
 	$CenterContainer/button.texture_hover = load(iconPath + "_hover.png")
 	$CenterContainer/button.texture_focused = load(iconPath + "_active.png")
 	$CenterContainer/button.group = buttonGroup
+	$CenterContainer/button.hint_tooltip = hoverText
 	
 	
 	#Should be last always

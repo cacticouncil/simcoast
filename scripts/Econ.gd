@@ -14,10 +14,8 @@ var LIGHT_RES_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
 var LIGHT_RES_INCOME_RATE = BASE_TAX_RATE #land value * num people
 var HEAVY_RES_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
 var HEAVY_RES_INCOME_RATE = BASE_TAX_RATE #land value * num people
-var LIGHT_COM_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
-var LIGHT_COM_INCOME_RATE = BASE_TAX_RATE #land value * num people
-var HEAVY_COM_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
-var HEAVY_COM_INCOME_RATE = BASE_TAX_RATE #land value * num people
+var COM_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
+var COM_INCOME_RATE = BASE_TAX_RATE #land value * num people
 
 var PROPERTY_TAX = 0.01 #property tax gets set at 1% to start, which is neutral
 var SALES_TAX = 0.05 #5% sales tax to start, also neutral
@@ -42,6 +40,7 @@ const SCHOOL_COST = 3000
 const FIRE_STATION_COST = 5000
 const HOSPITAL_COST = 5000
 const POLICE_STATION_COST = 5000
+const WATER_COST = 5000
 
 #Building upkeep costs
 const UTILITIES_PLANT_UPKEEP_COST = 100
@@ -56,6 +55,9 @@ const HOSPITAL_UPKEEP_COST = 100
 const POLICE_STATION_UPKEEP_COST = 100
 const SEWAGE_FACILITY_UPKEEP_COST = 100
 const WASTE_TREATMENT_UPKEEP_COST = 100
+const MULTI_FAMILY_UPKEEP_COST = 50
+const SINGLE_FAMILY_UPKEEP_COST = 10
+const UPKEEP_PER_PERSON = 2
 
 # Player/Mayor Constants
 var money = 20000
@@ -82,6 +84,7 @@ func purchase_structure(structureCost):
 		get_node("/root/CityMap/HUD/HBoxContainer/Money").text = "$" + comma_values(str(money))
 		return true
 	else:
+		get_node("/root/Overlay").error_pop("Insufficient Funds")
 		return false
 
 func calculate_upkeep_costs():
@@ -98,11 +101,9 @@ func calculate_upkeep_costs():
 	city_costs += City.numPoliceStations * POLICE_STATION_UPKEEP_COST
 	city_costs += City.numSewageFacilities * SEWAGE_FACILITY_UPKEEP_COST
 	city_costs += City.numWasteTreatment * WASTE_TREATMENT_UPKEEP_COST
-
-#func adjust_city_income(val):
-#	city_income = val
-#	get_node("/root/CityMap/HUD/TopBar/HBoxContainer/City_Income").text = "$" + comma_values(str(city_income))
-#	print("$" + comma_values(str(city_income)))
+	city_costs += City.numSingleFamilyZones * SINGLE_FAMILY_UPKEEP_COST
+	city_costs += City.numMultiFamilyZones * MULTI_FAMILY_UPKEEP_COST
+	city_costs += UpdatePopulation.get_population() * UPKEEP_PER_PERSON
 	
 func updateProfitDisplay():
 	var profit = round(city_income - city_costs)
@@ -164,21 +165,21 @@ func adjust_individual_tax_rate(num, dir):
 			currRate = adjust_individual_tax_rate_helper(currRate, dir)
 			HEAVY_RES_INCOME_RATE = currRate
 		4:
-			currRate = LIGHT_COM_PROPERTY_RATE
+			currRate = COM_PROPERTY_RATE
 			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			LIGHT_COM_PROPERTY_RATE = currRate
+			COM_PROPERTY_RATE = currRate
 		5:
-			currRate = LIGHT_COM_INCOME_RATE
+			currRate = COM_INCOME_RATE
 			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			LIGHT_COM_INCOME_RATE = currRate
+			COM_INCOME_RATE = currRate
 		6:
-			currRate = HEAVY_COM_PROPERTY_RATE
+			currRate = COM_PROPERTY_RATE
 			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			HEAVY_COM_PROPERTY_RATE = currRate
+			COM_PROPERTY_RATE = currRate
 		7:
-			currRate = HEAVY_COM_INCOME_RATE
+			currRate = COM_INCOME_RATE
 			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			HEAVY_COM_INCOME_RATE = currRate
+			COM_INCOME_RATE = currRate
 			
 func calc_profit_rates():
 	var total_income = 0
@@ -200,7 +201,6 @@ func calc_profit_rates():
 						Econ.INCOME_TAX + currTile.data[0] * Econ.PROPERTY_TAX) * \
 						Econ.TAX_INCOME_MULTIPLIER * currTile.landValue
 					total_income += currTile.profitRate
-					res_tiles += 1
 				#commercial zones generate revenue via sales tax and property tax, 
 				#scaling how much sales tax based on the income of their surrounding area
 				if currTile.is_commercial():
@@ -209,20 +209,19 @@ func calc_profit_rates():
 						currTile.profitRate = 0
 					else:
 						currTile.profitRate = (avg_income_around_tile(currTile.i, currTile.j) * Econ.SALES_TAX) * \
-						(UpdatePopulation.get_population() / Global.numCommercialZones) + \
+						(UpdatePopulation.get_population() /City.numCommercialZones) + \
 						currTile.data[0] * Econ.PROPERTY_TAX * Econ.TAX_INCOME_MULTIPLIER * currTile.landValue
 						#the population bit is to help commercial profit scale with population
 						# it basically assumes that people will patronize all commercial zones equally
 					total_profit += currTile.profitRate
-					com_tiles += 1
 					
 	#avg income now represents the average tax revenue from the incomes of the employed people 
 	#in the city and the value of the houses where they live
-	if (res_tiles != 0):
-		avg_income = total_income / res_tiles
+	if (City.numResidentialZones != 0):
+		avg_income = total_income / City.numResidentialZones
 	#avg_profit represents the average amount of money a commercial tile makes in the city
-	if (com_tiles != 0):
-		avg_profit = total_profit / com_tiles
+	if (City.numCommercialZones != 0):
+		avg_profit = total_profit / City.numCommercialZones
 
 # Helper Functions
 func comma_values(val):
