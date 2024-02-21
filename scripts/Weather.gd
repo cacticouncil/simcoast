@@ -15,7 +15,7 @@ enum WeatherStates{
 	HURRICANE_5
 }
 
-var weatherOn = false
+var weatherOn = true
 
 var monthsSinceLastStorm = 0;
 

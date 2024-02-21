@@ -213,6 +213,8 @@ NpcObserver="*res://scripts/Observers/NpcObserver.gd"
 NPCOrganizer="*res://scripts/NPCOrganizer.gd"
 Inventory="*res://inventory/Inventory.tscn"
 BadgeObserver="*res://scripts/Observers/BadgeObserver.gd"
+SeaLevel="*res://scripts/SeaLevel.gd"
+UpdateSeaLevel="*res://scripts/updateSeaLevel.gd"
 
 [debug]
 

@@ -700,6 +700,7 @@ func update_game_state():
 	#print("Updating game state on tick: " + str(numTicks))
 	#UpdateWaves.update_waves()
 	UpdateWeather.update_weather()
+	UpdateSeaLevel.update_sea_level()
 	#turning this function off until it can be fixed
 	#UpdateWater.update_waves()
 	UpdateWater.update_water_spread()
@@ -775,6 +776,7 @@ func _on_YesButton_pressed():
 			if (current_sensor_tile.sensor != Tile.TileSensor.TIDE):
 				if (current_sensor_tile.get_base() == Tile.TileBase.OCEAN):
 					current_sensor_tile.sensor_active = true
+					SeaLevel.sensorPresent = true
 				else:
 					current_sensor_tile.sensor_active = false
 				current_sensor_tile.clear_tile()
