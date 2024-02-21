@@ -11,7 +11,8 @@ var current_sensor_tile
 func _ready():
 	initCamera()
 	initSave_Exit()
-	loadMapData("res://saves/default.json")
+#	loadMapData("res://saves/default.json")
+	loadMapData("default.json")
 	initObservers()
 	$HUD/HBoxContainer/Money.text = "$" + Econ.comma_values(str(Econ.money))
 	#$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
@@ -614,7 +615,7 @@ func saveMapData(mapPath):
 	currMapPath = pathValues[1]
 	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json saved" % [correctMapName]
 
-func loadMapData(mapPath):
+func loadMapData(filename):
 	# var file = File.new()
 	# print(mapPath)
 	# if not file.file_exists(mapPath):
@@ -638,7 +639,20 @@ func loadMapData(mapPath):
 
 	# for tileData in mapData.tiles:
 	# 	Global.tileMap[tileData[0]][tileData[1]] = Tile.new(int(tileData[0]), int(tileData[1]), int(tileData[2]), int(tileData[3]), int(tileData[4]), int(tileData[5]), int(tileData[6]), tileData[7])
-	var mapName = SaveLoad.loadData(mapPath)
+	
+
+#	var path_to_open
+#	if OS.is_debug_build(): #true if you're in debug mode
+#	#if we are running the code in the editor, load the map from the res:// location
+	var path_to_open = "res://saves/" + filename 
+#	else:
+#	#if we are running the code in release mode (e.g., when packaged), get the map from its location
+#	#relative to the executable file
+#		var exe_path = OS.get_executable_path().get_base_dir()
+#		path_to_open = exe_path + "saves/" + filename
+
+
+	var mapName = SaveLoad.loadData(path_to_open)
 	$VectorMap.loadMap()
 	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json loaded" % [mapName]
 	City.connectUtilities()
@@ -698,6 +712,7 @@ func _process(delta):
 
 func update_game_state():
 	#print("Updating game state on tick: " + str(numTicks))
+	#UpdateWaves.update_waves()
 	#turning this function off until it can be fixed
 	#UpdateWater.update_waves()
 	UpdateWater.update_water_spread()

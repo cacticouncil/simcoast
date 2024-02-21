@@ -343,6 +343,9 @@ func remove_water():
 	changeInWaterHeight = 0
 
 func set_damage(n):
+	#tiles without buildings or zoning should not be damaged
+	if !is_zoned():
+		return
 	if n == TileStatus.LIGHT_DAMAGE:
 		tileDamage += .25
 	elif n == TileStatus.MEDIUM_DAMAGE:

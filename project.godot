@@ -109,11 +109,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Event.gd"
 }, {
-"base": "",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://git_api.gdns"
-}, {
 "base": "Object",
 "class": "NPC",
 "language": "GDScript",
@@ -170,7 +165,6 @@ _global_script_class_icons={
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
 "DialogueSystem": "",
 "Event": "",
-"GitAPI": "",
 "NPC": "",
 "Observer": "",
 "Sensor": "",
@@ -199,8 +193,6 @@ UpdateDate="*res://scripts/updateDate.gd"
 UpdateValue="*res://scripts/UpdateValue.gd"
 UpdateHappiness="*res://scripts/UpdateHappiness.gd"
 UpdateDemand="*res://scripts/updateDemand.gd"
-Weather="res://scripts/Weather.gd"
-UpdateWeather="res://scripts/UpdateWeather.gd"
 UpdateGraphics="*res://scripts/updateGraphics.gd"
 UpdateErosion="*res://scripts/updateErosion.gd"
 UpdateWater="*res://scripts/updateWater.gd"
@@ -212,7 +204,6 @@ Stats="*res://scripts/Stats.gd"
 NpcObserver="*res://scripts/Observers/NpcObserver.gd"
 NPCOrganizer="*res://scripts/NPCOrganizer.gd"
 Inventory="*res://inventory/Inventory.tscn"
-BadgeObserver="*res://scripts/Observers/BadgeObserver.gd"
 
 [debug]
 
@@ -238,7 +229,8 @@ enabled=PoolStringArray( "res://addons/behavior_tree/plugin.cfg" )
 
 [gdnative]
 
-singletons=[ "res://git_api.gdnlib" ]
+singletons=[  ]
+singletons_disabled=[  ]
 
 [global]
 
