@@ -742,6 +742,7 @@ func _on_StoreButton_pressed():
 	add_child(TutInstance)
 	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 	var TutorialInstance = tutorial.instance()
+	TutorialInstance.setCharacter(2)
 	add_child(TutorialInstance)
 
 func _on_DashboardButton_mouse_entered():
@@ -805,10 +806,14 @@ func _on_NoButton_pressed():
 
 # help display
 func _on_HelpButton_pressed():
-	$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = true
+	#$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = true
 	match Global.mapTool:
 		Global.Tool.SENSOR_TIDE:
-			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
+			var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
+			var TutorialInstance = tutorial.instance()
+			TutorialInstance.setCharacter(3)
+			add_child(TutorialInstance)
+			#$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
 		Global.Tool.SENSOR_RAIN:
 			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting rain sensors inland, near tall buildings, where they will be most effective."
 	

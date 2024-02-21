@@ -4,14 +4,15 @@ extends Node
 
 #Keeps track of NPC frame
 var currentFrame = 0
-
+var character = 1
 #Called when scene first enters the tree
 func _ready():
 	getNextText()
-
+func setCharacter(character):
+	self.character = character
 #Gets and displays next text
 func getNextText():
-	var nextText = NPCOrganizer.nextDialogue(2)
+	var nextText = NPCOrganizer.nextDialogue(character)
 	#Node leaves scene when dialogue is done
 	if (nextText == null):
 		get_parent().remove_child(self)
