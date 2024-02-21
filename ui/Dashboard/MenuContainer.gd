@@ -20,6 +20,9 @@ func _ready():
 
 # Badge button functions (press and hover)
 func _on_BadgesButton_pressed():
+	#If opened, "closes" badges by decreasing colorRect's size and hiding badges.
+	#Also changes button icon.
+	#This is the general functionality for all three menu popups.
 	if badges_open:
 		$ColorRect.rect_min_size.y = 40
 		$ColorRect/BadgesButton.icon = plus_icon
@@ -29,6 +32,7 @@ func _on_BadgesButton_pressed():
 		$ColorRect/BadgesButton.icon = minus_icon
 		$ColorRect/UnlockedBadges.visible = true
 	badges_open = !badges_open
+#Hover state previews the popups.
 func _on_BadgesButton_mouse_entered():
 	if !badges_open:
 		$ColorRect.rect_min_size.y = 300
@@ -44,6 +48,8 @@ func _on_BadgesButton_mouse_exited():
 	else:
 		$ColorRect/BadgesButton.icon = minus_icon
 
+
+#Characters button functions (press and hover)
 func _on_CharactersButton_pressed():
 	if characters_open:
 		$ColorRect2.rect_min_size.y = 40
@@ -70,7 +76,7 @@ func _on_CharactersButton_mouse_exited():
 		$ColorRect2/CharactersButton.icon = minus_icon
 		
 
-
+#Sensor button functions (press and hover)
 func _on_SensorButton_pressed():
 	if sensors_open:
 		$ColorRect3.rect_min_size.y = 40
@@ -92,7 +98,7 @@ func _on_SensorButton_mouse_exited():
 	else:
 		$ColorRect3/SensorButton.icon = minus_icon
 
-		
+#expand all function, expands all three popups.	
 func _on_ExpandAllButton_pressed():
 	$ColorRect.rect_min_size.y = 300
 	$ColorRect2.rect_min_size.y = 350
@@ -105,7 +111,7 @@ func _on_ExpandAllButton_pressed():
 	$ColorRect/BadgesButton.icon = minus_icon
 	$ColorRect2/CharactersButton.icon = minus_icon
 	$ColorRect3/SensorButton.icon = minus_icon
-	
+#collapse all function, collapses all three popups.
 func _on_CollapseAllButton_pressed():
 	$ColorRect.rect_min_size.y = 40
 	$ColorRect2.rect_min_size.y = 40

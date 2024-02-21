@@ -2,7 +2,7 @@ extends VBoxContainer
 
 export var seperation = 10
 
-#This value is derived by the pixel length of the icons, then 
+#This value is derived by the pixel length (x) of the icons (200 currently), plus the space between icons.
 var iconSize = 200 + seperation
 
 """
@@ -35,5 +35,6 @@ func _ready():
 		
 		container.add_child(CardInstance)
 
+#needed to keep the node in place (issue with Godot engine).
 func _process(delta):
 	self.rect_position.x = 10
