@@ -3,6 +3,15 @@ extends Node
 var numParks = 0
 var numUtilityPlants = 0
 var numRoads = 0
+var numBridges = 0
+var numLibraries = 0
+var numMuseums = 0
+var numSchools = 0
+var numFireStations = 0
+var numHospital = 0
+var numPoliceStations = 0
+var numSewageFacilities = 0
+var numWasteTreatment = 0
 var numResidentialZones = 0
 var numCommercialZones = 0
 var numSingleFamilyZones = 0
@@ -28,7 +37,7 @@ func reduce_map():
 	for i in Global.tileMap.size():
 		Global.tileMap[i].pop_back()
 	
-	get_node("HUD/TopBar/ActionText").text = "Map size reduced to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
+	get_node("HUD/BottomBar/HoverText").text = "Map size reduced to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
 	
 # Add a new row and column of empty tiles
 func extend_map():
@@ -51,7 +60,7 @@ func extend_map():
 	
 	Global.mapWidth += 1
 
-	get_node("HUD/TopBar/ActionText").text = "Map size extended to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
+	get_node("HUD/BottomBar/HoverText").text = "Map size extended to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
 	
 
 # Starting from each utility plant, trace utility distribution and utility tiles if they are connected
@@ -96,7 +105,7 @@ func connectUtilities():
 
 				for n in neighbors:
 					if is_tile_inbounds(n[0], n[1]):
-						if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.ROAD:
+						if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.ROAD || Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.BRIDGE:
 							if roadConnected(road, n, Global.MAX_CONNECTION_HEIGHT):
 								if Global.tileMap[n[0]][n[1]].utilities == false:
 									queue.append(Global.tileMap[n[0]][n[1]])
@@ -135,12 +144,31 @@ func connectRoads(tile):
 			road.connections[2] = 1
 		if roadConnected(road, [road.i, road.j+1], maxHeightDiff):
 			road.connections[3] = 1
+
+func disconnectBridges(tile):
+	tile.bridge_connected_to_dirt = false
+	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
+	var checked = []
+	for n in neighbors:
+		checked.append(n)
+		if is_tile_inbounds(n[0], n[1]):
+			if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.BRIDGE:
+				var currTile = Global.tileMap[n[0]][n[1]]
+				currTile.bridge_connected_to_dirt = false
+				if not [currTile.i-1, currTile.j] in checked:
+					neighbors.append([currTile.i-1, currTile.j])
+				if not [currTile.i+1, currTile.j] in checked:
+					neighbors.append([currTile.i+1, currTile.j])
+				if not [currTile.i, currTile.j-1] in checked:
+					neighbors.append([currTile.i, currTile.j-1])
+				if not [currTile.i, currTile.j+1] in checked:
+					neighbors.append([currTile.i, currTile.j+1])
 	
 
 func roadConnected(tile, n, diff):
 	if !is_tile_inbounds(n[0], n[1]):
 		return false
-	if Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.ROAD:
+	if Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.ROAD && Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.BRIDGE:
 		return false
 	if abs(tile.get_base_height() - Global.tileMap[n[0]][n[1]].get_base_height()) > diff:
 		return false
@@ -209,6 +237,9 @@ func adjust_tile_height(tile):
 		tile.raise_tile()
 	elif Input.is_action_pressed("right_click"):
 		tile.lower_tile()
+
+func make_tile_water(tile):
+	tile.set_height_zero()
 
 # Change water height of tile
 func adjust_tile_water(tile):
