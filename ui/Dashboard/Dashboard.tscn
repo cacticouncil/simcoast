@@ -636,17 +636,17 @@ margin_right = 260.0
 margin_bottom = 284.0
 
 [node name="PropertyTaxSlider" type="HSlider" parent="ColorRect2/CityStatsBar/HBoxContainer7"]
-margin_right = 230.0
+margin_right = 220.0
 margin_bottom = 16.0
-rect_min_size = Vector2( 230, 16 )
-max_value = 1.0
-step = 0.01
-value = 1.0
+rect_min_size = Vector2( 220, 16 )
+max_value = 10.0
+step = 0.1
+value = 0.1
 
 [node name="PropertyTaxValue" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer7"]
-margin_left = 234.0
+margin_left = 224.0
 margin_top = 1.0
-margin_right = 234.0
+margin_right = 224.0
 margin_bottom = 15.0
 
 [node name="SalesTaxTitle" type="Label" parent="ColorRect2/CityStatsBar"]
@@ -661,17 +661,17 @@ margin_right = 260.0
 margin_bottom = 322.0
 
 [node name="SalesTaxSlider" type="HSlider" parent="ColorRect2/CityStatsBar/HBoxContainer8"]
-margin_right = 230.0
+margin_right = 220.0
 margin_bottom = 16.0
-rect_min_size = Vector2( 230, 16 )
-max_value = 1.0
-step = 0.01
-value = 1.0
+rect_min_size = Vector2( 220, 16 )
+max_value = 2.0
+step = 0.02
+value = 0.2
 
 [node name="SalesTaxValue" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer8"]
-margin_left = 234.0
+margin_left = 224.0
 margin_top = 1.0
-margin_right = 234.0
+margin_right = 224.0
 margin_bottom = 15.0
 
 [node name="IncomeTaxTitle" type="Label" parent="ColorRect2/CityStatsBar"]
@@ -686,17 +686,17 @@ margin_right = 260.0
 margin_bottom = 360.0
 
 [node name="IncomeTaxSlider" type="HSlider" parent="ColorRect2/CityStatsBar/HBoxContainer9"]
-margin_right = 230.0
+margin_right = 220.0
 margin_bottom = 16.0
-rect_min_size = Vector2( 230, 16 )
-max_value = 1.0
-step = 0.01
-value = 1.0
+rect_min_size = Vector2( 220, 16 )
+max_value = 11.0
+step = 0.11
+value = 0.11
 
 [node name="IncomeTaxValue" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer9"]
-margin_left = 234.0
+margin_left = 224.0
 margin_top = 1.0
-margin_right = 234.0
+margin_right = 224.0
 margin_bottom = 15.0
 
 [connection signal="button_down" from="QuitButton" to="." method="_on_QuitButton_button_down"]
