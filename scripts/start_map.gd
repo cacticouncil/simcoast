@@ -230,6 +230,11 @@ func _unhandled_input(event):
 						tile.clear_tile()
 						City.connectUtilities()
 						City.numUtilityPlants -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.UTILITIES_PLANT:
+							parentTile.clear_tile()
+							City.numUtilityPlants -= 1
 			
 			Global.Tool.INF_SEWAGE_FACILITY:
 				var sewage_height = 1
@@ -250,6 +255,11 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.SEWAGE_FACILITY:
 						tile.clear_tile()
 						City.numSewageFacilities -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.SEWAGE_FACILITY:
+							parentTile.clear_tile()
+							City.numSewageFacilities -= 1
 			
 			Global.Tool.INF_WASTE_TREATMENT:
 				var waste_height = 1
@@ -270,6 +280,11 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.WASTE_TREATMENT:
 						tile.clear_tile()
 						City.numWasteTreatment -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.WASTE_TREATMENT:
+							parentTile.clear_tile()
+							City.numWasteTreatment -= 1
 						
 			Global.Tool.INF_PARK:
 				var park_height = 1
@@ -296,6 +311,11 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.PARK:
 						tile.clear_tile()
 						City.numParks -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.PARK:
+							parentTile.clear_tile()
+							City.numParks -= 1
 			
 			Global.Tool.INF_LIBRARY:
 				var library_height = 1
@@ -322,6 +342,11 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.LIBRARY:
 						tile.clear_tile()
 						City.numLibraries -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.LIBRARY:
+							parentTile.clear_tile()
+							City.numLibraries -= 1
 			
 			Global.Tool.INF_MUSEUM:
 				var museum_height = 1
@@ -348,6 +373,11 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.MUSEUM:
 						tile.clear_tile()
 						City.numMuseums -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.MUSEUM:
+							parentTile.clear_tile()
+							City.numMuseums -= 1
 			
 			Global.Tool.INF_FIRE_STATION:
 				var fire_height = 2
@@ -372,6 +402,11 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.FIRE_STATION:
 						tile.clear_tile()
 						City.numFireStations -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.FIRE_STATION:
+							parentTile.clear_tile()
+							City.numFireStations -= 1
 			
 			Global.Tool.INF_HOSPITAL:
 				var hospital_height = 1
@@ -396,6 +431,11 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.HOSPITAL:
 						tile.clear_tile()
 						City.numHospital -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.HOSPITAL:
+							parentTile.clear_tile()
+							City.numHospital -= 1
 			
 			Global.Tool.INF_POLICE_STATION:
 				var police_height = 1
@@ -420,6 +460,11 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.POLICE_STATION:
 						tile.clear_tile()
 						City.numPoliceStations -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.POLICE_STATION:
+							parentTile.clear_tile()
+							City.numPoliceStations -= 1
 			
 			Global.Tool.INF_SCHOOL:
 				var school_height = 1
@@ -444,6 +489,11 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.SCHOOL:
 						tile.clear_tile()
 						City.numSchools -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.SCHOOL:
+							parentTile.clear_tile()
+							City.numSchools -= 1
 			
 			Global.Tool.SENSOR_TIDE:
 				if Input.is_action_pressed("left_click"):
