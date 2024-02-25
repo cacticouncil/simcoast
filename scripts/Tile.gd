@@ -218,6 +218,11 @@ func paste_tile(tile):
 	landValue = tile.landValue
 	profitRate = tile.profitRate
 
+func set_tile_inf(infType):
+	clear_tile()
+	inf = infType
+	City.connectUtilities()
+
 func clear_tile():
 	#remove all buildings 
 	while (data[0] > 0):
