@@ -209,14 +209,16 @@ func _unhandled_input(event):
 				tile.clear_tile()
 				
 			Global.Tool.INF_UTILITIES_PLANT:
+				var utility_height = 1
+				var utility_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.UTILITIES_PLANT):
+					if (tile.check_if_valid_placement(Tile.TileInf.UTILITIES_PLANT, utility_height, utility_width)):
 						if (Inventory.removeIfHave('utility plant')):
-							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT)
+							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT, utility_height, utility_width)
 							City.numUtilityPlants += 1
 							Announcer.notify(Event.new("Added Tile", "Added Power Plant", 1))
 						elif (Econ.purchase_structure(Econ.UTILITIES_PLANT_COST)):
-							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT)
+							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT, utility_height, utility_width)
 							City.numUtilityPlants += 1
 							Announcer.notify(Event.new("Added Tile", "Added Power Plant", 1))
 						else:
@@ -230,13 +232,15 @@ func _unhandled_input(event):
 						City.numUtilityPlants -= 1
 			
 			Global.Tool.INF_SEWAGE_FACILITY:
+				var sewage_height = 1
+				var sewage_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.SEWAGE_FACILITY):
+					if (tile.check_if_valid_placement(Tile.TileInf.SEWAGE_FACILITY, sewage_height, sewage_width)):
 						if (Inventory.removeIfHave('sewage facility')):
-							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY)
+							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY, sewage_height, sewage_width)
 							Announcer.notify(Event.new("Added Tile", "Added Sewage Facility", 1))
 						elif (Econ.purchase_structure(Econ.SEWAGE_FACILITY_COST)):
-							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY)
+							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY, sewage_height, sewage_width)
 							Announcer.notify(Event.new("Added Tile", "Added Sewage Facility", 1))
 						else:
 							actionText.text = "Not enough funds!"
@@ -248,13 +252,15 @@ func _unhandled_input(event):
 						City.numSewageFacilities -= 1
 			
 			Global.Tool.INF_WASTE_TREATMENT:
+				var waste_height = 1
+				var waste_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.WASTE_TREATMENT):
+					if (tile.check_if_valid_placement(Tile.TileInf.WASTE_TREATMENT, waste_height, waste_width)):
 						if (Inventory.removeIfHave('waste treatment')):
-							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT)
+							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT, waste_height, waste_width)
 							Announcer.notify(Event.new("Added Tile", "Added Waste Treatment Facility", 1))
 						elif (Econ.purchase_structure(Econ.WASTE_TREATMENT_COST)):
-							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT)
+							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT, waste_height, waste_width)
 							Announcer.notify(Event.new("Added Tile", "Added Waste Treatment Facility", 1))
 						else:
 							actionText.text = "Not enough funds!"
@@ -266,15 +272,17 @@ func _unhandled_input(event):
 						City.numWasteTreatment -= 1
 						
 			Global.Tool.INF_PARK:
+				var park_height = 1
+				var park_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.PARK):
 						if (Inventory.removeIfHave('park')):
-							tile.set_tile_inf(Tile.TileInf.PARK)
+							tile.set_tile_inf(Tile.TileInf.PARK, park_height, park_width)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
 							Announcer.notify(Event.new("Added Tile", "Added Park", 1))
 						elif (Econ.purchase_structure(Econ.PARK_COST)):
-							tile.set_tile_inf(Tile.TileInf.PARK)
+							tile.set_tile_inf(Tile.TileInf.PARK, park_height, park_width)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
 							Announcer.notify(Event.new("Added Tile", "Added Park", 1))
@@ -290,15 +298,17 @@ func _unhandled_input(event):
 						City.numParks -= 1
 			
 			Global.Tool.INF_LIBRARY:
+				var library_height = 1
+				var library_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.LIBRARY):
+					if (tile.check_if_valid_placement(Tile.TileInf.LIBRARY, library_height, library_width)):
 						if (Inventory.removeIfHave('library')):
-							tile.set_tile_inf(Tile.TileInf.LIBRARY)
+							tile.set_tile_inf(Tile.TileInf.LIBRARY, library_height, library_width)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numLibraries += 1
 							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
 						elif (Econ.purchase_structure(Econ.LIBRARY_COST)):
-							tile.set_tile_inf(Tile.TileInf.LIBRARY)
+							tile.set_tile_inf(Tile.TileInf.LIBRARY, library_height, library_width)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numLibraries += 1
 							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
@@ -314,15 +324,17 @@ func _unhandled_input(event):
 						City.numLibraries -= 1
 			
 			Global.Tool.INF_MUSEUM:
+				var museum_height = 1
+				var museum_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.MUSEUM):
+					if (tile.check_if_valid_placement(Tile.TileInf.MUSEUM, museum_height, museum_width)):
 						if (Inventory.removeIfHave('museum')):
-							tile.set_tile_inf(Tile.TileInf.MUSEUM)
+							tile.set_tile_inf(Tile.TileInf.MUSEUM, museum_height, museum_width)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numMuseums += 1
 							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
 						elif (Econ.purchase_structure(Econ.MUSEUM_COST)):
-							tile.set_tile_inf(Tile.TileInf.MUSEUM)
+							tile.set_tile_inf(Tile.TileInf.MUSEUM, museum_height, museum_width)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numMuseums += 1
 							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
@@ -338,14 +350,16 @@ func _unhandled_input(event):
 						City.numMuseums -= 1
 			
 			Global.Tool.INF_FIRE_STATION:
+				var fire_height = 2
+				var fire_width = 2
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.FIRE_STATION):
+					if (tile.check_if_valid_placement(Tile.TileInf.FIRE_STATION, fire_height, fire_width)):
 						if (Inventory.removeIfHave('fire station')):
-							tile.set_tile_inf(Tile.TileInf.FIRE_STATION)
+							tile.set_tile_inf(Tile.TileInf.FIRE_STATION, fire_height, fire_width)
 							City.numFireStations += 1
 							Announcer.notify(Event.new("Added Tile", "Added Fire Station", 1))
 						elif (Econ.purchase_structure(Econ.FIRE_STATION_COST)):
-							tile.set_tile_inf(Tile.TileInf.FIRE_STATION)
+							tile.set_tile_inf(Tile.TileInf.FIRE_STATION, fire_height, fire_width)
 							City.numFireStations += 1
 							Announcer.notify(Event.new("Added Tile", "Added Fire Station", 1))
 						else:
@@ -360,14 +374,16 @@ func _unhandled_input(event):
 						City.numFireStations -= 1
 			
 			Global.Tool.INF_HOSPITAL:
+				var hospital_height = 1
+				var hospital_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.HOSPITAL):
+					if (tile.check_if_valid_placement(Tile.TileInf.HOSPITAL, hospital_height, hospital_width)):
 						if (Inventory.removeIfHave('hospital')):
-							tile.set_tile_inf(Tile.TileInf.HOSPITAL)
+							tile.set_tile_inf(Tile.TileInf.HOSPITAL, hospital_height, hospital_width)
 							City.numHospital += 1
 							Announcer.notify(Event.new("Added Tile", "Added Hospital", 1))
 						elif (Econ.purchase_structure(Econ.HOSPITAL_COST)):
-							tile.set_tile_inf(Tile.TileInf.HOSPITAL)
+							tile.set_tile_inf(Tile.TileInf.HOSPITAL, hospital_height, hospital_width)
 							City.numHospital += 1
 							Announcer.notify(Event.new("Added Tile", "Added Hospital", 1))
 						else:
@@ -382,14 +398,16 @@ func _unhandled_input(event):
 						City.numHospital -= 1
 			
 			Global.Tool.INF_POLICE_STATION:
+				var police_height = 1
+				var police_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.POLICE_STATION):
+					if (tile.check_if_valid_placement(Tile.TileInf.POLICE_STATION, police_height, police_width)):
 						if (Inventory.removeIfHave('police station')):
-							tile.set_tile_inf(Tile.TileInf.POLICE_STATION)
+							tile.set_tile_inf(Tile.TileInf.POLICE_STATION, police_height, police_width)
 							City.numPoliceStations += 1
 							Announcer.notify(Event.new("Added Tile", "Added Police Station", 1))
 						elif (Econ.purchase_structure(Econ.POLICE_STATION_COST)):
-							tile.set_tile_inf(Tile.TileInf.POLICE_STATION)
+							tile.set_tile_inf(Tile.TileInf.POLICE_STATION, police_height, police_width)
 							City.numPoliceStations += 1
 							Announcer.notify(Event.new("Added Tile", "Added Police Station", 1))
 						else:
@@ -404,14 +422,16 @@ func _unhandled_input(event):
 						City.numPoliceStations -= 1
 			
 			Global.Tool.INF_SCHOOL:
+				var school_height = 1
+				var school_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.SCHOOL):
+					if (tile.check_if_valid_placement(Tile.TileInf.SCHOOL, school_height, school_width)):
 						if (Inventory.removeIfHave('school')):
-							tile.set_tile_inf(Tile.TileInf.SCHOOL)
+							tile.set_tile_inf(Tile.TileInf.SCHOOL, school_height, school_width)
 							City.numSchools += 1
 							Announcer.notify(Event.new("Added Tile", "Added School", 1))
 						elif (Econ.purchase_structure(Econ.SCHOOL_COST)):
-							tile.set_tile_inf(Tile.TileInf.SCHOOL)
+							tile.set_tile_inf(Tile.TileInf.SCHOOL, school_height, school_width)
 							City.numSchools += 1
 							Announcer.notify(Event.new("Added Tile", "Added School", 1))
 						else:

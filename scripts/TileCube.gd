@@ -248,7 +248,8 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.position = Vector2(x, y - h - 32)
+		buildingSprite.scale = Vector2(2, 2)
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		clear_objects()
