@@ -238,9 +238,10 @@ func check_if_valid_placement(inf_to_be, height, width):
 				return false
 	return true
 
-func set_tile_inf(infType, height, width):
+func set_tile_inf(infType, zoneType, height, width):
 	clear_tile()
 	inf = infType
+	zone = zoneType
 	for a in range(0, height):
 		for b in range(0, width):
 			if a == 0 and b == 0:
@@ -248,6 +249,7 @@ func set_tile_inf(infType, height, width):
 			#No need to check if valid, already did that
 			var currTile = Global.tileMap[i - a][j - b]
 			currTile.inf = TileInf.CHILD
+			currTile.zone = zoneType
 			currTile.parent = [i, j]
 			children.append([i - a, j - b])
 	City.connectUtilities()
