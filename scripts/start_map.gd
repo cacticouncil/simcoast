@@ -113,8 +113,6 @@ func _unhandled_input(event):
 			return
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
-		print("Button Released")
-		print("On Tile: " + str(cube.i) + ", " + str(cube.j))
 		
 		# Perform action based on current tool selected
 		match Global.mapTool:
@@ -628,7 +626,6 @@ func _unhandled_input(event):
 				Global.isPaused = true
 
 	elif event is InputEventMouseButton:
-		print("Button Release")
 		Global.dragToPlaceState = false
 		Global.dragToRemoveState = false
 	elif event is InputEventMouseMotion:		
