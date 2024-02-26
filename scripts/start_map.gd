@@ -139,11 +139,8 @@ func _unhandled_input(event):
 					City.adjust_tile_height(tile)
 			
 			Global.Tool.BASE_OCEAN:
-				if tile.get_base() != Tile.TileBase.OCEAN && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE && Econ.purchase_structure(Econ.WATER_COST):
-					tile.clear_tile()
-					tile.set_base(Tile.TileBase.OCEAN)
-					tile.set_base_height(Global.oceanHeight)
-					tile.set_water_height(0)
+				if Input.is_action_pressed("left_click"):
+					Global.dragToPlaceState = true
 			
 			Global.Tool.BASE_SAND:
 				City.adjust_tile_height(tile)
@@ -783,60 +780,66 @@ func placementState():
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
 		
-		if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE):
-			if (Global.mapTool == Global.Tool.INF_ROAD):
-				if (Inventory.removeIfHave('road')):
-					tile.clear_tile()
-					tile.inf = Tile.TileInf.ROAD
-					City.connectRoads(tile)
-					City.connectUtilities()
-					City.numRoads += 1
-					Announcer.notify(Event.new("Added Tile", "Added Road", 1))
-				elif (Econ.purchase_structure(Econ.ROAD_COST)):
-					tile.clear_tile()
-					tile.inf = Tile.TileInf.ROAD
-					City.connectRoads(tile)
-					City.connectUtilities()
-					City.numRoads += 1
-					Announcer.notify(Event.new("Added Tile", "Added Road", 1))
-			elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
-				if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
-					Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
-					if tile.has_utilities():
-						Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
-					tile.clear_tile()
-					tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
-			elif (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY):
-				if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
-					Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
-					if tile.has_utilities():
-						Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
-					tile.clear_tile()
-					tile.set_zone(Tile.TileZone.MULTI_FAMILY)
-			elif (Global.mapTool == Global.Tool.ZONE_COM):
-				if !tile.is_commercial():
-					Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
-					if tile.has_utilities():
-						Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
-					tile.clear_tile()
-					tile.set_zone(Tile.TileZone.COMMERCIAL)
-		elif (tile.get_base() == Tile.TileBase.OCEAN  && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE):
-			if (Global.mapTool == Global.Tool.INF_BRIDGE):
-				if (Inventory.removeIfHave('bridge')):
-					tile.clear_tile()
-					tile.inf = Tile.TileInf.BRIDGE
-					City.connectRoads(tile)
-					City.connectUtilities()
-					City.numBridges += 1
-					Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
-				elif (Econ.purchase_structure(Econ.BRIDGE_COST)):
-					tile.clear_tile()
-					tile.inf = Tile.TileInf.BRIDGE
-					City.connectRoads(tile)
-					City.connectUtilities()
-					City.numBridges += 1
-					Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
-						
+		if (tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE):
+			if (tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK):
+				if (Global.mapTool == Global.Tool.INF_ROAD):
+					if (Inventory.removeIfHave('road')):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.ROAD
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numRoads += 1
+						Announcer.notify(Event.new("Added Tile", "Added Road", 1))
+					elif (Econ.purchase_structure(Econ.ROAD_COST)):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.ROAD
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numRoads += 1
+						Announcer.notify(Event.new("Added Tile", "Added Road", 1))
+				elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
+					if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
+						Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+						if tile.has_utilities():
+							Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
+						tile.clear_tile()
+						tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
+				elif (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY):
+					if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
+						Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+						if tile.has_utilities():
+							Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
+						tile.clear_tile()
+						tile.set_zone(Tile.TileZone.MULTI_FAMILY)
+				elif (Global.mapTool == Global.Tool.ZONE_COM):
+					if !tile.is_commercial():
+						Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
+						if tile.has_utilities():
+							Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
+						tile.clear_tile()
+						tile.set_zone(Tile.TileZone.COMMERCIAL)
+				elif (Global.mapTool == Global.Tool.BASE_OCEAN):
+					if (Econ.purchase_structure(Econ.WATER_COST)):
+						tile.clear_tile()
+						tile.set_base(Tile.TileBase.OCEAN)
+						tile.set_base_height(Global.oceanHeight)
+						tile.set_water_height(0)
+			elif (tile.get_base() == Tile.TileBase.OCEAN):
+				if (Global.mapTool == Global.Tool.INF_BRIDGE):
+					if (Inventory.removeIfHave('bridge')):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.BRIDGE
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numBridges += 1
+						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
+					elif (Econ.purchase_structure(Econ.BRIDGE_COST)):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.BRIDGE
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numBridges += 1
+						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
 				
 	elif Global.dragToRemoveState:
 		
