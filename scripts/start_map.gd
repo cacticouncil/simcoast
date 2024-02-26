@@ -7,6 +7,8 @@ var tickDelay = Global.TICK_DELAY #time in seconds between ticks
 var numTicks = 0 #time elapsed since start
 var isFastFWD = false
 var current_sensor_tile
+var fadedShader = preload("res://assets/shaders/faded.tres")
+var invalidShader = preload("res://assets/shaders/invalid.tres")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initCamera()
@@ -209,20 +211,25 @@ func _unhandled_input(event):
 				tile.clear_tile()
 				
 			Global.Tool.INF_UTILITIES_PLANT:
-				var utility_height = 1
-				var utility_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.check_if_valid_placement(Tile.TileInf.UTILITIES_PLANT, utility_height, utility_width)):
+					if (tile.check_if_valid_placement(Tile.TileInf.UTILITIES_PLANT, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('utility plant')):
-							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT, Tile.TileZone.NONE, utility_height, utility_width)
+							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT, Tile.TileZone.NONE, Global.buildingHeight, Global.buildingWidth)
 							City.numUtilityPlants += 1
 							Announcer.notify(Event.new("Added Tile", "Added Power Plant", 1))
 						elif (Econ.purchase_structure(Econ.UTILITIES_PLANT_COST)):
-							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT, Tile.TileZone.NONE, utility_height, utility_width)
+							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT, Tile.TileZone.NONE, Global.buildingHeight, Global.buildingWidth)
 							City.numUtilityPlants += 1
 							Announcer.notify(Event.new("Added Tile", "Added Power Plant", 1))
 						else:
 							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							$VectorMap.remove_child(Global.hoverSprite)
+						$HUD/ToolsMenu.deactivateButtons()
+						
 					elif (tile.inf == Tile.TileInf.UTILITIES_PLANT):
 						actionText.text = "Cannot build here!"
 				elif Input.is_action_pressed("right_click"):
@@ -237,18 +244,22 @@ func _unhandled_input(event):
 							City.numUtilityPlants -= 1
 			
 			Global.Tool.INF_SEWAGE_FACILITY:
-				var sewage_height = 1
-				var sewage_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.check_if_valid_placement(Tile.TileInf.SEWAGE_FACILITY, sewage_height, sewage_width)):
+					if (tile.check_if_valid_placement(Tile.TileInf.SEWAGE_FACILITY, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('sewage facility')):
-							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY, Tile.TileZone.PUBLIC_WORKS, sewage_height, sewage_width)
+							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							Announcer.notify(Event.new("Added Tile", "Added Sewage Facility", 1))
 						elif (Econ.purchase_structure(Econ.SEWAGE_FACILITY_COST)):
-							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY, Tile.TileZone.PUBLIC_WORKS, sewage_height, sewage_width)
+							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							Announcer.notify(Event.new("Added Tile", "Added Sewage Facility", 1))
 						else:
 							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							$VectorMap.remove_child(Global.hoverSprite)
+						
 					elif (tile.inf == Tile.TileInf.SEWAGE_FACILITY):
 						actionText.text = "Cannot build here!"
 				elif Input.is_action_pressed("right_click"):
@@ -262,18 +273,22 @@ func _unhandled_input(event):
 							City.numSewageFacilities -= 1
 			
 			Global.Tool.INF_WASTE_TREATMENT:
-				var waste_height = 1
-				var waste_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.check_if_valid_placement(Tile.TileInf.WASTE_TREATMENT, waste_height, waste_width)):
+					if (tile.check_if_valid_placement(Tile.TileInf.WASTE_TREATMENT, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('waste treatment')):
-							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT, Tile.TileZone.PUBLIC_WORKS, waste_height, waste_width)
+							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							Announcer.notify(Event.new("Added Tile", "Added Waste Treatment Facility", 1))
 						elif (Econ.purchase_structure(Econ.WASTE_TREATMENT_COST)):
-							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT, Tile.TileZone.PUBLIC_WORKS, waste_height, waste_width)
+							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							Announcer.notify(Event.new("Added Tile", "Added Waste Treatment Facility", 1))
 						else:
 							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							$VectorMap.remove_child(Global.hoverSprite)
+						
 					elif (tile.inf == Tile.TileInf.WASTE_TREATMENT):
 						actionText.text = "Cannot build here!"
 				elif Input.is_action_pressed("right_click"):
@@ -287,22 +302,26 @@ func _unhandled_input(event):
 							City.numWasteTreatment -= 1
 						
 			Global.Tool.INF_PARK:
-				var park_height = 1
-				var park_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if (tile.get_base() == Tile.TileBase.DIRT && tile.inf != Tile.TileInf.PARK):
 						if (Inventory.removeIfHave('park')):
-							tile.set_tile_inf(Tile.TileInf.PARK, Tile.TileZone.PUBLIC_WORKS, park_height, park_width)
+							tile.set_tile_inf(Tile.TileInf.PARK, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
 							Announcer.notify(Event.new("Added Tile", "Added Park", 1))
 						elif (Econ.purchase_structure(Econ.PARK_COST)):
-							tile.set_tile_inf(Tile.TileInf.PARK, Tile.TileZone.PUBLIC_WORKS, park_height, park_width)
+							tile.set_tile_inf(Tile.TileInf.PARK, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
 							Announcer.notify(Event.new("Added Tile", "Added Park", 1))
 						else:
 							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							$VectorMap.remove_child(Global.hoverSprite)
+						
 					elif (tile.inf == Tile.TileInf.PARK):
 						actionText.text = "Cannot build here!"
 					else:
@@ -318,22 +337,26 @@ func _unhandled_input(event):
 							City.numParks -= 1
 			
 			Global.Tool.INF_LIBRARY:
-				var library_height = 1
-				var library_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.check_if_valid_placement(Tile.TileInf.LIBRARY, library_height, library_width)):
+					if (tile.check_if_valid_placement(Tile.TileInf.LIBRARY, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('library')):
-							tile.set_tile_inf(Tile.TileInf.LIBRARY, Tile.TileZone.PUBLIC_WORKS, library_height, library_width)
+							tile.set_tile_inf(Tile.TileInf.LIBRARY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numLibraries += 1
 							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
 						elif (Econ.purchase_structure(Econ.LIBRARY_COST)):
-							tile.set_tile_inf(Tile.TileInf.LIBRARY, Tile.TileZone.PUBLIC_WORKS, library_height, library_width)
+							tile.set_tile_inf(Tile.TileInf.LIBRARY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numLibraries += 1
 							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
 						else:
 							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							$VectorMap.remove_child(Global.hoverSprite)
+						
 					elif (tile.inf == Tile.TileInf.LIBRARY):
 						actionText.text = "Cannot build here!"
 					else:
@@ -349,22 +372,26 @@ func _unhandled_input(event):
 							City.numLibraries -= 1
 			
 			Global.Tool.INF_MUSEUM:
-				var museum_height = 1
-				var museum_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.check_if_valid_placement(Tile.TileInf.MUSEUM, museum_height, museum_width)):
+					if (tile.check_if_valid_placement(Tile.TileInf.MUSEUM, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('museum')):
-							tile.set_tile_inf(Tile.TileInf.MUSEUM, Tile.TileZone.PUBLIC_WORKS, museum_height, museum_width)
+							tile.set_tile_inf(Tile.TileInf.MUSEUM, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numMuseums += 1
 							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
 						elif (Econ.purchase_structure(Econ.MUSEUM_COST)):
-							tile.set_tile_inf(Tile.TileInf.MUSEUM, Tile.TileZone.PUBLIC_WORKS, museum_height, museum_width)
+							tile.set_tile_inf(Tile.TileInf.MUSEUM, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numMuseums += 1
 							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
 						else:
 							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							$VectorMap.remove_child(Global.hoverSprite)
+						
 					elif (tile.inf == Tile.TileInf.MUSEUM):
 						actionText.text = "Cannot build here!"
 					else:
@@ -380,20 +407,24 @@ func _unhandled_input(event):
 							City.numMuseums -= 1
 			
 			Global.Tool.INF_FIRE_STATION:
-				var fire_height = 2
-				var fire_width = 2
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.check_if_valid_placement(Tile.TileInf.FIRE_STATION, fire_height, fire_width)):
+					if (tile.check_if_valid_placement(Tile.TileInf.FIRE_STATION, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('fire station')):
-							tile.set_tile_inf(Tile.TileInf.FIRE_STATION, Tile.TileZone.PUBLIC_WORKS, fire_height, fire_width)
+							tile.set_tile_inf(Tile.TileInf.FIRE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numFireStations += 1
 							Announcer.notify(Event.new("Added Tile", "Added Fire Station", 1))
 						elif (Econ.purchase_structure(Econ.FIRE_STATION_COST)):
-							tile.set_tile_inf(Tile.TileInf.FIRE_STATION, Tile.TileZone.PUBLIC_WORKS, fire_height, fire_width)
+							tile.set_tile_inf(Tile.TileInf.FIRE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numFireStations += 1
 							Announcer.notify(Event.new("Added Tile", "Added Fire Station", 1))
 						else:
 							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							$VectorMap.remove_child(Global.hoverSprite)
+						
 					elif (tile.inf == Tile.TileInf.FIRE_STATION):
 						actionText.text = "Cannot build here!"
 					else:
@@ -409,20 +440,24 @@ func _unhandled_input(event):
 							City.numFireStations -= 1
 			
 			Global.Tool.INF_HOSPITAL:
-				var hospital_height = 1
-				var hospital_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.check_if_valid_placement(Tile.TileInf.HOSPITAL, hospital_height, hospital_width)):
+					if (tile.check_if_valid_placement(Tile.TileInf.HOSPITAL, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('hospital')):
-							tile.set_tile_inf(Tile.TileInf.HOSPITAL, Tile.TileZone.PUBLIC_WORKS, hospital_height, hospital_width)
+							tile.set_tile_inf(Tile.TileInf.HOSPITAL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numHospital += 1
 							Announcer.notify(Event.new("Added Tile", "Added Hospital", 1))
 						elif (Econ.purchase_structure(Econ.HOSPITAL_COST)):
-							tile.set_tile_inf(Tile.TileInf.HOSPITAL, Tile.TileZone.PUBLIC_WORKS, hospital_height, hospital_width)
+							tile.set_tile_inf(Tile.TileInf.HOSPITAL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numHospital += 1
 							Announcer.notify(Event.new("Added Tile", "Added Hospital", 1))
 						else:
 							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							$VectorMap.remove_child(Global.hoverSprite)
+						
 					elif (tile.inf == Tile.TileInf.HOSPITAL):
 						actionText.text = "Cannot build here!"
 					else:
@@ -438,20 +473,24 @@ func _unhandled_input(event):
 							City.numHospital -= 1
 			
 			Global.Tool.INF_POLICE_STATION:
-				var police_height = 1
-				var police_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.check_if_valid_placement(Tile.TileInf.POLICE_STATION, police_height, police_width)):
+					if (tile.check_if_valid_placement(Tile.TileInf.POLICE_STATION, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('police station')):
-							tile.set_tile_inf(Tile.TileInf.POLICE_STATION, Tile.TileZone.PUBLIC_WORKS, police_height, police_width)
+							tile.set_tile_inf(Tile.TileInf.POLICE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numPoliceStations += 1
 							Announcer.notify(Event.new("Added Tile", "Added Police Station", 1))
 						elif (Econ.purchase_structure(Econ.POLICE_STATION_COST)):
-							tile.set_tile_inf(Tile.TileInf.POLICE_STATION, Tile.TileZone.PUBLIC_WORKS, police_height, police_width)
+							tile.set_tile_inf(Tile.TileInf.POLICE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numPoliceStations += 1
 							Announcer.notify(Event.new("Added Tile", "Added Police Station", 1))
 						else:
 							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							$VectorMap.remove_child(Global.hoverSprite)
+						
 					elif (tile.inf == Tile.TileInf.POLICE_STATION):
 						actionText.text = "Cannot build here!"
 					else:
@@ -467,20 +506,24 @@ func _unhandled_input(event):
 							City.numPoliceStations -= 1
 			
 			Global.Tool.INF_SCHOOL:
-				var school_height = 1
-				var school_width = 1
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.check_if_valid_placement(Tile.TileInf.SCHOOL, school_height, school_width)):
+					if (tile.check_if_valid_placement(Tile.TileInf.SCHOOL, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('school')):
-							tile.set_tile_inf(Tile.TileInf.SCHOOL, Tile.TileZone.PUBLIC_WORKS, school_height, school_width)
+							tile.set_tile_inf(Tile.TileInf.SCHOOL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numSchools += 1
 							Announcer.notify(Event.new("Added Tile", "Added School", 1))
 						elif (Econ.purchase_structure(Econ.SCHOOL_COST)):
-							tile.set_tile_inf(Tile.TileInf.SCHOOL, Tile.TileZone.PUBLIC_WORKS, school_height, school_width)
+							tile.set_tile_inf(Tile.TileInf.SCHOOL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numSchools += 1
 							Announcer.notify(Event.new("Added Tile", "Added School", 1))
 						else:
 							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							$VectorMap.remove_child(Global.hoverSprite)
+						
 					elif (tile.inf == Tile.TileInf.SCHOOL):
 						actionText.text = "Cannot build here!"
 					else:
@@ -758,6 +801,39 @@ func update_game_state():
 	Econ.calcCityIncome()
 	Econ.calculate_upkeep_costs()
 	UpdateDate.update_date()
+	placementState()
+
+func placementState():
+	if Global.placementState:
+		if Global.hoverSprite != null:
+			$VectorMap.remove_child(Global.hoverSprite)
+		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
+		var tile
+	
+		# If the click was not on a valid tile, do nothing
+		if not cube:
+			return
+		else:
+			tile = Global.tileMap[cube.i][cube.j]
+		Global.hoverSprite = null
+		var x = (cube.i * (Global.TILE_WIDTH / 2.0)) + (cube.j * (-Global.TILE_WIDTH / 2.0))
+		var y = (cube.i * (Global.TILE_HEIGHT / 2.0)) + (cube.j * (Global.TILE_HEIGHT / 2.0))
+		var h = tile.get_base_height()
+		
+		Global.hoverSprite = Sprite.new()
+		Global.hoverSprite.texture = load(Global.hoverImage)
+		Global.hoverSprite.position = Vector2(x, y - h - 32 * (Global.buildingHeight - 1))
+		#TODO: Ideally we shouldn't need scale and the sprites are the correct size, account for this when need be
+		Global.hoverSprite.scale = Vector2(Global.buildingHeight, Global.buildingHeight)
+		Global.hoverSprite.material = ShaderMaterial.new()
+		
+		if tile.check_if_valid_placement(Global.infType, Global.buildingHeight, Global.buildingWidth):
+			Global.hoverSprite.material.shader = fadedShader
+		else:
+			Global.hoverSprite.material.shader = invalidShader
+		
+		$VectorMap.add_child(Global.hoverSprite)
+
 func update_graphics():
 	#print("Updating graphics on tick: " + str(numTicks))
 	UpdateGraphics.update_graphics()

@@ -203,24 +203,74 @@ func button_pressed():
 			Global.mapTool = Global.Tool.ADD_COM_PERSON
 		'fire station_button':
 			Global.mapTool = Global.Tool.INF_FIRE_STATION
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/Firehouse.png"
+			Global.infType = Tile.TileInf.FIRE_STATION
+			Global.buildingHeight = 2
+			Global.buildingWidth = 2
 		'hospital_button':
 			Global.mapTool = Global.Tool.INF_HOSPITAL
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/Hospital.png"
+			Global.infType = Tile.TileInf.HOSPITAL
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
 		'police station_button':
 			Global.mapTool = Global.Tool.INF_POLICE_STATION
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/PoliceStation.png"
+			Global.infType = Tile.TileInf.POLICE_STATION
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
 		'utility plant_button':
 			Global.mapTool = Global.Tool.INF_UTILITIES_PLANT
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/UtilityPlant.png"
+			Global.infType = Tile.TileInf.UTILITIES_PLANT
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
 		'sewage facility_button':
 			Global.mapTool = Global.Tool.INF_SEWAGE_FACILITY
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/SewageFacility.png"
+			Global.infType = Tile.TileInf.SEWAGE_FACILITY
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
 		'waste treatment_button':
 			Global.mapTool = Global.Tool.INF_WASTE_TREATMENT
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/WasteTreatment.png"
+			Global.infType = Tile.TileInf.WASTE_TREATMENT
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
 		'park_button':
 			Global.mapTool = Global.Tool.INF_PARK
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/Park.png"
+			Global.infType = Tile.TileInf.PARK
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
 		'library_button':
 			Global.mapTool = Global.Tool.INF_LIBRARY
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/Library.png"
+			Global.infType = Tile.TileInf.LIBRARY
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
 		'museum_button':
 			Global.mapTool = Global.Tool.INF_MUSEUM
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/Museum.png"
+			Global.infType = Tile.TileInf.MUSEUM
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
 		'school_button':
 			Global.mapTool = Global.Tool.INF_SCHOOL
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/School.png"
+			Global.infType = Tile.TileInf.SCHOOL
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
 		'road_button':
 			Global.mapTool = Global.Tool.INF_ROAD
 		'bridge_button':
@@ -285,6 +335,11 @@ func button_pressed():
 			print("ZOOMIN")
 			get_node("../../Camera2D").zoom_in()
 			Global.mapTool = Global.Tool.NONE
+
+func deactivateButtons():
+	for i in group.get_buttons():
+		i.release_focus()
+		i.pressed = false
 
 func updateAmounts():
 	#The buttons are all part of a button group so we can get them all this way
