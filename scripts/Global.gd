@@ -48,6 +48,9 @@ var infType = null
 var buildingHeight = -1
 var buildingWidth = -1
 
+var dragToPlaceState = false
+var dragToRemoveState = false
+
 # Economy AI constants
 const ZONE_BALANCE = -.01
 

@@ -152,35 +152,10 @@ func _unhandled_input(event):
 	
 			# Clear and zone a tile (if it is not already of the same zone)
 			Global.Tool.ZONE_SINGLE_FAMILY, Global.Tool.ZONE_MULTI_FAMILY, Global.Tool.ZONE_COM:
-				if !tile.can_zone():
-					return
-
-				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					match Global.mapTool:
-						Global.Tool.ZONE_SINGLE_FAMILY:
-							if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
-								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
-								if tile.has_utilities():
-									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
-								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
-						Global.Tool.ZONE_MULTI_FAMILY:
-							if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
-								Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
-								if tile.has_utilities():
-									Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
-								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.MULTI_FAMILY)
-						Global.Tool.ZONE_COM:
-							if !tile.is_commercial():
-								Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
-								if tile.has_utilities():
-									Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
-								tile.clear_tile()
-								tile.set_zone(Tile.TileZone.COMMERCIAL)
-								
-				elif Input.is_action_pressed("right_click"):	
-					tile.clear_tile()					
+				if Input.is_action_pressed("left_click"):
+					Global.dragToPlaceState = true
+				elif Input.is_action_pressed("right_click"):
+					Global.dragToRemoveState = true
 
 			# Add/Remove Buildings
 			Global.Tool.ADD_RES_BLDG:
@@ -585,34 +560,10 @@ func _unhandled_input(event):
 					if tile.sensor == Tile.TileSensor.RAIN:
 						tile.clear_sensor()
 			Global.Tool.INF_ROAD:
-				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.ROAD):
-						if (Inventory.removeIfHave('road')):
-							tile.clear_tile()
-							tile.inf = Tile.TileInf.ROAD
-							City.connectRoads(tile)
-							City.connectUtilities()
-							City.numRoads += 1
-							Announcer.notify(Event.new("Added Tile", "Added Road", 1))
-						elif (Econ.purchase_structure(Econ.ROAD_COST)):
-							tile.clear_tile()
-							tile.inf = Tile.TileInf.ROAD
-							City.connectRoads(tile)
-							City.connectUtilities()
-							City.numRoads += 1
-							Announcer.notify(Event.new("Added Tile", "Added Road", 1))
-						else:
-							actionText.text = "Not enough funds!"
-					elif (tile.inf == Tile.TileInf.ROAD):
-						actionText.text = "Cannot build here!"
-					else:
-						actionText.text = "Road not buildable on tile base type"
+				if Input.is_action_pressed("left_click"):
+					Global.dragToPlaceState = true
 				elif Input.is_action_pressed("right_click"):
-					if tile.inf == Tile.TileInf.ROAD:
-						tile.clear_tile()
-						City.connectRoads(tile)
-						City.connectUtilities()
-						City.numRoads -= 1
+					Global.dragToRemoveState = true
 			
 			Global.Tool.INF_BRIDGE:
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
@@ -704,6 +655,8 @@ func _unhandled_input(event):
 
 	elif event is InputEventMouseButton:
 		print("Button Release")
+		Global.dragToPlaceState = false
+		Global.dragToRemoveState = false
 	elif event is InputEventMouseMotion:		
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
 		
@@ -849,6 +802,72 @@ func placementState():
 			Global.hoverSprite.material.shader = fadedShader
 			
 			$VectorMap.add_child(Global.hoverSprite)
+	elif Global.dragToPlaceState:
+		
+		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
+		var tile
+		
+		if not cube:
+			return
+		else:
+			tile = Global.tileMap[cube.i][cube.j]
+		
+		if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE):
+			if (Global.mapTool == Global.Tool.INF_ROAD):
+				if (Inventory.removeIfHave('road')):
+					tile.clear_tile()
+					tile.inf = Tile.TileInf.ROAD
+					City.connectRoads(tile)
+					City.connectUtilities()
+					City.numRoads += 1
+					Announcer.notify(Event.new("Added Tile", "Added Road", 1))
+				elif (Econ.purchase_structure(Econ.ROAD_COST)):
+					tile.clear_tile()
+					tile.inf = Tile.TileInf.ROAD
+					City.connectRoads(tile)
+					City.connectUtilities()
+					City.numRoads += 1
+					Announcer.notify(Event.new("Added Tile", "Added Road", 1))
+			elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
+				if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
+					Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+					if tile.has_utilities():
+						Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
+					tile.clear_tile()
+					tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
+			elif (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY):
+				if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
+					Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+					if tile.has_utilities():
+						Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
+					tile.clear_tile()
+					tile.set_zone(Tile.TileZone.MULTI_FAMILY)
+			elif (Global.mapTool == Global.Tool.ZONE_COM):
+				if !tile.is_commercial():
+					Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
+					if tile.has_utilities():
+						Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
+					tile.clear_tile()
+					tile.set_zone(Tile.TileZone.COMMERCIAL)
+						
+				
+	elif Global.dragToRemoveState:
+		
+		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
+		var tile
+		
+		if not cube:
+			return
+		else:
+			tile = Global.tileMap[cube.i][cube.j]
+			
+		if tile.inf == Tile.TileInf.ROAD:
+			tile.clear_tile()
+			City.connectRoads(tile)
+			City.connectUtilities()
+			City.numRoads -= 1
+		elif tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.MULTI_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL:
+			tile.clear_tile()
 
 func update_graphics():
 	#print("Updating graphics on tick: " + str(numTicks))
