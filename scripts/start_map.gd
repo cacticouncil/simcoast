@@ -566,36 +566,10 @@ func _unhandled_input(event):
 					Global.dragToRemoveState = true
 			
 			Global.Tool.INF_BRIDGE:
-				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
-					if (tile.get_base() == Tile.TileBase.OCEAN && tile.inf != Tile.TileInf.BRIDGE):
-						if (Inventory.removeIfHave('bridge')):
-							tile.clear_tile()
-							tile.inf = Tile.TileInf.BRIDGE
-							City.connectRoads(tile)
-							City.connectUtilities()
-							City.numBridges += 1
-							Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
-						elif (Econ.purchase_structure(Econ.BRIDGE_COST)):
-							tile.clear_tile()
-							tile.inf = Tile.TileInf.BRIDGE
-							City.connectRoads(tile)
-							City.connectUtilities()
-							City.numBridges += 1
-							Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
-						else:
-							actionText.text = "Not enough funds!"
-					elif (tile.inf == Tile.TileInf.BRIDGE):
-						actionText.text = "Cannot build here!"
-					else:
-						actionText.text = "Bridge not buildable on tile base type"
+				if Input.is_action_pressed("left_click"):
+					Global.dragToPlaceState = true
 				elif Input.is_action_pressed("right_click"):
-					if tile.inf == Tile.TileInf.BRIDGE:
-						tile.clear_tile()
-						tile.bridgeHeight = 0
-						City.disconnectBridges(tile)
-						City.connectRoads(tile)
-						City.connectUtilities()
-						City.numBridges -= 1
+					Global.dragToRemoveState = true
 
 			Global.Tool.INF_BEACH_ROCKS:
 				if tile.get_base() == Tile.TileBase.SAND:
@@ -849,6 +823,22 @@ func placementState():
 						Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
 					tile.clear_tile()
 					tile.set_zone(Tile.TileZone.COMMERCIAL)
+		elif (tile.get_base() == Tile.TileBase.OCEAN  && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE):
+			if (Global.mapTool == Global.Tool.INF_BRIDGE):
+				if (Inventory.removeIfHave('bridge')):
+					tile.clear_tile()
+					tile.inf = Tile.TileInf.BRIDGE
+					City.connectRoads(tile)
+					City.connectUtilities()
+					City.numBridges += 1
+					Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
+				elif (Econ.purchase_structure(Econ.BRIDGE_COST)):
+					tile.clear_tile()
+					tile.inf = Tile.TileInf.BRIDGE
+					City.connectRoads(tile)
+					City.connectUtilities()
+					City.numBridges += 1
+					Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
 						
 				
 	elif Global.dragToRemoveState:
@@ -866,6 +856,13 @@ func placementState():
 			City.connectRoads(tile)
 			City.connectUtilities()
 			City.numRoads -= 1
+		elif tile.inf == Tile.TileInf.BRIDGE:
+			tile.clear_tile()
+			tile.bridgeHeight = 0
+			City.disconnectBridges(tile)
+			City.connectRoads(tile)
+			City.connectUtilities()
+			City.numBridges -= 1
 		elif tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.MULTI_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL:
 			tile.clear_tile()
 
