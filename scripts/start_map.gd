@@ -113,6 +113,8 @@ func _unhandled_input(event):
 			return
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
+		print("Button Released")
+		print("On Tile: " + str(cube.i) + ", " + str(cube.j))
 		
 		# Perform action based on current tool selected
 		match Global.mapTool:
@@ -700,6 +702,8 @@ func _unhandled_input(event):
 				$HUD/play_button.pressed = true
 				Global.isPaused = true
 
+	elif event is InputEventMouseButton:
+		print("Button Release")
 	elif event is InputEventMouseMotion:		
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
 		
