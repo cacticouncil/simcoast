@@ -147,6 +147,8 @@ func _unhandled_input(event):
 	
 			# Clear and zone a tile (if it is not already of the same zone)
 			Global.Tool.ZONE_SINGLE_FAMILY, Global.Tool.ZONE_MULTI_FAMILY, Global.Tool.ZONE_COM:
+				if (tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE && (tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK)):
+					Announcer.notify(Event.new("Added Tile", "Play SFX", 1))
 				if Input.is_action_pressed("left_click"):
 					Global.dragToPlaceState = true
 				elif Input.is_action_pressed("right_click"):
@@ -765,7 +767,7 @@ func placementState():
 			#TODO: Ideally we shouldn't need scale and the sprites are the correct size, account for this when need be
 			Global.hoverSprite.scale = Vector2(Global.buildingHeight, Global.buildingHeight)
 			Global.hoverSprite.material = ShaderMaterial.new()
-			
+			Global.hoverSprite.z_index = cube.i + cube.j
 			
 			Global.hoverSprite.material.shader = fadedShader
 			

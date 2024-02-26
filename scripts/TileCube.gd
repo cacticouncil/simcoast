@@ -147,6 +147,7 @@ func update_polygons():
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 	
 	# Create some one pixel high blades of grass
 	elif tile.inf == Tile.TileInf.BEACH_GRASS:
@@ -187,6 +188,7 @@ func update_polygons():
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 				
 	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
 		clear_objects()
@@ -194,6 +196,7 @@ func update_polygons():
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 	
 	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
 		clear_objects()
@@ -201,6 +204,7 @@ func update_polygons():
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 	
 	elif tile.inf == Tile.TileInf.LIBRARY:
 		"""
@@ -228,6 +232,7 @@ func update_polygons():
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
 		clear_objects()
@@ -235,6 +240,7 @@ func update_polygons():
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 	
 	elif tile.inf == Tile.TileInf.SCHOOL:
 		clear_objects()
@@ -242,6 +248,7 @@ func update_polygons():
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
 		clear_objects()
@@ -250,6 +257,7 @@ func update_polygons():
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h - 32)
 		buildingSprite.scale = Vector2(2, 2)
+		buildingSprite.z_index = (i + j) * 10
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		clear_objects()
@@ -257,6 +265,7 @@ func update_polygons():
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
 		clear_objects()
@@ -264,6 +273,7 @@ func update_polygons():
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
@@ -280,6 +290,7 @@ func update_polygons():
 			currBuilding = Sprite.new()
 			currBuilding.texture = image
 			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
 			listOfBuildings.append(currBuilding)
 			
 			if tile.connections[1]:
@@ -290,6 +301,7 @@ func update_polygons():
 			currBuilding = Sprite.new()
 			currBuilding.texture = image
 			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
 			listOfBuildings.append(currBuilding)
 			
 			if tile.connections[2]:
@@ -300,6 +312,7 @@ func update_polygons():
 			currBuilding = Sprite.new()
 			currBuilding.texture = image
 			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
 			listOfBuildings.append(currBuilding)
 			
 			if tile.connections[3]:
@@ -310,6 +323,7 @@ func update_polygons():
 			currBuilding = Sprite.new()
 			currBuilding.texture = image
 			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
 			listOfBuildings.append(currBuilding)
 		
 		
@@ -360,6 +374,7 @@ func update_polygons():
 		currBuilding = Sprite.new()
 		currBuilding.texture = image
 		currBuilding.position = Vector2(x, y - h)
+		currBuilding.z_index = (i + j) * 10
 		listOfBuildings.append(currBuilding)
 		
 		if tile.connections[1]:
@@ -370,6 +385,7 @@ func update_polygons():
 		currBuilding = Sprite.new()
 		currBuilding.texture = image
 		currBuilding.position = Vector2(x, y - h)
+		currBuilding.z_index = (i + j) * 10
 		listOfBuildings.append(currBuilding)
 		
 		if tile.connections[2]:
@@ -380,6 +396,7 @@ func update_polygons():
 		currBuilding = Sprite.new()
 		currBuilding.texture = image
 		currBuilding.position = Vector2(x, y - h)
+		currBuilding.z_index = (i + j) * 10
 		listOfBuildings.append(currBuilding)
 		
 		if tile.connections[3]:
@@ -390,6 +407,7 @@ func update_polygons():
 		currBuilding = Sprite.new()
 		currBuilding.texture = image
 		currBuilding.position = Vector2(x, y - h)
+		currBuilding.z_index = (i + j) * 10
 		listOfBuildings.append(currBuilding)
 		
 	# Create simple rocks to display beach rocks
@@ -493,6 +511,7 @@ func update_polygons():
 					var currBuilding = Sprite.new()
 					currBuilding.texture = image
 					currBuilding.position = Vector2(building_x, building_y - 19)
+					currBuilding.z_index = (i + j) * 10
 					listOfBuildings.append(currBuilding)
 					
 			Tile.TileZone.SINGLE_FAMILY:
@@ -541,6 +560,7 @@ func update_polygons():
 					var currBuilding = Sprite.new()
 					currBuilding.texture = image
 					currBuilding.position = Vector2(building_x, building_y - 19)
+					currBuilding.z_index = (i + j) * 10
 					listOfBuildings.append(currBuilding)
 
 		# Draws a single building whose size is scaled to number of buildings
@@ -556,7 +576,7 @@ func update_polygons():
 					building_visible = true
 				
 				var currentHeight = 0
-				var zIndex = 0
+				var zIndex = (i + j) * 10
 				
 				building_x = x
 				building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
