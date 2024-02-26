@@ -260,6 +260,8 @@ func _unhandled_input(event):
 						if Global.hoverSprite != null:
 							$VectorMap.remove_child(Global.hoverSprite)
 						
+						$HUD/ToolsMenu.deactivateButtons()
+						
 					elif (tile.inf == Tile.TileInf.SEWAGE_FACILITY):
 						actionText.text = "Cannot build here!"
 				elif Input.is_action_pressed("right_click"):
@@ -288,6 +290,8 @@ func _unhandled_input(event):
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
 							$VectorMap.remove_child(Global.hoverSprite)
+						
+						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.WASTE_TREATMENT):
 						actionText.text = "Cannot build here!"
@@ -321,6 +325,7 @@ func _unhandled_input(event):
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
 							$VectorMap.remove_child(Global.hoverSprite)
+						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.PARK):
 						actionText.text = "Cannot build here!"
@@ -356,6 +361,7 @@ func _unhandled_input(event):
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
 							$VectorMap.remove_child(Global.hoverSprite)
+						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.LIBRARY):
 						actionText.text = "Cannot build here!"
@@ -391,6 +397,7 @@ func _unhandled_input(event):
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
 							$VectorMap.remove_child(Global.hoverSprite)
+						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.MUSEUM):
 						actionText.text = "Cannot build here!"
@@ -424,6 +431,7 @@ func _unhandled_input(event):
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
 							$VectorMap.remove_child(Global.hoverSprite)
+						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.FIRE_STATION):
 						actionText.text = "Cannot build here!"
@@ -457,6 +465,7 @@ func _unhandled_input(event):
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
 							$VectorMap.remove_child(Global.hoverSprite)
+						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.HOSPITAL):
 						actionText.text = "Cannot build here!"
@@ -490,6 +499,7 @@ func _unhandled_input(event):
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
 							$VectorMap.remove_child(Global.hoverSprite)
+						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.POLICE_STATION):
 						actionText.text = "Cannot build here!"
@@ -523,6 +533,7 @@ func _unhandled_input(event):
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
 							$VectorMap.remove_child(Global.hoverSprite)
+						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.SCHOOL):
 						actionText.text = "Cannot build here!"
@@ -805,34 +816,35 @@ func update_game_state():
 
 func placementState():
 	if Global.placementState:
-		if Global.hoverSprite != null:
-			$VectorMap.remove_child(Global.hoverSprite)
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
 		var tile
-	
-		# If the click was not on a valid tile, do nothing
+		
 		if not cube:
 			return
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
-		Global.hoverSprite = null
-		var x = (cube.i * (Global.TILE_WIDTH / 2.0)) + (cube.j * (-Global.TILE_WIDTH / 2.0))
-		var y = (cube.i * (Global.TILE_HEIGHT / 2.0)) + (cube.j * (Global.TILE_HEIGHT / 2.0))
-		var h = tile.get_base_height()
-		
-		Global.hoverSprite = Sprite.new()
-		Global.hoverSprite.texture = load(Global.hoverImage)
-		Global.hoverSprite.position = Vector2(x, y - h - 32 * (Global.buildingHeight - 1))
-		#TODO: Ideally we shouldn't need scale and the sprites are the correct size, account for this when need be
-		Global.hoverSprite.scale = Vector2(Global.buildingHeight, Global.buildingHeight)
-		Global.hoverSprite.material = ShaderMaterial.new()
 		
 		if tile.check_if_valid_placement(Global.infType, Global.buildingHeight, Global.buildingWidth):
+			if Global.hoverSprite != null:
+				$VectorMap.remove_child(Global.hoverSprite)
+			# If the click was not on a valid tile, do nothing
+			
+			Global.hoverSprite = null
+			var x = (cube.i * (Global.TILE_WIDTH / 2.0)) + (cube.j * (-Global.TILE_WIDTH / 2.0))
+			var y = (cube.i * (Global.TILE_HEIGHT / 2.0)) + (cube.j * (Global.TILE_HEIGHT / 2.0))
+			var h = tile.get_base_height()
+			
+			Global.hoverSprite = Sprite.new()
+			Global.hoverSprite.texture = load(Global.hoverImage)
+			Global.hoverSprite.position = Vector2(x, y - h - 32 * (Global.buildingHeight - 1))
+			#TODO: Ideally we shouldn't need scale and the sprites are the correct size, account for this when need be
+			Global.hoverSprite.scale = Vector2(Global.buildingHeight, Global.buildingHeight)
+			Global.hoverSprite.material = ShaderMaterial.new()
+			
+			
 			Global.hoverSprite.material.shader = fadedShader
-		else:
-			Global.hoverSprite.material.shader = invalidShader
-		
-		$VectorMap.add_child(Global.hoverSprite)
+			
+			$VectorMap.add_child(Global.hoverSprite)
 
 func update_graphics():
 	#print("Updating graphics on tick: " + str(numTicks))
