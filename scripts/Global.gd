@@ -56,6 +56,7 @@ const ZONE_BALANCE = -.01
 
 # To know if game is paused
 var isPaused = false
+var currentWeatherState = 0;
 
 func initTileMap():
 	var tm = []

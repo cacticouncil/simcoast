@@ -118,7 +118,7 @@ func _draw():
 func clear_objects():
 	for o in objects:
 		for p in o:
-			if typeof(p) != TYPE_VECTOR2:
+			if typeof(p) != TYPE_VECTOR2 && typeof(p) != TYPE_INT:
 				p.queue_free()
 	objects.clear()
 	buildingSprite = null

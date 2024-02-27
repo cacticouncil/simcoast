@@ -232,7 +232,7 @@ func updateOceanHeight(dir):
 		# Check each orthogonal neighbor to determine if it will flood
 		var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
 		for n in neighbors:
-			if City.is_tile_inbounds(n[0], n[1]) && visited[n[0]][n[1]] == 0:
+			if is_tile_inbounds(n[0], n[1]) && visited[n[0]][n[1]] == 0:
 				visited[n[0]][n[1]] = 1
 				
 				# Rising ocean level
@@ -315,7 +315,6 @@ func calculate_damage():
 				#tile.remove_water()
 				#tile.cube.update()
 				tile.changeInWaterHeight = 0
-
 		
 func tile_out_of_bounds(cube):
 	return cube.i < 0 || Global.mapWidth <= cube.i || cube.j < 0 || Global.mapHeight <= cube.j

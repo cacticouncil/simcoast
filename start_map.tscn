@@ -70,6 +70,9 @@ bg_color = Color( 0.886275, 0.815686, 0.6, 1 )
 [node name="CityMap" type="Node2D"]
 position = Vector2( -2, 3 )
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 380.0 ]
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 rotating = true
@@ -651,7 +654,7 @@ margin_top = 95.0
 margin_right = 210.0
 margin_bottom = 120.0
 custom_fonts/font = ExtResource( 49 )
-text = "Yes! Place Sensor."
+text = "Yes, Place Sensor"
 
 [node name="NoButton" type="Button" parent="SensorChoice/ColorRect/ChoiceBox"]
 margin_left = 5.0
@@ -659,7 +662,7 @@ margin_top = 135.0
 margin_right = 210.0
 margin_bottom = 160.0
 custom_fonts/font = ExtResource( 49 )
-text = "I'm not sure."
+text = "No, not yet"
 
 [node name="HelpButton" type="Button" parent="SensorChoice/ColorRect/ChoiceBox"]
 margin_left = 5.0
@@ -694,6 +697,67 @@ margin_bottom = 200.0
 custom_fonts/font = ExtResource( 49 )
 text = "OK"
 
+[node name="ColorRect2" type="ColorRect" parent="SensorChoice"]
+visible = false
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 0.196078 )
+
+[node name="NoSensors" type="ColorRect" parent="SensorChoice/ColorRect2"]
+margin_left = 600.0
+margin_top = 155.0
+margin_right = 815.0
+margin_bottom = 370.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SensorChoice/ColorRect2/NoSensors"]
+margin_left = 15.0
+margin_top = 10.0
+margin_right = 200.0
+margin_bottom = 160.0
+custom_fonts/normal_font = ExtResource( 49 )
+text = "You do not have any available sensors of this type. 
+Please visit the store to buy sensors. "
+
+[node name="OkButton" type="Button" parent="SensorChoice/ColorRect2/NoSensors"]
+margin_left = 15.0
+margin_top = 160.0
+margin_right = 200.0
+margin_bottom = 190.0
+custom_fonts/font = ExtResource( 49 )
+text = "OK"
+
+[node name="SensorNo" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="SensorNo"]
+visible = false
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 0.196078 )
+
+[node name="BoxNo" type="ColorRect" parent="SensorNo/ColorRect"]
+margin_left = 600.0
+margin_top = 155.0
+margin_right = 815.0
+margin_bottom = 370.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="LabelNo" type="RichTextLabel" parent="SensorNo/ColorRect/BoxNo"]
+margin_left = 15.0
+margin_top = 10.0
+margin_right = 208.0
+margin_bottom = 218.0
+custom_fonts/normal_font = ExtResource( 49 )
+text = "For now, you are not allowed to place a sensor in a tile that is already assigned. Please pick an empty tile."
+
+[node name="CloseNoButton" type="Button" parent="SensorNo/ColorRect/BoxNo"]
+margin_left = 130.0
+margin_top = 176.0
+margin_right = 199.0
+margin_bottom = 200.0
+custom_fonts/font = ExtResource( 49 )
+text = "OK"
+
 [connection signal="mouse_entered" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_exited"]
 [connection signal="pressed" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_pressed"]
@@ -715,3 +779,5 @@ text = "OK"
 [connection signal="pressed" from="SensorChoice/ColorRect/ChoiceBox/NoButton" to="." method="_on_NoButton_pressed"]
 [connection signal="pressed" from="SensorChoice/ColorRect/ChoiceBox/HelpButton" to="." method="_on_HelpButton_pressed"]
 [connection signal="pressed" from="SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/CloseHelpButton" to="." method="_on_CloseHelpButton_pressed"]
+[connection signal="pressed" from="SensorChoice/ColorRect2/NoSensors/OkButton" to="." method="_on_OkButton_pressed"]
+[connection signal="pressed" from="SensorNo/ColorRect/BoxNo/CloseNoButton" to="." method="_on_CloseNoButton_pressed"]
