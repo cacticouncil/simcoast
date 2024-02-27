@@ -767,7 +767,7 @@ func placementState():
 			#TODO: Ideally we shouldn't need scale and the sprites are the correct size, account for this when need be
 			Global.hoverSprite.scale = Vector2(Global.buildingHeight, Global.buildingHeight)
 			Global.hoverSprite.material = ShaderMaterial.new()
-			Global.hoverSprite.z_index = cube.i + cube.j
+			Global.hoverSprite.z_index = (cube.i + cube.j) * 10
 			
 			Global.hoverSprite.material.shader = fadedShader
 			
