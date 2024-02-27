@@ -202,7 +202,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$VectorMap.remove_child(Global.hoverSprite)
+							$PreviewSprite.remove_child(Global.hoverSprite)
+						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.UTILITIES_PLANT):
@@ -233,7 +234,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$VectorMap.remove_child(Global.hoverSprite)
+							$PreviewSprite.remove_child(Global.hoverSprite)
+						$PreviewFade.stop()
 						
 						$HUD/ToolsMenu.deactivateButtons()
 						
@@ -264,7 +266,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$VectorMap.remove_child(Global.hoverSprite)
+							$PreviewSprite.remove_child(Global.hoverSprite)
+						$PreviewFade.stop()
 						
 						$HUD/ToolsMenu.deactivateButtons()
 						
@@ -299,7 +302,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$VectorMap.remove_child(Global.hoverSprite)
+							$PreviewSprite.remove_child(Global.hoverSprite)
+						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.PARK):
@@ -335,7 +339,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$VectorMap.remove_child(Global.hoverSprite)
+							$PreviewSprite.remove_child(Global.hoverSprite)
+						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.LIBRARY):
@@ -371,7 +376,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$VectorMap.remove_child(Global.hoverSprite)
+							$PreviewSprite.remove_child(Global.hoverSprite)
+						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.MUSEUM):
@@ -405,7 +411,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$VectorMap.remove_child(Global.hoverSprite)
+							$PreviewSprite.remove_child(Global.hoverSprite)
+						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.FIRE_STATION):
@@ -439,7 +446,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$VectorMap.remove_child(Global.hoverSprite)
+							$PreviewSprite.remove_child(Global.hoverSprite)
+						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.HOSPITAL):
@@ -473,7 +481,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$VectorMap.remove_child(Global.hoverSprite)
+							$PreviewSprite.remove_child(Global.hoverSprite)
+						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.POLICE_STATION):
@@ -507,7 +516,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$VectorMap.remove_child(Global.hoverSprite)
+							$PreviewSprite.remove_child(Global.hoverSprite)
+						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
 					elif (tile.inf == Tile.TileInf.SCHOOL):
@@ -765,7 +775,7 @@ func placementState():
 		
 		if tile.check_if_valid_placement(Global.infType, Global.buildingHeight, Global.buildingWidth):
 			if Global.hoverSprite != null:
-				$VectorMap.remove_child(Global.hoverSprite)
+				$PreviewSprite.remove_child(Global.hoverSprite)
 			# If the click was not on a valid tile, do nothing
 			
 			Global.hoverSprite = null
@@ -779,11 +789,11 @@ func placementState():
 			#TODO: Ideally we shouldn't need scale and the sprites are the correct size, account for this when need be
 			Global.hoverSprite.scale = Vector2(Global.buildingHeight, Global.buildingHeight)
 			Global.hoverSprite.material = ShaderMaterial.new()
-			Global.hoverSprite.z_index = (cube.i + cube.j) * 10
+			Global.hoverSprite.z_index = (cube.i + cube.j) * 10 - (Global.buildingHeight - 1)
 			
 			Global.hoverSprite.material.shader = fadedShader
 			
-			$VectorMap.add_child(Global.hoverSprite)
+			$PreviewSprite.add_child(Global.hoverSprite)
 	elif Global.dragToPlaceState:
 		
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
