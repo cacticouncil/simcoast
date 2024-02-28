@@ -118,6 +118,7 @@ margin_bottom = 37.0
 color = Color( 0.254902, 0.247059, 0.247059, 0.737255 )
 
 [node name="DashboardSelected" type="ColorRect" parent="HUD/TopBarBG"]
+visible = false
 margin_left = 159.0
 margin_top = 34.0
 margin_right = 258.0
@@ -509,9 +510,6 @@ margin_bottom = 68.0
 toggle_mode = true
 texture_normal = ExtResource( 107 )
 texture_pressed = ExtResource( 108 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="interaction_button" type="TextureButton" parent="HUD"]
 visible = false
