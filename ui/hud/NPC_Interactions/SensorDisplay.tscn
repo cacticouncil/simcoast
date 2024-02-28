@@ -1,10 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/shop/tide_gauge.png" type="Texture" id=2]
 [ext_resource path="res://scripts/SensorDisplay.gd" type="Script" id=3]
+[ext_resource path="res://assets/fonts/upheavtt.ttf" type="DynamicFontData" id=4]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.462745, 0.462745, 0.462745, 1 )
 
 [sub_resource type="StyleBoxFlat" id=2]
@@ -65,8 +70,8 @@ margin_top = 18.6667
 margin_right = 342.333
 margin_bottom = 120.667
 rect_scale = Vector2( 0.5, 0.7 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
 text = "Used to measure the speed and 
 height of the tide and other 
 weather metrics."
@@ -77,8 +82,8 @@ margin_top = 73.0
 margin_right = 214.0
 margin_bottom = 108.0
 rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 1 )
-custom_styles/hover = SubResource( 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
 text = "More information"
@@ -90,7 +95,7 @@ margin_top = 73.0
 margin_right = 221.667
 margin_bottom = 108.0
 rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
 text = "Buy: $$$"
 
 [node name="SensorImage" type="TextureRect" parent="SensorsBG/SensorName"]
