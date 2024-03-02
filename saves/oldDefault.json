@@ -24,16 +24,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -96,16 +89,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -168,16 +154,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -240,16 +219,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -312,16 +284,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -384,16 +349,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -456,16 +414,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -528,16 +479,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -600,16 +544,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -672,16 +609,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -744,16 +674,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -816,16 +739,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -888,16 +804,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -960,16 +869,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1032,16 +934,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1104,16 +999,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1176,16 +1064,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1248,16 +1129,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1320,16 +1194,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1392,16 +1259,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1464,16 +1324,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1536,16 +1389,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1608,16 +1454,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1680,16 +1519,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1752,16 +1584,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1824,16 +1649,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1896,16 +1714,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -1968,16 +1779,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2040,16 +1844,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2112,16 +1909,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2184,16 +1974,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2256,16 +2039,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2328,16 +2104,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2400,16 +2169,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2472,16 +2234,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2544,16 +2299,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2616,16 +2364,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2688,16 +2429,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2760,16 +2494,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2832,16 +2559,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2904,16 +2624,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -2976,16 +2689,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3048,16 +2754,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3120,16 +2819,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3192,16 +2884,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3264,16 +2949,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3336,16 +3014,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3408,16 +3079,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3480,16 +3144,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3552,16 +3209,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3624,16 +3274,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3696,16 +3339,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3768,16 +3404,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3840,16 +3469,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3912,16 +3534,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -3984,16 +3599,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4056,16 +3664,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4128,16 +3729,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4200,16 +3794,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4272,16 +3859,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4344,16 +3924,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4416,16 +3989,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4488,16 +4054,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4560,16 +4119,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4632,16 +4184,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4704,16 +4249,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4776,16 +4314,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4848,16 +4379,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4920,16 +4444,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -4992,16 +4509,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5064,16 +4574,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5136,16 +4639,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5208,16 +4704,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5280,16 +4769,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5352,16 +4834,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5424,16 +4899,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5496,16 +4964,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5568,16 +5029,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5640,16 +5094,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5712,16 +5159,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5784,16 +5224,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5856,16 +5289,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -5928,16 +5354,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6000,16 +5419,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6072,16 +5484,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6144,16 +5549,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6216,16 +5614,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6288,16 +5679,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6360,16 +5744,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6432,16 +5809,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6504,16 +5874,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6576,16 +5939,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6648,16 +6004,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6720,16 +6069,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6792,16 +6134,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6864,16 +6199,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -6936,16 +6264,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7008,16 +6329,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7080,16 +6394,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7152,16 +6459,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7224,16 +6524,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7296,16 +6589,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7368,16 +6654,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7440,16 +6719,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7512,16 +6784,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7584,16 +6849,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7656,16 +6914,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7728,16 +6979,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7800,16 +7044,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7872,16 +7109,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -7944,16 +7174,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8016,16 +7239,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8088,16 +7304,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8160,16 +7369,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8232,16 +7434,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8304,16 +7499,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8376,16 +7564,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8448,16 +7629,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8520,16 +7694,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8592,16 +7759,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8664,16 +7824,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8736,16 +7889,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8808,16 +7954,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8880,16 +8019,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -8952,16 +8084,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9024,16 +8149,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9096,16 +8214,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9168,16 +8279,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9240,16 +8344,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9312,16 +8409,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9384,16 +8474,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9456,16 +8539,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9528,16 +8604,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9600,16 +8669,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9672,16 +8734,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9744,16 +8799,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9816,16 +8864,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9888,16 +8929,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -9960,16 +8994,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10032,16 +9059,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10104,16 +9124,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10176,16 +9189,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10248,16 +9254,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10320,16 +9319,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10392,16 +9384,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10464,16 +9449,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10536,16 +9514,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10608,16 +9579,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10680,16 +9644,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10752,16 +9709,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10824,16 +9774,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10896,16 +9839,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -10968,16 +9904,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11040,16 +9969,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11112,16 +10034,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11184,16 +10099,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11256,16 +10164,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11328,16 +10229,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11400,16 +10294,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11472,16 +10359,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11544,16 +10424,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11616,16 +10489,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11688,16 +10554,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11760,16 +10619,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11832,16 +10684,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11904,16 +10749,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -11976,16 +10814,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12048,16 +10879,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12120,16 +10944,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12192,16 +11009,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12264,16 +11074,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12336,16 +11139,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12408,16 +11204,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12480,16 +11269,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12552,16 +11334,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12624,16 +11399,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12696,16 +11464,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12768,16 +11529,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12840,16 +11594,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12912,16 +11659,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -12984,16 +11724,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13056,16 +11789,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13128,16 +11854,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13200,16 +11919,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13272,16 +11984,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13344,16 +12049,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13416,16 +12114,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13488,16 +12179,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13560,16 +12244,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13632,16 +12309,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13704,16 +12374,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13776,16 +12439,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13848,16 +12504,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13920,16 +12569,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -13992,16 +12634,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14064,16 +12699,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14136,16 +12764,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14208,16 +12829,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14280,16 +12894,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14352,16 +12959,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14424,16 +13024,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14496,16 +13089,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14568,16 +13154,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14640,16 +13219,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14712,16 +13284,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14784,16 +13349,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14856,16 +13414,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -14928,16 +13479,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15000,16 +13544,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15072,16 +13609,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15144,16 +13674,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15216,16 +13739,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15288,16 +13804,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15360,16 +13869,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15432,16 +13934,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15504,16 +13999,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15576,16 +14064,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15648,16 +14129,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15720,16 +14194,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15792,16 +14259,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15864,16 +14324,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -15936,16 +14389,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -16008,16 +14454,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -16080,16 +14519,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -16152,18 +14584,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16224,18 +14649,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16296,18 +14714,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16368,18 +14779,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16440,18 +14844,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16512,18 +14909,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16584,18 +14974,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16656,18 +15039,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16728,18 +15104,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16800,18 +15169,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16872,18 +15234,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16944,18 +15299,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17016,18 +15364,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17088,18 +15429,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17160,18 +15494,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17232,18 +15559,11 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00088,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17304,16 +15624,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -17376,16 +15689,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -17448,16 +15754,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -17520,16 +15819,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -17592,16 +15884,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -17664,16 +15949,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -17736,16 +16014,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -17808,16 +16079,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -17880,16 +16144,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -17952,16 +16209,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -18024,16 +16274,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -18096,16 +16339,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -18168,16 +16404,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -18240,16 +16469,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -18312,16 +16534,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,
@@ -18384,16 +16599,9 @@
 				0,
 				0,
 				0,
-				"none"
+				null
 			],
 			"utilities": false,
-			"children": [
-
-			],
-			"parent": [
-				-1,
-				-1
-			],
 			"tileDamage": 0,
 			"erosion": 0,
 			"landValue": 500,

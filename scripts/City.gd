@@ -17,6 +17,33 @@ var numCommercialZones = 0
 var numSingleFamilyZones = 0
 var numMultiFamilyZones = 0
 
+func get_city_data():
+	var cityData = {
+		"numParks": numParks,
+		"numUtilityPlants": numUtilityPlants,
+		"numRoads": numRoads,
+		"numBridges": numBridges,
+		"numLibraries": numLibraries,
+		"numMuseums": numMuseums,
+		"numSchools": numSchools,
+		"numFireStations": numFireStations,
+		"numHospital": numHospital,
+		"numPoliceStations": numPoliceStations,
+		"numSewageFacilities": numSewageFacilities,
+		"numWasteTreatment": numWasteTreatment,
+		"numResidentialZones": numResidentialZones,
+		"numCommercialZones": numCommercialZones,
+		"numSingleFamilyZones": numSingleFamilyZones,
+		"numMultiFamilyZones": numMultiFamilyZones
+	}
+
+	return cityData;
+
+func load_city_data(data):
+	if not data.empty():
+		for key in data:
+			self.set(key, data[key])
+
 # Delete the last row and column of the map
 func reduce_map():
 	if Global.mapHeight <= Global.MIN_MAP_SIZE || Global.mapWidth <= Global.MIN_MAP_SIZE:
@@ -49,13 +76,21 @@ func extend_map():
 	Global.tileMap.append(new_row)
 
 	for j in Global.mapWidth:
-		Global.tileMap[Global.mapHeight][j] = Tile.new(Global.mapHeight, j, 0, 0, 0, 0, 0, [0, 0, 0, 0, 0], 0, Econ.TILE_BASE_VALUE, 0)
+		Global.tileMap[Global.mapHeight][j] = Tile.new({
+				"i": Global.mapHeight,
+				"j": j,
+				"landValue": Econ.TILE_BASE_VALUE
+			})
 		$VectorMap.add_tile(Global.mapHeight, j)
 	
 	Global.mapHeight += 1
 		
 	for i in Global.mapHeight:
-		Global.tileMap[i].append(Tile.new(i, Global.mapWidth, 0, 0, 0, 0, 0, [0, 0, 0, 0, 0], 0, Econ.TILE_BASE_VALUE, 0))
+		Global.tileMap[i].append(Tile.new({
+				"i": i,
+				"j": Global.mapWidth,
+				"landValue": Econ.TILE_BASE_VALUE
+			}))
 		$VectorMap.add_tile(i, Global.mapWidth)
 	
 	Global.mapWidth += 1

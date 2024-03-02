@@ -31,7 +31,7 @@ func _draw():
 	var baseColor = get_cube_colors()
 	var waterColor = Tile.WATER_COLOR
 	var buildingColor = get_building_colors()
-	
+
 	# Draw the sides of the base of the tile cube
 	if tile.get_base_height() > 0:
 		draw_polygon(base_cube[1].get_polygon(), PoolColorArray([baseColor[1]]))
@@ -591,7 +591,7 @@ func update_polygons():
 					currentHeight += 16
 					zIndex += 1
 				
-				var remainingResidents = tile.data[2] % 4
+				var remainingResidents = int(tile.data[2]) % 4
 				var image
 				
 				if tile.data[3] - tile.data[2] > 0:
@@ -643,7 +643,7 @@ func get_building_colors():
 func get_cube_colors():
 	var tile = Global.tileMap[i][j]
 	var colors = []
-	
+
 	match tile.get_base():
 		Tile.TileBase.DIRT:
 			colors = Tile.DIRT_COLOR.duplicate(true)
@@ -676,8 +676,8 @@ func get_cube_colors():
 			colors[0] = Tile.ROCK_COLOR[0]
 		#Tile.TileInf.BRIDGE:
 			#colors[0] = Tile.ROCK_COLOR[0]
-	
 
+	
 	return colors
 
 # Update the given tree based on its starting coordintes and properties

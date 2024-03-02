@@ -14,7 +14,7 @@ func _ready():
 	initCamera()
 	initSave_Exit()
 #	loadMapData("res://saves/default.json")
-	loadMapData("default.json")
+	loadMapData("res://saves/default.json")
 	initObservers()
 	$HUD/HBoxContainer/Money.text = "$" + Econ.comma_values(str(Econ.money))
 	#$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
@@ -686,7 +686,6 @@ func loadMapData(filename):
 #	var path_to_open
 #	if OS.is_debug_build(): #true if you're in debug mode
 #	#if we are running the code in the editor, load the map from the res:// location
-	var path_to_open = "res://saves/" + filename 
 #	else:
 #	#if we are running the code in release mode (e.g., when packaged), get the map from its location
 #	#relative to the executable file
@@ -694,7 +693,7 @@ func loadMapData(filename):
 #		path_to_open = exe_path + "saves/" + filename
 
 
-	var mapName = SaveLoad.loadData(path_to_open)
+	var mapName = SaveLoad.loadData(filename)
 	$VectorMap.loadMap()
 	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json loaded" % [mapName]
 	City.connectUtilities()
@@ -896,6 +895,7 @@ func placementState():
 			City.numBridges -= 1
 		elif tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.MULTI_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL:
 			tile.clear_tile()
+
 
 func update_graphics():
 	#print("Updating graphics on tick: " + str(numTicks))

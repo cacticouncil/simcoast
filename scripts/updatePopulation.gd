@@ -55,7 +55,8 @@ func update_population():
 				var status = currTile.get_status()
 				
 				if (!currTile.has_utilities()):
-					leaveChance += NO_UTILITIES_UNHAPPINESS 
+					leaveChance += NO_UTILITIES_UNHAPPINESS
+				print(status) 
 				if (status == Tile.TileStatus.LIGHT_DAMAGE || status == Tile.TileStatus.MEDIUM_DAMAGE):
 					leaveChance += DAMAGE_UNHAPPINESS
 				elif (status == Tile.TileStatus.HEAVY_DAMAGE):
