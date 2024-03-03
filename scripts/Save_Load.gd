@@ -8,7 +8,6 @@ func saveData(mapPath: String):
 	correctMapName = correctMapName.trim_prefix("res://saves/")
 	if not (".json" in mapPath):
 		mapPath += ".json"
-	print(mapPath)
 	var tileData = []
 			
 	for i in Global.mapWidth:
@@ -21,10 +20,10 @@ func saveData(mapPath: String):
 		"city": City.get_city_data(),
 		"econ": Econ.get_econ_data(),
 		"stats": Stats.stats,
-		"date": {
-			"month": UpdateDate.month,
-			"year": UpdateDate.year
-		}
+		"population": UpdatePopulation.get_population_data(),
+		"demand": UpdateDemand.get_demand_data(),
+		"date": UpdateDate.get_date_data(),
+		"waterDir": UpdateWater.waterDir
 	}
 	
 	var file
@@ -33,7 +32,7 @@ func saveData(mapPath: String):
 	file.store_line(JSON.print(data, "\t"))
 	file.close()
 	Global.mapPath = mapPath
-	print(mapPath)
+
 	return [correctMapName, mapPath]
 
 
@@ -41,7 +40,6 @@ func loadData(mapPath: String):
 	if not (".json" in mapPath):
 		return "not a json"
 	var file = File.new()
-	print(mapPath)
 	if not file.file_exists(mapPath):
 		return "file does not exist"
 	file.open(mapPath, File.READ)
@@ -51,9 +49,11 @@ func loadData(mapPath: String):
 	Global.load_global_data(mapData.global)
 	City.load_city_data(mapData.city)
 	Econ.load_econ_data(mapData.econ)
+	UpdatePopulation.load_population_data(mapData.population)
+	UpdateDemand.load_demand_data(mapData.demand)
+	UpdateDate.load_date_data(mapData.date)
 	Stats.stats = mapData.stats
-	UpdateDate.month = mapData.date.month
-	UpdateDate.year = mapData.date.year
+	UpdateWater.waterDir = mapData.waterDir
 	
 	Global.tileMap.clear()
 	print(Stats.stats.Profit)
