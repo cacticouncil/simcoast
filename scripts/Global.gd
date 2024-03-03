@@ -25,6 +25,8 @@ var mapHeight = 16
 var mapTool = Tool.NONE
 var tileMap = initTileMap()
 
+var userName = "noName"
+
 var seaLevel = 2       # World value that ocean resets to after a storm surge
 var oceanHeight = 0    # Current ocean level on map
 
