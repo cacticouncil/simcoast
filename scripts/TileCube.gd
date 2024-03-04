@@ -132,12 +132,14 @@ func update_polygons():
 	update_cube(water_cube, x, y, Global.TILE_WIDTH, Global.TILE_HEIGHT, h + w, h, 0)
 	
 	if buildingSprite != null:
-		get_parent().remove_child(buildingSprite)
+		#get_parent().remove_child(buildingSprite)
+		buildingSprite.queue_free()
 	buildingSprite = null
 	
 	if listOfBuildings.size() > 0:
 		for building in listOfBuildings:
-			get_parent().remove_child(building)
+			#get_parent().remove_child(building)
+			building.queue_free()
 	listOfBuildings.clear()
 	
 	# Create simple trees so landscape not so boring
