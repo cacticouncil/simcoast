@@ -19,6 +19,7 @@ const TICK_DELAY = 0.05#Time between ticks
 
 var mapName = ""
 var mapPath = ""
+var currentMap = "res://saves/default.json"
 var mapWidth = 16
 var mapHeight = 16
 

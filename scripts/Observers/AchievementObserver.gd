@@ -14,14 +14,9 @@ func get_completed_achievements():
 	return names
 	
 func load_achievements(data):
-	# Clear existing achievments
-	if not toComplete.empty():
-		toComplete.clear()
-		createAchievements()
-	
-	if not completed.empty():
-		completed.clear()
-		toDelete.clear()
+	completed.clear()
+	toDelete.clear()
+	createAchievements()
 	
 	# Load new achievements by adding to completed
 	# and removing from toComplete
@@ -35,6 +30,8 @@ func load_achievements(data):
 	
 func createAchievements():
 	#Create achievements for the purpose of testing
+	#Clear any achievements from previous maps
+	toComplete.clear()
 	var goalClass = load("res://scripts/Observers/Goal.gd")
 	toComplete.push_back(goalClass.new('# of Residential Areas', true, 10, 'Build 10 Residential Areas', 'Build 10 Residential Areas', "res://assets/achievement_icons/Construction Achievement.png"))
 	toComplete.push_back(goalClass.new('# of Commercial Areas', true, 10, 'Build 10 Commercial Areas', 'Build 10 Commercial Areas', "res://assets/achievement_icons/Construction Achievement.png"))
@@ -51,6 +48,7 @@ func onNotify(event):
 	#Fun fact to anyone looking through this code: you can't delete from an array you're looping through in gdscript: https://ask.godotengine.org/77668/what-happens-when-i-remove-an-array-element-isnide-a-for-loop#:~:text=1%20Answer&text=Don't%20loop%20through%20the,loop%20through%20that%20array%20instead.
 	for i in range(toComplete.size()):
 		if toComplete[i].isComplete() and not inCompleted(toComplete[i].achievementName):
+			print(toComplete[i].achievementName)
 			unlock(toComplete[i], i)
 	#Goals we want deleted are added to a list in unlock() and deleted here
 	deleteGoals()

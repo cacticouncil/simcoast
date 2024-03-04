@@ -14,7 +14,7 @@ func _ready():
 	initCamera()
 	initSave_Exit()
 #	loadMapData("res://saves/default.json")
-	loadMapData("res://saves/default.json")
+	loadMapData(Global.currentMap)
 	initObservers()
 	$HUD/HBoxContainer/Money.text = "$" + Econ.comma_values(str(Econ.money))
 	#$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
@@ -48,7 +48,6 @@ func initCamera():
 func initObservers():
 	#Add achievement observer
 	Announcer.addObserver(get_node("/root/AchievementObserver"))
-	AchievementObserver.createAchievements()
 	
 	#Add npc observers
 	Announcer.addObserver(get_node("/root/NpcObserver"))

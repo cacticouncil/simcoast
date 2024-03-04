@@ -47,6 +47,8 @@ func loadData(mapPath: String):
 	var mapData = parse_json(file.get_as_text())
 	file.close()
 	
+	
+	Global.currentMap = mapPath
 	Global.load_global_data(mapData.global)
 	City.load_city_data(mapData.city)
 	Econ.load_econ_data(mapData.econ)
@@ -59,7 +61,6 @@ func loadData(mapPath: String):
 	AchievementObserver.load_achievements(mapData.achievements)
 	
 	Global.tileMap.clear()
-	print(Stats.stats.Profit)
 	for _x in range(Global.mapWidth):
 		var row = []
 		row.resize(Global.mapHeight)
@@ -68,4 +69,30 @@ func loadData(mapPath: String):
 	for tileData in mapData.tiles:
 		Global.tileMap[tileData["i"]][tileData["j"]] = Tile.new(tileData)
 	
+	# Update continue path
+	save_continue_map()
+	
 	return mapData.global.mapName
+
+func save_continue_map():
+	var continuePath = "res://continue/continue.json"
+	var data = {
+		"previous_map_path": Global.currentMap
+	}
+	
+	var file = File.new()
+	file.open(continuePath, File.WRITE)
+	file.store_line(JSON.print(data, "\t"))
+	file.close()
+	
+	return data
+
+func get_continue_map():
+	var continuePath = "res://continue/continue.json"
+	var file = File.new()
+	file.open(continuePath, File.READ)
+	var continueData = parse_json(file.get_as_text())
+	file.close()
+	
+	var mapPath = continueData.previous_map_path
+	return mapPath
