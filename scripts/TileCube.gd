@@ -581,7 +581,7 @@ func update_polygons():
 				building_x = x
 				building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
 				
-				for numOfFullFloors in tile.data[2] / 4:
+				for numOfFullFloors in tile.data[2] / 16:
 					var image = load("res://assets/building_assets/2d Assets/Full Apartment.png")
 					var currBuilding = Sprite.new()
 					currBuilding.texture = image
@@ -591,17 +591,17 @@ func update_polygons():
 					currentHeight += 16
 					zIndex += 1
 				
-				var remainingResidents = tile.data[2] % 4
+				var remainingResidents = tile.data[2] % 16
 				var image
 				
 				if tile.data[3] - tile.data[2] > 0:
-					if remainingResidents == 0:
+					if remainingResidents >= 0 && remainingResidents < 4:
 						image = load("res://assets/building_assets/2d Assets/Empty Apartment.png")
-					elif remainingResidents == 1:
+					elif remainingResidents >= 4 && remainingResidents < 8:
 						image = load("res://assets/building_assets/2d Assets/Quarter Apartment.png")
-					elif remainingResidents == 2:
+					elif remainingResidents >= 8 && remainingResidents < 12:
 						image = load("res://assets/building_assets/2d Assets/Half Apartment.png")
-					elif remainingResidents == 3:
+					else:
 						image = load("res://assets/building_assets/2d Assets/ThreeQuarter Apartment.png")
 					
 					var currBuilding = Sprite.new()
