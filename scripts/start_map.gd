@@ -894,19 +894,19 @@ func placementState():
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
 			
-		if tile.inf == Tile.TileInf.ROAD:
+		if Global.mapTool == Global.Tool.INF_ROAD && tile.inf == Tile.TileInf.ROAD:
 			tile.clear_tile()
 			City.connectRoads(tile)
 			City.connectUtilities()
 			City.numRoads -= 1
-		elif tile.inf == Tile.TileInf.BRIDGE:
+		elif Global.mapTool == Global.Tool.INF_BRIDGE && tile.inf == Tile.TileInf.BRIDGE:
 			tile.clear_tile()
 			tile.bridgeHeight = 0
 			City.disconnectBridges(tile)
 			City.connectRoads(tile)
 			City.connectUtilities()
 			City.numBridges -= 1
-		elif tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.MULTI_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL:
+		elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY && tile.zone == Tile.TileZone.SINGLE_FAMILY) || (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY && tile.zone == Tile.TileZone.MULTI_FAMILY) || (Global.mapTool == Global.Tool.ZONE_COM && tile.zone == Tile.TileZone.COMMERCIAL):
 			tile.clear_tile()
 
 func update_graphics():
