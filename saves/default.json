@@ -16163,7 +16163,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16235,7 +16235,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16307,7 +16307,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16379,7 +16379,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16451,7 +16451,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16523,7 +16523,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16595,7 +16595,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16667,7 +16667,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16739,7 +16739,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16811,7 +16811,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16883,7 +16883,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16955,7 +16955,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17027,7 +17027,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17099,7 +17099,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17171,7 +17171,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17243,7 +17243,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00098,
+			"erosion": 0.00134,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -18469,6 +18469,9 @@
 		"HEAVY_RES_INCOME_RATE": 0.05,
 		"COM_PROPERTY_RATE": 0.05,
 		"COM_INCOME_RATE": 0.05,
+		"PROPERTY_TAX": 0.01,
+		"SALES_TAX": 0.05,
+		"INCOME_TAX": 0.025,
 		"money": 20000,
 		"city_income": 0,
 		"city_costs": 0,
@@ -18490,8 +18493,32 @@
 		"Profit": 0,
 		"Total Population": 0
 	},
+	"population": {
+		"BASE_BUILD_CHANCE": 0.01,
+		"BASE_MOVE_CHANCE": 0.01,
+		"BASE_LEAVE_CHANCE": 0.01,
+		"NO_UTILITIES_UNHAPPINESS": 10,
+		"DAMAGE_UNHAPPINESS": 10,
+		"SEVERE_DAMAGE_UNHAPPINESS": 30,
+		"RESIDENTS": 0,
+		"WORKERS": 0,
+		"BASE_EMPLOYMENT_RATE": 0.95,
+		"UNEMPLOYMENT_LIMIT": 0.1,
+		"growth_rate": 0,
+		"previous_population": 0
+	},
+	"demand": {
+		"NO_UTILITIES_UNHAPPINESS": 10,
+		"DAMAGE_UNHAPPINESS": 10,
+		"SEVERE_DAMAGE_UNHAPPINESS": 30
+	},
 	"date": {
+		"ticksSinceLastMonthChange": 18,
 		"month": 3,
 		"year": 2022
-	}
+	},
+	"waterDir": 1,
+	"achievements": [
+
+	]
 }

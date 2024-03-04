@@ -6,6 +6,33 @@ var completed = []
 
 var toDelete = []
 
+func get_completed_achievements():
+	var names = []
+	for goal in completed:
+		names.append(goal.achievementName)
+	
+	return names
+	
+func load_achievements(data):
+	# Clear existing achievments
+	if not toComplete.empty():
+		toComplete.clear()
+		createAchievements()
+	
+	if not completed.empty():
+		completed.clear()
+		toDelete.clear()
+	
+	# Load new achievements by adding to completed
+	# and removing from toComplete
+	for i in range(toComplete.size()):
+		if data.has(toComplete[i].achievementName):
+			completed.append(toComplete[i])
+			toDelete.append(i)
+
+	deleteGoals()
+
+	
 func createAchievements():
 	#Create achievements for the purpose of testing
 	var goalClass = load("res://scripts/Observers/Goal.gd")
@@ -23,10 +50,17 @@ func createAchievements():
 func onNotify(event):
 	#Fun fact to anyone looking through this code: you can't delete from an array you're looping through in gdscript: https://ask.godotengine.org/77668/what-happens-when-i-remove-an-array-element-isnide-a-for-loop#:~:text=1%20Answer&text=Don't%20loop%20through%20the,loop%20through%20that%20array%20instead.
 	for i in range(toComplete.size()):
-		if toComplete[i].isComplete():
+		if toComplete[i].isComplete() and not inCompleted(toComplete[i].achievementName):
 			unlock(toComplete[i], i)
 	#Goals we want deleted are added to a list in unlock() and deleted here
 	deleteGoals()
+
+func inCompleted(name):
+	for goal in completed:
+		if name == goal.achievementName:
+			return true
+	
+	return false
 
 func unlock(goal, goalNum):
 	toDelete.append(goalNum)
@@ -38,6 +72,8 @@ func unlock(goal, goalNum):
 	get_node("/root/Overlay").achievement_pop(goal.achievementName, goal.icon)
 
 func deleteGoals():
+	# Delete in reverse order to not modify while iterating
+	toDelete.invert()
 	for num in toDelete:
 		toComplete.remove(num)
 	toDelete.clear()
