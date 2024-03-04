@@ -5,9 +5,9 @@
 [ext_resource path="res://assets/achievement_icons/XIcon.png" type="Texture" id=3]
 [ext_resource path="res://scripts/AchievementMenu.gd" type="Script" id=4]
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=12]
 
-[sub_resource type="Shader" id=5]
+[sub_resource type="Shader" id=13]
 code = "shader_type canvas_item;
 
 uniform float value = 1.0;
@@ -22,9 +22,9 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 5 )
+shader = SubResource( 13 )
 shader_param/value = 1.0
-script = SubResource( 4 )
+script = SubResource( 12 )
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
@@ -36,11 +36,11 @@ script = SubResource( 4 )
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="InputEventKey" id=10]
+[sub_resource type="InputEventKey" id=14]
 scancode = 16777217
 
 [sub_resource type="ShortCut" id=11]
-shortcut = SubResource( 10 )
+shortcut = SubResource( 14 )
 
 [node name="AchievementMenu" type="CanvasLayer"]
 script = ExtResource( 4 )
