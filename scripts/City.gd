@@ -105,12 +105,25 @@ func connectUtilities():
 
 				for n in neighbors:
 					if is_tile_inbounds(n[0], n[1]):
-						if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.ROAD || Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.BRIDGE:
+						var currTile = Global.tileMap[n[0]][n[1]]
+						if currTile.inf == Tile.TileInf.ROAD || currTile.inf == Tile.TileInf.BRIDGE:
 							if roadConnected(road, n, Global.MAX_CONNECTION_HEIGHT):
-								if Global.tileMap[n[0]][n[1]].utilities == false:
-									queue.append(Global.tileMap[n[0]][n[1]])
+								if currTile.utilities == false:
+									queue.append(currTile)
+						elif currTile.inf == Tile.TileInf.CHILD:
+							#If we connect with a child tile
+							if currTile.utilities == false:
+								var parentTile = Global.tileMap[currTile.parent[0]][currTile.parent[1]]
+								parentTile.utilities = true
+								for child in parentTile.children:
+									Global.tileMap[child[0]][child[1]].utilities = true
+						elif currTile.children.size() > 0:
+							#If we connect with a parent tile
+							if currTile.utilities == false:
+								currTile.utilities = true
+								for child in currTile.children:
+									Global.tileMap[child[0]][child[1]].utilities = true
 						else:
-							var currTile = Global.tileMap[n[0]][n[1]]
 							if currTile.is_commercial():
 								commsPowered += 1
 							elif currTile.is_residential():

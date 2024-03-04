@@ -60,7 +60,7 @@ const SINGLE_FAMILY_UPKEEP_COST = 10
 const UPKEEP_PER_PERSON = 2
 
 # Player/Mayor Constants
-var money = 20000
+var money
 
 #Income and costs
 var city_income = 0 # Net Profit

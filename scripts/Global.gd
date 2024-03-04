@@ -40,6 +40,16 @@ var colRange = range(0, mapHeight, 1)
 var numZones = 0
 var numPeople = 0
 
+# Placement state is the state we enter when trying to place a tile
+var placementState = false
+var hoverImage = ""
+var hoverSprite = null
+var infType = null
+var buildingHeight = -1
+var buildingWidth = -1
+
+var dragToPlaceState = false
+var dragToRemoveState = false
 
 # Economy AI constants
 const ZONE_BALANCE = -.01
