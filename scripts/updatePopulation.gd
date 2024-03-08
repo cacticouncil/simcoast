@@ -24,8 +24,8 @@ var previous_population = 0
 
 #Update buildings and population
 func update_population():
-	for i in Global.mapWidth:
-		for j in Global.mapHeight:
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
 			var currTile = Global.tileMap[i][j]
 			
 			var maxRange = currTile.landValue + currTile.happiness

@@ -59,8 +59,8 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 
 # Check to see if these indices are valid tile coordinates
 func is_valid_tile(i, j) -> bool:
-	if i < 0 || Global.mapWidth <= i:
+	if i < 0 || Global.mapHeight <= i:
 		return false
-	if j < 0 || Global.mapHeight <= j:
+	if j < 0 || Global.mapWidth <= j:
 		return false
 	return true

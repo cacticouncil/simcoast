@@ -31,7 +31,7 @@ func update_queue() -> Array:
 	var mapWidth = Global.mapWidth
 	var latest = []
 	for i in mapHeight:
-		for j in mapHeight:
+		for j in mapWidth:
 			var current = Global.tileMap[i][j]
 			var accept		
 			# Check tile zone type. If it's zoned, accept the tile into the queue

@@ -68,8 +68,8 @@ func connectUtilities():
 	var utilityPlants = []
 	
 	# De-utility every tile on the map, find location of any utility plants
-	for i in Global.mapWidth:
-		for j in Global.mapHeight:
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
 			Global.tileMap[i][j].utilities = false
 			#Global.tileMap[i][j].cube.update()
 			if Global.tileMap[i][j].inf == Tile.TileInf.UTILITIES_PLANT:
@@ -286,8 +286,8 @@ func calculate_satisfaction():
 	
 # When flooding occurs, determine damage to infrastructure and perform tile erosion
 func calculate_damage():
-	for i in Global.mapWidth:
-		for j in Global.mapHeight:
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
 			var tile = Global.tileMap[i][j]
 			# If buildings present, determine damage based on water height
 			if tile.get_water_height() > 0:

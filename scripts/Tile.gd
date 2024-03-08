@@ -579,8 +579,10 @@ func is_commercial():
 
 func distance_to_water():
 #	 set distance to the maximum possible value any tile could be from water
-	var distance = sqrt(pow(Global.mapWidth, 2) - pow(Global.mapHeight, 2))
+	var distance = 999999
 #	checking a 6 tile radius circle around the current tile
+	if i == 2 && j == 2:
+		pass
 	for x in range(i-6, i+7):
 		for y in range(j-6, j+7):
 			if is_valid_tile(x, y):
