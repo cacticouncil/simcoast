@@ -208,7 +208,9 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$PreviewSprite.remove_child(Global.hoverSprite)
+							#$PreviewSprite.remove_child(Global.hoverSprite)
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
 						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
@@ -240,7 +242,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$PreviewSprite.remove_child(Global.hoverSprite)
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
 						$PreviewFade.stop()
 						
 						$HUD/ToolsMenu.deactivateButtons()
@@ -272,7 +275,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$PreviewSprite.remove_child(Global.hoverSprite)
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
 						$PreviewFade.stop()
 						
 						$HUD/ToolsMenu.deactivateButtons()
@@ -308,7 +312,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$PreviewSprite.remove_child(Global.hoverSprite)
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
 						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
@@ -345,7 +350,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$PreviewSprite.remove_child(Global.hoverSprite)
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
 						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
@@ -382,7 +388,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$PreviewSprite.remove_child(Global.hoverSprite)
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
 						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
@@ -417,7 +424,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$PreviewSprite.remove_child(Global.hoverSprite)
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
 						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
@@ -452,7 +460,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$PreviewSprite.remove_child(Global.hoverSprite)
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
 						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
@@ -487,7 +496,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$PreviewSprite.remove_child(Global.hoverSprite)
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
 						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
@@ -522,7 +532,8 @@ func _unhandled_input(event):
 						Global.placementState = false
 						Global.mapTool = Global.Tool.NONE
 						if Global.hoverSprite != null:
-							$PreviewSprite.remove_child(Global.hoverSprite)
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
 						$PreviewFade.stop()
 						$HUD/ToolsMenu.deactivateButtons()
 						
@@ -780,7 +791,8 @@ func placementState():
 		
 		if tile.check_if_valid_placement(Global.infType, Global.buildingHeight, Global.buildingWidth):
 			if Global.hoverSprite != null:
-				$PreviewSprite.remove_child(Global.hoverSprite)
+				Global.hoverSprite.queue_free()
+				Global.hoverSprite = null
 			# If the click was not on a valid tile, do nothing
 			
 			Global.hoverSprite = null
@@ -880,19 +892,19 @@ func placementState():
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
 			
-		if tile.inf == Tile.TileInf.ROAD:
+		if Global.mapTool == Global.Tool.INF_ROAD && tile.inf == Tile.TileInf.ROAD:
 			tile.clear_tile()
 			City.connectRoads(tile)
 			City.connectUtilities()
 			City.numRoads -= 1
-		elif tile.inf == Tile.TileInf.BRIDGE:
+		elif Global.mapTool == Global.Tool.INF_BRIDGE && tile.inf == Tile.TileInf.BRIDGE:
 			tile.clear_tile()
 			tile.bridgeHeight = 0
 			City.disconnectBridges(tile)
 			City.connectRoads(tile)
 			City.connectUtilities()
 			City.numBridges -= 1
-		elif tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.MULTI_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL:
+		elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY && tile.zone == Tile.TileZone.SINGLE_FAMILY) || (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY && tile.zone == Tile.TileZone.MULTI_FAMILY) || (Global.mapTool == Global.Tool.ZONE_COM && tile.zone == Tile.TileZone.COMMERCIAL):
 			tile.clear_tile()
 
 

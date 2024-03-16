@@ -24,7 +24,8 @@ func saveData(mapPath: String):
 		"demand": UpdateDemand.get_demand_data(),
 		"date": UpdateDate.get_date_data(),
 		"waterDir": UpdateWater.waterDir,
-		"achievements": AchievementObserver.get_completed_achievements()
+		"achievements": AchievementObserver.get_completed_achievements(),
+		"inventory": Inventory.get_inventory_data()
 	}
 	
 	var file
@@ -59,6 +60,7 @@ func loadData(mapPath: String):
 	UpdateWater.waterDir = mapData.waterDir
 	
 	AchievementObserver.load_achievements(mapData.achievements)
+	Inventory.load_inventory_data(mapData.inventory)
 	
 	Global.tileMap.clear()
 	for _x in range(Global.mapWidth):

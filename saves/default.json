@@ -16163,7 +16163,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16235,7 +16235,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16307,7 +16307,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16379,7 +16379,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16451,7 +16451,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16523,7 +16523,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16595,7 +16595,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16667,7 +16667,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16739,7 +16739,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16811,7 +16811,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16883,7 +16883,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -16955,7 +16955,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17027,7 +17027,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17099,7 +17099,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17171,7 +17171,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -17243,7 +17243,7 @@
 				-1
 			],
 			"tileDamage": 0,
-			"erosion": 0.00134,
+			"erosion": 0.00158,
 			"landValue": 500,
 			"profitRate": 0,
 			"happiness": 0,
@@ -18513,12 +18513,64 @@
 		"SEVERE_DAMAGE_UNHAPPINESS": 30
 	},
 	"date": {
-		"ticksSinceLastMonthChange": 18,
+		"ticksSinceLastMonthChange": 30,
 		"month": 3,
 		"year": 2022
 	},
 	"waterDir": 1,
 	"achievements": [
 
-	]
+	],
+	"inventory": {
+		"items": {
+			"utility plant": 0,
+			"fire station": 0,
+			"hospital": 0,
+			"police station": 0,
+			"sewage facility": 0,
+			"waste treatment": 0,
+			"park": 0,
+			"library": 0,
+			"museum": 0,
+			"school": 0,
+			"road": 0,
+			"water": 0,
+			"bridge": 0,
+			"house": 0,
+			"apartment": 0,
+			"shop": 0,
+			"lt_res_zone": 0,
+			"hv_res_zone": 0,
+			"lt_com_zone": 0,
+			"hv_com_zone": 0,
+			"tide sensor": 0,
+			"rain sensor": 0
+		},
+		"sensors": [
+			{
+				"sensor_name": "Tide Gauge",
+				"sensor_info": " Used to measure the speed and\n height of the tide and other\n weather metrics.",
+				"sensor_ext_info": "A tide gauge is a device used to measure the change in sea level relative to the surface of land.\nSensors continuously record the height of the water level by measuring the distance to the water's surface and comparing it to the height of the land it is connected to.\nTide gauges are important sensors when predicting upcoming storms, since storms create higher waves.",
+				"sensor_status": true,
+				"sensor_amount": 0,
+				"sensor_req": " ",
+				"buy_bttn": false,
+				"info_bttn": false,
+				"price": 0,
+				"cant_buy": false
+			},
+			{
+				"sensor_name": "Rain Gauge",
+				"sensor_info": " Used to measure the amount of\n rain fall an area has had over\n a period of time.",
+				"sensor_ext_info": " This is the extended sensor description. TBA",
+				"sensor_status": false,
+				"sensor_amount": 0,
+				"sensor_req": "Buy a Tide Gauge",
+				"buy_bttn": false,
+				"info_bttn": false,
+				"price": 5000,
+				"cant_buy": false
+			}
+		]
+	}
 }

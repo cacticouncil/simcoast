@@ -659,7 +659,7 @@ func set_zone(type):
 			data = [0, 4, 0, 0, 0]
 		#multi family has 18 houses max
 		TileZone.MULTI_FAMILY:
-			data = [0, 18, 0, 0, 0]
+			data = [0, 4, 0, 0, 0]
 		_:
 			data = [0, 0, 0, 0, 0]
 
@@ -679,10 +679,13 @@ func add_building():
 			#multi family holds 4 and so does commercial
 			#represents many businesses and many apartments in one zone, 
 			#while single family is much less dense
-			TileZone.MULTI_FAMILY, TileZone.COMMERCIAL:
+			TileZone.COMMERCIAL:
 				data[0] += 1
 				data[3] += 4
 			#no other zone type should be affected
+			TileZone.MULTI_FAMILY:
+				data[0] += 1
+				data[3] += 16
 			_:
 				pass
 
