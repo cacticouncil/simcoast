@@ -12,8 +12,11 @@ enum SeaStates{
 var seaOn = true
 var currentSeaLevel = 0
 var currentMonth = UpdateDate.month
+var currentSurge = SeaStates.NO_STORM
+var futureSurge = SeaStates.NO_STORM
 var sensorPresent = false
 # recorded sea levels by tide sensor
+var counter = -1
 var allSeaLevels = []
 func _ready():
 	pass # Replace with function body.

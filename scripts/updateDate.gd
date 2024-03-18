@@ -1,6 +1,6 @@
 extends Node
 
-const MONTH_TICKS = 100
+var MONTH_TICKS = 100
 var ticksSinceLastMonthChange = 0
 
 enum Months {
@@ -22,6 +22,10 @@ var month = Months.April
 var year = 2022
 
 func update_date():
+	if Weather.willStorm == true:
+		MONTH_TICKS = 500
+	else:
+		MONTH_TICKS = 100
 	ticksSinceLastMonthChange += 1
 	#update profit display weekly
 	if ticksSinceLastMonthChange % (MONTH_TICKS/4) == 0:
