@@ -38,7 +38,7 @@ func initCamera():
 	$Camera2D.position.y = mid_y
 	
 	#Change offeset so it's the center of the actual area
-	$Camera2D.offset.x = -75 #75 since toolbar is 150 so half of that
+	$Camera2D.offset.x = -45 #75 since toolbar is 150 so half of that
 	
 	$Camera2D.limit_left = (mid_x * -1) - Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_top = -Global.MAP_EDGE_BUFFER
