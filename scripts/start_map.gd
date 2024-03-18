@@ -871,6 +871,31 @@ func placementState():
 						City.connectUtilities()
 						City.numBridges += 1
 						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
+			elif (tile.get_base() == Tile.TileBase.SAND):
+				if (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
+					if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY && tile.baseHeight > 8:
+						Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+						if tile.has_utilities():
+							Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
+						tile.clear_tile()
+						tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
+						tile.on_beach = true
+				elif (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY):
+					if tile.get_zone() != Tile.TileZone.MULTI_FAMILY && tile.baseHeight > 8:
+						Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+						if tile.has_utilities():
+							Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
+						tile.clear_tile()
+						tile.set_zone(Tile.TileZone.MULTI_FAMILY)
+						tile.on_beach = true
+				elif (Global.mapTool == Global.Tool.ZONE_COM):
+					if !tile.is_commercial() && tile.baseHeight > 8:
+						Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
+						if tile.has_utilities():
+							Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
+						tile.clear_tile()
+						tile.set_zone(Tile.TileZone.COMMERCIAL)
+						tile.on_beach = true
 				
 	elif Global.dragToRemoveState:
 		
