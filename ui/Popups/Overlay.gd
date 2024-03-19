@@ -16,6 +16,7 @@ func achievement_pop(achName, achPic):
 	inst.visible = false
 	queue.append(achName)
 	$OverlayControl.add_child(inst)
+	print(queue)
 	# Made a sick fade animation
 	$AnimationPlayer.queue("Fade")
 

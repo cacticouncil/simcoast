@@ -4,6 +4,19 @@ var NO_UTILITIES_UNHAPPINESS = 10
 var DAMAGE_UNHAPPINESS = 10
 var SEVERE_DAMAGE_UNHAPPINESS = 30
 
+func get_demand_data():
+	var data = {
+		"NO_UTILITIES_UNHAPPINESS": NO_UTILITIES_UNHAPPINESS,
+		"DAMAGE_UNHAPPINESS": DAMAGE_UNHAPPINESS,
+		"SEVERE_DAMAGE_UNHAPPINESS": SEVERE_DAMAGE_UNHAPPINESS
+	}
+	
+	return data
+	
+func load_demand_data(data):
+	for key in data:
+		self.set(key, data[key])
+
 func calcResidentialDemand():
 	# calc avg happiness of all residential zones
 	var mapHeight = Global.mapHeight

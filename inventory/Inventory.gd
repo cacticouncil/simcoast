@@ -33,6 +33,46 @@ var rain_info = " Used to measure the amount of\n rain fall an area has had over
 var sensors = []
 var current_sensor = ""
 
+
+func get_inventory_data():
+	var sensor_data = []
+	
+	for sensor in sensors:
+		sensor_data.append(sensor.to_dict())
+	
+	var data = {
+		"items": items,
+		"sensors": sensor_data
+	}
+	
+	return data
+
+func load_inventory_data(data):
+	items = data["items"]
+	
+	sensors.clear()
+	
+	# Create sensors
+	var sensor1 = Sensor.new("", "", "", "")
+	var sensor1Data = data["sensors"][0]
+	
+	# Override default data with saved data
+	for key in sensor1Data:
+		sensor1.set(key, sensor1Data[key])
+	
+	var sensor2 = Sensor.new("", "", "", "")
+	var sensor2Data = data["sensors"][1]
+	
+	for key in sensor1Data:
+		sensor2.set(key, sensor2Data[key])
+	
+	sensors.append(sensor1)
+	sensors.append(sensor2)
+	
+	# Update inventory numbers
+	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
+
+	
 # adds all types of sensor currently available to inventory
 func _ready():
 	sensors.append(Sensor.new("Tide Gauge", tide_info, tide_ext_info, " "))

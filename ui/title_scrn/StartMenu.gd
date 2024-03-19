@@ -39,3 +39,7 @@ func _on_SFXMute_toggled(button_pressed):
 func _on_NewGameButton_pressed():
 	var _err = get_tree().change_scene("res://start_map.tscn")
 	
+	
+func _on_ContinueButton_pressed():
+	Global.currentMap = SaveLoad.get_continue_map()
+	var _err = get_tree().change_scene("res://start_map.tscn")

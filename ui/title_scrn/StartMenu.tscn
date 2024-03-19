@@ -298,6 +298,7 @@ resizable = true
 mode = 0
 script = ExtResource( 12 )
 
+[connection signal="pressed" from="MenuLayout/Buttons/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="MenuLayout/Buttons/NewGameButton" to="." method="_on_NewGameButton_pressed"]
 [connection signal="pressed" from="MenuLayout/Buttons/LoadGameButton" to="LoadGamePopup" method="_on_LoadGameButton_pressed"]
 [connection signal="pressed" from="MenuLayout/Buttons/OptionsButton" to="OptionsPopup" method="_on_OptionsButton_pressed"]
