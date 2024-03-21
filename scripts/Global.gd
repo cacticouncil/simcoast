@@ -40,13 +40,13 @@ var colRange = range(0, mapHeight, 1)
 var numZones = 0
 var numPeople = 0
 
-var currentWeatherState = 0;
 
 # Economy AI constants
 const ZONE_BALANCE = -.01
 
 # To know if game is paused
 var isPaused = false
+var currentWeatherState = 0;
 
 func initTileMap():
 	var tm = []
