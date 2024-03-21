@@ -71,7 +71,8 @@ func _ready():
 	
 	var sensorButtons = [
 		["tide sensor", "res://assets/buttons/tide_sensor", "Tide Gauge"], 
-		["rain sensor", "res://assets/buttons/rain_gauge", "Rain Gauge"]
+		["rain sensor", "res://assets/buttons/rain_gauge", "Rain Gauge"],
+		["wind sensor", "res://assets/buttons/rain_gauge", "Wind Gauge"]
 	]
 	var sensorSection = toolbarSectionScene.instance()
 	sensorSection.add_button("Sensors", sensorButtons)
@@ -250,6 +251,8 @@ func button_pressed():
 			Global.mapTool = Global.Tool.SENSOR_TIDE
 		'rain sensor_button':
 			Global.mapTool = Global.Tool.SENSOR_RAIN
+		'wind sensor_button':
+			Global.mapTool = Global.Tool.SENSOR_WIND
 		'raise_ocean_button':
 			Global.mapTool = Global.Tool.NONE
 			if Global.oceanHeight < Global.MAX_HEIGHT:

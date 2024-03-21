@@ -42,7 +42,8 @@ enum TileInf {
 enum TileSensor {
 	NONE,
 	TIDE,
-	RAIN
+	RAIN,
+	WIND
 }
 
 # Flooding damage levels that can affect tiles

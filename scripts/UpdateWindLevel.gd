@@ -84,4 +84,4 @@ func update_wind_level():
 					WindLevel.currentWindLevel = wind
 					
 				if WindLevel.sensorPresent == true:
-					print(WindLevel.currentSeaLevel)
+					print(WindLevel.currentWindLevel)

@@ -481,6 +481,21 @@ func _unhandled_input(event):
 				elif Input.is_action_pressed("right_click"):
 					if tile.sensor == Tile.TileSensor.RAIN:
 						tile.clear_sensor()
+			Global.Tool.SENSOR_WIND:
+				if Input.is_action_pressed("left_click"):
+					# bug workaround to not add sensors to already occupied tiles
+					if (tile.inf == Tile.TileInf.NONE && !(tile.has_building())):
+						if (Inventory.has_building("wind sensor")):
+							current_sensor_tile = tile
+							$SensorChoice/ColorRect.visible = true
+						else:
+							print("No available sensors!")
+							$SensorChoice/ColorRect2.visible = true
+					else:
+						$SensorNo/ColorRect.visible = true
+				elif Input.is_action_pressed("right_click"):
+					if tile.sensor == Tile.TileSensor.WIND:
+						tile.clear_sensor()
 			Global.Tool.INF_ROAD:
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.ROAD):
@@ -792,6 +807,7 @@ func _on_YesButton_pressed():
 				# different colors to represent if sensor is active or not
 				if (current_sensor_tile.get_base() == Tile.TileBase.DIRT):
 					current_sensor_tile.sensor_active = true
+					RainLevel.sensorPresent = true
 				else:
 					current_sensor_tile.sensor_active = false
 				current_sensor_tile.clear_tile()
@@ -799,6 +815,22 @@ func _on_YesButton_pressed():
 				Announcer.notify(Event.new("Added Sensor", "Added Rain Sensor", 1))
 				Inventory.remove_sensor("rain sensor")
 			elif (current_sensor_tile.sensor == Tile.TileSensor.RAIN):
+				print("Sensor already here!")
+			else:
+				print("Different sensor here")
+		Global.Tool.SENSOR_WIND:
+			if (current_sensor_tile.sensor != Tile.TileSensor.WIND):
+				# different colors to represent if sensor is active or not
+				if (current_sensor_tile.get_base() == Tile.TileBase.DIRT):
+					current_sensor_tile.sensor_active = true
+					WindLevel.sensorPresent = true
+				else:
+					current_sensor_tile.sensor_active = false
+				current_sensor_tile.clear_tile()
+				current_sensor_tile.sensor = Tile.TileSensor.WIND
+				Announcer.notify(Event.new("Added Sensor", "Added Wind Sensor", 1))
+				Inventory.remove_sensor("wind sensor")
+			elif (current_sensor_tile.sensor == Tile.TileSensor.WIND):
 				print("Sensor already here!")
 			else:
 				print("Different sensor here")
@@ -815,6 +847,8 @@ func _on_HelpButton_pressed():
 			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
 		Global.Tool.SENSOR_RAIN:
 			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting rain sensors inland, near tall buildings, where they will be most effective."
+		Global.Tool.SENSOR_WIND:
+			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting wind sensors near the beach, where they will be most effective."
 	
 
 func _on_CloseHelpButton_pressed():

@@ -18,7 +18,6 @@ func update_sea_level():
 				SeaLevel.currentMonth += 1
 		
 			# updates every month
-			SeaLevel.counter = 0
 			SeaLevel.currentSurge = SeaLevel.futureSurge
 			if SeaLevel.sensorPresent == true:
 				SeaLevel.allSeaLevels.append(SeaLevel.currentSeaLevel)

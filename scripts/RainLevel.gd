@@ -12,7 +12,7 @@ var rainOn = true
 var currentRainLevel = 0
 var currentMonth = UpdateDate.month
 var sensorPresent = false
-# recorded sea levels by tide sensor
+# recorded rain levels by rain sensor
 var counter = 0
 var allRainLevels = []
 func _ready():

@@ -29,7 +29,6 @@ func _on_BuyButton_pressed():
 			if sensor.get_name() == $SensorsBG/SensorName.text:
 				j = i + 1
 				happened = true
-				$SensorsBG/SensorName/BuyButton.visible = false
 			# unlocks next sensor
 			if i == j && happened == true:
 				sensor.set_status(true)
