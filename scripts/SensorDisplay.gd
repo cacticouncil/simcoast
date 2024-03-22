@@ -7,6 +7,8 @@ func updateValues(sName, sInfo, sReq, locked):
 		$SensorsBG/Locked.visible = true
 		$SensorsBG/SensorName.visible = false
 	else:
+		if Inventory.bought(sName) == false:
+			$SensorsBG/SensorName/BuyButton.visible = true
 		$SensorsBG/Locked.visible = false
 		$SensorsBG/SensorName.visible = true
 			

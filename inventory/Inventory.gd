@@ -31,10 +31,13 @@ var tide_info = " Used to measure the speed and\n height of the tide and other\n
 var tide_ext_info = "A tide gauge is a device used to measure the change in sea level relative to the surface of land.\nSensors continuously record the height of the water level by measuring the distance to the water's surface and comparing it to the height of the land it is connected to.\nTide gauges are important sensors when predicting upcoming storms, since storms create higher waves."
 var placeholder = " This is the extended sensor description. TBA"
 var rain_info = " Used to measure the amount of\n rain fall an area has had over\n a period of time."
-var wind_info = "Used to measure wind speed and air pressure."
-var wind_ext_info = "A wind gauge is a device used to measure wind spped and pressure"
+var wind_info = "Used to measure wind\n speed and air pressure."
+var wind_ext_info = "A wind gauge is a device used to measure wind\n speed and pressure."
 var sensors = []
 var current_sensor = ""
+var tide_bought = false
+var rain_bought = false
+var wind_bought = false
 
 # adds all types of sensor currently available to inventory
 func _ready():
@@ -97,11 +100,25 @@ func update_sensor_amount():
 	for sensor in sensors:
 		if sensor.get_name() == "Tide Gauge":
 			items["tide sensor"] = sensor.get_amount()
+			if sensor.get_amount() != 0:
+				tide_bought = true
 		if sensor.get_name() == "Rain Gauge":
 			items["rain sensor"] = sensor.get_amount()
+			if sensor.get_amount() != 0:
+				rain_bought = true
 		if sensor.get_name() == "Wind Gauge":
 			items["wind sensor"] = sensor.get_amount()
+			if sensor.get_amount() != 0:
+				wind_bought = true
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
+
+func bought(var s):
+	if s == "Tide Gauge":
+		return tide_bought
+	elif s == "Rain Gauge":
+		return rain_bought
+	else:
+		return wind_bought
 
 func set_current_sensor(var s):
 	current_sensor = s

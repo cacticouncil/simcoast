@@ -109,11 +109,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Event.gd"
 }, {
-"base": "EditorVCSInterface",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://git_api.gdns"
-}, {
 "base": "Object",
 "class": "NPC",
 "language": "GDScript",
@@ -170,7 +165,6 @@ _global_script_class_icons={
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
 "DialogueSystem": "",
 "Event": "",
-"GitAPI": "",
 "NPC": "",
 "Observer": "",
 "Sensor": "",
@@ -244,7 +238,7 @@ enabled=PoolStringArray( "res://addons/behavior_tree/plugin.cfg" )
 
 [gdnative]
 
-singletons=[ "res://git_api.gdnlib" ]
+singletons=[  ]
 
 [global]
 
