@@ -195,7 +195,8 @@ func button_pressed():
 	Global.buildingHeight = 1
 	Global.buildingWidth = 1
 	if Global.hoverSprite != null:
-		get_node("/root/CityMap/VectorMap").remove_child(Global.hoverSprite)
+		Global.hoverSprite.queue_free()
+		Global.hoverSprite = null
 	#Adds function for when button is pressed.
 	#Most just set the map tool, code for handling what to do when map tool used is in start_map.gd
 	match group.get_pressed_button().get_name():
