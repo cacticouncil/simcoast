@@ -42,7 +42,7 @@ func update_tile_display(i, j):
 			$BottomBar/HoverText.text += "     Utilities: ON"
 		else:
 			$BottomBar/HoverText.text += "     Utilities: OFF"
-	elif tile.inf == Tile.TileInf.ROAD || tile.inf == Tile.TileInf.BRIDGE:
+	elif tile.inf == Tile.TileInf.ROAD || tile.inf == Tile.TileInf.BRIDGE || tile.inf == Tile.TileInf.BOARDWALK:
 		if tile.utilities:
 			$BottomBar/HoverText.text += "     Utilities: ON"
 		else:

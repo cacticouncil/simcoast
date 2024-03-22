@@ -4,6 +4,7 @@ var numParks = 0
 var numUtilityPlants = 0
 var numRoads = 0
 var numBridges = 0
+var numBoardwalks = 0
 var numLibraries = 0
 var numMuseums = 0
 var numSchools = 0
@@ -106,7 +107,7 @@ func connectUtilities():
 				for n in neighbors:
 					if is_tile_inbounds(n[0], n[1]):
 						var currTile = Global.tileMap[n[0]][n[1]]
-						if currTile.inf == Tile.TileInf.ROAD || currTile.inf == Tile.TileInf.BRIDGE:
+						if currTile.inf == Tile.TileInf.ROAD || currTile.inf == Tile.TileInf.BRIDGE || currTile.inf == Tile.TileInf.BOARDWALK:
 							if roadConnected(road, n, Global.MAX_CONNECTION_HEIGHT):
 								if currTile.utilities == false:
 									queue.append(currTile)
@@ -181,7 +182,7 @@ func disconnectBridges(tile):
 func roadConnected(tile, n, diff):
 	if !is_tile_inbounds(n[0], n[1]):
 		return false
-	if Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.ROAD && Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.BRIDGE:
+	if Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.ROAD && Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.BRIDGE && Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.BOARDWALK:
 		return false
 	if abs(tile.get_base_height() - Global.tileMap[n[0]][n[1]].get_base_height()) > diff:
 		return false

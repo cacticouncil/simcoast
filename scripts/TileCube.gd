@@ -99,6 +99,10 @@ func _draw():
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		for building in listOfBuildings:
 			get_parent().add_child(building)
+	
+	elif tile.inf == Tile.TileInf.BOARDWALK:
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 
 	elif tile.sensor == Tile.TileSensor.TIDE:
 		if tile.sensor_active == true:
@@ -409,7 +413,57 @@ func update_polygons():
 		currBuilding.position = Vector2(x, y - h)
 		currBuilding.z_index = (i + j) * 10
 		listOfBuildings.append(currBuilding)
+	
+	elif tile.inf == Tile.TileInf.BOARDWALK:
+		clear_objects()
+		var image
+		var currBuilding
 		
+		if w == 0:
+			if tile.connections[0]:
+				image = load("res://assets/building_assets/2d Assets/BoardwalkNWConnected.png")
+			else:
+				image = load("res://assets/building_assets/2d Assets/BoardwalkNW.png")
+			
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
+			listOfBuildings.append(currBuilding)
+			
+			if tile.connections[1]:
+				image = load("res://assets/building_assets/2d Assets/BoardwalkNEConnected.png")
+			else:
+				image = load("res://assets/building_assets/2d Assets/BoardwalkNE.png")
+			
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
+			listOfBuildings.append(currBuilding)
+			
+			if tile.connections[2]:
+				image = load("res://assets/building_assets/2d Assets/BoardwalkSEConnected.png")
+			else:
+				image = load("res://assets/building_assets/2d Assets/BoardwalkSE.png")
+			
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
+			listOfBuildings.append(currBuilding)
+			
+			if tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/BoardwalkSWConnected.png")
+			else:
+				image = load("res://assets/building_assets/2d Assets/BoardwalkSW.png")
+			
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
+			listOfBuildings.append(currBuilding)
+	
 	# Create simple rocks to display beach rocks
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		clear_objects()

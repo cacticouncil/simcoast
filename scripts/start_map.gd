@@ -155,7 +155,7 @@ func _unhandled_input(event):
 	
 			# Clear and zone a tile (if it is not already of the same zone)
 			Global.Tool.ZONE_SINGLE_FAMILY, Global.Tool.ZONE_MULTI_FAMILY, Global.Tool.ZONE_COM:
-				if (tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE && (tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK)):
+				if (tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE && (tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK || (tile.get_base() == Tile.TileBase.SAND && tile.baseHeight > 8))):
 					Announcer.notify(Event.new("Added Tile", "Play SFX", 1))
 				if Input.is_action_pressed("left_click"):
 					Global.dragToPlaceState = true
@@ -582,6 +582,12 @@ func _unhandled_input(event):
 					Global.dragToPlaceState = true
 				elif Input.is_action_pressed("right_click"):
 					Global.dragToRemoveState = true
+			
+			Global.Tool.INF_BOARDWALK:
+				if Input.is_action_pressed("left_click"):
+					Global.dragToPlaceState = true
+				elif Input.is_action_pressed("right_click"):
+					Global.dragToRemoveState = true
 
 			Global.Tool.INF_BEACH_ROCKS:
 				if tile.get_base() == Tile.TileBase.SAND:
@@ -872,7 +878,23 @@ func placementState():
 						City.numBridges += 1
 						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
 			elif (tile.get_base() == Tile.TileBase.SAND):
-				if (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
+				if (Global.mapTool == Global.Tool.INF_BOARDWALK):
+					if (Inventory.removeIfHave('boardwalk')):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.BOARDWALK
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numBoardwalks += 1
+						#Boardwalk notifications need to be implemented
+						#Announcer.notify(Event.new("Added Tile", "Added Road", 1))
+					elif (Econ.purchase_structure(Econ.BOARDWALK_COST)):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.BOARDWALK
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numBoardwalks += 1
+						#Announcer.notify(Event.new("Added Tile", "Added Road", 1))
+				elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
 					if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY && tile.baseHeight > 8:
 						Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
 						if tile.has_utilities():
@@ -919,6 +941,11 @@ func placementState():
 			City.connectRoads(tile)
 			City.connectUtilities()
 			City.numBridges -= 1
+		elif tile.inf == Tile.TileInf.BOARDWALK:
+			tile.clear_tile()
+			City.connectRoads(tile)
+			City.connectUtilities()
+			City.numBoardwalks -= 1
 		elif tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.MULTI_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL:
 			tile.clear_tile()
 

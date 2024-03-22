@@ -15,6 +15,7 @@ var items = {
 	'road': 0,
 	'water': 0,
 	'bridge': 0,
+	'boardwalk': 0,
 	'house': 0, #don't use
 	'apartment': 0, #don't use
 	'shop': 0, #don't use

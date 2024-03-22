@@ -18,7 +18,8 @@ func _ready():
 	#Second parameter is for images, utilizes the fact that all file names end in second part + '_normal' or '_active' or '_hover'
 	var infrastructureButtons = [
 		["road", "res://assets/buttons/road", "Road/Power Tile"], 
-		["bridge", "res://assets/buttons/bridge", "Bridge/Power Tile"], 
+		["bridge", "res://assets/buttons/bridge", "Bridge/Power Tile"],
+		["boardwalk", "res://assets/buttons/boardwalk", "Boardwalk/Power Tile"],
 		["water", "res://assets/buttons/water", "Lowers tile to water level"]
 	]
 	var infrastructureSection = toolbarSectionScene.instance()
@@ -301,6 +302,8 @@ func button_pressed():
 			Global.mapTool = Global.Tool.INF_ROAD
 		'bridge_button':
 			Global.mapTool = Global.Tool.INF_BRIDGE
+		'boardwalk_button':
+			Global.mapTool = Global.Tool.INF_BOARDWALK
 		'beach_rocks_button':
 			Global.mapTool = Global.Tool.INF_BEACH_ROCKS
 		'beach_grass_button':

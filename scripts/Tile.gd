@@ -23,6 +23,7 @@ enum TileInf {
 	NONE,
 	ROAD,
 	BRIDGE,
+	BOARDWALK,
 	PARK,
 	FIRE_STATION,
 	HOSPITAL,
@@ -582,8 +583,6 @@ func distance_to_water():
 #	 set distance to the maximum possible value any tile could be from water
 	var distance = 999999
 #	checking a 6 tile radius circle around the current tile
-	if i == 2 && j == 2:
-		pass
 	for x in range(i-6, i+7):
 		for y in range(j-6, j+7):
 			if is_valid_tile(x, y):
@@ -596,7 +595,7 @@ func distance_to_water():
 						 distance = temp_distance
 	
 #	if the distance value has been changed, return it
-	if distance != max(Global.mapHeight, Global.mapWidth):
+	if distance != 999999:
 		return distance
 	else:
 		 return null
