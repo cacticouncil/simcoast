@@ -956,13 +956,20 @@ func placementState():
 			City.connectRoads(tile)
 			City.connectUtilities()
 			City.numBridges -= 1
-		elif tile.inf == Tile.TileInf.BOARDWALK:
+		elif Global.mapTool == Global.Tool.INF_BOARDWALK && tile.inf == Tile.TileInf.BOARDWALK:
 			tile.clear_tile()
 			City.connectRoads(tile)
 			City.connectUtilities()
 			City.numBoardwalks -= 1
 		elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY && tile.zone == Tile.TileZone.SINGLE_FAMILY) || (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY && tile.zone == Tile.TileZone.MULTI_FAMILY) || (Global.mapTool == Global.Tool.ZONE_COM && tile.zone == Tile.TileZone.COMMERCIAL):
 			tile.clear_tile()
+		elif Global.mapTool == Global.Tool.REMOVE_BEACH_ROCKS && (tile.inf == Tile.TileInf.BEACH_ROCKS || tile.inf == Tile.TileInf.BEACH_GRASS):
+			if (Inventory.removeIfHave('remove rocks')):
+				tile.clear_tile()
+				#Announcer.notify(Event.new("Removed Beach Rocks", "Removed Beach Rocks", 1))
+			elif (Econ.purchase_structure(Econ.REMOVE_BEACH_ROCK)):
+				tile.clear_tile()
+				#Announcer.notify(Event.new("Removed Beach Rocks", "Removed Beach Rocks", 1))
 
 func update_graphics():
 	#print("Updating graphics on tick: " + str(numTicks))
