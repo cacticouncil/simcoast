@@ -16,6 +16,7 @@ var items = {
 	'water': 0,
 	'bridge': 0,
 	'boardwalk': 0,
+	'wavebreaker': 0,
 	'house': 0, #don't use
 	'apartment': 0, #don't use
 	'shop': 0, #don't use
@@ -23,6 +24,7 @@ var items = {
 	'hv_res_zone': 0, #don't use
 	'lt_com_zone': 0, #don't use
 	'hv_com_zone': 0, #don't use
+	'close beach': 0, #don't use
 	"tide sensor": 0,
 	"rain sensor": 0
 }

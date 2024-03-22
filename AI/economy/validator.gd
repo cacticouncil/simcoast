@@ -19,8 +19,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 		water = abs(tile.distance_to_water()-5) * tile.WATER_WEIGHT
 		
 #	variable representing the influence of a tile's neighbors on its desirability
-	var neighbors = tile.residential_neighbors * tile.RESIDENTIAL_NEIGHBOR + tile.commercial_neighbors * tile.COMMERCIAL_NEIGHBOR + \
-	tile.industrial_neighbors * tile.INDUSTRIAL_NEIGHBOR + tile.get_public_works_value()
+	var neighbors = tile.residential_neighbors * tile.RESIDENTIAL_NEIGHBOR + tile.commercial_neighbors * tile.COMMERCIAL_NEIGHBOR + tile.industrial_neighbors * tile.INDUSTRIAL_NEIGHBOR + tile.get_public_works_value()
 	
 # this variable has a negative impact on desirability if the number of zones of each type differs. 
 # may need more refinement; a 1-1 relationship between commercial and residential isn't really viable, but under the current 

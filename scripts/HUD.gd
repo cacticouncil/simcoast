@@ -37,7 +37,7 @@ func update_tile_display(i, j):
 		if tile.get_zone() == Tile.TileZone.PUBLIC_WORKS:
 			$BottomBar/HoverText.text += "     Zone: %s, Tile Damage: %s%%" % [zone_values[tile.get_zone()], tile.tileDamage*100]
 		else:
-			$BottomBar/HoverText.text += "     Zone: %s, People: %s / %s, Tile Damage: %s%%, Happiness: %s%%, Tile Value: %s" % [zone_values[tile.get_zone()], tile.data[2], tile.data[3], tile.tileDamage*100, tile.happiness, tile.landValue]
+			$BottomBar/HoverText.text += "     Zone: %s, People: %s / %s, Tile Damage: %s%%, Happiness: %s%%, Desirability: %s" % [zone_values[tile.get_zone()], tile.data[2], tile.data[3], tile.tileDamage*100, tile.happiness, tile.desirability]
 		if tile.utilities:
 			$BottomBar/HoverText.text += "     Utilities: ON"
 		else:

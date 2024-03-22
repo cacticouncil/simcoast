@@ -167,7 +167,6 @@ var on_beach = false
 var residential_neighbors = 0
 var commercial_neighbors = 0
 var industrial_neighbors = 0
-var public_works_neighbors = 0
 var public_works_dictionary = {
 	"parks": 0,
 	"libraries": 0,
@@ -537,6 +536,8 @@ func get_data():
 
 func get_public_works_value():
 	var value = 0
+	if zone == TileZone.SINGLE_FAMILY:
+		pass
 	#This was the calculation I came up with for diminishing returns. Each of the same neighbor provides less value
 	var parkValue = PARK_NEIGHBORS
 	for i in range(public_works_dictionary['parks']):

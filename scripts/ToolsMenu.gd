@@ -70,6 +70,16 @@ func _ready():
 	$VBoxContainer.add_child(publicServiceSection)
 	publicServiceSection.set_bg(publicServiceSection.rect_size, Color("526e7584"))
 	
+	var beachButtons = [
+		["wavebreaker", "res://assets/buttons/road", "Wavebreaker"], 
+		["close beach", "res://assets/buttons/bridge", "Close Beach"]
+	]
+	var beachSection = toolbarSectionScene.instance()
+	#Creates a section of the buttons and takes in the list of ones to add
+	beachSection.add_button("Infrastructure", beachButtons)
+	$VBoxContainer.add_child(beachSection)
+	beachSection.set_bg(beachSection.rect_size, Color("e03c3c3c"))
+	
 	var sensorButtons = [
 		["tide sensor", "res://assets/buttons/tide_sensor", "Tide Gauge"], 
 		["rain sensor", "res://assets/buttons/rain_gauge", "Rain Gauge"]
@@ -77,7 +87,7 @@ func _ready():
 	var sensorSection = toolbarSectionScene.instance()
 	sensorSection.add_button("Sensors", sensorButtons)
 	$VBoxContainer.add_child(sensorSection)
-	sensorSection.set_bg(sensorSection.rect_size, Color("e03c3c3c"))
+	sensorSection.set_bg(sensorSection.rect_size, Color("526e7584"))
 	
 	#Once we create all the buttons, we want to add the functionality to each of them
 	for i in group.get_buttons():
@@ -316,6 +326,14 @@ func button_pressed():
 			Global.mapTool = Global.Tool.LAYER_WATER
 		'clear_water_button':
 			Global.mapTool = Global.Tool.CLEAR_WATER
+		'close beach_button':
+			Global.mapTool = Global.Tool.NONE
+			Global.closeBeach = !Global.closeBeach
+			if Global.closeBeach:
+				$VBoxContainer.get_child(6).get_child(1).get_child(2).get_child(1).text = "Open Beach"
+			else:
+				$VBoxContainer.get_child(6).get_child(1).get_child(2).get_child(1).text = "Close Beach"
+			deactivateButtons()
 		'tide sensor_button':
 			Global.mapTool = Global.Tool.SENSOR_TIDE
 		'rain sensor_button':

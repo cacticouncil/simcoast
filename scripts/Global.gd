@@ -60,6 +60,9 @@ const ZONE_BALANCE = -.01
 var isPaused = false
 var currentWeatherState = 0;
 
+# The beach should shut down when this is true
+var closeBeach = false
+
 func initTileMap():
 	var tm = []
 	
