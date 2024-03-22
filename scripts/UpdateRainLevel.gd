@@ -15,13 +15,15 @@ func update_rain_level():
 		if RainLevel.currentMonth == UpdateDate.month:
 			if (RainLevel.currentMonth == UpdateDate.Months.December):
 				RainLevel.currentMonth = UpdateDate.Months.January
+				if RainLevel.sensorPresent == true:
+					print("R", RainLevel.allRainLevels)
 			else:
 				RainLevel.currentMonth += 1
 		
 			# updates every month
 			if RainLevel.sensorPresent == true:
 				RainLevel.allRainLevels.append(RainLevel.currentRainLevel)
-				print(RainLevel.currentRainLevel)
+				print("rain level",RainLevel.currentRainLevel)
 			
 			# preparations month 
 			if Weather.willStorm == true:

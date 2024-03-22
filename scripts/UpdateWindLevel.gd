@@ -15,6 +15,8 @@ func update_wind_level():
 		if WindLevel.currentMonth == UpdateDate.month:
 			if (WindLevel.currentMonth == UpdateDate.Months.December):
 				WindLevel.currentMonth = UpdateDate.Months.January
+				if WindLevel.sensorPresent == true:
+					print("W", WindLevel.allWindLevels)
 			else:
 				WindLevel.currentMonth += 1
 		

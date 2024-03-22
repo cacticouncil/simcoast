@@ -14,6 +14,8 @@ func update_sea_level():
 		if SeaLevel.currentMonth == UpdateDate.month:
 			if (SeaLevel.currentMonth == UpdateDate.Months.December):
 				SeaLevel.currentMonth = UpdateDate.Months.January
+				if SeaLevel.sensorPresent == true:
+					print("S", SeaLevel.allSeaLevels)
 			else:
 				SeaLevel.currentMonth += 1
 		
@@ -21,7 +23,7 @@ func update_sea_level():
 			SeaLevel.currentSurge = SeaLevel.futureSurge
 			if SeaLevel.sensorPresent == true:
 				SeaLevel.allSeaLevels.append(SeaLevel.currentSeaLevel)
-				print(SeaLevel.currentSeaLevel)
+				print("sea level: ",SeaLevel.currentSeaLevel)
 			
 			# preparations month 
 			if Weather.willStorm == true:
@@ -50,13 +52,13 @@ func update_sea_level():
 			# every other month 
 			else:
 				if UpdateDate.month == UpdateDate.Months.December || UpdateDate.month == UpdateDate.Months.February || UpdateDate.month == UpdateDate.Months.April:
-					SeaLevel.currentSeaLevel += (rateIncrease/12)
+					SeaLevel.currentSeaLevel += (rateIncrease*0.7/12)
 				elif UpdateDate.month == UpdateDate.Months.January || UpdateDate.month == UpdateDate.Months.March || UpdateDate.month == UpdateDate.Months.May:
 					SeaLevel.currentSeaLevel -= (rateIncrease*0.5/12)
 				elif UpdateDate.month == UpdateDate.Months.June || UpdateDate.month == UpdateDate.Months.July || UpdateDate.month == UpdateDate.Months.August:
 					SeaLevel.currentSeaLevel += (rateIncrease/12)
 				else:
-					SeaLevel.currentSeaLevel += (rateIncrease*1.5/12)
+					SeaLevel.currentSeaLevel += (rateIncrease*1.2/12)
 		
 		if SeaLevel.counter >= 0:
 			ticksChange += 1

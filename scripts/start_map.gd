@@ -716,6 +716,8 @@ func update_game_state():
 	#UpdateWaves.update_waves()
 	UpdateWeather.update_weather()
 	UpdateSeaLevel.update_sea_level()
+	UpdateRainLevel.update_rain_level()
+	UpdateWindLevel.update_wind_level()
 	#turning this function off until it can be fixed
 	#UpdateWater.update_waves()
 	UpdateWater.update_water_spread()
