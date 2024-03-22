@@ -191,6 +191,9 @@ func _unhandled_input(event):
 					
 			Global.Tool.CLEAR_TILE:
 				tile.clear_tile()
+			
+			Global.Tool.REMOVE_BEACH_ROCKS:
+				Global.dragToRemoveState = true
 				
 			Global.Tool.INF_UTILITIES_PLANT:
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:

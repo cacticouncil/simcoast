@@ -72,11 +72,12 @@ func _ready():
 	
 	var beachButtons = [
 		["wavebreaker", "res://assets/buttons/road", "Wavebreaker"], 
-		["close beach", "res://assets/buttons/bridge", "Close Beach"]
+		["close beach", "res://assets/buttons/bridge", "Close Beach"],
+		["remove rocks", "res://assets/buttons/remove_beach_rocks", "Remove Beach Rocks"]
 	]
 	var beachSection = toolbarSectionScene.instance()
 	#Creates a section of the buttons and takes in the list of ones to add
-	beachSection.add_button("Infrastructure", beachButtons)
+	beachSection.add_button("Beach", beachButtons)
 	$VBoxContainer.add_child(beachSection)
 	beachSection.set_bg(beachSection.rect_size, Color("e03c3c3c"))
 	
@@ -334,6 +335,8 @@ func button_pressed():
 			else:
 				$VBoxContainer.get_child(6).get_child(1).get_child(2).get_child(1).text = "Close Beach"
 			deactivateButtons()
+		'remove rocks_button':
+			Global.mapTool = Global.Tool.REMOVE_BEACH_ROCKS
 		'tide sensor_button':
 			Global.mapTool = Global.Tool.SENSOR_TIDE
 		'rain sensor_button':
