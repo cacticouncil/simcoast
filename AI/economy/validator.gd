@@ -48,14 +48,21 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	#see city_wealth.gd for more
 	var wealth_influence = tile.wealth_weight * tile.WEALTH_INFLUENCE
 	
+	#It is more desirable to live on the beach
+	var beach
+	if tile.get_base() == Tile.TileBase.SAND:
+		beach = 0.1
+	else:
+		beach = 0
+	
 	#tile_dmg_weight is a value that subtracts from desirability if a tile is damaged, doesn't add anything only removes
 	#desirability explains itself in the name, and is influenced by all the factors defined above
 	#single family zones are very desirable, so they have a different base desirability than everyone else
 	var desirability = 0
 	if (tile.zone == Tile.TileZone.SINGLE_FAMILY):
-		desirability = tile.BASE_SINGLE_FAMILY_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + tile.tile_dmg_weight
+		desirability = tile.BASE_SINGLE_FAMILY_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + beach + tile.tile_dmg_weight
 	else:
-		desirability = tile.BASE_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + tile.tile_dmg_weight
+		desirability = tile.BASE_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + beach + tile.tile_dmg_weight
 
 	if desirability > UPPER_LIMIT:
 		desirability = UPPER_LIMIT
