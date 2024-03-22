@@ -189,6 +189,7 @@ var is_income_tax_light = false
 var is_neg_profit = false
 var wealth_weight = 0
 var tile_dmg_weight = 0
+var num_beach_rocks_nearby = 0
 var children = [] #List of List of children's indicies
 var parent = [-1, -1] #If this tile is a child, this is it's parent, otherwise -1, -1
 

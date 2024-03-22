@@ -11,6 +11,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var residential_neighbor = 0
 	var commercial_neighbor = 0
 	var industrial_neighbor = 0
+	tile.num_beach_rocks_nearby = 0
 	
 	# Get all neighbors in a circular radius.
 	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1],
@@ -26,6 +27,10 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 			
 			# Check what type of zone the neighbor is
 			var neighbor = Global.tileMap[n[0]][n[1]]
+			
+			if (neighbor.inf == Tile.TileInf.BEACH_ROCKS || neighbor.inf == Tile.TileInf.BEACH_GRASS):
+				tile.num_beach_rocks_nearby += 1
+			
 			match(neighbor.zone):
 				Tile.TileZone.SINGLE_FAMILY:
 					residential_neighbor += 1

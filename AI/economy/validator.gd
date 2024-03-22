@@ -52,8 +52,10 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var beach
 	if tile.get_base() == Tile.TileBase.SAND:
 		beach = 0.1
+		beach -= tile.num_beach_rocks_nearby * 0.025
 	else:
 		beach = 0
+	
 	
 	#tile_dmg_weight is a value that subtracts from desirability if a tile is damaged, doesn't add anything only removes
 	#desirability explains itself in the name, and is influenced by all the factors defined above
