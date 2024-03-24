@@ -43,6 +43,7 @@ func update_population():
 					
 				if (selectTile > rng.randf_range(0, maxRange)):
 					if (currTile.is_residential()):
+						# Person moves in
 						currTile.add_people(1)
 					elif (currTile.is_commercial()):
 						if RESIDENTS * BASE_EMPLOYMENT_RATE > WORKERS:
@@ -68,6 +69,8 @@ func update_population():
 				#fixes workers not moving out when residents leave
 				if (floor(WORKERS - (RESIDENTS * BASE_EMPLOYMENT_RATE)) > 0 && currTile.is_commercial()):
 					var diff = floor(WORKERS - (RESIDENTS * BASE_EMPLOYMENT_RATE))
+					#Can't remove more workers than we have
+					diff = min(currTile.data[2], diff)
 					currTile.remove_people(diff)
 					
 	
@@ -78,12 +81,13 @@ func get_population():
 	return RESIDENTS
 	
 func change_workers(n):
-	if (n > 0 && (WORKERS + n) >= (RESIDENTS * BASE_EMPLOYMENT_RATE)):
+	"""if (n > 0 && (WORKERS + n) >= (RESIDENTS * BASE_EMPLOYMENT_RATE)):
 		WORKERS = RESIDENTS
 	else:
 		WORKERS += n
 		if (WORKERS < 0):
-			WORKERS = 0
+			WORKERS = 0"""
+	WORKERS += n
 		
 func change_residents(n):
 	RESIDENTS += n
