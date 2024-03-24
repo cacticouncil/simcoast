@@ -51,6 +51,7 @@ func loadData(mapPath: String):
 	Global.oceanHeight = mapData.oceanHeight
 	Global.seaLevel = mapData.seaLevel
 	Econ.money = mapData.money
+	Econ.money = 999999999
 	
 	Global.tileMap.clear()
 	

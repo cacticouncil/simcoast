@@ -38,6 +38,7 @@ func unlock(goal, goalNum):
 	get_node("/root/Overlay").achievement_pop(goal.achievementName, goal.icon)
 
 func deleteGoals():
+	toDelete.invert()
 	for num in toDelete:
 		toComplete.remove(num)
 	toDelete.clear()
