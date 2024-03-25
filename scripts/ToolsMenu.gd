@@ -71,8 +71,8 @@ func _ready():
 	publicServiceSection.set_bg(publicServiceSection.rect_size, Color("526e7584"))
 	
 	var beachButtons = [
-		["wavebreaker", "res://assets/buttons/road", "Wavebreaker"], 
-		["close beach", "res://assets/buttons/bridge", "Close Beach"],
+		["wavebreaker", "res://assets/buttons/wave_breaker", "Wavebreaker"], 
+		["close beach", "res://assets/buttons/close_beach", "Close Beach"],
 		["remove rocks", "res://assets/buttons/remove_beach_rocks", "Remove Beach Rocks"]
 	]
 	var beachSection = toolbarSectionScene.instance()
