@@ -555,6 +555,42 @@ func _unhandled_input(event):
 							parentTile.clear_tile()
 							City.numSchools -= 1
 			
+			Global.Tool.INF_WAVE_BREAKER:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
+					if (tile.check_if_valid_placement(Tile.TileInf.WAVE_BREAKER, Global.buildingHeight, Global.buildingWidth)):
+						if (Inventory.removeIfHave('wave breaker')):
+							tile.set_tile_inf(Tile.TileInf.WAVE_BREAKER, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
+							City.numWaveBreaker += 1
+							Announcer.notify(Event.new("Added Tile", "Added Wave Breaker", 1))
+						elif (Econ.purchase_structure(Econ.WAVE_BREAKER_COST)):
+							tile.set_tile_inf(Tile.TileInf.WAVE_BREAKER, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
+							City.numWaveBreaker += 1
+							Announcer.notify(Event.new("Added Tile", "Added Wave Breaker", 1))
+						else:
+							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
+						$PreviewFade.stop()
+						$HUD/ToolsMenu.deactivateButtons()
+						
+					elif (tile.inf == Tile.TileInf.WAVE_BREAKER):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Schools must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.WAVE_BREAKER:
+						tile.clear_tile()
+						City.numWaveBreaker -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.WAVE_BREAKER:
+							parentTile.clear_tile()
+							City.numWaveBreaker -= 1
+			
 			Global.Tool.SENSOR_TIDE:
 				if Input.is_action_pressed("left_click"):
 					# bug workaround to not add sensors to already occupied tiles

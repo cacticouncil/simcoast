@@ -13,6 +13,7 @@ var numHospital = 0
 var numPoliceStations = 0
 var numSewageFacilities = 0
 var numWasteTreatment = 0
+var numWaveBreaker = 0
 var numResidentialZones = 0
 var numCommercialZones = 0
 var numSingleFamilyZones = 0

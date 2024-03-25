@@ -82,6 +82,9 @@ func _draw():
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
 		get_parent().add_child(buildingSprite)
 		
+	elif tile.inf == Tile.TileInf.WAVE_BREAKER:
+		get_parent().add_child(buildingSprite)
+		
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		for r in objects:
 			draw_polygon(r[1].get_polygon(), PoolColorArray([Tile.BEACH_ROCK_COLOR[1]]))
@@ -276,6 +279,14 @@ func update_polygons():
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/PoliceStation.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
+	
+	elif tile.inf == Tile.TileInf.WAVE_BREAKER:
+		clear_objects()
+		var image = load("res://assets/building_assets/2d Assets/Empty Apartment.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)

@@ -71,7 +71,7 @@ func _ready():
 	publicServiceSection.set_bg(publicServiceSection.rect_size, Color("526e7584"))
 	
 	var beachButtons = [
-		["wavebreaker", "res://assets/buttons/wave_breaker", "Wavebreaker"], 
+		["wave breaker", "res://assets/buttons/wave_breaker", "Wavebreaker"], 
 		["close beach", "res://assets/buttons/close_beach", "Close Beach"],
 		["remove rocks", "res://assets/buttons/remove_beach_rocks", "Remove Beach Rocks"]
 	]
@@ -307,6 +307,14 @@ func button_pressed():
 			Global.placementState = true
 			Global.hoverImage = "res://assets/building_assets/2d Assets/School.png"
 			Global.infType = Tile.TileInf.SCHOOL
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
+			get_node("/root/CityMap/PreviewFade").play("Fade")
+		'wave breaker_button':
+			Global.mapTool = Global.Tool.INF_WAVE_BREAKER
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/Empty Apartment.png"
+			Global.infType = Tile.TileInf.WAVE_BREAKER
 			Global.buildingHeight = 1
 			Global.buildingWidth = 1
 			get_node("/root/CityMap/PreviewFade").play("Fade")

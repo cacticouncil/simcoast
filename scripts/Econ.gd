@@ -43,6 +43,7 @@ const HOSPITAL_COST = 5000
 const POLICE_STATION_COST = 5000
 const WATER_COST = 5000
 const REMOVE_BEACH_ROCK = 3000
+const WAVE_BREAKER_COST = 2000
 
 #Building upkeep costs
 const UTILITIES_PLANT_UPKEEP_COST = 100
@@ -61,6 +62,7 @@ const WASTE_TREATMENT_UPKEEP_COST = 100
 const MULTI_FAMILY_UPKEEP_COST = 50
 const SINGLE_FAMILY_UPKEEP_COST = 10
 const UPKEEP_PER_PERSON = 2
+const WAVE_BREAKER_UPKEEP_COST = 10
 
 # Player/Mayor Constants
 var money
@@ -105,6 +107,7 @@ func calculate_upkeep_costs():
 	city_costs += City.numPoliceStations * POLICE_STATION_UPKEEP_COST
 	city_costs += City.numSewageFacilities * SEWAGE_FACILITY_UPKEEP_COST
 	city_costs += City.numWasteTreatment * WASTE_TREATMENT_UPKEEP_COST
+	city_costs += City.numWaveBreaker * WAVE_BREAKER_UPKEEP_COST
 	city_costs += City.numSingleFamilyZones * SINGLE_FAMILY_UPKEEP_COST
 	city_costs += City.numMultiFamilyZones * MULTI_FAMILY_UPKEEP_COST
 	city_costs += UpdatePopulation.get_population() * UPKEEP_PER_PERSON

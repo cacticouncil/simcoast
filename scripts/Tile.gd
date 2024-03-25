@@ -38,6 +38,7 @@ enum TileInf {
 	UTILITIES_PLANT,
 	SEWAGE_FACILITY,
 	WASTE_TREATMENT,
+	WAVE_BREAKER,
 	CHILD
 }
 
@@ -227,7 +228,10 @@ func paste_tile(tile):
 	profitRate = tile.profitRate
 
 func check_if_valid_placement(inf_to_be, height, width):
-	if !((get_base() == TileBase.DIRT || get_base() == TileBase.ROCK) && inf != inf_to_be):
+	if inf_to_be == TileInf.WAVE_BREAKER:
+		if !get_base() == TileBase.SAND || baseHeight > 5:
+			return false
+	elif !((get_base() == TileBase.DIRT || get_base() == TileBase.ROCK) && inf != inf_to_be):
 		return false
 	
 	for a in range(0, height):

@@ -26,6 +26,7 @@ var items = {
 	'hv_com_zone': 0, #don't use
 	'close beach': 0, #don't use
 	'remove rocks': 0,
+	'wave breaker': 0,
 	"tide sensor": 0,
 	"rain sensor": 0
 }
