@@ -330,12 +330,11 @@ func button_pressed():
 			Global.mapTool = Global.Tool.CLEAR_WATER
 		'close beach_button':
 			Global.mapTool = Global.Tool.NONE
-			Global.closeBeach = !Global.closeBeach
-			if Global.closeBeach:
-				$VBoxContainer.get_child(6).get_child(1).get_child(2).get_child(1).text = "Open Beach"
-			else:
-				$VBoxContainer.get_child(6).get_child(1).get_child(2).get_child(1).text = "Close Beach"
+			if !Global.closeBeach && !Global.beginBeachEvacuation && !Global.stayEvacuated && !Global.moveBackIn:
+				Global.closeBeach = true
+			#$VBoxContainer.get_child(6).get_child(1).get_child(2).get_child(1).text = "Open Beach"
 			deactivateButtons()
+			
 		'remove rocks_button':
 			Global.mapTool = Global.Tool.REMOVE_BEACH_ROCKS
 		'tide sensor_button':

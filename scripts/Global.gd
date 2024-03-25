@@ -62,6 +62,9 @@ var currentWeatherState = 0;
 
 # The beach should shut down when this is true
 var closeBeach = false
+var beginBeachEvacuation = false
+var stayEvacuated = false
+var moveBackIn = false
 
 func initTileMap():
 	var tm = []

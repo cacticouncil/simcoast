@@ -163,7 +163,10 @@ var bridge_connected_to_dirt = false
 var tile_base_dirt = false
 var tile_base_rock = false
 var tile_base_sand = false
+
 var on_beach = false
+var pre_evacuation_residents = -1
+
 var residential_neighbors = 0
 var commercial_neighbors = 0
 var industrial_neighbors = 0
