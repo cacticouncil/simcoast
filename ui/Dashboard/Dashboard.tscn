@@ -1,0 +1,734 @@
+[gd_scene load_steps=44 format=2]
+
+[ext_resource path="res://ui/Dashboard/Dashboard.gd" type="Script" id=1]
+[ext_resource path="res://ui/Badges/UnlockedBadges.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/CharacterCards/DisplayCharacterCards.gd" type="Script" id=3]
+[ext_resource path="res://assets/achievement_icons/XIcon.png" type="Texture" id=4]
+[ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=5]
+[ext_resource path="res://assets/fonts/toolbarTitle.tres" type="DynamicFont" id=6]
+[ext_resource path="res://assets/buttons/plus_button.png" type="Texture" id=7]
+[ext_resource path="res://assets/buttons/Info_button.png" type="Texture" id=8]
+[ext_resource path="res://ui/Dashboard/MenuContainer.gd" type="Script" id=9]
+[ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=15]
+[ext_resource path="res://ui/Dashboard/CityStatsBar.gd" type="Script" id=16]
+
+[sub_resource type="GDScript" id=4]
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+
+uniform float value = 1.0;
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV);
+	if (value != 1.0) {
+		if (COLOR.r > 0.3 && COLOR.b > 0.3 && COLOR.g > 0.3) {
+			COLOR.rgb = vec3(value);
+		}
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 5 )
+shader_param/value = 1.0
+script = SubResource( 4 )
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="InputEventKey" id=10]
+scancode = 16777217
+
+[sub_resource type="ShortCut" id=17]
+shortcut = SubResource( 10 )
+
+[sub_resource type="StyleBoxEmpty" id=44]
+
+[sub_resource type="StyleBoxEmpty" id=45]
+
+[sub_resource type="StyleBoxEmpty" id=46]
+
+[sub_resource type="StyleBoxEmpty" id=47]
+
+[sub_resource type="StyleBoxEmpty" id=48]
+
+[sub_resource type="StyleBoxEmpty" id=34]
+
+[sub_resource type="StyleBoxEmpty" id=35]
+
+[sub_resource type="StyleBoxEmpty" id=36]
+
+[sub_resource type="StyleBoxEmpty" id=37]
+
+[sub_resource type="StyleBoxEmpty" id=38]
+
+[sub_resource type="StyleBoxEmpty" id=39]
+
+[sub_resource type="StyleBoxEmpty" id=40]
+
+[sub_resource type="StyleBoxEmpty" id=41]
+
+[sub_resource type="StyleBoxEmpty" id=42]
+
+[sub_resource type="StyleBoxEmpty" id=43]
+
+[sub_resource type="StyleBoxEmpty" id=28]
+
+[sub_resource type="StyleBoxEmpty" id=24]
+
+[sub_resource type="StyleBoxEmpty" id=25]
+
+[sub_resource type="StyleBoxEmpty" id=22]
+
+[sub_resource type="StyleBoxEmpty" id=18]
+
+[sub_resource type="Theme" id=27]
+
+[sub_resource type="StyleBoxEmpty" id=26]
+
+[node name="Dashboard" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.647059, 0.647059, 0.647059, 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1280.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer"]
+margin_right = 1280.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 1280, 50 )
+color = Color( 0.262745, 0.262745, 0.262745, 1 )
+
+[node name="Label2" type="Label" parent="VBoxContainer/ColorRect"]
+margin_right = 1280.0
+margin_bottom = 50.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+custom_fonts/font = ExtResource( 15 )
+text = "Dashboard"
+align = 1
+valign = 1
+
+[node name="QuitButton" type="Button" parent="."]
+material = SubResource( 11 )
+margin_left = 1221.0
+margin_top = 2.0
+margin_right = 1269.0
+margin_bottom = 50.0
+rect_scale = Vector2( 1, 1.00458 )
+custom_styles/hover = SubResource( 12 )
+custom_styles/pressed = SubResource( 13 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/disabled = SubResource( 15 )
+custom_styles/normal = SubResource( 16 )
+shortcut = SubResource( 17 )
+icon = ExtResource( 4 )
+icon_align = 1
+
+[node name="BadgesSensorStats" type="Control" parent="."]
+margin_left = 280.0
+margin_top = 50.0
+margin_right = 1280.0
+margin_bottom = 720.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BadgesSensorStats"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 990.0
+margin_bottom = 660.0
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="MenuContainer" type="VBoxContainer" parent="BadgesSensorStats/ScrollContainer"]
+margin_right = 980.0
+margin_bottom = 650.0
+rect_min_size = Vector2( 980, 650 )
+script = ExtResource( 9 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BadgesSensorStats/ScrollContainer/MenuContainer"]
+margin_right = 980.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 960, 20 )
+
+[node name="ExpandAllButton" type="Button" parent="BadgesSensorStats/ScrollContainer/MenuContainer/HBoxContainer"]
+margin_right = 78.0
+margin_bottom = 20.0
+text = "Expand All"
+
+[node name="CollapseAllButton" type="Button" parent="BadgesSensorStats/ScrollContainer/MenuContainer/HBoxContainer"]
+margin_left = 82.0
+margin_right = 169.0
+margin_bottom = 20.0
+text = "Collapse All"
+
+[node name="ColorRect" type="ColorRect" parent="BadgesSensorStats/ScrollContainer/MenuContainer"]
+margin_top = 24.0
+margin_right = 980.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 960, 40 )
+
+[node name="BadgesButton" type="Button" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect"]
+margin_left = 940.0
+margin_top = 10.0
+margin_right = 970.0
+margin_bottom = 34.0
+custom_styles/hover = SubResource( 44 )
+custom_styles/pressed = SubResource( 45 )
+custom_styles/focus = SubResource( 46 )
+custom_styles/disabled = SubResource( 47 )
+custom_styles/normal = SubResource( 48 )
+icon = ExtResource( 7 )
+
+[node name="BadgesTitle" type="Label" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect"]
+anchor_right = 0.138
+anchor_bottom = 0.411
+margin_left = 12.0
+margin_top = 8.0
+margin_right = -23.24
+margin_bottom = 17.56
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "Badges"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="UnlockedBadges" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect" instance=ExtResource( 2 )]
+margin_top = 40.0
+margin_right = 380.0
+margin_bottom = 232.0
+rect_min_size = Vector2( 980, 0 )
+
+[node name="ColorRect2" type="ColorRect" parent="BadgesSensorStats/ScrollContainer/MenuContainer"]
+margin_top = 68.0
+margin_right = 980.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 960, 40 )
+
+[node name="CharactersButton" type="Button" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect2"]
+margin_left = 940.0
+margin_top = 10.0
+margin_right = 970.0
+margin_bottom = 34.0
+custom_styles/hover = SubResource( 34 )
+custom_styles/pressed = SubResource( 35 )
+custom_styles/focus = SubResource( 36 )
+custom_styles/disabled = SubResource( 37 )
+custom_styles/normal = SubResource( 38 )
+icon = ExtResource( 7 )
+
+[node name="FieldProfTitle" type="Label" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect2"]
+anchor_right = 0.138
+anchor_bottom = 0.411
+margin_left = 12.0
+margin_top = 8.0
+margin_right = -23.24
+margin_bottom = 17.56
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "Field Professionals"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect2"]
+margin_top = 40.0
+margin_right = 980.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 980, 300 )
+
+[node name="DisplayCharacterCards" type="VBoxContainer" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect2/ScrollContainer"]
+margin_right = 980.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 980, 300 )
+script = ExtResource( 3 )
+
+[node name="ColorRect3" type="ColorRect" parent="BadgesSensorStats/ScrollContainer/MenuContainer"]
+margin_top = 112.0
+margin_right = 980.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 960, 40 )
+
+[node name="SensorButton" type="Button" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3"]
+margin_left = 940.0
+margin_top = 10.0
+margin_right = 970.0
+margin_bottom = 34.0
+custom_styles/hover = SubResource( 39 )
+custom_styles/pressed = SubResource( 40 )
+custom_styles/focus = SubResource( 41 )
+custom_styles/disabled = SubResource( 42 )
+custom_styles/normal = SubResource( 43 )
+icon = ExtResource( 7 )
+
+[node name="SensorDataTitle" type="Label" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3"]
+anchor_right = 0.138
+anchor_bottom = 0.411
+margin_left = 12.0
+margin_top = 8.0
+margin_right = -23.24
+margin_bottom = 17.56
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "Sensor Data"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="BadgesSensorStats"]
+visible = false
+margin_left = 11.0
+margin_top = 324.0
+margin_right = 988.0
+margin_bottom = 658.0
+
+[node name="Label" type="Label" parent="BadgesSensorStats/ColorRect"]
+visible = false
+anchor_right = 0.255
+anchor_bottom = 0.343
+margin_left = 6.0
+margin_top = 12.0
+margin_right = 33.865
+margin_bottom = -17.175
+custom_fonts/font = ExtResource( 5 )
+text = "Field Professionals"
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_top = 50.0
+margin_right = 280.0
+margin_bottom = 720.0
+color = Color( 0.333333, 0.333333, 0.333333, 1 )
+
+[node name="CityStatsTitle" type="Label" parent="ColorRect2"]
+anchor_right = 0.138
+anchor_bottom = 0.411
+margin_left = 9.0
+margin_top = 15.0
+margin_right = 128.36
+margin_bottom = -231.37
+custom_fonts/font = ExtResource( 5 )
+text = "City Stats"
+
+[node name="CityStatsBar" type="VBoxContainer" parent="ColorRect2"]
+margin_left = 10.0
+margin_top = 50.0
+margin_right = 270.0
+margin_bottom = 660.0
+script = ExtResource( 16 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect2/CityStatsBar"]
+margin_right = 260.0
+margin_bottom = 16.0
+
+[node name="MoneyTitle" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer"]
+margin_right = 51.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 6 )
+text = "Money"
+
+[node name="MoneyInfoButton" type="Button" parent="ColorRect2/CityStatsBar/HBoxContainer"]
+margin_left = 55.0
+margin_right = 71.0
+margin_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_styles/hover = SubResource( 28 )
+custom_styles/pressed = SubResource( 24 )
+custom_styles/focus = SubResource( 25 )
+custom_styles/disabled = SubResource( 22 )
+custom_styles/normal = SubResource( 18 )
+icon = ExtResource( 8 )
+
+[node name="MoneyInfo" type="ColorRect" parent="ColorRect2/CityStatsBar"]
+visible = false
+margin_top = 20.0
+margin_right = 262.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 262, 40 )
+theme = SubResource( 27 )
+color = Color( 0.231373, 0.231373, 0.231373, 1 )
+
+[node name="MoneyInfoText" type="Label" parent="ColorRect2/CityStatsBar/MoneyInfo"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 262.0
+margin_bottom = 35.0
+text = "This blurb is about money.
+Money info goes here."
+autowrap = true
+
+[node name="Money" type="Label" parent="ColorRect2/CityStatsBar"]
+margin_top = 20.0
+margin_right = 260.0
+margin_bottom = 34.0
+
+[node name="HSeparator" type="HSeparator" parent="ColorRect2/CityStatsBar"]
+margin_top = 38.0
+margin_right = 260.0
+margin_bottom = 42.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect2/CityStatsBar"]
+margin_top = 46.0
+margin_right = 260.0
+margin_bottom = 62.0
+
+[node name="PopulationTitle" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer2"]
+margin_right = 98.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 6 )
+text = "Population"
+
+[node name="PopulationInfoButton" type="Button" parent="ColorRect2/CityStatsBar/HBoxContainer2"]
+margin_left = 102.0
+margin_right = 118.0
+margin_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_styles/hover = SubResource( 26 )
+custom_styles/pressed = SubResource( 24 )
+custom_styles/focus = SubResource( 25 )
+custom_styles/disabled = SubResource( 22 )
+custom_styles/normal = SubResource( 18 )
+icon = ExtResource( 8 )
+
+[node name="PopulationInfo" type="ColorRect" parent="ColorRect2/CityStatsBar"]
+visible = false
+margin_top = 110.0
+margin_right = 262.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 262, 40 )
+color = Color( 0.231373, 0.231373, 0.231373, 1 )
+
+[node name="PopulationInfoText" type="Label" parent="ColorRect2/CityStatsBar/PopulationInfo"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 262.0
+margin_bottom = 36.0
+text = "This blurb is about population.
+Population info goes here."
+autowrap = true
+
+[node name="Population" type="Label" parent="ColorRect2/CityStatsBar"]
+margin_top = 66.0
+margin_right = 260.0
+margin_bottom = 80.0
+
+[node name="HSeparator2" type="HSeparator" parent="ColorRect2/CityStatsBar"]
+margin_top = 84.0
+margin_right = 260.0
+margin_bottom = 88.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ColorRect2/CityStatsBar"]
+margin_top = 92.0
+margin_right = 260.0
+margin_bottom = 108.0
+
+[node name="HappinessTitle" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer3"]
+margin_right = 89.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 6 )
+text = "Happiness"
+
+[node name="HappinessInfoButton" type="Button" parent="ColorRect2/CityStatsBar/HBoxContainer3"]
+margin_left = 93.0
+margin_right = 109.0
+margin_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_styles/hover = SubResource( 26 )
+custom_styles/pressed = SubResource( 24 )
+custom_styles/focus = SubResource( 25 )
+custom_styles/disabled = SubResource( 22 )
+custom_styles/normal = SubResource( 18 )
+icon = ExtResource( 8 )
+
+[node name="HappinessInfo" type="ColorRect" parent="ColorRect2/CityStatsBar"]
+visible = false
+margin_top = 200.0
+margin_right = 262.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 262, 40 )
+color = Color( 0.231373, 0.231373, 0.231373, 1 )
+
+[node name="HappinessInfoText" type="Label" parent="ColorRect2/CityStatsBar/HappinessInfo"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 262.0
+margin_bottom = 36.0
+text = "This blurb is about happiness.
+happiness info goes here."
+autowrap = true
+
+[node name="Happiness" type="Label" parent="ColorRect2/CityStatsBar"]
+margin_top = 112.0
+margin_right = 260.0
+margin_bottom = 126.0
+text = "???"
+
+[node name="HSeparator3" type="HSeparator" parent="ColorRect2/CityStatsBar"]
+margin_top = 130.0
+margin_right = 260.0
+margin_bottom = 134.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="ColorRect2/CityStatsBar"]
+margin_top = 138.0
+margin_right = 260.0
+margin_bottom = 154.0
+
+[node name="EconomicGrowthTitle" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer4"]
+margin_right = 146.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 6 )
+text = "Economic Growth"
+
+[node name="EconomicGrowthButton" type="Button" parent="ColorRect2/CityStatsBar/HBoxContainer4"]
+margin_left = 150.0
+margin_right = 166.0
+margin_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_styles/hover = SubResource( 26 )
+custom_styles/pressed = SubResource( 24 )
+custom_styles/focus = SubResource( 25 )
+custom_styles/disabled = SubResource( 22 )
+custom_styles/normal = SubResource( 18 )
+icon = ExtResource( 8 )
+
+[node name="EconomicGrowthInfo" type="ColorRect" parent="ColorRect2/CityStatsBar"]
+visible = false
+margin_top = 290.0
+margin_right = 262.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 262, 40 )
+color = Color( 0.231373, 0.231373, 0.231373, 1 )
+
+[node name="EconomicInfoText" type="Label" parent="ColorRect2/CityStatsBar/EconomicGrowthInfo"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 262.0
+margin_bottom = 36.0
+text = "This blurb is about economic growth
+Economic growth info goes here."
+autowrap = true
+
+[node name="EconomicGrowth" type="Label" parent="ColorRect2/CityStatsBar"]
+margin_top = 158.0
+margin_right = 260.0
+margin_bottom = 172.0
+text = "???"
+
+[node name="HSeparator4" type="HSeparator" parent="ColorRect2/CityStatsBar"]
+margin_top = 176.0
+margin_right = 260.0
+margin_bottom = 180.0
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="ColorRect2/CityStatsBar"]
+margin_top = 184.0
+margin_right = 260.0
+margin_bottom = 200.0
+
+[node name="WeatherPrepTitle" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer5"]
+margin_right = 196.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 6 )
+text = "Weather Preparedness"
+
+[node name="WeatherPrepButton" type="Button" parent="ColorRect2/CityStatsBar/HBoxContainer5"]
+margin_left = 200.0
+margin_right = 216.0
+margin_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_styles/hover = SubResource( 26 )
+custom_styles/pressed = SubResource( 24 )
+custom_styles/focus = SubResource( 25 )
+custom_styles/disabled = SubResource( 22 )
+custom_styles/normal = SubResource( 18 )
+icon = ExtResource( 8 )
+
+[node name="WeatherInfo" type="ColorRect" parent="ColorRect2/CityStatsBar"]
+visible = false
+margin_top = 380.0
+margin_right = 262.0
+margin_bottom = 440.0
+rect_min_size = Vector2( 262, 60 )
+color = Color( 0.231373, 0.231373, 0.231373, 1 )
+
+[node name="WeatherPrepInfoText" type="Label" parent="ColorRect2/CityStatsBar/WeatherInfo"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 262.0
+margin_bottom = 36.0
+text = "This blurb is about weather preparedness.
+Weather preparedness info goes here."
+autowrap = true
+
+[node name="WeatherPreparedness" type="Label" parent="ColorRect2/CityStatsBar"]
+margin_top = 204.0
+margin_right = 260.0
+margin_bottom = 218.0
+text = "???"
+
+[node name="HSeparator5" type="HSeparator" parent="ColorRect2/CityStatsBar"]
+margin_top = 222.0
+margin_right = 260.0
+margin_bottom = 226.0
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="ColorRect2/CityStatsBar"]
+margin_top = 230.0
+margin_right = 260.0
+margin_bottom = 246.0
+
+[node name="TaxesTitle" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer6"]
+margin_right = 73.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 6 )
+text = "City Tax"
+
+[node name="TaxesButton" type="Button" parent="ColorRect2/CityStatsBar/HBoxContainer6"]
+margin_left = 77.0
+margin_right = 93.0
+margin_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_styles/hover = SubResource( 26 )
+custom_styles/pressed = SubResource( 24 )
+custom_styles/focus = SubResource( 25 )
+custom_styles/disabled = SubResource( 22 )
+custom_styles/normal = SubResource( 18 )
+icon = ExtResource( 8 )
+
+[node name="TaxesInfo" type="ColorRect" parent="ColorRect2/CityStatsBar"]
+visible = false
+margin_top = 490.0
+margin_right = 262.0
+margin_bottom = 530.0
+rect_min_size = Vector2( 262, 40 )
+color = Color( 0.231373, 0.231373, 0.231373, 1 )
+
+[node name="TaxInfoText" type="Label" parent="ColorRect2/CityStatsBar/TaxesInfo"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 262.0
+margin_bottom = 36.0
+text = "This blurb is about taxes
+Taxes info goes here."
+
+[node name="PropertyTaxTitle" type="Label" parent="ColorRect2/CityStatsBar"]
+margin_top = 250.0
+margin_right = 260.0
+margin_bottom = 264.0
+text = "Property Tax"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="ColorRect2/CityStatsBar"]
+margin_top = 268.0
+margin_right = 260.0
+margin_bottom = 284.0
+
+[node name="PropertyTaxSlider" type="HSlider" parent="ColorRect2/CityStatsBar/HBoxContainer7"]
+margin_right = 220.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 220, 16 )
+max_value = 10.0
+step = 0.1
+value = 0.1
+
+[node name="PropertyTaxValue" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer7"]
+margin_left = 224.0
+margin_top = 1.0
+margin_right = 224.0
+margin_bottom = 15.0
+
+[node name="SalesTaxTitle" type="Label" parent="ColorRect2/CityStatsBar"]
+margin_top = 288.0
+margin_right = 260.0
+margin_bottom = 302.0
+text = "Sales Tax"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="ColorRect2/CityStatsBar"]
+margin_top = 306.0
+margin_right = 260.0
+margin_bottom = 322.0
+
+[node name="SalesTaxSlider" type="HSlider" parent="ColorRect2/CityStatsBar/HBoxContainer8"]
+margin_right = 220.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 220, 16 )
+max_value = 2.0
+step = 0.02
+value = 0.2
+
+[node name="SalesTaxValue" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer8"]
+margin_left = 224.0
+margin_top = 1.0
+margin_right = 224.0
+margin_bottom = 15.0
+
+[node name="IncomeTaxTitle" type="Label" parent="ColorRect2/CityStatsBar"]
+margin_top = 326.0
+margin_right = 260.0
+margin_bottom = 340.0
+text = "Income Tax"
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="ColorRect2/CityStatsBar"]
+margin_top = 344.0
+margin_right = 260.0
+margin_bottom = 360.0
+
+[node name="IncomeTaxSlider" type="HSlider" parent="ColorRect2/CityStatsBar/HBoxContainer9"]
+margin_right = 220.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 220, 16 )
+max_value = 11.0
+step = 0.11
+value = 0.11
+
+[node name="IncomeTaxValue" type="Label" parent="ColorRect2/CityStatsBar/HBoxContainer9"]
+margin_left = 224.0
+margin_top = 1.0
+margin_right = 224.0
+margin_bottom = 15.0
+
+[connection signal="button_down" from="QuitButton" to="." method="_on_QuitButton_button_down"]
+[connection signal="mouse_entered" from="QuitButton" to="." method="_on_QuitButton_mouse_entered"]
+[connection signal="mouse_exited" from="QuitButton" to="." method="_on_QuitButton_mouse_exited"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="BadgesSensorStats/ScrollContainer/MenuContainer/HBoxContainer/ExpandAllButton" to="BadgesSensorStats/ScrollContainer/MenuContainer" method="_on_ExpandAllButton_pressed"]
+[connection signal="pressed" from="BadgesSensorStats/ScrollContainer/MenuContainer/HBoxContainer/CollapseAllButton" to="BadgesSensorStats/ScrollContainer/MenuContainer" method="_on_CollapseAllButton_pressed"]
+[connection signal="mouse_entered" from="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect/BadgesButton" to="BadgesSensorStats/ScrollContainer/MenuContainer" method="_on_BadgesButton_mouse_entered"]
+[connection signal="mouse_exited" from="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect/BadgesButton" to="BadgesSensorStats/ScrollContainer/MenuContainer" method="_on_BadgesButton_mouse_exited"]
+[connection signal="pressed" from="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect/BadgesButton" to="BadgesSensorStats/ScrollContainer/MenuContainer" method="_on_BadgesButton_pressed"]
+[connection signal="mouse_entered" from="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect2/CharactersButton" to="BadgesSensorStats/ScrollContainer/MenuContainer" method="_on_CharactersButton_mouse_entered"]
+[connection signal="mouse_exited" from="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect2/CharactersButton" to="BadgesSensorStats/ScrollContainer/MenuContainer" method="_on_CharactersButton_mouse_exited"]
+[connection signal="pressed" from="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect2/CharactersButton" to="BadgesSensorStats/ScrollContainer/MenuContainer" method="_on_CharactersButton_pressed"]
+[connection signal="mouse_entered" from="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3/SensorButton" to="BadgesSensorStats/ScrollContainer/MenuContainer" method="_on_SensorButton_mouse_entered"]
+[connection signal="mouse_exited" from="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3/SensorButton" to="BadgesSensorStats/ScrollContainer/MenuContainer" method="_on_SensorButton_mouse_exited"]
+[connection signal="pressed" from="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3/SensorButton" to="BadgesSensorStats/ScrollContainer/MenuContainer" method="_on_SensorButton_pressed"]
+[connection signal="mouse_entered" from="ColorRect2/CityStatsBar/HBoxContainer/MoneyInfoButton" to="ColorRect2/CityStatsBar" method="_on_MoneyInfoButton_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect2/CityStatsBar/HBoxContainer/MoneyInfoButton" to="ColorRect2/CityStatsBar" method="_on_MoneyInfoButton_mouse_exited"]
+[connection signal="mouse_entered" from="ColorRect2/CityStatsBar/HBoxContainer2/PopulationInfoButton" to="ColorRect2/CityStatsBar" method="_on_PopulationInfoButton_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect2/CityStatsBar/HBoxContainer2/PopulationInfoButton" to="ColorRect2/CityStatsBar" method="_on_PopulationInfoButton_mouse_exited"]
+[connection signal="mouse_entered" from="ColorRect2/CityStatsBar/HBoxContainer3/HappinessInfoButton" to="ColorRect2/CityStatsBar" method="_on_HappinessInfoButton_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect2/CityStatsBar/HBoxContainer3/HappinessInfoButton" to="ColorRect2/CityStatsBar" method="_on_HappinessInfoButton_mouse_exited"]
+[connection signal="mouse_entered" from="ColorRect2/CityStatsBar/HBoxContainer4/EconomicGrowthButton" to="ColorRect2/CityStatsBar" method="_on_EconomicGrowthButton_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect2/CityStatsBar/HBoxContainer4/EconomicGrowthButton" to="ColorRect2/CityStatsBar" method="_on_EconomicGrowthButton_mouse_exited"]
+[connection signal="mouse_entered" from="ColorRect2/CityStatsBar/HBoxContainer5/WeatherPrepButton" to="ColorRect2/CityStatsBar" method="_on_WeatherPrepButton_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect2/CityStatsBar/HBoxContainer5/WeatherPrepButton" to="ColorRect2/CityStatsBar" method="_on_WeatherPrepButton_mouse_exited"]
+[connection signal="mouse_entered" from="ColorRect2/CityStatsBar/HBoxContainer6/TaxesButton" to="ColorRect2/CityStatsBar" method="_on_TaxesButton_mouse_entered"]
+[connection signal="mouse_exited" from="ColorRect2/CityStatsBar/HBoxContainer6/TaxesButton" to="ColorRect2/CityStatsBar" method="_on_TaxesButton_mouse_exited"]
+[connection signal="value_changed" from="ColorRect2/CityStatsBar/HBoxContainer7/PropertyTaxSlider" to="." method="_on_PropertyTaxSlider_value_changed"]
+[connection signal="value_changed" from="ColorRect2/CityStatsBar/HBoxContainer8/SalesTaxSlider" to="." method="_on_SalesTaxSlider_value_changed"]
+[connection signal="value_changed" from="ColorRect2/CityStatsBar/HBoxContainer9/IncomeTaxSlider" to="." method="_on_IncomeTaxSlider_value_changed"]

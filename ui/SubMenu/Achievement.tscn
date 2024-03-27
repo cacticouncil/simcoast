@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/fonts/upheavtt.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/achievement_icons/Construction Achievement.png" type="Texture" id=3]
 [ext_resource path="res://ui/SubMenu/Achievement.gd" type="Script" id=4]
@@ -27,7 +26,7 @@ margin_top = 2.0
 margin_right = 395.0
 margin_bottom = 41.0
 custom_colors/font_color = Color( 0.117647, 0, 1, 1 )
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
 text = "Achievement Name"
 align = 1
 valign = 1
@@ -51,7 +50,7 @@ margin_top = 119.0
 margin_right = 395.0
 margin_bottom = 138.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
 text = "5/10"
 align = 1
 valign = 1
