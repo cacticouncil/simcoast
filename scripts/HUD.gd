@@ -44,6 +44,7 @@ func update_tile_display(i, j):
 			$BottomBar/HoverText.text += "     Utilities: ON"
 		else:
 			$BottomBar/HoverText.text += "     Utilities: OFF"
+		$BottomBar/HoverText.text += "     Tile Damage: %s%%" % [tile.tileDamage*100]
 	if tile.get_sensor() == Tile.TileSensor.TIDE:
 		$BottomBar/HoverText.text += "     Sensor: Tide"
 		if (tile.sensor_active):

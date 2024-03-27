@@ -45,7 +45,8 @@ enum TileSensor {
 	RAIN
 }
 
-# Flooding damage levels that can affect tiles
+# Flooding damage levels affect building and road tiles
+# Wear and tear damage on tiles affect utilities/road connections
 enum TileStatus {
 	NONE,
 	LIGHT_DAMAGE,
@@ -97,6 +98,7 @@ var j
 var baseHeight = 0
 var waterHeight = 0
 var bridgeHeight = 0
+var wearAndTear = 0
 var base = 0
 var zone = 0
 var inf = 0
@@ -111,6 +113,7 @@ var landValue = 0
 var profitRate = 0
 var happiness = 0
 var changeInWaterHeight = 0
+var changeInWearAndTear = false
 # Tracks what connections a tile has to its neighbors with roads
 var connections = [0,0,0,0]
 var sensor = TileSensor.NONE
@@ -237,13 +240,15 @@ func clear_tile():
 		Announcer.notify(Event.new("Removed Tile", "Removed Power Plant", 1))
 	elif inf == TileInf.ROAD:
 		Announcer.notify(Event.new("Removed Tile", "Removed Road", 1))
+	elif inf == TileInf.BRIDGE:
+		Announcer.notify(Event.new("Removed Tile", "Removed Bridge", 1))
 	elif inf == TileInf.PARK:
 		Announcer.notify(Event.new("Removed Tile", "Removed Park", 1))
 	#reset zones
 	zone = TileZone.NONE
 	
 	#reconnect utility if road or utility plant is cleared
-	if (inf == TileInf.UTILITIES_PLANT || inf == TileInf.ROAD):
+	if (inf == TileInf.UTILITIES_PLANT || inf == TileInf.ROAD || inf == TileInf.BRIDGE):
 		inf = TileInf.NONE
 		City.connectUtilities()
 		
@@ -296,6 +301,9 @@ func get_base_height():
 
 func get_water_height():
 	return waterHeight
+	
+func get_wear_and_tear():
+	return wearAndTear
 
 func get_number_of_buildings():
 	if inf == TileInf.BUILDING:
@@ -343,8 +351,8 @@ func remove_water():
 	changeInWaterHeight = 0
 
 func set_damage(n):
-	#tiles without buildings or zoning should not be damaged
-	if !is_zoned():
+	#tiles without buildings/zoning or roads/bridges should not be damaged
+	if !is_zoned() && !TileInf.ROAD && !TileInf.BRIDGE:
 		return
 	if n == TileStatus.LIGHT_DAMAGE:
 		tileDamage += .25
@@ -352,7 +360,6 @@ func set_damage(n):
 		tileDamage += .5
 	elif n == TileStatus.HEAVY_DAMAGE:
 		tileDamage += .75
-	
 		
 	if tileDamage < .5:
 		data[4] = TileStatus.LIGHT_DAMAGE
@@ -360,13 +367,17 @@ func set_damage(n):
 		data[4] = TileStatus.MEDIUM_DAMAGE
 	elif tileDamage > .75:
 		data[4] = TileStatus.HEAVY_DAMAGE
-		
 	if tileDamage >= 1:
 		tileDamage = 1
-		#the tile is completely destroyed at this point
-		#should remove all buildings and all population?
-		while data[0] > 0:
-			remove_building()
+		if is_zoned():
+			#the tile is completely destroyed at this point
+			#should remove all buildings and all population?
+			while data[0] > 0:
+				remove_building()
+		elif inf == TileInf.ROAD || inf == TileInf.BRIDGE:
+			#if damage is absolute, clear road.
+			clear_tile()
+		
 
 func has_utilities():
 	return utilities
@@ -380,7 +391,7 @@ func has_building():
 func set_zone(type):
 	zone = type
 	match zone: 
-		#single family and commercial have 4 houses max
+		#single family and commercial have 4 houses/buildings max
 		TileZone.SINGLE_FAMILY, TileZone.COMMERCIAL:
 			data = [0, 4, 0, 0, 0]
 		#multi family has 18 houses max

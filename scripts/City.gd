@@ -272,29 +272,34 @@ func calculate_satisfaction():
 	var beaches = 0
 	
 # When flooding occurs, determine damage to infrastructure and perform tile erosion
+# When wear and tear occurs on road tiles, determine damage
 func calculate_damage():
 	for i in Global.mapWidth:
 		for j in Global.mapHeight:
 			var tile = Global.tileMap[i][j]
-			# If buildings present, determine damage based on water height
-			if tile.get_water_height() > 0:
+			# Determine damage based on water height to buildings and roads
+			if tile.get_water_height() > 0 && tile.changeInWaterHeight > 0:
 				if tile.has_building() && tile.is_light_zoned():
-					if tile.get_water_height() <= 1 && tile.changeInWaterHeight > 0:
+					if tile.get_water_height() <= 1:
 						tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
-					elif tile.get_water_height() <= 3 && tile.changeInWaterHeight > 0:
+					elif tile.get_water_height() <= 3:
 						tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
-					elif tile.get_water_height() > 3 && tile.changeInWaterHeight > 0: 
+					else:
 						tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
 				elif tile.has_building() && tile.is_heavy_zoned():
-					if tile.get_water_height() <= 3 && tile.changeInWaterHeight > 0:
+					if tile.get_water_height() <= 3:
 						tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
-					elif tile.get_water_height() <= 6 && tile.changeInWaterHeight > 0:
+					elif tile.get_water_height() <= 6:
 						tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
-					elif tile.get_water_height() > 6 && tile.changeInWaterHeight > 0:
+					else:
 						tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
-				elif tile.inf == Tile.TileInf.ROAD:
-					if tile.get_water_height() >= 5:
-						tile.clear_tile()
+				elif tile.inf == Tile.TileInf.ROAD || tile.inf == Tile.TileInf.BRIDGE:
+					if tile.get_water_height() > 1 && tile.get_water_height() <= 3:
+						tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+					elif tile.get_water_height() <= 5:
+						tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+					else:
+						tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
 				elif tile.get_base() == Tile.TileBase.SAND:
 					if tile.get_water_height() >= 5:
 						tile.lower_tile()
@@ -302,7 +307,60 @@ func calculate_damage():
 				#tile.remove_water()
 				#tile.cube.update()
 				tile.changeInWaterHeight = 0
-		
+			# For now, only road tiles can get wear and tear damage. If changed further checks should be implemented.
+			# Determine damage based on wear and tear to roads
+			if tile.get_wear_and_tear() >= 1 && tile.changeInWearAndTear:
+				if tile.get_wear_and_tear() <= 3:
+					tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+				elif tile.get_wear_and_tear() <= 5:
+					tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+				else:
+					tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+				tile.changeInWearAndTear = false
+
+# Update wear and tear for road and bridge tiles. called in updateDate
+func calculate_wear_and_tear():
+	for i in Global.mapWidth:
+		for j in Global.mapHeight:
+			var tile = Global.tileMap[i][j]
+			
+			if tile.inf == tile.TileInf.ROAD || tile.inf == tile.TileInf.BRIDGE:
+				var chanceOfDamage = 0.01 #all roads have a minimum 1% chance of damage due to natural elements not based on usage
+				
+				# Check if neighbor tiles are zoned. Based on zoning determine wear and tear probability
+				var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
+				for n in neighbors:
+					if is_tile_inbounds(n[0], n[1]):
+						if Global.tileMap[n[0]][n[1]].is_zoned():
+							var currTile = Global.tileMap[n[0]][n[1]]
+							
+							# damage from commercial or res zones is based on tile population (data[2])
+							# data[2] value of 4 is max single family, 72 is max multi family, and 16 is max commerical
+							if currTile.get_zone() != tile.TileZone.PUBLIC_WORKS:
+								if currTile.data[2] >= 4:
+									if currTile.data[2] <= 16:
+										chanceOfDamage += 0.01
+									elif currTile.data[2] <= 32:
+										chanceOfDamage += 0.03
+									else:
+										chanceOfDamage += 0.05
+							# for public works zones, all tiles recieve flat 20% added probability
+							elif currTile.get_zone() == tile.TileZone.PUBLIC_WORKS:
+								chanceOfDamage += 0.05
+			
+				var randomNum = randf()
+				#if random number is within chance of damage range, damage has occured.
+				if randomNum <= chanceOfDamage:
+					#generate another random number to determine extent of damage
+					randomNum = randf()
+					if randomNum <= 0.50:
+						tile.wearAndTear += 1
+					elif randomNum <= 0.75:
+						tile.wearAndTear += 2
+					else:
+						tile.wearAndTear += 3
+					tile.changeInWearAndTear = true
+				
 func tile_out_of_bounds(cube):
 	return cube.i < 0 || Global.mapWidth <= cube.i || cube.j < 0 || Global.mapHeight <= cube.j
 	
