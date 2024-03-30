@@ -5,11 +5,13 @@ func _ready():
 
 func saveData(mapPath: String):
 	var correctMapName = mapPath.trim_suffix(".json")
-	correctMapName = correctMapName.trim_prefix("res://saves/")
+	correctMapName = correctMapName.trim_prefix("user://saves/")
 	if not (".json" in mapPath):
 		mapPath += ".json"
 	var tileData = []
-			
+	
+	Global.currentMap = mapPath
+	
 	for i in Global.mapWidth:
 		for j in Global.mapHeight:
 			tileData.append(Global.tileMap[i][j].get_save_tile_data())
@@ -34,6 +36,9 @@ func saveData(mapPath: String):
 	file.store_line(JSON.print(data, "\t"))
 	file.close()
 	Global.mapPath = mapPath
+	
+	# Update continue path
+	save_continue_map()
 
 	return [correctMapName, mapPath]
 
@@ -72,12 +77,14 @@ func loadData(mapPath: String):
 		Global.tileMap[tileData["i"]][tileData["j"]] = Tile.new(tileData)
 	
 	# Update continue path
-	save_continue_map()
+	if mapPath != "res://data/default.json":
+		save_continue_map()
 	
 	return mapData.global.mapName
 
 func save_continue_map():
-	var continuePath = "res://continue/continue.json"
+	var continuePath = "user://data/continue.json"
+	print(Global.currentMap)
 	var data = {
 		"previous_map_path": Global.currentMap
 	}
@@ -90,11 +97,11 @@ func save_continue_map():
 	return data
 
 func get_continue_map():
-	var continuePath = "res://continue/continue.json"
+	var continuePath = "user://data/continue.json"
 	var file = File.new()
 	file.open(continuePath, File.READ)
 	var continueData = parse_json(file.get_as_text())
 	file.close()
-	
+
 	var mapPath = continueData.previous_map_path
 	return mapPath

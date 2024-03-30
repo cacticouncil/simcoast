@@ -2,8 +2,34 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	createUserFolders()
+	disableContinueButton()
+	
+func disableContinueButton():
+	print(SaveLoad.get_continue_map())
+	if SaveLoad.get_continue_map() == "res://data/default.json":
+		$MenuLayout/Buttons/ContinueButton.disabled = true
 
+func createUserFolders():
+	var dir = Directory.new()
+	if not dir.dir_exists("user://saves"):
+		dir.make_dir("user://saves")
+		dir.make_dir("user://data")
+		createContinueFile()
+	else:
+		print("already created")
+
+func createContinueFile():
+	var continuePath = "user://data/continue.json"
+	var data = {
+		"previous_map_path": "res://data/default.json"
+	}
+	
+	var file = File.new()
+	file.open(continuePath, File.WRITE)
+	file.store_line(JSON.print(data, "\t"))
+	file.close()
+		
 func _on_MasterVolSlider_value_changed(value):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), value)
 
