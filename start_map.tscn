@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=1]
 [ext_resource path="res://ui/hud/Toolbar/Toolbar.tscn" type="PackedScene" id=2]
@@ -66,6 +66,26 @@ bg_color = Color( 0.964706, 0.839216, 0.0431373, 1 )
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.886275, 0.815686, 0.6, 1 )
+
+[sub_resource type="Animation" id=15]
+resource_name = "Fade"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("PreviewSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.317647 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "RESET"
 
 [node name="CityMap" type="Node2D"]
 position = Vector2( -2, 3 )
@@ -555,6 +575,8 @@ align = 1
 [node name="VectorMap" type="YSort" parent="."]
 script = ExtResource( 7 )
 
+[node name="PreviewSprite" type="Node2D" parent="."]
+
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 visible = false
 
@@ -755,6 +777,10 @@ margin_right = 199.0
 margin_bottom = 200.0
 custom_fonts/font = ExtResource( 49 )
 text = "OK"
+
+[node name="PreviewFade" type="AnimationPlayer" parent="."]
+anims/Fade = SubResource( 15 )
+anims/RESET = SubResource( 16 )
 
 [connection signal="mouse_entered" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_exited"]
