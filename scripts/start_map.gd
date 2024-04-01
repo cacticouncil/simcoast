@@ -42,6 +42,7 @@ func initCamera():
 	$Camera2D.limit_right = mid_x + Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_bottom = Global.mapHeight * Global.TILE_HEIGHT + Global.MAP_EDGE_BUFFER
 
+
 func initObservers():
 	#Add achievement observer
 	Announcer.addObserver(get_node("/root/AchievementObserver"))
@@ -111,7 +112,11 @@ func _unhandled_input(event):
 			return
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
-		
+		if tile.inf == Tile.TileInf.BEACH_ROCKS || tile.inf == Tile.TileInf.BEACH_GRASS:
+			if Input.is_action_pressed("right_click"):
+				tile.clear_tile()
+				tile.inf = Tile.TileInf.NONE
+				Weather.beachProtection -= 1
 		# Perform action based on current tool selected
 		match Global.mapTool:
 			# Change Base or (if same base) raise/lower tile height
@@ -466,6 +471,9 @@ func _unhandled_input(event):
 				elif Input.is_action_pressed("right_click"):
 					if tile.sensor == Tile.TileSensor.TIDE:
 						tile.clear_sensor()
+						SeaLevel.sensorPresent = false
+						Inventory.sensors[0].increase_amount()
+						Inventory.update_sensor_amount()
 			Global.Tool.SENSOR_RAIN:
 				if Input.is_action_pressed("left_click"):
 					# bug workaround to not add sensors to already occupied tiles
@@ -481,6 +489,9 @@ func _unhandled_input(event):
 				elif Input.is_action_pressed("right_click"):
 					if tile.sensor == Tile.TileSensor.RAIN:
 						tile.clear_sensor()
+						RainLevel.sensorPresent = false
+						Inventory.sensors[1].increase_amount()
+						Inventory.update_sensor_amount()
 			Global.Tool.SENSOR_WIND:
 				if Input.is_action_pressed("left_click"):
 					# bug workaround to not add sensors to already occupied tiles
@@ -496,6 +507,9 @@ func _unhandled_input(event):
 				elif Input.is_action_pressed("right_click"):
 					if tile.sensor == Tile.TileSensor.WIND:
 						tile.clear_sensor()
+						WindLevel.sensorPresent = false
+						Inventory.sensors[2].increase_amount()
+						Inventory.update_sensor_amount()
 			Global.Tool.INF_ROAD:
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
 					if ((tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK) && tile.inf != Tile.TileInf.ROAD):
@@ -562,11 +576,17 @@ func _unhandled_input(event):
 				if tile.get_base() == Tile.TileBase.SAND:
 					tile.clear_tile()
 					tile.inf = Tile.TileInf.BEACH_ROCKS
+					if Input.is_action_pressed("right_click"):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.NONE
 
 			Global.Tool.INF_BEACH_GRASS:
 				if tile.get_base() == Tile.TileBase.SAND:
 					tile.clear_tile()
 					tile.inf = Tile.TileInf.BEACH_GRASS
+					if Input.is_action_pressed("right_click"):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.NONE
 
 			Global.Tool.REPAIR:
 				if tile.waterHeight > 0:
@@ -716,8 +736,9 @@ func update_game_state():
 	#UpdateWaves.update_waves()
 	UpdateWeather.update_weather()
 	UpdateSeaLevel.update_sea_level()
-	UpdateRainLevel.update_rain_level()
 	UpdateWindLevel.update_wind_level()
+	UpdateRainLevel.update_rain_level()
+	
 	#turning this function off until it can be fixed
 	#UpdateWater.update_waves()
 	UpdateWater.update_water_spread()
@@ -823,7 +844,7 @@ func _on_YesButton_pressed():
 		Global.Tool.SENSOR_WIND:
 			if (current_sensor_tile.sensor != Tile.TileSensor.WIND):
 				# different colors to represent if sensor is active or not
-				if (current_sensor_tile.get_base() == Tile.TileBase.DIRT):
+				if (current_sensor_tile.get_base() == Tile.TileBase.SAND):
 					current_sensor_tile.sensor_active = true
 					WindLevel.sensorPresent = true
 				else:

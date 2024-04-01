@@ -27,7 +27,7 @@ var probStorm = 0
 var currentType = WeatherStates.CLEAR
 var futureType = WeatherStates.CLEAR
 var willStorm = false
-var probTropicalStorm = .4
+var probTropicalStorm = .5
 var probMinorHurricane = .6854
 var probCat1 = 0.5942
 var probCat2 = 0.4058
@@ -35,11 +35,11 @@ var probMajorHurricane = .3145
 var probCat3 = 0.6632
 var probCat4 = .2947
 var probCat5 = .0421 
-
+var beachProtection = 16
 var ticksStorming = 0
 var maximumStormTicks = UpdateDate.MONTH_TICKS / 4
 var currentlyStorming = false
-
+var probSurge = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

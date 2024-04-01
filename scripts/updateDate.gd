@@ -23,7 +23,14 @@ var year = 2022
 
 func update_date():
 	if Weather.willStorm == true:
-		MONTH_TICKS = 500
+		if RainLevel.sensorPresent == true:
+			MONTH_TICKS = 500
+		elif WindLevel.sensorPresent == true:
+			MONTH_TICKS = 350
+		elif SeaLevel.sensorPresent == true:
+			MONTH_TICKS = 250
+		else:
+			MONTH_TICKS = 100
 	else:
 		MONTH_TICKS = 100
 	ticksSinceLastMonthChange += 1

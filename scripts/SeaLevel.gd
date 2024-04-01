@@ -6,8 +6,8 @@ extends Node
 # store in variable
 
 enum SeaStates{
-	STORM_SURGE,
-	NO_STORM
+	NO_STORM,
+	STORM_SURGE
 }
 var seaOn = true
 var currentSeaLevel = 0
