@@ -26,7 +26,6 @@ func update_date():
 	#update profit display weekly
 	if ticksSinceLastMonthChange % (MONTH_TICKS/4) == 0:
 		Econ.updateProfitDisplay()
-		City.calculate_wear_and_tear()
 	if (ticksSinceLastMonthChange >= MONTH_TICKS):
 		ticksSinceLastMonthChange = 0
 		if (month == Months.December):
@@ -37,7 +36,7 @@ func update_date():
 		update_month_display()
 		Econ.profit()
 		UpdatePopulation.calc_pop_growth()
-		
+		City.calculate_wear_and_tear()
 func update_month_display():
 	get_node("/root/CityMap/HUD/Date/Month").text = Months.keys()[month]
 	get_node("/root/CityMap/HUD/Date/Year").text = str(year)
