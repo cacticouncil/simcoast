@@ -26,10 +26,10 @@ anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.392157 )
 
 [node name="DialogueBox" type="ColorRect" parent="."]
-margin_left = 117.0
-margin_top = 494.0
+margin_left = 198.0
+margin_top = 477.0
 margin_right = 1039.0
-margin_bottom = 673.0
+margin_bottom = 656.0
 color = Color( 0.364706, 0.65098, 0.862745, 1 )
 
 [node name="Teacher" type="AnimatedSprite" parent="DialogueBox"]
@@ -57,7 +57,7 @@ text = "NEXT"
 align = 1
 
 [node name="Dialogue" type="RichTextLabel" parent="DialogueBox"]
-margin_left = 36.0
+margin_left = 43.0
 margin_top = 33.0
 margin_right = 713.0
 margin_bottom = 153.0

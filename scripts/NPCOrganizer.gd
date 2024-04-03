@@ -8,8 +8,9 @@ var npcCount = 0
 #Called only once to intialize the NPCs
 func _ready():
 	addNPC("Carl", 1, "res://resources/PLAYER.json", "res://resources/NPC.json")
-	addNPC("Lydia", 2, "res://resources/tutorial.json", "res://resources/tutorial.json")
+	addNPC("Lydia", 2, "res://resources/shop.json", "res://resources/shop.json")
 	addNPC("Expert", 3, "res://resources/expert.json", "res://resources/expert.json")
+	addNPC("Maria", 4, "res://resources/tutorial.json", "res://resources/tutorial.json")
 
 #Gets the number of NPCs
 func getNPCCount():
@@ -46,5 +47,5 @@ func setName(id_, newName):
 func dialogueTrigger(id_):
 	npcDictionary[id_].dialogueSequence()
 	return
-func nextDialogue(id_):
-	return npcDictionary[id_].dialogueSystem.get_next_dialogue()
+func nextDialogue(id_, segment_):
+	return npcDictionary[id_].dialogueSystem.get_next_dialogue(segment_)

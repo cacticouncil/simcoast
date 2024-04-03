@@ -1,18 +1,27 @@
 [
 {
-	"dialogue":"Welcome to the shop. You can buy sensors here.",
-	"next":"1"
+	"dialogue":"Hello, Mayor Patriel! Welcome to Shore City. I’m so happy to have you as our new mayor. We’re a small community right now, but I’m sure you can lead us to becoming a bustling city.",
+	"next":"1",
+	"segment":"0"
 },
 {
-	"dialogue":"These sensors wil help you monitor the city and the environment.",
-	"next":"2"
+	"dialogue":"My name is Maria. Let me give you a tour of the city as I explain your role as mayor.",
+	"next":"2",
+	"segment":"0"
 },
 {
-	"dialogue":"This information will be very important to ensuring Shore City is ready for anything that comes its way.",
-	"next":"3"
+	"dialogue":"This is the map of the city. On the left are the tools you need to build infrastructure around town. Powerplants power all the buildings in town. Go ahead and place a power plant.",
+	"next":"-2",
+	"segment":"0"
 },
 {
-	"dialogue":"As a gift for starting your position as mayor you can buy a tide gauge for free.",
-	"next":"-2"
+	"dialogue":"Placing new buildings costs money. The town has started with a modest budget but you can earn more taxes as new citizens move in.  Now place a building and connect it with a road.",
+	"next":"-2",
+	"segment":"1"
+},
+{
+	"dialogue":"Great!",
+	"next":"-2",
+	"segment":"2"
 }
 ]

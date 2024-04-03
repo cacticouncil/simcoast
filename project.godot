@@ -109,7 +109,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Event.gd"
 }, {
-"base": "",
+"base": "EditorVCSInterface",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://git_api.gdns"
@@ -213,6 +213,7 @@ NpcObserver="*res://scripts/Observers/NpcObserver.gd"
 NPCOrganizer="*res://scripts/NPCOrganizer.gd"
 Inventory="*res://inventory/Inventory.tscn"
 BadgeObserver="*res://scripts/Observers/BadgeObserver.gd"
+Introduction="*res://ui/NPC_Interactions/Introduction.gd"
 
 [debug]
 
@@ -291,6 +292,21 @@ right_click={
 taxMenu={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+pick_first_option={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":49,"unicode":0,"echo":false,"script":null)
+ ]
+}
+pick_second_option={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":50,"unicode":0,"echo":false,"script":null)
+ ]
+}
+pick_third_option={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":51,"unicode":0,"echo":false,"script":null)
  ]
 }
 

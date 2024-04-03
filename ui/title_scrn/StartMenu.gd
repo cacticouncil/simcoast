@@ -37,5 +37,6 @@ func _on_SFXMute_toggled(button_pressed):
 
 
 func _on_NewGameButton_pressed():
+	Global.newGame = true
 	var _err = get_tree().change_scene("res://start_map.tscn")
 	
