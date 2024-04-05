@@ -19,6 +19,9 @@ func createAchievements():
 	#Just for testing scrolling of achievement menu:
 	toComplete.append(goalClass.new('Money', true, 100000, 'Have $100,000', 'Have $100,000', "res://assets/achievement_icons/MoneyAchievement.png"))
 	toComplete.append(goalClass.new('Money', true, 200000, 'Have $200,000', 'Have $200,000', "res://assets/achievement_icons/MoneyAchievement.png"))
+	
+	#for goal in toComplete:
+	#	add_child(goal)
 
 func onNotify(event):
 	#Fun fact to anyone looking through this code: you can't delete from an array you're looping through in gdscript: https://ask.godotengine.org/77668/what-happens-when-i-remove-an-array-element-isnide-a-for-loop#:~:text=1%20Answer&text=Don't%20loop%20through%20the,loop%20through%20that%20array%20instead.
@@ -40,6 +43,10 @@ func unlock(goal, goalNum):
 func deleteGoals():
 	toDelete.invert()
 	for num in toDelete:
+		#find the actual node and delete it
+		"""for child in get_children():
+			if toComplete[num].achievementName == child.achievementName:
+				child.queue_free()"""
 		toComplete.remove(num)
 	toDelete.clear()
 

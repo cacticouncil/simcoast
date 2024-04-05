@@ -1,5 +1,3 @@
-extends Node
-
 # Properties of a goal
 var varToCheck #Name of statistic in announcer to check
 var greaterThan #true check >, false checks <
