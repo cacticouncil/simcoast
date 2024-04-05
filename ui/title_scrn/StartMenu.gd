@@ -14,10 +14,11 @@ func createUserFolders():
 	var dir = Directory.new()
 	if not dir.dir_exists("user://saves"):
 		dir.make_dir("user://saves")
+		
+	if not dir.dir_exists("user://data"):
 		dir.make_dir("user://data")
 		createContinueFile()
-	else:
-		print("already created")
+		
 
 func createContinueFile():
 	var continuePath = "user://data/continue.json"
@@ -35,7 +36,11 @@ func _on_MasterVolSlider_value_changed(value):
 
 
 func _on_QuitButton_pressed():
-	get_tree().quit()
+	var popup = get_node("QuitGamePopup/PopupDialog")
+	if (popup != null):
+		popup.popup_centered()
+	else:
+		get_tree().quit()
 
 
 func _on_FullScreenToggle_pressed():

@@ -684,7 +684,9 @@ func _on_file_selected_save(filePath):
 	$HUD/BottomBar/HoverText.text = "Map Data Saved"
 
 func _on_ExitButton_pressed():
-	get_tree().quit()
+	var popup = get_node("QuitGamePopup/PopupDialog")
+	popup.popup_centered()
+	#get_tree().quit()
 
 func _on_AchievementButton_pressed():
 	var AchMenu = preload("res://ui/SubMenu/AchievementMenu.tscn")
