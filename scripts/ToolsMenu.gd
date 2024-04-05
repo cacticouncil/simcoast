@@ -311,6 +311,7 @@ func button_pressed():
 			Global.buildingWidth = 1
 			get_node("/root/CityMap/PreviewFade").play("Fade")
 		'wave breaker_button':
+			print_stray_nodes()
 			Global.mapTool = Global.Tool.INF_WAVE_BREAKER
 			Global.placementState = true
 			Global.hoverImage = "res://assets/building_assets/2d Assets/Empty Apartment.png"

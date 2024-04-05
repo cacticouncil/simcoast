@@ -22,6 +22,12 @@ func _ready():
 	update_polygons()
 	z_index = -10
 	self.add_child(coll)
+	for polygon in base_cube:
+		polygon.visible = false
+		add_child(polygon)
+	for polygon in water_cube:
+		polygon.visible = false
+		add_child(polygon)
 
 func _draw():
 	update_polygons()
