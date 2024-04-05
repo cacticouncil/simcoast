@@ -48,16 +48,7 @@ func update_date():
 		Econ.profit()
 		UpdatePopulation.calc_pop_growth()
 		
-		if Global.closeBeach:
-			Global.closeBeach = false
-			print("Closing beach")
-			Global.beginBeachEvacuation = true
-			for i in Global.mapHeight:
-				for j in Global.mapWidth:
-					var currTile = Global.tileMap[i][j]
-					if currTile.on_beach:
-						currTile.pre_evacuation_residents = max(currTile.data[2], currTile.pre_evacuation_residents)
-		elif Global.beginBeachEvacuation:
+		if Global.beginBeachEvacuation:
 			print("Stay evacuated for storm month")
 			Global.stayEvacuated = true
 			Global.beginBeachEvacuation = false
@@ -68,6 +59,16 @@ func update_date():
 		elif Global.moveBackIn:
 			print("Everyone's moved back in")
 			Global.moveBackIn = false
+		
+	if Global.closeBeach:
+		Global.closeBeach = false
+		print("Closing beach")
+		Global.beginBeachEvacuation = true
+		for i in Global.mapHeight:
+			for j in Global.mapWidth:
+				var currTile = Global.tileMap[i][j]
+				if currTile.on_beach:
+					currTile.pre_evacuation_residents = max(currTile.data[2], currTile.pre_evacuation_residents)
 
 func update_month_display():
 	get_node("/root/CityMap/HUD/Date/Month").text = Months.keys()[month]
