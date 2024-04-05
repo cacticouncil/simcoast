@@ -271,20 +271,30 @@ func clear_tile():
 	
 	#inform the Announcer that we have removed a zone
 	if is_commercial():
-			Announcer.notify(Event.new("Removed Tile", "Removed Commercial Area", 1))
+			var currEvent = Event.new("Removed Tile", "Removed Commercial Area", 1)
+			Announcer.notify(currEvent)
+			currEvent.queue_free()
 	elif is_residential():
 		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
-		Announcer.notify(Event.new("Removed Tile", "Removed Residential Area", 1))
+		var currEvent = Event.new("Removed Tile", "Removed Residential Area", 1)
+		Announcer.notify(currEvent)
+		currEvent.queue_free()
 	else:
 		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
 	if tileDamage < 0:
 		tileDamage = 0
 	if inf == TileInf.UTILITIES_PLANT:
-		Announcer.notify(Event.new("Removed Tile", "Removed Power Plant", 1))
+		var currEvent = Event.new("Removed Tile", "Removed Power Plant", 1)
+		Announcer.notify(currEvent)
+		currEvent.queue_free()
 	elif inf == TileInf.ROAD:
-		Announcer.notify(Event.new("Removed Tile", "Removed Road", 1))
+		var currEvent = Event.new("Removed Tile", "Removed Road", 1)
+		Announcer.notify(currEvent)
+		currEvent.queue_free()
 	elif inf == TileInf.PARK:
-		Announcer.notify(Event.new("Removed Tile", "Removed Park", 1))
+		var currEvent = Event.new("Removed Tile", "Removed Park", 1)
+		Announcer.notify(currEvent)
+		currEvent.queue_free()
 	#reset zones
 	zone = TileZone.NONE
 	

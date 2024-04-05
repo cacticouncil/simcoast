@@ -132,10 +132,15 @@ func connectUtilities():
 								resPowered += 1
 							currTile.utilities = true
 							#Global.tileMap[n[0]][n[1]].cube.update()
-	
-	Announcer.notify(Event.new("Tiles Powered", "Number of powered roads", roadsPowered))
-	Announcer.notify(Event.new("Tiles Powered", "Number of powered commercial areas", commsPowered))
-	Announcer.notify(Event.new("Tiles Powered", "Number of powered residential areas", resPowered))
+	var event1 = Event.new("Tiles Powered", "Number of powered roads", roadsPowered)
+	Announcer.notify(event1)
+	event1.queue_free()
+	var event2 = Event.new("Tiles Powered", "Number of powered commercial areas", commsPowered)
+	Announcer.notify(event2)
+	event2.queue_free()
+	var event3 = Event.new("Tiles Powered", "Number of powered residential areas", resPowered)
+	Announcer.notify(event3)
+	event3.queue_free()
 
 # Check tile for neighboring road connections, and create connections from any connecting roads to tile
 func connectRoads(tile):

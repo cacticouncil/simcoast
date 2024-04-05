@@ -92,7 +92,9 @@ func update_population():
 					
 	
 	get_node("/root/CityMap/HUD/HBoxContainer/Population").text = str(RESIDENTS)
-	Announcer.notify(Event.new("Total Population", "Number of Citizens", RESIDENTS))
+	var currEvent = Event.new("Total Population", "Number of Citizens", RESIDENTS)
+	Announcer.notify(currEvent)
+	currEvent.queue_free()
 					
 func get_population():
 	return RESIDENTS

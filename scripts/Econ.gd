@@ -80,7 +80,9 @@ var property_tax_rate = 0.01
 # EX: if player spends $500 then adjustVal should be -500
 func adjust_player_money(adjustVal):
 	money += adjustVal
-	Announcer.notify(Event.new("Money", "Amount of money", money))
+	var currEvent = Event.new("Money", "Amount of money", money)
+	Announcer.notify(currEvent)
+	currEvent.queue_free()
 	get_node("/root/CityMap/HUD/HBoxContainer/Money").text = "$" + comma_values(str(money))
 
 func purchase_structure(structureCost):
@@ -120,7 +122,9 @@ func updateProfitDisplay():
 func profit():
 	var profit = round(city_income - city_costs)
 	adjust_player_money(profit)
-	Announcer.notify(Event.new("Profit", "Money Made Each Month", profit))
+	var currEvent = Event.new("Profit", "Money Made Each Month", profit)
+	Announcer.notify(currEvent)
+	currEvent.queue_free()
 
 func calcCityIncome(): #Calculate tax profit
 	var taxProfit = 0

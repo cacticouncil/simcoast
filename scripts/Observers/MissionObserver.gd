@@ -89,7 +89,9 @@ func checkIfDone():
 		displayNewMissions()
 		#FIXME: When events are updates, replace "" with something better
 		onNotify("") #Check onNotify to see if new goals are complete
-		Announcer.notify(Event.new("Completed Mission", "Completed Mission", missionIndex - 1)) # Mission index - 1 because it's the last group
+		var currEvent = Event.new("Completed Mission", "Completed Mission", missionIndex - 1)
+		Announcer.notify(currEvent) # Mission index - 1 because it's the last group
+		currEvent.queue_free()
 
 func hoverMission(index):
 	# Currently useless while I figure out hover text
