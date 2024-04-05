@@ -18,6 +18,8 @@ func createUserFolders():
 	if not dir.dir_exists("user://data"):
 		dir.make_dir("user://data")
 		createContinueFile()
+	elif not dir.file_exists("user://data/continue.json"):
+		createContinueFile()
 		
 
 func createContinueFile():
