@@ -71,8 +71,7 @@ func _ready():
 	publicServiceSection.set_bg(publicServiceSection.rect_size, Color("526e7584"))
 	
 	var beachButtons = [
-		["wave breaker", "res://assets/buttons/wave_breaker", "Wavebreaker"], 
-		["close beach", "res://assets/buttons/close_beach", "Close Beach"],
+		["wave breaker", "res://assets/buttons/wave_breaker", "Wavebreaker"],
 		["remove rocks", "res://assets/buttons/remove_beach_rocks", "Remove Beach Rocks"]
 	]
 	var beachSection = toolbarSectionScene.instance()
@@ -337,13 +336,6 @@ func button_pressed():
 			Global.mapTool = Global.Tool.LAYER_WATER
 		'clear_water_button':
 			Global.mapTool = Global.Tool.CLEAR_WATER
-		'close beach_button':
-			Global.mapTool = Global.Tool.NONE
-			if !Global.closeBeach && !Global.beginBeachEvacuation && !Global.stayEvacuated && !Global.moveBackIn:
-				Global.closeBeach = true
-			#$VBoxContainer.get_child(6).get_child(1).get_child(2).get_child(1).text = "Open Beach"
-			deactivateButtons()
-			
 		'remove rocks_button':
 			Global.mapTool = Global.Tool.REMOVE_BEACH_ROCKS
 		'tide sensor_button':
