@@ -51,12 +51,20 @@ func update_tile_display(i, j):
 		$BottomBar/HoverText.text += "     Sensor: Tide"
 		if (tile.sensor_active):
 			$BottomBar/HoverText.text += "     Status: ACTIVE"
+			$BottomBar/HoverText.text += "     Sea Level: %s mm" % [SeaLevel.currentSeaLevel]
 		else:
 			$BottomBar/HoverText.text += "     Status: INACTIVE"
 	if tile.get_sensor() == Tile.TileSensor.RAIN:
 		$BottomBar/HoverText.text += "     Sensor: Rain"
 		if (tile.sensor_active):
 			$BottomBar/HoverText.text += "     Status: ACTIVE"
+			$BottomBar/HoverText.text += "     Rain Level: %s mm" % [RainLevel.currentRainLevel]
 		else:
 			$BottomBar/HoverText.text += "     Status: INACTIVE"
-
+	if tile.get_sensor() == Tile.TileSensor.WIND:
+		$BottomBar/HoverText.text += "     Sensor: Wind"
+		if (tile.sensor_active):
+			$BottomBar/HoverText.text += "     Status: ACTIVE"
+			$BottomBar/HoverText.text += "     Wind Level: %s mps" % [WindLevel.currentWindLevel]
+		else:
+			$BottomBar/HoverText.text += "     Status: INACTIVE"

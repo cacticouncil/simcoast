@@ -3,7 +3,7 @@ extends CanvasLayer
 #Source - https://www.youtube.com/watch?v=rJcy221LrYs
 var overlayPopup = preload("res://ui/Popups/OverlayPopup.tscn")
 var errorPopup = preload("res://ui/Popups/ErrorPopup.tscn")
-
+var warningPopup = preload("res://ui/Popups/WarningPopup.tscn")
 # A queue of the name of achievements, the first one is the next one displayed
 var queue = []
 # We use a queue in case multiple achievements are unlocked at once
@@ -27,6 +27,17 @@ func error_pop(errorDesc):
 		inst.name = errorDesc
 		inst.visible = false
 		queue.append(errorDesc)
+		$OverlayControl.add_child(inst)
+		# Made a sick fade animation
+		$AnimationPlayer.queue("Fade")
+
+func warning_pop(wName, warningPic, wColor):
+	if get_node_or_null("/root/Overlay/OverlayControl/Warning") == null:
+		var inst = warningPopup.instance()
+		inst.set_warning(wName, warningPic, wColor)
+		inst.name = "Warning"
+		inst.visible = false
+		queue.append("Warning")
 		$OverlayControl.add_child(inst)
 		# Made a sick fade animation
 		$AnimationPlayer.queue("Fade")

@@ -13,8 +13,7 @@ var invalidShader = preload("res://assets/shaders/invalid.tres")
 func _ready():
 	initCamera()
 	initSave_Exit()
-#	loadMapData("res://saves/default.json")
-	loadMapData("default.json")
+	loadMapData("res://saves/default.json")
 	initObservers()
 	$HUD/HBoxContainer/Money.text = "$" + Econ.comma_values(str(Econ.money))
 	#$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
@@ -45,6 +44,7 @@ func initCamera():
 	$Camera2D.limit_right = mid_x + Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_bottom = Global.mapHeight * Global.TILE_HEIGHT + Global.MAP_EDGE_BUFFER
 
+
 func initObservers():
 	#Add achievement observer
 	Announcer.addObserver(get_node("/root/AchievementObserver"))
@@ -62,6 +62,14 @@ func initObservers():
 	$HUD/MissionsBG.margin_bottom = 28 + (14 * missions.size()) + (20 * (missions.size() + 1))
 	$HUD/Missions/VBoxContainer/Mission1.text = missions[0]
 	
+	#FIXME: This line should add hover text but isn't
+	""" For reference from ui_buttons.gd
+	for i in group.get_buttons():
+		i.connect("pressed", self, "button_pressed")
+		i.connect("mouse_entered", self, "button_hover", [i])
+		i.connect("mouse_exited", self, "button_exit")
+	"""
+	#$HUD/Missions/VBoxContainer/Mission1.connect("mouse_entered", self, "MissionObserver.hoverMission", [0])
 	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "show_mission_tip", [0])
 	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_exited", self, "clear_mission_tip")
 	if missions.size() > 1:
@@ -81,21 +89,6 @@ func initObservers():
 	var sfxObserver = load("res://scripts/Observers/SfxObserver.gd").new()
 	Announcer.addObserver(sfxObserver)
 	self.add_child(sfxObserver)
-	
-	#Add Badge Observer
-	Announcer.addObserver(get_node("/root/BadgeObserver"))
-	#Remove these, solely for testing purposes
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 1", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 2", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 3", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 4", 2))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 5", 2))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 6", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 7", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 8", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 9", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 10", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 11", 2))
 	
 	# Just in case their's any action to take about this right away
 	Announcer.notify(Event.new("Money", "Amount of money", Econ.money))
@@ -121,7 +114,11 @@ func _unhandled_input(event):
 			return
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
-		
+		if tile.inf == Tile.TileInf.BEACH_ROCKS || tile.inf == Tile.TileInf.BEACH_GRASS:
+			if Input.is_action_pressed("right_click"):
+				tile.clear_tile()
+				tile.inf = Tile.TileInf.NONE
+				Weather.beachProtection -= 1
 		# Perform action based on current tool selected
 		match Global.mapTool:
 			# Change Base or (if same base) raise/lower tile height
@@ -606,6 +603,9 @@ func _unhandled_input(event):
 				elif Input.is_action_pressed("right_click"):
 					if tile.sensor == Tile.TileSensor.TIDE:
 						tile.clear_sensor()
+						SeaLevel.sensorPresent = false
+						Inventory.sensors[0].increase_amount()
+						Inventory.update_sensor_amount()
 			Global.Tool.SENSOR_RAIN:
 				if Input.is_action_pressed("left_click"):
 					# bug workaround to not add sensors to already occupied tiles
@@ -621,6 +621,27 @@ func _unhandled_input(event):
 				elif Input.is_action_pressed("right_click"):
 					if tile.sensor == Tile.TileSensor.RAIN:
 						tile.clear_sensor()
+						RainLevel.sensorPresent = false
+						Inventory.sensors[1].increase_amount()
+						Inventory.update_sensor_amount()
+			Global.Tool.SENSOR_WIND:
+				if Input.is_action_pressed("left_click"):
+					# bug workaround to not add sensors to already occupied tiles
+					if (tile.inf == Tile.TileInf.NONE && !(tile.has_building())):
+						if (Inventory.has_building("wind sensor")):
+							current_sensor_tile = tile
+							$SensorChoice/ColorRect.visible = true
+						else:
+							print("No available sensors!")
+							$SensorChoice/ColorRect2.visible = true
+					else:
+						$SensorNo/ColorRect.visible = true
+				elif Input.is_action_pressed("right_click"):
+					if tile.sensor == Tile.TileSensor.WIND:
+						tile.clear_sensor()
+						WindLevel.sensorPresent = false
+						Inventory.sensors[2].increase_amount()
+						Inventory.update_sensor_amount()
 			Global.Tool.INF_ROAD:
 				if Input.is_action_pressed("left_click"):
 					Global.dragToPlaceState = true
@@ -643,11 +664,17 @@ func _unhandled_input(event):
 				if tile.get_base() == Tile.TileBase.SAND:
 					tile.clear_tile()
 					tile.inf = Tile.TileInf.BEACH_ROCKS
+					if Input.is_action_pressed("right_click"):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.NONE
 
 			Global.Tool.INF_BEACH_GRASS:
 				if tile.get_base() == Tile.TileBase.SAND:
 					tile.clear_tile()
 					tile.inf = Tile.TileInf.BEACH_GRASS
+					if Input.is_action_pressed("right_click"):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.NONE
 
 			Global.Tool.REPAIR:
 				if tile.waterHeight > 0:
@@ -685,7 +712,7 @@ func _unhandled_input(event):
 		elif event.scancode == KEY_V:
 			actionText.text = "Paste tool selected"
 			Global.mapTool = Global.Tool.PASTE_TILE
-		elif event.scancode == KEY_ESCAPE && get_node("/root/CityMap/AchievementMenu") == null && get_node("/root/CityMap/Dashboard") == null:
+		elif event.scancode == KEY_ESCAPE && get_node("/root/CityMap/AchievementMenu") == null:
 			if $PauseMenu.visible:
 				$PauseMenu.visible = false
 				$HUD/play_button.pressed = false
@@ -713,7 +740,7 @@ func saveMapData(mapPath):
 	currMapPath = pathValues[1]
 	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json saved" % [correctMapName]
 
-func loadMapData(filename):
+func loadMapData(mapPath):
 	# var file = File.new()
 	# print(mapPath)
 	# if not file.file_exists(mapPath):
@@ -737,20 +764,7 @@ func loadMapData(filename):
 
 	# for tileData in mapData.tiles:
 	# 	Global.tileMap[tileData[0]][tileData[1]] = Tile.new(int(tileData[0]), int(tileData[1]), int(tileData[2]), int(tileData[3]), int(tileData[4]), int(tileData[5]), int(tileData[6]), tileData[7])
-	
-
-#	var path_to_open
-#	if OS.is_debug_build(): #true if you're in debug mode
-#	#if we are running the code in the editor, load the map from the res:// location
-	var path_to_open = "res://saves/" + filename 
-#	else:
-#	#if we are running the code in release mode (e.g., when packaged), get the map from its location
-#	#relative to the executable file
-#		var exe_path = OS.get_executable_path().get_base_dir()
-#		path_to_open = exe_path + "saves/" + filename
-
-
-	var mapName = SaveLoad.loadData(path_to_open)
+	var mapName = SaveLoad.loadData(mapPath)
 	$VectorMap.loadMap()
 	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json loaded" % [mapName]
 	City.connectUtilities()
@@ -811,6 +825,11 @@ func _process(delta):
 func update_game_state():
 	#print("Updating game state on tick: " + str(numTicks))
 	#UpdateWaves.update_waves()
+	UpdateWeather.update_weather()
+	UpdateSeaLevel.update_sea_level()
+	UpdateWindLevel.update_wind_level()
+	UpdateRainLevel.update_rain_level()
+	
 	#turning this function off until it can be fixed
 	#UpdateWater.update_waves()
 	UpdateWater.update_water_spread()
@@ -1023,9 +1042,6 @@ func _on_DashboardButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = true
 	$HUD/TopBarBG/AchievementSelected.visible = false
 	$HUD/TopBarBG/StoreSelected.visible = false
-	var Dashboard = preload("res://ui/Dashboard/Dashboard.tscn")
-	var DashboardInstance = Dashboard.instance()
-	add_child(DashboardInstance)
 
 func _on_UIAchievementButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = false
@@ -1072,6 +1088,7 @@ func _on_YesButton_pressed():
 			if (current_sensor_tile.sensor != Tile.TileSensor.TIDE):
 				if (current_sensor_tile.get_base() == Tile.TileBase.OCEAN):
 					current_sensor_tile.sensor_active = true
+					SeaLevel.sensorPresent = true
 				else:
 					current_sensor_tile.sensor_active = false
 				current_sensor_tile.clear_tile()
@@ -1087,6 +1104,7 @@ func _on_YesButton_pressed():
 				# different colors to represent if sensor is active or not
 				if (current_sensor_tile.get_base() == Tile.TileBase.DIRT):
 					current_sensor_tile.sensor_active = true
+					RainLevel.sensorPresent = true
 				else:
 					current_sensor_tile.sensor_active = false
 				current_sensor_tile.clear_tile()
@@ -1094,6 +1112,22 @@ func _on_YesButton_pressed():
 				Announcer.notify(Event.new("Added Sensor", "Added Rain Sensor", 1))
 				Inventory.remove_sensor("rain sensor")
 			elif (current_sensor_tile.sensor == Tile.TileSensor.RAIN):
+				print("Sensor already here!")
+			else:
+				print("Different sensor here")
+		Global.Tool.SENSOR_WIND:
+			if (current_sensor_tile.sensor != Tile.TileSensor.WIND):
+				# different colors to represent if sensor is active or not
+				if (current_sensor_tile.get_base() == Tile.TileBase.SAND):
+					current_sensor_tile.sensor_active = true
+					WindLevel.sensorPresent = true
+				else:
+					current_sensor_tile.sensor_active = false
+				current_sensor_tile.clear_tile()
+				current_sensor_tile.sensor = Tile.TileSensor.WIND
+				Announcer.notify(Event.new("Added Sensor", "Added Wind Sensor", 1))
+				Inventory.remove_sensor("wind sensor")
+			elif (current_sensor_tile.sensor == Tile.TileSensor.WIND):
 				print("Sensor already here!")
 			else:
 				print("Different sensor here")
@@ -1110,6 +1144,8 @@ func _on_HelpButton_pressed():
 			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
 		Global.Tool.SENSOR_RAIN:
 			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting rain sensors inland, near tall buildings, where they will be most effective."
+		Global.Tool.SENSOR_WIND:
+			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting wind sensors near the beach, where they will be most effective."
 	
 
 func _on_CloseHelpButton_pressed():

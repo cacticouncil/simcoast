@@ -7,6 +7,8 @@ func updateValues(sName, sInfo, sReq, locked):
 		$SensorsBG/Locked.visible = true
 		$SensorsBG/SensorName.visible = false
 	else:
+		if Inventory.bought(sName) == false:
+			$SensorsBG/SensorName/BuyButton.visible = true
 		$SensorsBG/Locked.visible = false
 		$SensorsBG/SensorName.visible = true
 			
@@ -29,6 +31,7 @@ func _on_BuyButton_pressed():
 			if sensor.get_name() == $SensorsBG/SensorName.text:
 				j = i + 1
 				happened = true
+				$SensorsBG/SensorName/BuyButton.visible = false
 			# unlocks next sensor
 			if i == j && happened == true:
 				sensor.set_status(true)
