@@ -506,6 +506,9 @@ func update_polygons():
 						
 		for z in 5:
 			var r = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+			for polygon in r:
+				polygon.visible = false
+				add_child(polygon)
 				
 			match z:
 				0:
