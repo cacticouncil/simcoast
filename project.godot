@@ -99,7 +99,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/behavior_tree/src/blackboard.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "DialogueSystem",
 "language": "GDScript",
 "path": "res://scripts/Dialogue/DialogueSystem.gd"
