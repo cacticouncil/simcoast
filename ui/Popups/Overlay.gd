@@ -46,5 +46,5 @@ func animationStart():
 	get_node("/root/Overlay/OverlayControl/" + queue[0]).visible = true
 
 func animationEnd():
-	$OverlayControl.remove_child(get_node("/root/Overlay/OverlayControl/" + queue[0]))
+	get_node("/root/Overlay/OverlayControl/" + queue[0]).queue_free()
 	queue.remove(0)
