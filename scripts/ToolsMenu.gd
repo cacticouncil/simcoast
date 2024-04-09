@@ -88,6 +88,7 @@ func _ready():
 	sensorSection.add_button("Sensors", sensorButtons)
 	$VBoxContainer.add_child(sensorSection)
 	sensorSection.set_bg(sensorSection.rect_size, Color("526e7584"))
+	sensorSection.visible = false
 	
 	#Once we create all the buttons, we want to add the functionality to each of them
 	for i in group.get_buttons():
@@ -410,6 +411,8 @@ func updateAmounts():
 			i.get_node("BG").visible = false
 
 func addSensorButton(button):
+	if !sensorSection.visible:
+		sensorSection.visible = true
 	sensorSection.add_one_button(button)
 	sensorSection.resize_bg(sensorSection.rect_size)
 	
