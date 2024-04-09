@@ -24,8 +24,31 @@ func add_button(sectionName, buttons):
 	#Adds a bit of a space
 	add_child(Control.new())
 
+func add_one_button(button):
+	get_children()[-1].free()
+	var lastChild = get_children()[-1]
+	var resize = false
+	if (len(lastChild.get_children()) == 3) || !(lastChild is HBoxContainer):
+		lastChild = HBoxContainer.new()
+		lastChild.set("custom_constants/separation", 0)
+		add_child(lastChild)
+		# This random control node was the easiest way to get the first spacing
+		lastChild.add_child(Control.new())
+		resize = true
+	
+	var currButton = toolbarButtonScene.instance()
+	currButton.set_up_button(button[0], button[1], button[2])
+	
+	lastChild.add_child(currButton)
+	if resize:
+		rect_size = Vector2(rect_size.x, rect_size.y + currButton.rect_size.y + 4)
+	add_child(Control.new())
+
 func set_bg(size, clr):
 	#Easier to update these in code, because otherwise Vbox overwrites the values
 	$Title/BG.rect_size = size
 	$Title/BG.color = clr
+
+func resize_bg(size):
+	$Title/BG.rect_size = size
 

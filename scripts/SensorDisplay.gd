@@ -20,7 +20,12 @@ func updateValues(sName, sInfo, sReq, locked):
 
 # buys sensor,if possible
 func _on_BuyButton_pressed():
-	var curr_price = Inventory.get_price($SensorsBG/SensorName.text)
+	var sensor_name = $SensorsBG/SensorName.text
+	var curr_price = Inventory.get_price(sensor_name)
+	
+	#["tide sensor", "res://assets/buttons/tide_sensor", "Tide Gauge"]
+	var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
+	get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
 	# purchases sensor if player has enough money
 	if(Econ.purchase_structure(curr_price)):
 		var i = 0

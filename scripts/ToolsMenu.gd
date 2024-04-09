@@ -9,6 +9,8 @@ var loadPopup
 
 var toolbarSectionScene = preload("res://ui/hud/Toolbar/ToolbarSection.tscn")
 
+var sensorSection
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#Removes the scroll bar
@@ -81,11 +83,8 @@ func _ready():
 	beachSection.set_bg(beachSection.rect_size, Color("e03c3c3c"))
 	
 	var sensorButtons = [
-		["tide sensor", "res://assets/buttons/tide_sensor", "Tide Gauge"], 
-		["rain sensor", "res://assets/buttons/rain_gauge", "Rain Gauge"],
-		["wind sensor", "res://assets/buttons/rain_gauge", "Wind Gauge"]
 	]
-	var sensorSection = toolbarSectionScene.instance()
+	sensorSection = toolbarSectionScene.instance()
 	sensorSection.add_button("Sensors", sensorButtons)
 	$VBoxContainer.add_child(sensorSection)
 	sensorSection.set_bg(sensorSection.rect_size, Color("526e7584"))
@@ -339,11 +338,11 @@ func button_pressed():
 			Global.mapTool = Global.Tool.CLEAR_WATER
 		'remove rocks_button':
 			Global.mapTool = Global.Tool.REMOVE_BEACH_ROCKS
-		'tide sensor_button':
+		'tide gauge_button':
 			Global.mapTool = Global.Tool.SENSOR_TIDE
-		'rain sensor_button':
+		'rain gauge_button':
 			Global.mapTool = Global.Tool.SENSOR_RAIN
-		'wind sensor_button':
+		'wind gauge_button':
 			Global.mapTool = Global.Tool.SENSOR_WIND
 		'raise_ocean_button':
 			Global.mapTool = Global.Tool.NONE
@@ -409,3 +408,18 @@ func updateAmounts():
 		else:
 			#If we have none, hide the indicator
 			i.get_node("BG").visible = false
+
+func addSensorButton(button):
+	sensorSection.add_one_button(button)
+	sensorSection.resize_bg(sensorSection.rect_size)
+	
+	#Once we create all the buttons, we want to add the functionality to each of them
+	for i in group.get_buttons():
+		#Handles button presses
+		i.connect("pressed", self, "button_pressed")
+		#Handles adding hover text to bottom bar
+		i.connect("mouse_entered", self, "button_hover", [i])
+		#Handles removing hover text
+		i.connect("mouse_exited", self, "button_exit")
+	#Updates the little icon that indicates how much of each item we have
+	updateAmounts()

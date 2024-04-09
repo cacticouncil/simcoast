@@ -26,9 +26,9 @@ var items = {
 	'hv_com_zone': 0, #don't use
 	'remove rocks': 0,
 	'wave breaker': 0,
-	"tide sensor": 0,
-	"rain sensor": 0,
-	"wind sensor": 0
+	"tide gauge": 0,
+	"rain gauge": 0,
+	"wind gauge": 0
 }
 
 var tide_info = " Used to measure the speed and\n height of the tide and other\n weather metrics."
@@ -86,15 +86,15 @@ func change_sensor_status(var n, var s):
 			
 func remove_sensor(s):
 	items[s] -= 1
-	if s == "tide sensor":
+	if s == "tide gauge":
 		for sensor in sensors:
 			if sensor.get_name() == "Tide Gauge":
 				sensor.decrease_amount()
-	elif s == "rain sensor":
+	elif s == "rain gauge":
 		for sensor in sensors:
 			if sensor.get_name() == "Rain Gauge":
 				sensor.decrease_amount()
-	elif s == "wind sensor":
+	elif s == "wind gauge":
 		for sensor in sensors:
 			if sensor.get_name() == "Wind Gauge":
 				sensor.decrease_amount()
@@ -103,15 +103,15 @@ func remove_sensor(s):
 func update_sensor_amount():
 	for sensor in sensors:
 		if sensor.get_name() == "Tide Gauge":
-			items["tide sensor"] = sensor.get_amount()
+			items["tide gauge"] = sensor.get_amount()
 			if sensor.get_amount() != 0:
 				tide_bought = true
 		if sensor.get_name() == "Rain Gauge":
-			items["rain sensor"] = sensor.get_amount()
+			items["rain gauge"] = sensor.get_amount()
 			if sensor.get_amount() != 0:
 				rain_bought = true
 		if sensor.get_name() == "Wind Gauge":
-			items["wind sensor"] = sensor.get_amount()
+			items["wind gauge"] = sensor.get_amount()
 			if sensor.get_amount() != 0:
 				wind_bought = true
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
