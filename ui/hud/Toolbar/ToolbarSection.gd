@@ -52,3 +52,33 @@ func set_bg(size, clr):
 func resize_bg(size):
 	$Title/BG.rect_size = size
 
+func remove_button(button):
+	var children = get_children()
+	var adjust = -1
+	for child in range(1, len(children) - 1):
+		if children[child].get_child(1).get_child(1).text == button:
+			children[child].get_child(1).free()
+			if child != len(children) - 2:
+				adjust = child
+			break
+		elif children[child].get_child(2).get_child(1).text == button:
+			children[child].get_child(2).free()
+			if child != len(children) - 2:
+				adjust = child
+			break
+	
+	if adjust != -1:
+		for child in range(adjust, len(children) - 2):
+			var childToMove = children[child + 1].get_child(1)
+			get_child(child + 1).remove_child(childToMove)
+			get_child(child).add_child(childToMove)
+		if len(children[len(children) - 2].get_children()) == 1:
+			children[len(children) - 2].queue_free()
+		return false
+	else:
+		if len(children[len(children) - 2].get_children()) == 1:
+			return true
+		else:
+			return false
+	
+

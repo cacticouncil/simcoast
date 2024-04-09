@@ -1109,6 +1109,7 @@ func _on_YesButton_pressed():
 				current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.TIDE
 				Inventory.remove_sensor("tide gauge")
+				get_node("/root/CityMap/HUD/ToolsMenu").removeSensorButton("Tide Gauge")
 			elif (current_sensor_tile.sensor == Tile.TileSensor.TIDE):
 				print("Sensor already here!")
 			else:
@@ -1124,6 +1125,7 @@ func _on_YesButton_pressed():
 				current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.RAIN
 				Inventory.remove_sensor("rain gauge")
+				get_node("/root/CityMap/HUD/ToolsMenu").removeSensorButton("Rain Gauge")
 			elif (current_sensor_tile.sensor == Tile.TileSensor.RAIN):
 				print("Sensor already here!")
 			else:
@@ -1139,6 +1141,7 @@ func _on_YesButton_pressed():
 				current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.WIND
 				Inventory.remove_sensor("wind gauge")
+				get_node("/root/CityMap/HUD/ToolsMenu").removeSensorButton("Wind Gauge")
 			elif (current_sensor_tile.sensor == Tile.TileSensor.WIND):
 				print("Sensor already here!")
 			else:

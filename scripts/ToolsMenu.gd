@@ -426,3 +426,8 @@ func addSensorButton(button):
 		i.connect("mouse_exited", self, "button_exit")
 	#Updates the little icon that indicates how much of each item we have
 	updateAmounts()
+
+func removeSensorButton(button):
+	var noMoreButtons = sensorSection.remove_button(button)
+	if noMoreButtons:
+		sensorSection.visible = false
