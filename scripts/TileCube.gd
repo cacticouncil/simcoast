@@ -13,11 +13,14 @@ var building_visible = true
 var base_cube = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
 var water_cube = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
 var objects = []
+var buildingSprite = null
+var listOfBuildings = []
 
 var coll = CollisionPolygon2D.new()
 
 func _ready():
 	update_polygons()
+	z_index = -10
 	self.add_child(coll)
 
 func _draw():
@@ -46,92 +49,39 @@ func _draw():
 
 	# Draw objects (buildings, infrastructure) if present
 	if tile.has_building() && building_visible:
-		for b in objects:
-			draw_polygon(b[1].get_polygon(), PoolColorArray([buildingColor[1]]))
-			draw_polygon(b[2].get_polygon(), PoolColorArray([buildingColor[2]]))
-			
-			# If building is undamaged, draw occupancy percentage colors on the sides of the buildings
-			if tile.get_status() == Tile.TileStatus.NONE:
-				if tile.get_zone() == Tile.TileZone.SINGLE_FAMILY || tile.get_zone() == Tile.TileZone.MULTI_FAMILY:
-					draw_polygon(b[3].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[0]]))
-					draw_polygon(b[4].get_polygon(), PoolColorArray([Tile.RES_OCCUPANCY_COLOR[1]]))
-				elif tile.is_commercial():
-					draw_polygon(b[3].get_polygon(), PoolColorArray([Tile.COM_OCCUPANCY_COLOR[0]]))
-					draw_polygon(b[4].get_polygon(), PoolColorArray([Tile.COM_OCCUPANCY_COLOR[1]]))
-			
-			draw_polygon(b[0].get_polygon(), PoolColorArray([buildingColor[0]]))
-			draw_polyline(b[0].get_polygon(), buildingColor[3])
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 			
 	elif tile.inf == Tile.TileInf.PARK:
-		for t in objects:
-			draw_polygon(t[0].get_polygon(), PoolColorArray([Tile.TREE_COLOR[0]]))
-			draw_polygon(t[1].get_polygon(), PoolColorArray([Tile.TREE_COLOR[1]]))
+		get_parent().add_child(buildingSprite)
 			
 	elif tile.inf == Tile.TileInf.UTILITIES_PLANT:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.UTILITIES_PLANT_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.UTILITIES_PLANT_COLOR[3])
+		get_parent().add_child(buildingSprite)
 		
-		for s in objects:
-			draw_polygon(s[1].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[1]]))
-			draw_polygon(s[2].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[2]]))
-			draw_polygon(s[0].get_polygon(), PoolColorArray([Tile.UTILITIES_STACK_COLOR[0]]))
-			
 	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.SEWAGE_FACILITY_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.SEWAGE_FACILITY_COLOR[3])
+		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.WASTE_TREATMENT_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.WASTE_TREATMENT_COLOR[3])
+		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.LIBRARY:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.LIBRARY_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.LIBRARY_COLOR[3])
+		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.MUSEUM_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.MUSEUM_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.MUSEUM_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.MUSEUM_COLOR[3])
+		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.SCHOOL:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.SCHOOL_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.SCHOOL_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.SCHOOL_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.SCHOOL_COLOR[3])
+		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.FIRE_STATION_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.FIRE_STATION_COLOR[3])
+		get_parent().add_child(buildingSprite)
+		
 	elif tile.inf == Tile.TileInf.HOSPITAL:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.HOSPITAL_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.HOSPITAL_COLOR[3])
+		get_parent().add_child(buildingSprite)
+		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
-		var b = objects.pop_front()
-		draw_polygon(b[1].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[1]]))
-		draw_polygon(b[2].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[2]]))
-		draw_polygon(b[0].get_polygon(), PoolColorArray([Tile.POLICE_STATION_COLOR[0]]))
-		draw_polyline(b[0].get_polygon(), Tile.POLICE_STATION_COLOR[3])
+		get_parent().add_child(buildingSprite)
+		
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		for r in objects:
 			draw_polygon(r[1].get_polygon(), PoolColorArray([Tile.BEACH_ROCK_COLOR[1]]))
@@ -143,12 +93,13 @@ func _draw():
 			draw_polyline(g, Tile.TREE_COLOR[0])
 			
 	elif tile.inf == Tile.TileInf.ROAD:
-		for r in objects:
-			draw_polygon(r, PoolColorArray([Tile.ROAD_COLOR[0]]))
+		for building in listOfBuildings:
+			get_parent().add_child(building)
+	
 	elif tile.inf == Tile.TileInf.BRIDGE:
-		draw_polygon(objects[0], PoolColorArray([Tile.BRIDGE_COLOR[1]]))
-		for r in objects.slice(1, objects.size() - 1):
-			draw_polygon(r, PoolColorArray([Tile.BRIDGE_COLOR[0]]))
+		for building in listOfBuildings:
+			get_parent().add_child(building)
+
 	elif tile.sensor == Tile.TileSensor.TIDE:
 		if tile.sensor_active == true:
 			for s in objects:
@@ -177,6 +128,7 @@ func clear_objects():
 			if typeof(p) != TYPE_VECTOR2 && typeof(p) != TYPE_INT:
 				p.queue_free()
 	objects.clear()
+	buildingSprite = null
 
 func update_polygons():
 	var tile = Global.tileMap[i][j]
@@ -186,52 +138,25 @@ func update_polygons():
 	update_cube(base_cube, x, y, Global.TILE_WIDTH, Global.TILE_HEIGHT, h, 0, 0)
 	update_cube(water_cube, x, y, Global.TILE_WIDTH, Global.TILE_HEIGHT, h + w, h, 0)
 	
+	if buildingSprite != null:
+		#get_parent().remove_child(buildingSprite)
+		buildingSprite.queue_free()
+	buildingSprite = null
+	
+	if listOfBuildings.size() > 0:
+		for building in listOfBuildings:
+			#get_parent().remove_child(building)
+			building.queue_free()
+	listOfBuildings.clear()
+	
 	# Create simple trees so landscape not so boring
 	if tile.inf == Tile.TileInf.PARK:
 		clear_objects()
-		var tree_width = 0
-		var tree_depth = 0
-		var tree_height = 0
-		var tree_x = 0
-		var tree_y = 0
-		
-		for z in 3:
-			var t = [Polygon2D.new(), Polygon2D.new()]
-				
-			match z:
-				0:
-					tree_height = 12
-					if w >= tree_height:
-						tree_height = 0
-					
-					tree_width = tree_height
-					tree_depth = tree_width / 2.0
-					
-					tree_x = x + (Global.TILE_WIDTH / 4.0) - (tree_width / 2.0)
-					tree_y = y - h + ((Global.TILE_HEIGHT / 2.5)) - (tree_depth / 2.0)
-				1:
-					tree_height = 16
-					if w >= tree_height:
-						tree_height = 0
-					
-					tree_width = tree_height
-					tree_depth = tree_width / 2.0
-					
-					tree_x = x - (Global.TILE_WIDTH / 6.0)
-					tree_y = y - h + (Global.TILE_HEIGHT / 2.5) - (tree_depth / 2.0)
-				2:
-					tree_height = 10
-					if w >= tree_height:
-						tree_height = 0
-					
-					tree_width = tree_height
-					tree_depth = tree_width / 2.0
-					
-					tree_x = x
-					tree_y = y - h + (0.7 * Global.TILE_HEIGHT) - (tree_depth / 2.0)
-			
-			update_tree(t, tree_x, tree_y, tree_width, tree_depth, tree_height, w)
-			objects.append(t)
+		var image = load("res://assets/building_assets/2d Assets/Park.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 	
 	# Create some one pixel high blades of grass
 	elif tile.inf == Tile.TileInf.BEACH_GRASS:
@@ -268,90 +193,30 @@ func update_polygons():
 
 	elif tile.inf == Tile.TileInf.UTILITIES_PLANT:	
 		clear_objects()
-		
-		var building_width = Global.TILE_WIDTH
-		var building_depth = building_width / 2.0
-		var building_height = 10
-
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-			
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
-		
-		if true:
-			var stack_width = Global.TILE_WIDTH / 10.0
-			var stack_depth = stack_width / 2.0
-			var stack_height = 20
-			
-			for z in 4:
-				var s = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-				var stack_x = 0
-				var stack_y = 0
-				
-				match z:
-					0:
-						stack_x = x
-						stack_y = y - h + ((Global.TILE_HEIGHT / 2.0) - stack_depth) / 2.0
-					1:
-						stack_x = x
-						stack_y = y - h + ((Global.TILE_HEIGHT / 2.0) - stack_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
-					2:
-						stack_x = x - (((Global.TILE_WIDTH / 2.0) - stack_width) / 2.0) - (stack_width / 2.0)
-						stack_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (stack_depth / 2.0)
-					3:
-						stack_x = x + (((Global.TILE_WIDTH / 2.0) - stack_width) / 2.0) + (stack_width / 2.0)
-						stack_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (stack_depth / 2.0)
-			
-				update_cube(s, stack_x, stack_y, stack_width, stack_depth, stack_height, building_height, 0)
-				objects.append(s)
+		var image = load("res://assets/building_assets/2d Assets/UtilityPlant.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 				
 	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
 		clear_objects()
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
+		var image = load("res://assets/building_assets/2d Assets/SewageFacility.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 	
 	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
 		clear_objects()
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
+		var image = load("res://assets/building_assets/2d Assets/WasteTreatment.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 	
 	elif tile.inf == Tile.TileInf.LIBRARY:
+		"""
 		clear_objects()
 		var building_width = Global.TILE_WIDTH - 10
 		var building_depth = building_width / 2.0
@@ -369,144 +234,112 @@ func update_polygons():
 		
 		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
 		objects.append(b)
+		I wanted to leave an example one of how the boxes are done
+		"""
+		clear_objects()
+		var image = load("res://assets/building_assets/2d Assets/Library.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
 		clear_objects()
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
+		var image = load("res://assets/building_assets/2d Assets/Museum.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 	
 	elif tile.inf == Tile.TileInf.SCHOOL:
 		clear_objects()
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
+		var image = load("res://assets/building_assets/2d Assets/School.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
 		clear_objects()
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
+		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h - 32)
+		buildingSprite.scale = Vector2(2, 2)
+		buildingSprite.z_index = (i + j) * 10
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		clear_objects()
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
+		var image = load("res://assets/building_assets/2d Assets/Hospital.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
 		clear_objects()
-		var building_width = Global.TILE_WIDTH - 10
-		var building_depth = building_width / 2.0
-		var building_height = 15
-		
-		if w > building_height:
-			building_visible = false
-		else:
-			building_visible = true
-		
-		var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-		
-		var building_x = x
-		var building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-		
-		update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, 0)
-		objects.append(b)
+		var image = load("res://assets/building_assets/2d Assets/PoliceStation.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
 		clear_objects()
+		var image
+		var currBuilding
 		
 		if w == 0:
-			if tile.connections[(0 + Global.camDirection) % 4]:
-				objects.append(PoolVector2Array([
-					Vector2(x - (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (1.0 / 8.0))),
-					Vector2(x - (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (3.0 / 8.0))),
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
-					Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-				]))
-			if tile.connections[(1 + Global.camDirection) % 4]:
-				objects.append(PoolVector2Array([
-					Vector2(x + (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (1.0 / 8.0))),
-					Vector2(x + (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (3.0 / 8.0))),
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
-					Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-				]))
-			if tile.connections[(2 + Global.camDirection) % 4]:
-				objects.append(PoolVector2Array([
-					Vector2(x + (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (5.0 / 8.0))),
-					Vector2(x + (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (7.0 / 8.0))),
-					Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0))),
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0)))
-				]))
-			if tile.connections[(3 + Global.camDirection) % 4]:
-				objects.append(PoolVector2Array([
-					Vector2(x - (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (7.0 / 8.0))),
-					Vector2(x - (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (5.0 / 8.0))),
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0))),
-					Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-				]))
-			if !tile.connections[0] && !tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
-				objects.append(PoolVector2Array([
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0))),
-					Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0))),
-					Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
-					Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-				]))
+			if tile.connections[0]:
+				image = load("res://assets/building_assets/2d Assets/RoadNWConnected.png")
+			else:
+				image = load("res://assets/building_assets/2d Assets/RoadNW.png")
+			
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
+			listOfBuildings.append(currBuilding)
+			
+			if tile.connections[1]:
+				image = load("res://assets/building_assets/2d Assets/RoadNEConnected.png")
+			else:
+				image = load("res://assets/building_assets/2d Assets/RoadNE.png")
+			
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
+			listOfBuildings.append(currBuilding)
+			
+			if tile.connections[2]:
+				image = load("res://assets/building_assets/2d Assets/RoadSEConnected.png")
+			else:
+				image = load("res://assets/building_assets/2d Assets/RoadSE.png")
+			
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
+			listOfBuildings.append(currBuilding)
+			
+			if tile.connections[3]:
+				image = load("res://assets/building_assets/2d Assets/RoadSWConnected.png")
+			else:
+				image = load("res://assets/building_assets/2d Assets/RoadSW.png")
+			
+			currBuilding = Sprite.new()
+			currBuilding.texture = image
+			currBuilding.position = Vector2(x, y - h)
+			currBuilding.z_index = (i + j) * 10
+			listOfBuildings.append(currBuilding)
+		
+		
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		clear_objects()
+		var image
+		var currBuilding
 		#var tileHeight = Global.TILE_HEIGHT
 		var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
 		var numNeighbors = 0
@@ -542,49 +375,50 @@ func update_polygons():
 		var cube_x = x
 		var cube_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
 		
-		objects.append(PoolVector2Array([
-			Vector2(cube_x, cube_y - building_height), 
-			Vector2(cube_x + (building_width / 2.0), cube_y - building_height + (building_depth / 2.0)), 
-			Vector2(cube_x, cube_y - building_height + building_depth), 
-			Vector2(cube_x - (building_width / 2.0), cube_y - building_height + (building_depth / 2.0)), 
-			Vector2(cube_x, cube_y - building_height)
-			]))
+		if tile.connections[0]:
+			image = load("res://assets/building_assets/2d Assets/RoadNWConnected.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/RoadNW.png")
 		
-		if tile.connections[(0 + Global.camDirection) % 4]:
-			objects.append(PoolVector2Array([
-				Vector2(x - (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (1.0 / 8.0))),
-				Vector2(x - (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (3.0 / 8.0))),
-				Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
-				Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-			]))
-		if tile.connections[(1 + Global.camDirection) % 4]:
-			objects.append(PoolVector2Array([
-				Vector2(x + (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (1.0 / 8.0))),
-				Vector2(x + (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (3.0 / 8.0))),
-				Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
-				Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-			]))
-		if tile.connections[(2 + Global.camDirection) % 4]:
-			objects.append(PoolVector2Array([
-				Vector2(x + (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (5.0 / 8.0))),
-				Vector2(x + (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (7.0 / 8.0))),
-				Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0))),
-				Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0)))
-			]))
-		if tile.connections[(3 + Global.camDirection) % 4]:
-			objects.append(PoolVector2Array([
-				Vector2(x - (Global.TILE_WIDTH * (1.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (7.0 / 8.0))),
-				Vector2(x - (Global.TILE_WIDTH * (3.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (5.0 / 8.0))),
-				Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0))),
-				Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-			]))
-		if !tile.connections[0] && !tile.connections[1] && !tile.connections[2] && !tile.connections[3]:
-			objects.append(PoolVector2Array([
-				Vector2(x, y - h + (Global.TILE_HEIGHT * (2.0 / 8.0))),
-				Vector2(x + (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0))),
-				Vector2(x, y - h + (Global.TILE_HEIGHT * (6.0 / 8.0))),
-				Vector2(x - (Global.TILE_WIDTH * (2.0 / 8.0)), y - h + (Global.TILE_HEIGHT * (4.0 / 8.0)))
-			]))
+		currBuilding = Sprite.new()
+		currBuilding.texture = image
+		currBuilding.position = Vector2(x, y - h)
+		currBuilding.z_index = (i + j) * 10
+		listOfBuildings.append(currBuilding)
+		
+		if tile.connections[1]:
+			image = load("res://assets/building_assets/2d Assets/RoadNEConnected.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/RoadNE.png")
+		
+		currBuilding = Sprite.new()
+		currBuilding.texture = image
+		currBuilding.position = Vector2(x, y - h)
+		currBuilding.z_index = (i + j) * 10
+		listOfBuildings.append(currBuilding)
+		
+		if tile.connections[2]:
+			image = load("res://assets/building_assets/2d Assets/RoadSEConnected.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/RoadSE.png")
+		
+		currBuilding = Sprite.new()
+		currBuilding.texture = image
+		currBuilding.position = Vector2(x, y - h)
+		currBuilding.z_index = (i + j) * 10
+		listOfBuildings.append(currBuilding)
+		
+		if tile.connections[3]:
+			image = load("res://assets/building_assets/2d Assets/RoadSWConnected.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/RoadSW.png")
+		
+		currBuilding = Sprite.new()
+		currBuilding.texture = image
+		currBuilding.position = Vector2(x, y - h)
+		currBuilding.z_index = (i + j) * 10
+		listOfBuildings.append(currBuilding)
+		
 	# Create simple rocks to display beach rocks
 	elif tile.inf == Tile.TileInf.BEACH_ROCKS:
 		clear_objects()
@@ -651,75 +485,96 @@ func update_polygons():
 					building_visible = true
 				
 				for z in num_buildings:
-					var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-					var occupancy = 0.0
+					var image
 					
 					match z:
 						0:
 							building_x = x
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
 							if tile.data[2] > 0:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied Shop.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						1:
 							building_x = x
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
 							if tile.data[2] > 4:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied Shop.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						2:
 							building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
 							if tile.data[2] > 8:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied Shop.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						3:
 							building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
 							if tile.data[2] > 12:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied Shop.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 				
-					update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
-					objects.append(b)
+					var currBuilding = Sprite.new()
+					currBuilding.texture = image
+					currBuilding.position = Vector2(building_x, building_y - 19)
+					currBuilding.z_index = (i + j) * 10
+					listOfBuildings.append(currBuilding)
 					
 			Tile.TileZone.SINGLE_FAMILY:
 				building_width = Global.TILE_WIDTH / 4.0
 				building_depth = building_width / 2.0
 				building_height = 5
-
+				
 				if w > building_height:
 					building_visible = false
 				else:
 					building_visible = true
 
 				for z in num_buildings:
-					var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
-					var occupancy = 0.0
-
+					var image
+					
 					match z:
 						0:
 							building_x = x
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0
 							if tile.data[2] > 0:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied House.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						1:
 							building_x = x
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - building_depth) / 2.0 + (Global.TILE_HEIGHT / 2.0)
 							if tile.data[2] > 1:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied House.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						2:
 							building_x = x - (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) - (building_width / 2.0)
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
 							if tile.data[2] > 2:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied House.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 						3:
 							building_x = x + (((Global.TILE_WIDTH / 2.0) - building_width) / 2.0) + (building_width / 2.0)
 							building_y = y - h + ((Global.TILE_HEIGHT / 2.0)) - (building_depth / 2.0)
 							if tile.data[2] > 3:
-								occupancy = 1.0
+								image = load("res://assets/building_assets/2d Assets/Occupied House.png")
+							else:
+								image = load("res://assets/building_assets/2d Assets/Unoccupied Shop.png")
 
-					update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
-					objects.append(b)
+					var currBuilding = Sprite.new()
+					currBuilding.texture = image
+					currBuilding.position = Vector2(building_x, building_y - 19)
+					currBuilding.z_index = (i + j) * 10
+					listOfBuildings.append(currBuilding)
 
 		# Draws a single building whose size is scaled to number of buildings
 			Tile.TileZone.MULTI_FAMILY:
+				# I'm guessing tile.data[2] = current num of residents, tile.data[3] = max num of residents
 				building_width = (Global.TILE_WIDTH / 2.0) + (2 * num_buildings) 
 				building_depth = building_width / 2.0
 				building_height = 10 + (3 * num_buildings)
@@ -729,18 +584,40 @@ func update_polygons():
 				else:
 					building_visible = true
 				
-				var occupancy = 0
-				if tile.data[3] != 0:
-					occupancy = float(tile.data[2]) / float(tile.data[3])
-				
-				var b = [Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new(), Polygon2D.new()]
+				var currentHeight = 0
+				var zIndex = (i + j) * 10
 				
 				building_x = x
 				building_y = y - h + ((Global.TILE_HEIGHT / 2.0) - (building_depth / 2.0))
-
-				update_cube(b, building_x, building_y, building_width, building_depth, building_height, w, occupancy)
-
-				objects.append(b)
+				
+				for numOfFullFloors in tile.data[2] / 16:
+					var image = load("res://assets/building_assets/2d Assets/Full Apartment.png")
+					var currBuilding = Sprite.new()
+					currBuilding.texture = image
+					currBuilding.position = Vector2(x, y - h - currentHeight)
+					currBuilding.z_index = zIndex
+					listOfBuildings.append(currBuilding)
+					currentHeight += 16
+					zIndex += 1
+				
+				var remainingResidents = tile.data[2] % 16
+				var image
+				
+				if tile.data[3] - tile.data[2] > 0:
+					if remainingResidents >= 0 && remainingResidents < 4:
+						image = load("res://assets/building_assets/2d Assets/Empty Apartment.png")
+					elif remainingResidents >= 4 && remainingResidents < 8:
+						image = load("res://assets/building_assets/2d Assets/Quarter Apartment.png")
+					elif remainingResidents >= 8 && remainingResidents < 12:
+						image = load("res://assets/building_assets/2d Assets/Half Apartment.png")
+					else:
+						image = load("res://assets/building_assets/2d Assets/ThreeQuarter Apartment.png")
+					
+					var currBuilding = Sprite.new()
+					currBuilding.texture = image
+					currBuilding.position = Vector2(x, y - h - currentHeight)
+					currBuilding.z_index = zIndex
+					listOfBuildings.append(currBuilding)
 	
 	# Set the clickable area of the polygon (the entire base cube)
 	coll.set_polygon(PoolVector2Array([
@@ -886,6 +763,7 @@ func update_cube(cube, cube_x, cube_y, width, depth, height, offset, occupancy):
 		height = 0
 		offset = 0
 
+	#I can't tell what these are doing, and if they're even useful. - Logan
 	# Left side of cube (occupancy percentage)
 	cube[3].set_polygon(PoolVector2Array([
 		Vector2(cube_x, cube_y - offset + depth),

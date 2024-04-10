@@ -36,7 +36,8 @@ enum TileInf {
 	BEACH_GRASS,
 	UTILITIES_PLANT,
 	SEWAGE_FACILITY,
-	WASTE_TREATMENT
+	WASTE_TREATMENT,
+	CHILD
 }
 
 enum TileSensor {
@@ -188,6 +189,8 @@ var is_income_tax_light = false
 var is_neg_profit = false
 var wealth_weight = 0
 var tile_dmg_weight = 0
+var children = [] #List of List of children's indicies
+var parent = [-1, -1] #If this tile is a child, this is it's parent, otherwise -1, -1
 
 
 func _init(a, b, c, d, e, f, g, h, k, l, m):
@@ -218,6 +221,39 @@ func paste_tile(tile):
 	tileDamage = tile.tileDamage
 	landValue = tile.landValue
 	profitRate = tile.profitRate
+
+func check_if_valid_placement(inf_to_be, height, width):
+	if !((get_base() == TileBase.DIRT || get_base() == TileBase.ROCK) && inf != inf_to_be):
+		return false
+	
+	for a in range(0, height):
+		for b in range(0, width):
+			if (i - a >= 0 and j - b >= 0):
+				var currTile = Global.tileMap[i - a][j - b]
+				if currTile.inf != TileInf.NONE or currTile.zone != TileZone.NONE:
+					return false
+				elif currTile.baseHeight != baseHeight:
+					return false
+			else:
+				#If I or J fall out of range, it is invalid
+				return false
+	return true
+
+func set_tile_inf(infType, zoneType, height, width):
+	clear_tile()
+	inf = infType
+	zone = zoneType
+	for a in range(0, height):
+		for b in range(0, width):
+			if a == 0 and b == 0:
+				continue
+			#No need to check if valid, already did that
+			var currTile = Global.tileMap[i - a][j - b]
+			currTile.inf = TileInf.CHILD
+			currTile.zone = zoneType
+			currTile.parent = [i, j]
+			children.append([i - a, j - b])
+	City.connectUtilities()
 
 func clear_tile():
 	#remove all buildings 
@@ -254,6 +290,13 @@ func clear_tile():
 	data = [0, 0, 0, 0, 0]
 	tileDamage = 0
 	connections = [0, 0, 0, 0]
+	
+	for child in children:
+		#Only works under the assumption that two tiles will not be both children of each other
+		#Otherwise we will have an infinite loop
+		Global.tileMap[child[0]][child[1]].clear_tile()
+	children.clear()
+	parent = [-1, -1]
 	
 func raise_tile():
 	baseHeight += 1
@@ -386,7 +429,7 @@ func set_zone(type):
 			data = [0, 4, 0, 0, 0]
 		#multi family has 18 houses max
 		TileZone.MULTI_FAMILY:
-			data = [0, 18, 0, 0, 0]
+			data = [0, 4, 0, 0, 0]
 		_:
 			data = [0, 0, 0, 0, 0]
 
@@ -406,10 +449,13 @@ func add_building():
 			#multi family holds 4 and so does commercial
 			#represents many businesses and many apartments in one zone, 
 			#while single family is much less dense
-			TileZone.MULTI_FAMILY, TileZone.COMMERCIAL:
+			TileZone.COMMERCIAL:
 				data[0] += 1
 				data[3] += 4
 			#no other zone type should be affected
+			TileZone.MULTI_FAMILY:
+				data[0] += 1
+				data[3] += 16
 			_:
 				pass
 
