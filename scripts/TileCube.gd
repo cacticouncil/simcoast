@@ -100,27 +100,27 @@ func _draw():
 		for building in listOfBuildings:
 			get_parent().add_child(building)
 
-	elif tile.sensor == Tile.TileSensor.TIDE:
-		if tile.sensor_active == true:
-			for s in objects:
-				draw_circle(s,3,Color("D2042D"))
-		else:
-			for s in objects:
-				draw_circle(s,3,Color("808080"))
-	elif tile.sensor == Tile.TileSensor.RAIN:
-		if tile.sensor_active == true:
-			for s in objects:
-				draw_circle(s,3,Color("515ADD"))
-		else:
-			for s in objects:
-				draw_circle(s,3,Color("808080"))
-	elif tile.sensor == Tile.TileSensor.WIND:
-		if tile.sensor_active == true:
-			for s in objects:
-				draw_circle(s,3,Color("097969"))
-		else:
-			for s in objects:
-				draw_circle(s,3,Color("808080"))
+	#elif tile.sensor == Tile.TileSensor.TIDE:
+	#	if tile.sensor_active == true:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("D2042D"))
+	#	else:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("808080"))
+	#elif tile.sensor == Tile.TileSensor.RAIN:
+	#	if tile.sensor_active == true:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("515ADD"))
+	#	else:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("808080"))
+	#elif tile.sensor == Tile.TileSensor.WIND:
+	#	if tile.sensor_active == true:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("097969"))
+	#	else:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("808080"))
 
 func clear_objects():
 	for o in objects:
@@ -457,11 +457,11 @@ func update_polygons():
 			update_rock(r, rock_x, rock_y, rock_width, rock_depth, rock_height, w)
 			objects.append(r)
 	# tide sensor marker
-	elif tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN || tile.sensor == Tile.TileSensor.WIND :
-		var sens_x = x
-		var sens_y = y - h + (Global.TILE_HEIGHT / 2.0) / 2.0
+	#elif tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN || tile.sensor == Tile.TileSensor.WIND :
+	#	var sens_x = x
+	#	var sens_y = y - h + (Global.TILE_HEIGHT / 2.0) / 2.0
 			
-		objects.append(Vector2(sens_x, sens_y))
+	#	objects.append(Vector2(sens_x, sens_y))
 	
 	# Generate building polygons depending on density and water height
 	elif tile.has_building():
