@@ -74,6 +74,7 @@ func _ready():
 	
 	var beachButtons = [
 		["wave breaker", "res://assets/buttons/wave_breaker", "Wavebreaker"],
+		["close beach", "res://assets/buttons/close_beach", "Close Beach"],
 		["remove rocks", "res://assets/buttons/remove_beach_rocks", "Remove Beach Rocks"]
 	]
 	var beachSection = toolbarSectionScene.instance()
@@ -325,6 +326,9 @@ func button_pressed():
 			Global.mapTool = Global.Tool.INF_BRIDGE
 		'boardwalk_button':
 			Global.mapTool = Global.Tool.INF_BOARDWALK
+		'close beach_button':
+			if !Global.closeBeach && !Global.beginBeachEvacuation && !Global.stayEvacuated && !Global.moveBackIn:
+				Global.closeBeach = true
 		'beach_rocks_button':
 			Global.mapTool = Global.Tool.INF_BEACH_ROCKS
 		'beach_grass_button':

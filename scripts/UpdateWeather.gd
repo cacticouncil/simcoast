@@ -27,7 +27,6 @@ func update_weather():
 			rng.randomize()
 			if(rng.randf() < Weather.probStorm && !Weather.currentlyStorming && !Global.moveBackIn):
 				Weather.willStorm = true
-				Global.closeBeach = true
 				var stormType = rng.randf()
 				if stormType < Weather.probTropicalStorm:
 					Weather.futureType = Weather.WeatherStates.TROPICAL_STORM
