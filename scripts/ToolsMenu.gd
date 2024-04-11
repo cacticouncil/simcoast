@@ -422,12 +422,13 @@ func addSensorButton(button):
 	
 	#Once we create all the buttons, we want to add the functionality to each of them
 	for i in group.get_buttons():
-		#Handles button presses
-		i.connect("pressed", self, "button_pressed")
-		#Handles adding hover text to bottom bar
-		i.connect("mouse_entered", self, "button_hover", [i])
-		#Handles removing hover text
-		i.connect("mouse_exited", self, "button_exit")
+		if i.get_name() == button[0] + "_button":
+			#Handles button presses
+			i.connect("pressed", self, "button_pressed")
+			#Handles adding hover text to bottom bar
+			i.connect("mouse_entered", self, "button_hover", [i])
+			#Handles removing hover text
+			i.connect("mouse_exited", self, "button_exit")
 	#Updates the little icon that indicates how much of each item we have
 	updateAmounts()
 
