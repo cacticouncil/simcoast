@@ -109,11 +109,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Event.gd"
 }, {
-"base": "EditorVCSInterface",
-"class": "GitAPI",
-"language": "NativeScript",
-"path": "res://git_api.gdns"
-}, {
 "base": "Object",
 "class": "NPC",
 "language": "GDScript",
@@ -170,7 +165,6 @@ _global_script_class_icons={
 "Blackboard": "res://addons/behavior_tree/icons/blackboard.svg",
 "DialogueSystem": "",
 "Event": "",
-"GitAPI": "",
 "NPC": "",
 "Observer": "",
 "Sensor": "",
@@ -192,15 +186,13 @@ Econ="*res://scripts/Econ.gd"
 Global="*res://scripts/Global.gd"
 City="*res://scripts/City.gd"
 UpdatePopulation="*res://scripts/updatePopulation.gd"
-SaveDialog="*res://SaveDialog.gd"
+SaveDialog="*res://scripts/SaveDialog.gd"
 SaveLoad="*res://scripts/Save_Load.gd"
 Economy="*res://AI/economy/economy.tscn"
 UpdateDate="*res://scripts/updateDate.gd"
 UpdateValue="*res://scripts/UpdateValue.gd"
 UpdateHappiness="*res://scripts/UpdateHappiness.gd"
 UpdateDemand="*res://scripts/updateDemand.gd"
-Weather="res://scripts/Weather.gd"
-UpdateWeather="res://scripts/UpdateWeather.gd"
 UpdateGraphics="*res://scripts/updateGraphics.gd"
 UpdateErosion="*res://scripts/updateErosion.gd"
 UpdateWater="*res://scripts/updateWater.gd"
@@ -239,7 +231,8 @@ enabled=PoolStringArray( "res://addons/behavior_tree/plugin.cfg" )
 
 [gdnative]
 
-singletons=[ "res://git_api.gdnlib" ]
+singletons=[  ]
+singletons_disabled=[  ]
 
 [global]
 

@@ -19,6 +19,7 @@ const TICK_DELAY = 0.05#Time between ticks
 
 var mapName = ""
 var mapPath = ""
+var currentMap = "res://data/default.json"
 var mapWidth = 16
 var mapHeight = 16
 
@@ -40,12 +41,44 @@ var colRange = range(0, mapHeight, 1)
 var numZones = 0
 var numPeople = 0
 
+# Placement state is the state we enter when trying to place a tile
+var placementState = false
+var hoverImage = ""
+var hoverSprite = null
+var infType = null
+var buildingHeight = -1
+var buildingWidth = -1
+
+var dragToPlaceState = false
+var dragToRemoveState = false
 
 # Economy AI constants
 const ZONE_BALANCE = -.01
 
 # To know if game is paused
 var isPaused = false
+var currentWeatherState = 0;
+
+func get_global_data():
+	var globalData = {
+		"mapName": mapName,
+		"mapPath": mapPath,
+		"mapWidth": mapWidth,
+		"mapHeight": mapHeight,
+		"seaLevel": seaLevel,
+		"oceanHeight": oceanHeight,
+		"numZones": numZones,
+		"numPeople": numPeople
+	}
+	
+	return globalData
+
+
+func load_global_data(data):
+	if not data.empty():
+		for key in data:
+			self.set(key, data[key])
+
 
 func initTileMap():
 	var tm = []
@@ -57,7 +90,12 @@ func initTileMap():
 
 	for i in mapHeight:
 		for j in mapWidth:
-			tm[i][j] = Tile.new(i, j, 0, 0, 0, 0, 0, [0, 0, 0, 0, 0], 0, Econ.TILE_BASE_VALUE, 0)
+			# Load default tile
+			tm[i][j] = Tile.new({
+				"i": i,
+				"j": j,
+				"landValue": Econ.TILE_BASE_VALUE
+			})
 	
 	return tm
 

@@ -2,14 +2,47 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	createUserFolders()
+	disableContinueButton()
+	
+func disableContinueButton():
+	print(SaveLoad.get_continue_map())
+	if SaveLoad.get_continue_map() == "res://data/default.json":
+		$MenuLayout/Buttons/ContinueButton.disabled = true
 
+func createUserFolders():
+	var dir = Directory.new()
+	if not dir.dir_exists("user://saves"):
+		dir.make_dir("user://saves")
+		
+	if not dir.dir_exists("user://data"):
+		dir.make_dir("user://data")
+		createContinueFile()
+	elif not dir.file_exists("user://data/continue.json"):
+		createContinueFile()
+		
+
+func createContinueFile():
+	var continuePath = "user://data/continue.json"
+	var data = {
+		"previous_map_path": "res://data/default.json"
+	}
+	
+	var file = File.new()
+	file.open(continuePath, File.WRITE)
+	file.store_line(JSON.print(data, "\t"))
+	file.close()
+		
 func _on_MasterVolSlider_value_changed(value):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), value)
 
 
 func _on_QuitButton_pressed():
-	get_tree().quit()
+	var popup = get_node("QuitGamePopup/PopupDialog")
+	if (popup != null):
+		popup.popup_centered()
+	else:
+		get_tree().quit()
 
 
 func _on_FullScreenToggle_pressed():
@@ -40,3 +73,7 @@ func _on_NewGameButton_pressed():
 	Global.newGame = true
 	var _err = get_tree().change_scene("res://start_map.tscn")
 	
+	
+func _on_ContinueButton_pressed():
+	Global.currentMap = SaveLoad.get_continue_map()
+	var _err = get_tree().change_scene("res://start_map.tscn")

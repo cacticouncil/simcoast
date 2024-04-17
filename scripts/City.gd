@@ -17,6 +17,33 @@ var numCommercialZones = 0
 var numSingleFamilyZones = 0
 var numMultiFamilyZones = 0
 
+func get_city_data():
+	var cityData = {
+		"numParks": numParks,
+		"numUtilityPlants": numUtilityPlants,
+		"numRoads": numRoads,
+		"numBridges": numBridges,
+		"numLibraries": numLibraries,
+		"numMuseums": numMuseums,
+		"numSchools": numSchools,
+		"numFireStations": numFireStations,
+		"numHospital": numHospital,
+		"numPoliceStations": numPoliceStations,
+		"numSewageFacilities": numSewageFacilities,
+		"numWasteTreatment": numWasteTreatment,
+		"numResidentialZones": numResidentialZones,
+		"numCommercialZones": numCommercialZones,
+		"numSingleFamilyZones": numSingleFamilyZones,
+		"numMultiFamilyZones": numMultiFamilyZones
+	}
+
+	return cityData;
+
+func load_city_data(data):
+	if not data.empty():
+		for key in data:
+			self.set(key, data[key])
+
 # Delete the last row and column of the map
 func reduce_map():
 	if Global.mapHeight <= Global.MIN_MAP_SIZE || Global.mapWidth <= Global.MIN_MAP_SIZE:
@@ -49,13 +76,21 @@ func extend_map():
 	Global.tileMap.append(new_row)
 
 	for j in Global.mapWidth:
-		Global.tileMap[Global.mapHeight][j] = Tile.new(Global.mapHeight, j, 0, 0, 0, 0, 0, [0, 0, 0, 0, 0], 0, Econ.TILE_BASE_VALUE, 0)
+		Global.tileMap[Global.mapHeight][j] = Tile.new({
+				"i": Global.mapHeight,
+				"j": j,
+				"landValue": Econ.TILE_BASE_VALUE
+			})
 		$VectorMap.add_tile(Global.mapHeight, j)
 	
 	Global.mapHeight += 1
 		
 	for i in Global.mapHeight:
-		Global.tileMap[i].append(Tile.new(i, Global.mapWidth, 0, 0, 0, 0, 0, [0, 0, 0, 0, 0], 0, Econ.TILE_BASE_VALUE, 0))
+		Global.tileMap[i].append(Tile.new({
+				"i": i,
+				"j": Global.mapWidth,
+				"landValue": Econ.TILE_BASE_VALUE
+			}))
 		$VectorMap.add_tile(i, Global.mapWidth)
 	
 	Global.mapWidth += 1
@@ -105,12 +140,25 @@ func connectUtilities():
 
 				for n in neighbors:
 					if is_tile_inbounds(n[0], n[1]):
-						if Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.ROAD || Global.tileMap[n[0]][n[1]].inf == Tile.TileInf.BRIDGE:
+						var currTile = Global.tileMap[n[0]][n[1]]
+						if currTile.inf == Tile.TileInf.ROAD || currTile.inf == Tile.TileInf.BRIDGE:
 							if roadConnected(road, n, Global.MAX_CONNECTION_HEIGHT):
-								if Global.tileMap[n[0]][n[1]].utilities == false:
-									queue.append(Global.tileMap[n[0]][n[1]])
+								if currTile.utilities == false:
+									queue.append(currTile)
+						elif currTile.inf == Tile.TileInf.CHILD:
+							#If we connect with a child tile
+							if currTile.utilities == false:
+								var parentTile = Global.tileMap[currTile.parent[0]][currTile.parent[1]]
+								parentTile.utilities = true
+								for child in parentTile.children:
+									Global.tileMap[child[0]][child[1]].utilities = true
+						elif currTile.children.size() > 0:
+							#If we connect with a parent tile
+							if currTile.utilities == false:
+								currTile.utilities = true
+								for child in currTile.children:
+									Global.tileMap[child[0]][child[1]].utilities = true
 						else:
-							var currTile = Global.tileMap[n[0]][n[1]]
 							if currTile.is_commercial():
 								commsPowered += 1
 							elif currTile.is_residential():
@@ -219,7 +267,7 @@ func updateOceanHeight(dir):
 		# Check each orthogonal neighbor to determine if it will flood
 		var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
 		for n in neighbors:
-			if City.is_tile_inbounds(n[0], n[1]) && visited[n[0]][n[1]] == 0:
+			if is_tile_inbounds(n[0], n[1]) && visited[n[0]][n[1]] == 0:
 				visited[n[0]][n[1]] = 1
 				
 				# Rising ocean level
@@ -302,7 +350,6 @@ func calculate_damage():
 				#tile.remove_water()
 				#tile.cube.update()
 				tile.changeInWaterHeight = 0
-
 		
 func tile_out_of_bounds(cube):
 	return cube.i < 0 || Global.mapWidth <= cube.i || cube.j < 0 || Global.mapHeight <= cube.j

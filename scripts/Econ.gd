@@ -17,9 +17,9 @@ var HEAVY_RES_INCOME_RATE = BASE_TAX_RATE #land value * num people
 var COM_PROPERTY_RATE = BASE_TAX_RATE #land value * num buildings
 var COM_INCOME_RATE = BASE_TAX_RATE #land value * num people
 
-const PROPERTY_TAX = 0.01 #property tax gets set at 1% to start, which is neutral
-const SALES_TAX = 0.05 #5% sales tax to start, also neutral
-const INCOME_TAX = 0.025 #2.5% income tax, also neutral
+var PROPERTY_TAX = 0.01 #property tax gets set at 1% to start, which is neutral
+var SALES_TAX = 0.05 #5% sales tax to start, also neutral
+var INCOME_TAX = 0.025 #2.5% income tax, also neutral
 #neutrality is from desirability, meaning these taxes are neither light nor heavy
 
 # Tile Durability Constants
@@ -60,7 +60,7 @@ const SINGLE_FAMILY_UPKEEP_COST = 10
 const UPKEEP_PER_PERSON = 2
 
 # Player/Mayor Constants
-var money = 20000
+var money
 
 #Income and costs
 var city_income = 0 # Net Profit
@@ -70,6 +70,35 @@ var avg_profit = 0 #avg profit of a commercial tile
 #Probably not needed
 var city_tax_rate = BASE_TAX_RATE
 var property_tax_rate = 0.01 
+
+
+func get_econ_data():
+	var econData = {
+		"BASE_TAX_RATE": BASE_TAX_RATE,
+		"LIGHT_RES_PROPERTY_RATE": LIGHT_RES_PROPERTY_RATE,
+		"LIGHT_RES_INCOME_RATE": LIGHT_RES_INCOME_RATE,
+		"HEAVY_RES_PROPERTY_RATE": HEAVY_RES_PROPERTY_RATE,
+		"HEAVY_RES_INCOME_RATE": HEAVY_RES_INCOME_RATE,
+		"COM_PROPERTY_RATE": COM_PROPERTY_RATE,
+		"COM_INCOME_RATE": COM_INCOME_RATE,
+		"PROPERTY_TAX": PROPERTY_TAX,
+		"SALES_TAX": SALES_TAX,
+		"INCOME_TAX": INCOME_TAX,
+		"money": money,
+		"city_income": city_income,
+		"city_costs": city_costs,
+		"avg_income": avg_income,
+		"avg_profit": avg_profit,
+		"city_tax_rate": city_tax_rate,
+		"property_tax_rate": property_tax_rate
+	}
+	
+	return econData
+
+func load_econ_data(data):
+	if not data.empty():
+		for key in data:
+			self.set(key, data[key])
 
 # adjustVal parameter takes in the exact amount loss or gain towards the player money 
 # EX: if player spends $500 then adjustVal should be -500
@@ -126,6 +155,7 @@ func calcCityIncome(): #Calculate tax profit
 	city_income = taxProfit
 	return round(taxProfit)
 
+#Made redundant since adjustment on UI is a range bar in dashboard
 func adjust_tax_rate(val):
 	BASE_TAX_RATE += val
 	if (BASE_TAX_RATE < 0):
@@ -133,6 +163,16 @@ func adjust_tax_rate(val):
 	elif (BASE_TAX_RATE > 1):
 		BASE_TAX_RATE = 1
 	#get_node("/root/CityMap/HUD/TopBar/HBoxContainer/City_Tax_Rate").text = "Tax Rate: " + str(BASE_TAX_RATE * 100) + "%"
+
+#range bar prevents taxes from going over/under 0-100%
+func adjust_property_tax_rate(val):
+	PROPERTY_TAX = val
+
+func adjust_sales_tax_rate(val):
+	SALES_TAX = val
+	
+func adjust_income_tax_rate(val):
+	INCOME_TAX = val
 
 func adjust_individual_tax_rate(num, dir):
 	var currRate

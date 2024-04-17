@@ -21,10 +21,23 @@ enum Months {
 var month = Months.April
 var year = 2022
 
+func get_date_data():
+	var data = {
+		"ticksSinceLastMonthChange": ticksSinceLastMonthChange,
+		"month": month,
+		"year": year
+	}
+	
+	return data
+	
+func load_date_data(data):
+	for key in data:
+		self.set(key, data[key])
+
 func update_date():
 	ticksSinceLastMonthChange += 1
 	#update profit display weekly
-	if ticksSinceLastMonthChange % (MONTH_TICKS/4) == 0:
+	if int(ticksSinceLastMonthChange) % (MONTH_TICKS/4) == 0:
 		Econ.updateProfitDisplay()
 	if (ticksSinceLastMonthChange >= MONTH_TICKS):
 		ticksSinceLastMonthChange = 0
