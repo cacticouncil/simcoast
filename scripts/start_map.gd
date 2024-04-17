@@ -584,6 +584,7 @@ func _unhandled_input(event):
 						tile.clear_sensor()
 			Global.Tool.INF_ROAD:
 				if Input.is_action_pressed("left_click"):
+					#if tileDamage > 0:
 					Global.dragToPlaceState = true
 				elif Input.is_action_pressed("right_click"):
 					Global.dragToRemoveState = true
@@ -883,7 +884,33 @@ func placementState():
 						City.connectUtilities()
 						City.numBridges += 1
 						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
-				
+		#if on damaged road tile, left click to repair
+		elif Global.mapTool == Global.Tool.INF_ROAD && tile.inf == Tile.TileInf.ROAD && tile.tileDamage > 0:
+			if tile.tileDamage == 0.25:
+				if (Econ.purchase_structure(Econ.ROAD_REPAIR_L_COST)):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.ROAD
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numRoads += 1
+						Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+			elif tile.tileDamage == 0.5:
+				if (Econ.purchase_structure(Econ.ROAD_REPAIR_M_COST)):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.ROAD
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numRoads += 1
+						Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+			elif tile.tileDamage == 0.75:
+				if (Econ.purchase_structure(Econ.ROAD_REPAIR_H_COST)):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.ROAD
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numRoads += 1
+						Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+			
 	elif Global.dragToRemoveState:
 		
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())

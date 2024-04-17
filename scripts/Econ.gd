@@ -42,6 +42,11 @@ const HOSPITAL_COST = 5000
 const POLICE_STATION_COST = 5000
 const WATER_COST = 5000
 
+#Road repair costs
+const ROAD_REPAIR_L_COST = 15
+const ROAD_REPAIR_M_COST = 30
+const ROAD_REPAIR_H_COST = 60
+
 #Building upkeep costs
 const UTILITIES_PLANT_UPKEEP_COST = 100
 const PARK_UPKEEP_COST = 10

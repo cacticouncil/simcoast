@@ -338,29 +338,34 @@ func calculate_wear_and_tear():
 			var tile = Global.tileMap[i][j]
 			
 			if tile.inf == tile.TileInf.ROAD || tile.inf == tile.TileInf.BRIDGE:
-				var chanceOfDamage = 0.01 #all roads have a minimum 1% chance of damage due to natural elements not based on usage
+				var chanceOfDamage = 0.005 #all roads have a minimum 0.5% chance of damage due to natural elements not based on usage
 				
 				# Check if neighbor tiles are zoned. Based on zoning determine wear and tear probability
 				var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
 				for n in neighbors:
-					if is_tile_inbounds(n[0], n[1]):
-						if Global.tileMap[n[0]][n[1]].is_zoned():
-							var currTile = Global.tileMap[n[0]][n[1]]
-							
-							# damage from commercial or res zones is based on tile population (data[2])
-							# data[2] value of 4 is max single family, 72 is max multi family, and 16 is max commerical
-							if currTile.get_zone() != tile.TileZone.PUBLIC_WORKS:
-								if currTile.data[2] >= 4:
-									if currTile.data[2] <= 16:
-										chanceOfDamage += 0.01
-									elif currTile.data[2] <= 32:
-										chanceOfDamage += 0.03
-									else:
-										chanceOfDamage += 0.05
-							# for public works zones, all tiles recieve flat 20% added probability
-							elif currTile.get_zone() == tile.TileZone.PUBLIC_WORKS:
-								chanceOfDamage += 0.05
-			
+					if is_tile_inbounds(n[0], n[1]) and Global.tileMap[n[0]][n[1]].is_zoned():
+						var currTile = Global.tileMap[n[0]][n[1]]
+						if currTile.get_zone() != tile.TileZone.PUBLIC_WORKS:
+							chanceOfDamage += pop_based_damage_helper(currTile)
+						# for public works zones
+						else:
+							# police and fire stations depend on how many people work there
+							if currTile.inf == tile.TileInf.POLICE_STATION \
+							or currTile.inf == tile.TileInf.FIRE_STATION:
+								chanceOfDamage += 0.01
+							# damage from hospital decreases if more than one hospital
+							elif currTile.inf == tile.TileInf.HOSPITAL:
+								chanceOfDamage += 0.02 + (0.02 / numHospital)
+							# parks, libraries, schools, and museums depend on surrounding population
+							else:
+								var pwNeighbors = [[currTile.i-1, currTile.j], [currTile.i-1, currTile.j-1], \
+								[currTile.i, currTile.j-1], [currTile.i+1, currTile.j-1], [currTile.i+1, currTile.j], \
+								[currTile.i+1, currTile.j+1], [currTile.i, currTile.j+1], [currTile.i-1, currTile.j+1]]
+								for pw in pwNeighbors:
+									if is_tile_inbounds(pw[0], pw[1]) and Global.tileMap[pw[0]][pw[1]].is_zoned() and \
+									Global.tileMap[pw[0]][pw[1]].get_zone() != tile.TileZone.PUBLIC_WORKS:
+										var pwTile = Global.tileMap[pw[0]][pw[1]]						
+										chanceOfDamage += pop_based_damage_helper(pwTile)
 				var randomNum = randf()
 				#if random number is within chance of damage range, damage has occured.
 				if randomNum <= chanceOfDamage:
@@ -374,6 +379,19 @@ func calculate_wear_and_tear():
 						tile.wearAndTear += 3
 					tile.changeInWearAndTear = true
 				
+func pop_based_damage_helper(tile):
+	var chanceOfDamage = 0
+	# damage from commercial or res zones is based on tile population (data[2])
+	# data[2] value of 4 is max single family, 72 is max multi family, and 16 is max commerical
+	if tile.data[2] >= 4:
+		if tile.data[2] <= 16:
+			chanceOfDamage += 0.01
+		elif tile.data[2] <= 32:
+			chanceOfDamage += 0.03
+		else:
+			chanceOfDamage += 0.05
+	return chanceOfDamage
+						
 func tile_out_of_bounds(cube):
 	return cube.i < 0 || Global.mapWidth <= cube.i || cube.j < 0 || Global.mapHeight <= cube.j
 	
