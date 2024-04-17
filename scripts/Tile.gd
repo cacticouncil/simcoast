@@ -104,7 +104,7 @@ var base = 0
 var zone = 0
 var inf = 0
 var cube = Area2D.new()
-var data = [0, 0, 0, 0, 0]
+var data = [0, 0, 0, 0, TileStatus.NONE]
 var utilities = false
 var tileDamage = 0
 var erosion = 0
@@ -195,23 +195,254 @@ var children = [] #List of List of children's indicies
 var parent = [-1, -1] #If this tile is a child, this is it's parent, otherwise -1, -1
 
 
-func _init(a, b, c, d, e, f, g, h, k, l, m):
-	self.i = a
-	self.j = b
+func _init(tileData):
+	if not tileData.empty():
+		for key in tileData:
+			if key == "zone":
+				self.set(key, convert_string_to_zone(tileData[key]))
+			elif key == "base":
+				self.set(key, convert_string_to_base(tileData[key]))
+			elif key == "inf":
+				self.set(key, convert_string_to_inf(tileData[key]))
+			elif key == "sensor":
+				self.set(key, convert_string_to_sensor(tileData[key]))
+			elif key == "data":
+				data = tileData[key]
+				data[4] = convert_string_to_tile_status(tileData[key][4])
+			else:
+				self.set(key, tileData[key])
 
-	baseHeight = c
-	waterHeight = d
-	base = e
-	zone = f
-	inf = g
-	data = h
-	tileDamage = k
-	landValue = l
-	profitRate = m
-	
+
+func convert_string_to_zone(zone):
+	match zone:
+		"none":
+			return TileZone.NONE
+		"single_family":
+			return TileZone.SINGLE_FAMILY
+		"multi_family":
+			return TileZone.MULTI_FAMILY
+		"commercial":
+			return TileZone.COMMERCIAL
+		"public_works":
+			return TileZone.PUBLIC_WORKS
+
+
+func convert_string_to_base(base):
+	match base:
+		"dirt":
+			return TileBase.DIRT
+		"sand":
+			return TileBase.SAND
+		"ocean":
+			return TileBase.OCEAN
+		"rock":
+			return TileBase.ROCK
+
+
+func convert_string_to_inf(inf):
+	match inf:
+		"none":
+			return TileInf.NONE
+		"road":
+			return TileInf.ROAD
+		"bridge":
+			return TileInf.BRIDGE
+		"park":
+			return TileInf.PARK
+		"fire_station":
+			return TileInf.FIRE_STATION
+		"hospital":
+			return TileInf.HOSPITAL
+		"police_station":
+			return TileInf.POLICE_STATION
+		"library":
+			return TileInf.LIBRARY
+		"museum":
+			return TileInf.MUSEUM
+		"school":
+			return TileInf.SCHOOL
+		"house":
+			return TileInf.HOUSE
+		"building":
+			return TileInf.BUILDING
+		"beach_rocks":
+			return TileInf.BEACH_ROCKS
+		"beach_grass":
+			return TileInf.BEACH_GRASS
+		"utilities_plant":
+			return TileInf.UTILITIES_PLANT
+		"sewage_facility":
+			return TileInf.SEWAGE_FACILITY
+		"waste_treatment":
+			return TileInf.WASTE_TREATMENT
+		"child":
+			return TileInf.CHILD
+
+
+func convert_inf_to_string():
+	match inf:
+		TileInf.NONE:
+			return "none"
+		TileInf.ROAD:
+			return "road"
+		TileInf.BRIDGE:
+			return "bridge"
+		TileInf.PARK:
+			return "park"
+		TileInf.FIRE_STATION:
+			return "fire_station"
+		TileInf.HOSPITAL:
+			return "hospital"
+		TileInf.POLICE_STATION:
+			return "police_station"
+		TileInf.LIBRARY:
+			return "library"
+		TileInf.MUSEUM:
+			return "museum"
+		TileInf.SCHOOL:
+			return "school"
+		TileInf.HOUSE:
+			return "house"
+		TileInf.BUILDING:
+			return "building"
+		TileInf.BEACH_ROCKS:
+			return "beach_rocks"
+		TileInf.BEACH_GRASS:
+			return "beach_grass"
+		TileInf.UTILITIES_PLANT:
+			return "utilities_plant"
+		TileInf.SEWAGE_FACILITY:
+			return "sewage_facility"
+		TileInf.WASTE_TREATMENT:
+			return "waste_treatment"
+		TileInf.CHILD:
+			return "child"
+
+
+func convert_string_to_sensor(sensor):
+	match sensor:
+		"none":
+			return TileSensor.NONE
+		"tide":
+			return TileSensor.TIDE
+		"rain":
+			return TileSensor.RAIN
+
+
+func convert_string_to_tile_status(status):
+	match status:
+		"none":
+			return TileStatus.NONE
+		"light_damage":
+			return TileStatus.LIGHT_DAMAGE
+		"medium_damage":
+			return TileStatus.MEDIUM_DAMAGE
+		"heavy_damage":
+			return TileStatus.HEAVY_DAMAGE
+
+
+func convert_zone_to_string():
+	match zone:
+		TileZone.NONE:
+			return "none"
+		TileZone.SINGLE_FAMILY:
+			return "single_family"
+		TileZone.MULTI_FAMILY:
+			return "multi_family"
+		TileZone.COMMERCIAL:
+			return "commercial"
+		TileZone.PUBLIC_WORKS:
+			return "public_works"
+
+
+func convert_base_to_string():
+	match base:
+		TileBase.DIRT:
+			return "dirt"
+		TileBase.SAND:
+			return "sand"
+		TileBase.OCEAN:
+			return "ocean"
+		TileBase.ROCK:
+			return "rock"
+
+
+func convert_sensor_to_string():
+	match sensor:
+		TileSensor.NONE:
+			return "none"
+		TileSensor.TIDE:
+			return "tide"
+		TileSensor.RAIN:
+			return "rain"
+
+
+func convert_tile_status_to_string():
+	match self.get_status():
+		TileStatus.NONE:
+			return "none"
+		TileStatus.LIGHT_DAMAGE:
+			return "light_damage"
+		TileStatus.MEDIUM_DAMAGE:
+			return "medium_damage"
+		TileStatus.HEAVY_DAMAGE:
+			return "heavy_damage"
+
 
 func get_save_tile_data():
-	return [i, j, baseHeight, waterHeight, base, zone, inf, data, tileDamage, landValue, profitRate]
+	var data_copy = data.duplicate()
+	data_copy[4] = convert_tile_status_to_string()
+
+	var tileData = {
+		"i": i,
+		"j": j,
+		"baseHeight": baseHeight,
+		"waterHeight": waterHeight,
+		"bridgeHeight": bridgeHeight,
+		"base": convert_base_to_string(),
+		"zone": convert_zone_to_string(),
+		"inf": convert_inf_to_string(),
+		"data": data_copy,
+		"utilities": utilities,
+		"children": children,
+		"parent": parent,
+		"tileDamage": tileDamage,
+		"erosion": erosion,
+		"landValue": landValue,
+		"profitRate": profitRate,
+		"happiness": happiness,
+		"changeInWaterHeight": changeInWaterHeight,
+		"connections": connections,
+		"sensor": convert_sensor_to_string(),
+		"sensor_active": sensor_active,
+		"desirability": desirability,    
+		"is_close_water": is_close_water,
+		"is_far_water": is_far_water,
+		"bridge_connected_to_dirt": bridge_connected_to_dirt,
+		"tile_base_dirt": tile_base_dirt,
+		"tile_base_rock": tile_base_rock,
+		"tile_base_sand": tile_base_sand,
+		"residential_neighbors": residential_neighbors,
+		"commercial_neighbors": commercial_neighbors,
+		"industrial_neighbors": industrial_neighbors,
+		"public_works_neighbors": public_works_neighbors,
+		"public_works_dictionary": public_works_dictionary,
+		"prop_tax_weight": prop_tax_weight,
+		"is_sales_tax_heavy": is_sales_tax_heavy,
+		"is_sales_tax_neutral": is_sales_tax_neutral,
+		"is_sales_tax_light": is_sales_tax_light,
+		"is_prop_tax_heavy": is_prop_tax_heavy,
+		"is_prop_tax_neutral": is_prop_tax_neutral,
+		"is_prop_tax_light": is_prop_tax_light,
+		"is_income_tax_heavy": is_income_tax_heavy,
+		"is_income_tax_neutral": is_income_tax_neutral,
+		"is_income_tax_light": is_income_tax_light,
+		"is_neg_profit": is_neg_profit,
+		"wealth_weight": wealth_weight,
+		"tile_dmg_weight": tile_dmg_weight
+	}
+	
+	return tileData
 
 func paste_tile(tile):
 	baseHeight = tile.baseHeight

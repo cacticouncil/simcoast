@@ -31,7 +31,21 @@ func _init(var n, var info, var e, var r):
 	sensor_req = r
 	if n == "Tide Gauge":
 		price = 0
-	
+
+func to_dict():
+	return {
+		"sensor_name": sensor_name,
+		"sensor_info": sensor_info,
+		"sensor_ext_info": sensor_ext_info,
+		"sensor_status": sensor_status,
+		"sensor_amount": sensor_amount,
+		"sensor_req": sensor_req,
+		"buy_bttn": buy_bttn,
+		"info_bttn": info_bttn,
+		"price": price,
+		"cant_buy": cant_buy
+	}
+
 func get_status():
 	return sensor_status
 

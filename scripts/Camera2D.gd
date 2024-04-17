@@ -54,11 +54,19 @@ func _process(delta):
 
 	# Zooming out via keyboard
 	if Input.is_action_just_released("zoom_out"):
-		zoom_out()
+		if (
+			(not get_parent().get_node("Popups/SaveDialog").is_visible()) &&
+			(not get_parent().get_node("Popups/LoadDialog").is_visible())
+		):
+			zoom_out()
 	
 	# Zooming in via keyboard
 	elif Input.is_action_just_released("zoom_in"):
-		zoom_in()
+		if (
+			(not get_parent().get_node("Popups/SaveDialog").is_visible()) &&
+			(not get_parent().get_node("Popups/LoadDialog").is_visible())
+		):
+			zoom_in()
 
 	# Move the camera based on changes to vector, scaled by zoom level
 	global_translate(move_vector * delta * PAN_SPEED * self.zoom.x)

@@ -76,6 +76,35 @@ var avg_profit = 0 #avg profit of a commercial tile
 var city_tax_rate = BASE_TAX_RATE
 var property_tax_rate = 0.01 
 
+
+func get_econ_data():
+	var econData = {
+		"BASE_TAX_RATE": BASE_TAX_RATE,
+		"LIGHT_RES_PROPERTY_RATE": LIGHT_RES_PROPERTY_RATE,
+		"LIGHT_RES_INCOME_RATE": LIGHT_RES_INCOME_RATE,
+		"HEAVY_RES_PROPERTY_RATE": HEAVY_RES_PROPERTY_RATE,
+		"HEAVY_RES_INCOME_RATE": HEAVY_RES_INCOME_RATE,
+		"COM_PROPERTY_RATE": COM_PROPERTY_RATE,
+		"COM_INCOME_RATE": COM_INCOME_RATE,
+		"PROPERTY_TAX": PROPERTY_TAX,
+		"SALES_TAX": SALES_TAX,
+		"INCOME_TAX": INCOME_TAX,
+		"money": money,
+		"city_income": city_income,
+		"city_costs": city_costs,
+		"avg_income": avg_income,
+		"avg_profit": avg_profit,
+		"city_tax_rate": city_tax_rate,
+		"property_tax_rate": property_tax_rate
+	}
+	
+	return econData
+
+func load_econ_data(data):
+	if not data.empty():
+		for key in data:
+			self.set(key, data[key])
+
 # adjustVal parameter takes in the exact amount loss or gain towards the player money 
 # EX: if player spends $500 then adjustVal should be -500
 func adjust_player_money(adjustVal):
