@@ -885,6 +885,7 @@ func _on_DashboardButton_pressed():
 	var Dashboard = preload("res://ui/Dashboard/Dashboard.tscn")
 	var DashboardInstance = Dashboard.instance()
 	add_child(DashboardInstance)
+	Announcer.notify(Event.new("Dashboard", "Entered", 2))
 
 func _on_UIAchievementButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = false

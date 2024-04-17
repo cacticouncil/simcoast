@@ -1,23 +1,32 @@
 extends "res://scripts/Observers/Observer.gd"
 #Handles NPC triggers
-
+var segment = 0
 
 func onNotify(event):
 	# Plays some banger royalty free construction sfx
 	if Global.newGame:
-		if event.eventName == "Added Tile" && event.eventDescription == "Added Power Plant":
+		if segment == 0 && event.eventName == "Added Tile" && event.eventDescription == "Added Power Plant":
 			var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 			var TutorialInstance = tutorial.instance()
 			TutorialInstance.setCharacter(4)
 			TutorialInstance.setSegment(1)
+			segment = 1
 			add_child(TutorialInstance)
-		if event.eventName == "Added Powered Tile":
+		if segment == 1 && event.eventName == "Added Powered Tile":
 			if event.eventDescription == "Added Commercial Area" || event.eventDescription == "Added Resedential Area":
 				var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 				var TutorialInstance = tutorial.instance()
 				TutorialInstance.setCharacter(4)
 				TutorialInstance.setSegment(2)
+				segment = 2
 				add_child(TutorialInstance)
+		if segment == 2 && event.eventName == "Dashboard" && event.eventDescription == "Entered":
+			var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
+			var TutorialInstance = tutorial.instance()
+			TutorialInstance.setCharacter(4)
+			TutorialInstance.setSegment(3)
+			segment = 3
+			add_child(TutorialInstance)
 
 func triggerDialogue(npcName):
 	#Update state of the NPC

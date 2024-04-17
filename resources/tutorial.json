@@ -11,17 +11,22 @@
 },
 {
 	"dialogue":"This is the map of the city. On the left are the tools you need to build infrastructure around town. Powerplants power all the buildings in town. Go ahead and place a power plant.",
-	"next":"-2",
+	"next":"-3",
 	"segment":"0"
 },
 {
 	"dialogue":"Placing new buildings costs money. The town has started with a modest budget but you can earn more taxes as new citizens move in.  Now place a building and connect it with a road.",
-	"next":"-1",
+	"next":"-2",
 	"segment":"1"
 },
 {
-	"dialogue":"Great!",
-	"next":"-2",
+	"dialogue":"Look at that. Now we have new people moving in! I'm so excited, Mayor Patriel. Our city is growing. As the city grows, it's important to pay attention to the impact your decisions have on citizens. Let's check out the dashboard.",
+	"next":"-1",
 	"segment":"2"
+},
+{
+	"dialogue":"This is your dashboard. This is where you can monitor citizens’ happiness, change tax rates, and monitor sensors. Take a look around. I’ll be waiting for you at the shop when you’re ready.",
+	"next":"-2",
+	"segment":"3"
 }
 ]
