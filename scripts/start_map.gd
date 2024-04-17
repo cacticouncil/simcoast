@@ -548,7 +548,30 @@ func _unhandled_input(event):
 						if parentTile.inf == Tile.TileInf.SCHOOL:
 							parentTile.clear_tile()
 							City.numSchools -= 1
-			
+							
+			Global.Tool.INF_WAVE_BREAKER:
+				if Input.is_action_pressed("left click"):
+					print("hey")
+					if (tile.base == Tile.TileBase.SAND && tile.inf == Tile.TileInf.NONE):
+						print("hey1")
+						if (Inventory.removeIfHave('school')):
+							print("hey2")
+							tile.inf = Tile.TileInf.WAVEBREAKER
+							Weather.beachProtection += 1
+							Announcer.notify(Event.new("Added Tile", "Added Wave breaker", 1))
+						elif (Econ.purchase_structure(Econ.WAVEBREAKER_COST)):
+							print("hey3")
+							tile.inf = Tile.TileInf.WAVEBREAKER
+							Weather.beachProtection += 1
+							Announcer.notify(Event.new("Added Tile", "Added Wave breaker", 1))
+						else:
+							print("hey5")
+							actionText.text = "Not enough funds!"
+					else:
+						print("hey6")
+						actionText.text = "Cannot build wavebreaker here!"
+				elif Input.is_action_pressed("right click"):
+					tile.clear_tile()
 			Global.Tool.SENSOR_TIDE:
 				if Input.is_action_pressed("left_click"):
 					# bug workaround to not add sensors to already occupied tiles

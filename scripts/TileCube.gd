@@ -91,7 +91,10 @@ func _draw():
 	elif tile.inf == Tile.TileInf.BEACH_GRASS:
 		for g in objects:
 			draw_polyline(g, Tile.TREE_COLOR[0])
-			
+	
+	elif tile.inf == Tile.TileInf.WAVEBREAKER:
+		get_parent().add_child(buildingSprite)
+		
 	elif tile.inf == Tile.TileInf.ROAD:
 		for building in listOfBuildings:
 			get_parent().add_child(building)
@@ -100,21 +103,24 @@ func _draw():
 		for building in listOfBuildings:
 			get_parent().add_child(building)
 
-	#elif tile.sensor == Tile.TileSensor.TIDE:
+	elif tile.sensor == Tile.TileSensor.TIDE:
+		get_parent().add_child(buildingSprite)
 	#	if tile.sensor_active == true:
 	#		for s in objects:
 	#			draw_circle(s,3,Color("D2042D"))
 	#	else:
 	#		for s in objects:
 	#			draw_circle(s,3,Color("808080"))
-	#elif tile.sensor == Tile.TileSensor.RAIN:
+	elif tile.sensor == Tile.TileSensor.RAIN:
+		get_parent().add_child(buildingSprite)
 	#	if tile.sensor_active == true:
 	#		for s in objects:
 	#			draw_circle(s,3,Color("515ADD"))
 	#	else:
 	#		for s in objects:
 	#			draw_circle(s,3,Color("808080"))
-	#elif tile.sensor == Tile.TileSensor.WIND:
+	elif tile.sensor == Tile.TileSensor.WIND:
+		get_parent().add_child(buildingSprite)
 	#	if tile.sensor_active == true:
 	#		for s in objects:
 	#			draw_circle(s,3,Color("097969"))
@@ -283,7 +289,50 @@ func update_polygons():
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
-
+	
+	elif tile.inf == Tile.TileInf.WAVEBREAKER:
+		clear_objects()
+		var image = load("res://assets/building_assets/2d Assets/Wavebreaker.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
+	#sensors
+	elif tile.sensor == Tile.TileSensor.TIDE:
+		clear_objects()
+		var image = null
+		if tile.sensor_active == false:
+			image = load("res://assets/building_assets/2d Assets/Inactive Sensor.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/Tide Sensor.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
+		
+	elif tile.sensor == Tile.TileSensor.RAIN:
+		clear_objects()
+		var image = null
+		if tile.sensor_active == false:
+			image = load("res://assets/building_assets/2d Assets/Inactive Sensor.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/Rain Sensor.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
+		
+	elif tile.sensor == Tile.TileSensor.WIND:
+		clear_objects()
+		var image = null
+		if tile.sensor_active == false:
+			image = load("res://assets/building_assets/2d Assets/Inactive Sensor.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/Wind Sensor.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
 		clear_objects()
