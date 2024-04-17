@@ -44,7 +44,7 @@ func get_next_dialogue(segment):
 			currentNPC = NPC_CONV[int(currentNPC)]["next"]
 			currentSegment = segment
 			return currentDialogue
-		if (int(currentNPC) == -2):
+		if (int(currentNPC) < 0):
 			currentPlayer = -2
 			return
 		currentDialogue = NPC_CONV[int(currentNPC)]["dialogue"]

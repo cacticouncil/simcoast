@@ -16,7 +16,7 @@
 },
 {
 	"dialogue":"Placing new buildings costs money. The town has started with a modest budget but you can earn more taxes as new citizens move in.  Now place a building and connect it with a road.",
-	"next":"-2",
+	"next":"-1",
 	"segment":"1"
 },
 {
