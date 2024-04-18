@@ -26,7 +26,7 @@ func onNotify(event):
 			TutorialInstance.setCharacter(4)
 			TutorialInstance.setSegment(3)
 			segment = 3
-			add_child(TutorialInstance)
+			get_node("/root/CityMap").add_child(TutorialInstance)
 
 func triggerDialogue(npcName):
 	#Update state of the NPC
