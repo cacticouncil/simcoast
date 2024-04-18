@@ -839,7 +839,7 @@ func placementState():
 						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
 		#if on damaged road tile, left click to repair
 		elif Global.mapTool == Global.Tool.INF_ROAD && tile.inf == Tile.TileInf.ROAD && tile.tileDamage > 0:
-			Global.dragToPlaceState
+			Global.dragToPlaceState = false
 			current_road_tile = tile
 			if tile.tileDamage == 0.25:
 				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This road has light damage.\nRepair for $15?"
