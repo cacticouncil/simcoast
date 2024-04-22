@@ -4,13 +4,17 @@ var rng = RandomNumberGenerator.new()
 
 func update_weather():
 	if Weather.weatherOn:
-		# check to see if a storm will happen the next month
-		if Weather.currentMonth == UpdateDate.month:
-			#update monthly
-			if (Weather.currentMonth == UpdateDate.Months.December):
-				Weather.currentMonth = UpdateDate.Months.January
+		# check to see if a storm will happen the next week
+		if Weather.currentWeek == UpdateDate.week:
+			#update week
+			if (Weather.currentWeek == UpdateDate.Weeks.Week4):
+				Weather.currentWeek = UpdateDate.Weeks.Week1
+				if (Weather.currentMonth == UpdateDate.Months.December):
+					Weather.currentMonth = UpdateDate.Months.January
+				else:
+					Weather.currentMonth += 1
 			else:
-				Weather.currentMonth += 1
+				Weather.currentWeek += 1
 			
 			Weather.currentlyStorming = Weather.willStorm
 			Weather.currentType = Weather.futureType
@@ -19,9 +23,9 @@ func update_weather():
 				print("currently storming")
 			#probabilities for most likely storm months
 			if Weather.currentMonth == UpdateDate.Months.August || Weather.currentMonth == UpdateDate.Months.September || Weather.currentMonth == UpdateDate.Months.October:
-				Weather.probStorm = .5
+				Weather.probStorm = .075
 			elif Weather.currentMonth == UpdateDate.Months.June || Weather.currentMonth == UpdateDate.Months.July || Weather.currentMonth== UpdateDate.Months.November:
-				Weather.probStorm = .25
+				Weather.probStorm = .015
 			else:
 				Weather.probStorm = 0
 			rng.randomize()
@@ -30,31 +34,31 @@ func update_weather():
 				var stormType = rng.randf()
 				if stormType < Weather.probTropicalStorm:
 					Weather.futureType = Weather.WeatherStates.TROPICAL_STORM
-					print("Tropical Storm (next month)")
+					print("Tropical Storm (next week)")
 				else:
 					var minorMajor = rng.randf()
 					if (minorMajor < Weather.probMinorHurricane):
 						var category = rng.randf()
 						if  category < Weather.probCat1:
 							Weather.futureType = Weather.WeatherStates.HURRICANE_1
-							print("Cat 1 (next month)")
+							print("Cat 1 (next week)")
 						else:
 							Weather.futureType = Weather.WeatherStates.HURRICANE_2
-							print("Cat 2 (next month)")
+							print("Cat 2 (next week)")
 					else:
 						var category = rng.randf()
 						if category < Weather.probCat3:
 							Weather.futureType = Weather.WeatherStates.HURRICANE_3
-							print("Cat 3 (next month)")
+							print("Cat 3 (next week)")
 						else:
 							if category > (1 - Weather.probCat5):
 								Weather.futureType = Weather.WeatherStates.HURRICANE_5
-								print("Cat 5 (next month)")
+								print("Cat 5 (next week)")
 							else:
 								Weather.futureType = Weather.WeatherStates.HURRICANE_4
-								print("Cat 4 (next month)")
+								print("Cat 4 (next week)")
 			else:
-				print("no storms (next month)")
+				print("no storms (next week)")
 				Weather.willStorm = false
 				Weather.futureType = Weather.WeatherStates.CLEAR
 			

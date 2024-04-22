@@ -375,23 +375,27 @@ margin_bottom = 720.0
 
 [node name="Date" type="VBoxContainer" parent="HUD"]
 margin_left = 150.0
-margin_top = 660.0
+margin_top = 638.0
 margin_right = 240.0
 margin_bottom = 692.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Month" type="Label" parent="HUD/Date"]
+[node name="Week" type="Label" parent="HUD/Date"]
 margin_right = 90.0
 margin_bottom = 14.0
+text = "Week 1"
+align = 1
+
+[node name="Month" type="Label" parent="HUD/Date"]
+margin_top = 18.0
+margin_right = 90.0
+margin_bottom = 32.0
 text = "April"
 align = 1
 
 [node name="Year" type="Label" parent="HUD/Date"]
-margin_top = 18.0
+margin_top = 36.0
 margin_right = 90.0
-margin_bottom = 32.0
+margin_bottom = 50.0
 text = "2022"
 align = 1
 

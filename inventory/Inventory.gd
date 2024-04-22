@@ -25,7 +25,7 @@ var items = {
 	"tide sensor": 0,
 	"rain sensor": 0,
 	"wind sensor": 0,
-	"wavebreaker": 0
+	"wave_breaker": 0
 }
 
 var tide_info = " Used to measure the speed and\n height of the tide and other\n weather metrics."

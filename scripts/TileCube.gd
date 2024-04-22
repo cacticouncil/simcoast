@@ -92,7 +92,7 @@ func _draw():
 		for g in objects:
 			draw_polyline(g, Tile.TREE_COLOR[0])
 	
-	elif tile.inf == Tile.TileInf.WAVEBREAKER:
+	elif tile.inf == Tile.TileInf.WAVE_BREAKER:
 		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.ROAD:
@@ -290,7 +290,7 @@ func update_polygons():
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
 	
-	elif tile.inf == Tile.TileInf.WAVEBREAKER:
+	elif tile.inf == Tile.TileInf.WAVE_BREAKER:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/Wavebreaker.png")
 		buildingSprite = Sprite.new()

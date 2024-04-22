@@ -556,12 +556,12 @@ func _unhandled_input(event):
 						print("hey1")
 						if (Inventory.removeIfHave('school')):
 							print("hey2")
-							tile.inf = Tile.TileInf.WAVEBREAKER
+							tile.inf = Tile.TileInf.WAVE_BREAKER
 							Weather.beachProtection += 1
 							Announcer.notify(Event.new("Added Tile", "Added Wave breaker", 1))
-						elif (Econ.purchase_structure(Econ.WAVEBREAKER_COST)):
+						elif (Econ.purchase_structure(Econ.WAVE_BREAKER_COST)):
 							print("hey3")
-							tile.inf = Tile.TileInf.WAVEBREAKER
+							tile.inf = Tile.TileInf.WAVE_BREAKER
 							Weather.beachProtection += 1
 							Announcer.notify(Event.new("Added Tile", "Added Wave breaker", 1))
 						else:

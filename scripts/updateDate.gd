@@ -1,8 +1,14 @@
 extends Node
 
-var MONTH_TICKS = 100
-var ticksSinceLastMonthChange = 0
+var DATE_TICKS = 100
+var ticksSinceLastWeekChange = 0
 
+enum Weeks {
+	Week1,
+	Week2,
+	Week3,
+	Week4
+}
 enum Months {
 	January,
 	February,
@@ -17,37 +23,49 @@ enum Months {
 	November,
 	December
 }
-
+var week = Weeks.Week1
 var month = Months.April
 var year = 2022
 
 func update_date():
 	if Weather.willStorm == true:
 		if RainLevel.sensorPresent == true:
-			MONTH_TICKS = 500
+			DATE_TICKS = 500
 		elif WindLevel.sensorPresent == true:
-			MONTH_TICKS = 350
+			DATE_TICKS = 350
 		elif SeaLevel.sensorPresent == true:
-			MONTH_TICKS = 250
+			DATE_TICKS = 250
 		else:
-			MONTH_TICKS = 100
+			DATE_TICKS = 100
 	else:
-		MONTH_TICKS = 100
-	ticksSinceLastMonthChange += 1
+		DATE_TICKS = 100
+	ticksSinceLastWeekChange += 1
 	#update profit display weekly
-	if ticksSinceLastMonthChange % (MONTH_TICKS/4) == 0:
+	if ticksSinceLastWeekChange % (DATE_TICKS) == 0:
 		Econ.updateProfitDisplay()
-	if (ticksSinceLastMonthChange >= MONTH_TICKS):
-		ticksSinceLastMonthChange = 0
-		if (month == Months.December):
-			month = Months.January
-			year += 1
+	if (ticksSinceLastWeekChange >= DATE_TICKS):
+		ticksSinceLastWeekChange = 0
+		if (week == Weeks.Week4):
+			week = Weeks.Week1
+			if (month == Months.December):
+				month = Months.January
+				year += 1
+			else:
+				month += 1
 		else:
-			month += 1
-		update_month_display()
+			week += 1
+		update_date_display()
 		Econ.profit()
 		UpdatePopulation.calc_pop_growth()
 
-func update_month_display():
+func update_date_display():
+	if week == Weeks.Week1:
+		get_node("/root/CityMap/HUD/Date/Week").text = "Week 1"
+	elif week == Weeks.Week2:
+		get_node("/root/CityMap/HUD/Date/Week").text = "Week 2"
+	elif week == Weeks.Week3:
+		get_node("/root/CityMap/HUD/Date/Week").text = "Week 3"
+	else:
+		get_node("/root/CityMap/HUD/Date/Week").text = "Week 4"
 	get_node("/root/CityMap/HUD/Date/Month").text = Months.keys()[month]
 	get_node("/root/CityMap/HUD/Date/Year").text = str(year)

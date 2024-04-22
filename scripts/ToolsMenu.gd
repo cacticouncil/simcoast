@@ -80,7 +80,7 @@ func _ready():
 	sensorSection.set_bg(sensorSection.rect_size, Color("e03c3c3c"))
 	
 	var beachButtons = [
-		["wavebreaker", "res://assets/buttons/wave_breaker", "Wavebreaker"]
+		["wave_breaker", "res://assets/buttons/wave_breaker", "Wavebreaker"]
 	]
 	var beachSection = toolbarSectionScene.instance()
 	beachSection.add_button("Beach Services", beachButtons)
@@ -329,7 +329,7 @@ func button_pressed():
 			Global.mapTool = Global.Tool.SENSOR_RAIN
 		'wind sensor_button':
 			Global.mapTool = Global.Tool.SENSOR_WIND
-		'wavebreaker_button':
+		'wave_breaker_button':
 			Global.mapTool = Global.Tool.INF_WAVE_BREAKER
 		'raise_ocean_button':
 			Global.mapTool = Global.Tool.NONE
