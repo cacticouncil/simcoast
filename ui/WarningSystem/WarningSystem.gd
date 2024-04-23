@@ -9,7 +9,12 @@ var TideInfoInstance = TideInfo.instance()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	add_child(RainInfoInstance)
+	if SeaLevel.sensorPresent:
+		add_child(TideInfoInstance)
+	if !WindLevel.sensorPresent:
+		$Buttons/Anemometer/Button.disabled = true
+	if !RainLevel.sensorPresent:
+		$Buttons/Rain/Button.disabled = true
 
 func _on_QuitButton_pressed():
 	$QuitButton.material.set_shader_param("value", 1)
@@ -35,11 +40,12 @@ func _on_Rain_pressed():
 	add_child(RainInfoInstance)
 	
 	$Buttons/Rain/Button.disabled = true
-	$Buttons/Anemometer/Button.disabled = false
+	if WindLevel.sensorPresent:
+		$Buttons/Anemometer/Button.disabled = false
 	$Buttons/Tide/Button.disabled = false
 	
 	$Buttons/Rain/ColorRect.rect_min_size = Vector2(426, 83)
-	$Buttons/Anemometer/ColorRect.rect_min_size = $Buttons/Rain/Button.rect_min_size
+	$Buttons/Anemometer/ColorRect.rect_min_size = $Buttons/Anemometer/Button.rect_min_size
 	$Buttons/Tide/ColorRect.rect_min_size = $Buttons/Tide/Button.rect_min_size
 
 func _on_Anemometer_pressed():
@@ -69,9 +75,10 @@ func _on_Tide_pressed():
 	add_child(TideInfoInstance)
 	
 	$Buttons/Rain/Button.disabled = false
-	$Buttons/Anemometer/Button.disabled = false
+	if WindLevel.sensorPresent:
+		$Buttons/Anemometer/Button.disabled = false
 	$Buttons/Tide/Button.disabled = true
 	
 	$Buttons/Rain/ColorRect.rect_min_size = $Buttons/Rain/Button.rect_min_size
-	$Buttons/Anemometer/ColorRect.rect_min_size = $Buttons/Tide/Button.rect_min_size
+	$Buttons/Anemometer/ColorRect.rect_min_size = $Buttons/Anemometer/Button.rect_min_size
 	$Buttons/Tide/ColorRect.rect_min_size = Vector2(426, 83)
