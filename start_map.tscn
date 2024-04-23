@@ -157,6 +157,22 @@ margin_right = 458.0
 margin_bottom = 37.0
 color = Color( 0, 0, 0, 0.737255 )
 
+[node name="WarningHover" type="ColorRect" parent="HUD/TopBarBG"]
+visible = false
+margin_left = 468.0
+margin_top = 34.0
+margin_right = 554.0
+margin_bottom = 37.0
+color = Color( 0.254902, 0.247059, 0.247059, 0.737255 )
+
+[node name="WarningSelected" type="ColorRect" parent="HUD/TopBarBG"]
+visible = false
+margin_left = 468.0
+margin_top = 34.0
+margin_right = 554.0
+margin_bottom = 37.0
+color = Color( 0, 0, 0, 0.737255 )
+
 [node name="TopBarMenu" type="HBoxContainer" parent="HUD"]
 margin_left = 10.0
 margin_top = 10.0
@@ -228,6 +244,23 @@ custom_styles/focus = SubResource( 11 )
 custom_styles/disabled = SubResource( 12 )
 custom_styles/normal = SubResource( 13 )
 text = "Store"
+
+[node name="Warnings" type="Button" parent="HUD/TopBarMenu"]
+margin_left = 463.0
+margin_right = 539.0
+margin_bottom = 26.0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 8 )
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
+text = "Warnings"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
 margin_left = 640.0
@@ -791,6 +824,9 @@ anims/RESET = SubResource( 16 )
 [connection signal="mouse_entered" from="HUD/TopBarMenu/StoreButton" to="." method="_on_StoreButton_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/TopBarMenu/StoreButton" to="." method="_on_StoreButton_mouse_exited"]
 [connection signal="pressed" from="HUD/TopBarMenu/StoreButton" to="." method="_on_StoreButton_pressed"]
+[connection signal="mouse_entered" from="HUD/TopBarMenu/Warnings" to="." method="_on_Warnings_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/TopBarMenu/Warnings" to="." method="_on_Warnings_mouse_exited"]
+[connection signal="pressed" from="HUD/TopBarMenu/Warnings" to="." method="_on_Warnings_pressed"]
 [connection signal="toggled" from="HUD/play_button" to="." method="_on_play_button_toggled"]
 [connection signal="toggled" from="HUD/fastfwd_button" to="." method="_on_fastfwd_button_toggled"]
 [connection signal="mouse_entered" from="HUD/Missions/VBoxContainer/Mission1" to="." method="_on_Mission1_mouse_entered"]

@@ -1,6 +1,13 @@
 extends Node
 
 var rng = RandomNumberGenerator.new()
+var rainTropStormWarning = 10
+var rainCategory1Warning = 20
+var rainCategory2Warning = 30
+var rainCategory3Warning = 40
+var rainCategory4Warning = 50
+var rainCategory5Warning = 60
+
 
 func update_weather():
 	if Weather.weatherOn:

@@ -1057,11 +1057,13 @@ func _on_DashboardButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = true
 	$HUD/TopBarBG/AchievementSelected.visible = false
 	$HUD/TopBarBG/StoreSelected.visible = false
+	$HUD/TopBarBG/WarningSelected.visible = false
 
 func _on_UIAchievementButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = false
 	$HUD/TopBarBG/AchievementSelected.visible = true
 	$HUD/TopBarBG/StoreSelected.visible = false
+	$HUD/TopBarBG/WarningSelected.visible = false
 	var AchMenu = preload("res://ui/SubMenu/AchievementMenu.tscn")
 	var AchMenuInstance = AchMenu.instance()
 	add_child(AchMenuInstance)
@@ -1073,6 +1075,15 @@ func _on_StoreButton_pressed():
 	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 	var TutorialInstance = tutorial.instance()
 	add_child(TutorialInstance)
+
+func _on_Warnings_pressed():
+	$HUD/TopBarBG/DashboardSelected.visible = false
+	$HUD/TopBarBG/AchievementSelected.visible = false
+	$HUD/TopBarBG/StoreSelected.visible = false
+	$HUD/TopBarBG/WarningSelected.visible = false
+	var WarningMenu = preload("res://ui/WarningSystem/WarningSystem.tscn")
+	var WarningMenuInstance = WarningMenu.instance()
+	add_child(WarningMenuInstance)
 
 func _on_DashboardButton_mouse_entered():
 	$HUD/TopBarBG/DashboardHover.visible = true
@@ -1091,6 +1102,12 @@ func _on_UIAchievementButton_mouse_exited():
 
 func _on_StoreButton_mouse_exited():
 	$HUD/TopBarBG/StoreHover.visible = false
+	
+func _on_Warnings_mouse_entered():
+	$HUD/TopBarBG/WarningHover.visible = true
+
+func _on_Warnings_mouse_exited():
+	$HUD/TopBarBG/WarningHover.visible = false
 
 # sensor options -> yes, no, or ask for help
 # yes adds sensor to tile
