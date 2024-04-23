@@ -105,11 +105,11 @@ rect_min_size = Vector2( 426, 83 )
 color = Color( 0.258824, 0.258824, 0.258824, 1 )
 
 [node name="Button" type="Button" parent="Buttons/Rain"]
-margin_left = 91.0
+margin_left = 84.0
 margin_top = 13.0
-margin_right = 334.0
+margin_right = 342.0
 margin_bottom = 69.0
-rect_min_size = Vector2( 243, 56 )
+rect_min_size = Vector2( 258, 56 )
 custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.341176, 0.341176, 0.341176, 1 )
@@ -143,6 +143,7 @@ margin_top = 13.0
 margin_right = 351.0
 margin_bottom = 69.0
 rect_min_size = Vector2( 276, 56 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.341176, 0.341176, 0.341176, 1 )
 custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
@@ -154,13 +155,13 @@ custom_styles/disabled = SubResource( 25 )
 custom_styles/normal = SubResource( 26 )
 text = "Anemometer"
 
-[node name="Tide Gauge" type="CenterContainer" parent="Buttons"]
+[node name="Tide" type="CenterContainer" parent="Buttons"]
 margin_left = 854.0
 margin_right = 1280.0
 margin_bottom = 83.0
 rect_min_size = Vector2( 426, 83 )
 
-[node name="ColorRect" type="ColorRect" parent="Buttons/Tide Gauge"]
+[node name="ColorRect" type="ColorRect" parent="Buttons/Tide"]
 margin_left = 87.0
 margin_top = 13.0
 margin_right = 338.0
@@ -168,12 +169,13 @@ margin_bottom = 69.0
 rect_min_size = Vector2( 251, 56 )
 color = Color( 0.258824, 0.258824, 0.258824, 1 )
 
-[node name="Button" type="Button" parent="Buttons/Tide Gauge"]
+[node name="Button" type="Button" parent="Buttons/Tide"]
 margin_left = 87.0
 margin_top = 13.0
 margin_right = 338.0
 margin_bottom = 69.0
 rect_min_size = Vector2( 251, 56 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.341176, 0.341176, 0.341176, 1 )
 custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
@@ -189,3 +191,6 @@ text = "Tide Gauge"
 [connection signal="mouse_entered" from="QuitButton" to="." method="_on_QuitButton_mouse_entered"]
 [connection signal="mouse_exited" from="QuitButton" to="." method="_on_QuitButton_mouse_exited"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="Buttons/Rain/Button" to="." method="_on_Rain_pressed"]
+[connection signal="pressed" from="Buttons/Anemometer/Button" to="." method="_on_Anemometer_pressed"]
+[connection signal="pressed" from="Buttons/Tide/Button" to="." method="_on_Tide_pressed"]

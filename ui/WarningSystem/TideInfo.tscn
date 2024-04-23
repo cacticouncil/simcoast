@@ -1,0 +1,423 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/WarningSystem/TideInfo.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=3]
+
+[node name="RainInfo" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 166.0
+script = ExtResource( 2 )
+
+[node name="BG" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.258824, 0.258824, 0.258824, 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+
+[node name="TropicalStorm" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1280.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 92 )
+custom_constants/separation = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/TropicalStorm"]
+margin_right = 400.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="Label" type="Label" parent="VBoxContainer/TropicalStorm/CenterContainer"]
+margin_left = 38.0
+margin_top = 28.0
+margin_right = 362.0
+margin_bottom = 64.0
+custom_fonts/font = ExtResource( 3 )
+text = "Tropical Storm"
+
+[node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/TropicalStorm"]
+margin_left = 400.0
+margin_right = 1080.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 680, 0 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TropicalStorm/CenterContainer2"]
+margin_left = 114.0
+margin_top = 38.0
+margin_right = 566.0
+margin_bottom = 54.0
+custom_constants/separation = 10
+
+[node name="TropicalStormMin" type="Label" parent="VBoxContainer/TropicalStorm/CenterContainer2/HBoxContainer"]
+margin_top = 1.0
+margin_right = 8.0
+margin_bottom = 15.0
+text = "0"
+
+[node name="TropicalStormSlider" type="HSlider" parent="VBoxContainer/TropicalStorm/CenterContainer2/HBoxContainer"]
+margin_left = 18.0
+margin_right = 418.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="TropicalStormMax" type="Label" parent="VBoxContainer/TropicalStorm/CenterContainer2/HBoxContainer"]
+margin_left = 428.0
+margin_top = 1.0
+margin_right = 452.0
+margin_bottom = 15.0
+text = "100"
+
+[node name="CenterContainer3" type="CenterContainer" parent="VBoxContainer/TropicalStorm"]
+margin_left = 1080.0
+margin_right = 1280.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="TropicalStormValue" type="Label" parent="VBoxContainer/TropicalStorm/CenterContainer3"]
+margin_left = 92.0
+margin_top = 34.0
+margin_right = 107.0
+margin_bottom = 57.0
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+
+[node name="Category1" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 92.0
+margin_right = 1280.0
+margin_bottom = 184.0
+rect_min_size = Vector2( 0, 92 )
+custom_constants/separation = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Category1"]
+margin_right = 400.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Category1/CenterContainer"]
+margin_left = 92.0
+margin_top = 28.0
+margin_right = 308.0
+margin_bottom = 64.0
+custom_fonts/font = ExtResource( 3 )
+text = "Category 1"
+
+[node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/Category1"]
+margin_left = 400.0
+margin_right = 1080.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 680, 0 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Category1/CenterContainer2"]
+margin_left = 114.0
+margin_top = 38.0
+margin_right = 566.0
+margin_bottom = 54.0
+custom_constants/separation = 10
+
+[node name="Category1Min" type="Label" parent="VBoxContainer/Category1/CenterContainer2/HBoxContainer"]
+margin_top = 1.0
+margin_right = 8.0
+margin_bottom = 15.0
+text = "0"
+
+[node name="Category1Slider" type="HSlider" parent="VBoxContainer/Category1/CenterContainer2/HBoxContainer"]
+margin_left = 18.0
+margin_right = 418.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="Category1Max" type="Label" parent="VBoxContainer/Category1/CenterContainer2/HBoxContainer"]
+margin_left = 428.0
+margin_top = 1.0
+margin_right = 452.0
+margin_bottom = 15.0
+text = "100"
+
+[node name="CenterContainer3" type="CenterContainer" parent="VBoxContainer/Category1"]
+margin_left = 1080.0
+margin_right = 1280.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="Category1Value" type="Label" parent="VBoxContainer/Category1/CenterContainer3"]
+margin_left = 92.0
+margin_top = 34.0
+margin_right = 107.0
+margin_bottom = 57.0
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+
+[node name="Category2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 184.0
+margin_right = 1280.0
+margin_bottom = 276.0
+rect_min_size = Vector2( 0, 92 )
+custom_constants/separation = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Category2"]
+margin_right = 400.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Category2/CenterContainer"]
+margin_left = 85.0
+margin_top = 28.0
+margin_right = 315.0
+margin_bottom = 64.0
+custom_fonts/font = ExtResource( 3 )
+text = "Category 2"
+
+[node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/Category2"]
+margin_left = 400.0
+margin_right = 1080.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 680, 0 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Category2/CenterContainer2"]
+margin_left = 114.0
+margin_top = 38.0
+margin_right = 566.0
+margin_bottom = 54.0
+custom_constants/separation = 10
+
+[node name="Category2Min" type="Label" parent="VBoxContainer/Category2/CenterContainer2/HBoxContainer"]
+margin_top = 1.0
+margin_right = 8.0
+margin_bottom = 15.0
+text = "0"
+
+[node name="Category2Slider" type="HSlider" parent="VBoxContainer/Category2/CenterContainer2/HBoxContainer"]
+margin_left = 18.0
+margin_right = 418.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="Category2Max" type="Label" parent="VBoxContainer/Category2/CenterContainer2/HBoxContainer"]
+margin_left = 428.0
+margin_top = 1.0
+margin_right = 452.0
+margin_bottom = 15.0
+text = "100"
+
+[node name="CenterContainer3" type="CenterContainer" parent="VBoxContainer/Category2"]
+margin_left = 1080.0
+margin_right = 1280.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="Category2Value" type="Label" parent="VBoxContainer/Category2/CenterContainer3"]
+margin_left = 92.0
+margin_top = 34.0
+margin_right = 107.0
+margin_bottom = 57.0
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+
+[node name="Category3" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 276.0
+margin_right = 1280.0
+margin_bottom = 368.0
+rect_min_size = Vector2( 0, 92 )
+custom_constants/separation = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Category3"]
+margin_right = 400.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Category3/CenterContainer"]
+margin_left = 85.0
+margin_top = 28.0
+margin_right = 315.0
+margin_bottom = 64.0
+custom_fonts/font = ExtResource( 3 )
+text = "Category 3"
+
+[node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/Category3"]
+margin_left = 400.0
+margin_right = 1080.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 680, 0 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Category3/CenterContainer2"]
+margin_left = 114.0
+margin_top = 38.0
+margin_right = 566.0
+margin_bottom = 54.0
+custom_constants/separation = 10
+
+[node name="Category3Min" type="Label" parent="VBoxContainer/Category3/CenterContainer2/HBoxContainer"]
+margin_top = 1.0
+margin_right = 8.0
+margin_bottom = 15.0
+text = "0"
+
+[node name="Category3Slider" type="HSlider" parent="VBoxContainer/Category3/CenterContainer2/HBoxContainer"]
+margin_left = 18.0
+margin_right = 418.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="Category3Max" type="Label" parent="VBoxContainer/Category3/CenterContainer2/HBoxContainer"]
+margin_left = 428.0
+margin_top = 1.0
+margin_right = 452.0
+margin_bottom = 15.0
+text = "100"
+
+[node name="CenterContainer3" type="CenterContainer" parent="VBoxContainer/Category3"]
+margin_left = 1080.0
+margin_right = 1280.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="Category3Value" type="Label" parent="VBoxContainer/Category3/CenterContainer3"]
+margin_left = 92.0
+margin_top = 34.0
+margin_right = 107.0
+margin_bottom = 57.0
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+
+[node name="Category4" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 368.0
+margin_right = 1280.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 0, 92 )
+custom_constants/separation = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Category4"]
+margin_right = 400.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Category4/CenterContainer"]
+margin_left = 85.0
+margin_top = 28.0
+margin_right = 315.0
+margin_bottom = 64.0
+custom_fonts/font = ExtResource( 3 )
+text = "Category 4"
+
+[node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/Category4"]
+margin_left = 400.0
+margin_right = 1080.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 680, 0 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Category4/CenterContainer2"]
+margin_left = 114.0
+margin_top = 38.0
+margin_right = 566.0
+margin_bottom = 54.0
+custom_constants/separation = 10
+
+[node name="Category4Min" type="Label" parent="VBoxContainer/Category4/CenterContainer2/HBoxContainer"]
+margin_top = 1.0
+margin_right = 8.0
+margin_bottom = 15.0
+text = "0"
+
+[node name="Category4Slider" type="HSlider" parent="VBoxContainer/Category4/CenterContainer2/HBoxContainer"]
+margin_left = 18.0
+margin_right = 418.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="Category4Max" type="Label" parent="VBoxContainer/Category4/CenterContainer2/HBoxContainer"]
+margin_left = 428.0
+margin_top = 1.0
+margin_right = 452.0
+margin_bottom = 15.0
+text = "100"
+
+[node name="CenterContainer3" type="CenterContainer" parent="VBoxContainer/Category4"]
+margin_left = 1080.0
+margin_right = 1280.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="Category4Value" type="Label" parent="VBoxContainer/Category4/CenterContainer3"]
+margin_left = 92.0
+margin_top = 34.0
+margin_right = 107.0
+margin_bottom = 57.0
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+
+[node name="Category5" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 460.0
+margin_right = 1280.0
+margin_bottom = 552.0
+rect_min_size = Vector2( 0, 92 )
+custom_constants/separation = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Category5"]
+margin_right = 400.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Category5/CenterContainer"]
+margin_left = 85.0
+margin_top = 28.0
+margin_right = 315.0
+margin_bottom = 64.0
+custom_fonts/font = ExtResource( 3 )
+text = "Category 5"
+
+[node name="CenterContainer2" type="CenterContainer" parent="VBoxContainer/Category5"]
+margin_left = 400.0
+margin_right = 1080.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 680, 0 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Category5/CenterContainer2"]
+margin_left = 114.0
+margin_top = 38.0
+margin_right = 566.0
+margin_bottom = 54.0
+custom_constants/separation = 10
+
+[node name="Category5Min" type="Label" parent="VBoxContainer/Category5/CenterContainer2/HBoxContainer"]
+margin_top = 1.0
+margin_right = 8.0
+margin_bottom = 15.0
+text = "0"
+
+[node name="Category5Slider" type="HSlider" parent="VBoxContainer/Category5/CenterContainer2/HBoxContainer"]
+margin_left = 18.0
+margin_right = 418.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="Category5Max" type="Label" parent="VBoxContainer/Category5/CenterContainer2/HBoxContainer"]
+margin_left = 428.0
+margin_top = 1.0
+margin_right = 452.0
+margin_bottom = 15.0
+text = "100"
+
+[node name="CenterContainer3" type="CenterContainer" parent="VBoxContainer/Category5"]
+margin_left = 1080.0
+margin_right = 1280.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="Category5Value" type="Label" parent="VBoxContainer/Category5/CenterContainer3"]
+margin_left = 92.0
+margin_top = 34.0
+margin_right = 107.0
+margin_bottom = 57.0
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+
+[connection signal="value_changed" from="VBoxContainer/TropicalStorm/CenterContainer2/HBoxContainer/TropicalStormSlider" to="." method="_on_TropicalStormSlider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Category1/CenterContainer2/HBoxContainer/Category1Slider" to="." method="_on_Category1Slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Category2/CenterContainer2/HBoxContainer/Category2Slider" to="." method="_on_Category2Slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Category3/CenterContainer2/HBoxContainer/Category3Slider" to="." method="_on_Category3Slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Category4/CenterContainer2/HBoxContainer/Category4Slider" to="." method="_on_Category4Slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Category5/CenterContainer2/HBoxContainer/Category5Slider" to="." method="_on_Category5Slider_value_changed"]

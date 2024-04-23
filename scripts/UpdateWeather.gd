@@ -7,6 +7,18 @@ var rainCategory2Warning = 30
 var rainCategory3Warning = 40
 var rainCategory4Warning = 50
 var rainCategory5Warning = 60
+var aneTropStormWarning = 62
+var aneCategory1Warning = 52
+var aneCategory2Warning = 42
+var aneCategory3Warning = 32
+var aneCategory4Warning = 22
+var aneCategory5Warning = 12
+var tideTropStormWarning = 17
+var tideCategory1Warning = 67
+var tideCategory2Warning = 27
+var tideCategory3Warning = 57
+var tideCategory4Warning = 37
+var tideCategory5Warning = 47
 
 
 func update_weather():
