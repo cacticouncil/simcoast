@@ -49,7 +49,7 @@ func update_date():
 		update_month_display()
 		Econ.profit()
 		UpdatePopulation.calc_pop_growth()
-
+		City.calculate_wear_and_tear()
 func update_month_display():
 	get_node("/root/CityMap/HUD/Date/Month").text = Months.keys()[month]
 	get_node("/root/CityMap/HUD/Date/Year").text = str(year)

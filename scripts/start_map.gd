@@ -6,6 +6,7 @@ var tickDelay = Global.TICK_DELAY #time in seconds between ticks
 var numTicks = 0 #time elapsed since start
 var isFastFWD = false
 var current_sensor_tile
+var current_road_tile
 var fadedShader = preload("res://assets/shaders/faded.tres")
 var invalidShader = preload("res://assets/shaders/invalid.tres")
 # Called when the node enters the scene tree for the first time.
@@ -836,7 +837,19 @@ func placementState():
 						City.connectUtilities()
 						City.numBridges += 1
 						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
-				
+		#if on damaged road tile, left click to repair
+		elif Global.mapTool == Global.Tool.INF_ROAD && tile.inf == Tile.TileInf.ROAD && tile.tileDamage > 0:
+			Global.dragToPlaceState = false
+			current_road_tile = tile
+			if tile.tileDamage == 0.25:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This road has light damage.\nRepair for $15?"
+			elif tile.tileDamage == 0.50:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This road has medium damage.\nRepair for $30?"
+			elif tile.tileDamage == 0.75:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This road has heavy damage.\nRepair for $60?"
+			
+			$RoadRepair.visible = true
+			
 	elif Global.dragToRemoveState:
 		
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
@@ -979,3 +992,37 @@ func _on_CloseNoButton_pressed():
 
 func _on_OkButton_pressed():
 	$SensorChoice/ColorRect2.visible = false # Replace with function body.
+
+
+func _on_RoadRepairYesButton_pressed():
+	var tile = current_road_tile
+	if tile.tileDamage == 0.25:
+		if (Econ.purchase_structure(Econ.ROAD_REPAIR_L_COST)):
+			tile.clear_tile()
+			tile.inf = Tile.TileInf.ROAD
+			City.connectRoads(tile)
+			City.connectUtilities()
+			City.numRoads += 1
+			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+	elif tile.tileDamage == 0.5:
+		if (Econ.purchase_structure(Econ.ROAD_REPAIR_M_COST)):
+			tile.clear_tile()
+			tile.inf = Tile.TileInf.ROAD
+			City.connectRoads(tile)
+			City.connectUtilities()
+			City.numRoads += 1
+			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+	elif tile.tileDamage == 0.75:
+		if (Econ.purchase_structure(Econ.ROAD_REPAIR_H_COST)):
+			tile.clear_tile()
+			tile.inf = Tile.TileInf.ROAD
+			City.connectRoads(tile)
+			City.connectUtilities()
+			City.numRoads += 1
+			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+			
+	$RoadRepair.visible = false
+
+
+func _on_RoadRepairNoButton_pressed():
+	$RoadRepair.visible = false

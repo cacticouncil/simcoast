@@ -94,8 +94,16 @@ func _draw():
 			
 	elif tile.inf == Tile.TileInf.ROAD:
 		for building in listOfBuildings:
+			#shade road tiles if theyre damaged for players to see
+			if (tile.tileDamage > 0):
+				if tile.tileDamage == 0.25:
+					building.modulate = Color(1, 0, 0)
+				elif tile.tileDamage == 0.50:
+					building.modulate = Color(0.5, 0, 0)
+				else:
+					building.modulate = Color(0.25, 0, 0)
 			get_parent().add_child(building)
-	
+		
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		for building in listOfBuildings:
 			get_parent().add_child(building)
@@ -279,9 +287,10 @@ func update_polygons():
 
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
-		clear_objects()
 		var image
 		var currBuilding
+		
+		clear_objects()
 		
 		if w == 0:
 			if tile.connections[0]:
@@ -303,7 +312,6 @@ func update_polygons():
 			currBuilding = Sprite.new()
 			currBuilding.texture = image
 			currBuilding.position = Vector2(x, y - h)
-			currBuilding.z_index = (i + j) * 10
 			listOfBuildings.append(currBuilding)
 			
 			if tile.connections[2]:
