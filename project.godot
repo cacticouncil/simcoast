@@ -119,7 +119,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Observers/Observer.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "Sensor",
 "language": "GDScript",
 "path": "res://scripts/Sensor.gd"
@@ -186,7 +186,7 @@ Econ="*res://scripts/Econ.gd"
 Global="*res://scripts/Global.gd"
 City="*res://scripts/City.gd"
 UpdatePopulation="*res://scripts/updatePopulation.gd"
-SaveDialog="*res://SaveDialog.gd"
+SaveDialog="*res://scripts/SaveDialog.gd"
 SaveLoad="*res://scripts/Save_Load.gd"
 Economy="*res://AI/economy/economy.tscn"
 UpdateDate="*res://scripts/updateDate.gd"

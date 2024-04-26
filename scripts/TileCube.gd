@@ -31,7 +31,7 @@ func _draw():
 	var baseColor = get_cube_colors()
 	var waterColor = Tile.WATER_COLOR
 	var buildingColor = get_building_colors()
-	
+
 	# Draw the sides of the base of the tile cube
 	if tile.get_base_height() > 0:
 		draw_polygon(base_cube[1].get_polygon(), PoolColorArray([baseColor[1]]))
@@ -91,14 +91,19 @@ func _draw():
 	elif tile.inf == Tile.TileInf.BEACH_GRASS:
 		for g in objects:
 			draw_polyline(g, Tile.TREE_COLOR[0])
-	
-	elif tile.inf == Tile.TileInf.WAVE_BREAKER:
-		get_parent().add_child(buildingSprite)
 		
 	elif tile.inf == Tile.TileInf.ROAD:
 		for building in listOfBuildings:
+			#shade road tiles if theyre damaged for players to see
+			if (tile.tileDamage > 0):
+				if tile.tileDamage == 0.25:
+					building.modulate = Color(1, 0, 0)
+				elif tile.tileDamage == 0.50:
+					building.modulate = Color(0.5, 0, 0)
+				else:
+					building.modulate = Color(0.25, 0, 0)
 			get_parent().add_child(building)
-	
+		
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		for building in listOfBuildings:
 			get_parent().add_child(building)
@@ -290,13 +295,6 @@ func update_polygons():
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
 	
-	elif tile.inf == Tile.TileInf.WAVE_BREAKER:
-		clear_objects()
-		var image = load("res://assets/building_assets/2d Assets/Wavebreaker.png")
-		buildingSprite = Sprite.new()
-		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h)
-		buildingSprite.z_index = (i + j) * 10
 	#sensors
 	elif tile.sensor == Tile.TileSensor.TIDE:
 		clear_objects()
@@ -335,9 +333,10 @@ func update_polygons():
 		buildingSprite.z_index = (i + j) * 10
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
-		clear_objects()
 		var image
 		var currBuilding
+		
+		clear_objects()
 		
 		if w == 0:
 			if tile.connections[0]:
@@ -359,7 +358,6 @@ func update_polygons():
 			currBuilding = Sprite.new()
 			currBuilding.texture = image
 			currBuilding.position = Vector2(x, y - h)
-			currBuilding.z_index = (i + j) * 10
 			listOfBuildings.append(currBuilding)
 			
 			if tile.connections[2]:
@@ -649,7 +647,7 @@ func update_polygons():
 					currentHeight += 16
 					zIndex += 1
 				
-				var remainingResidents = tile.data[2] % 16
+				var remainingResidents = int(tile.data[2]) % 16
 				var image
 				
 				if tile.data[3] - tile.data[2] > 0:
@@ -701,7 +699,7 @@ func get_building_colors():
 func get_cube_colors():
 	var tile = Global.tileMap[i][j]
 	var colors = []
-	
+
 	match tile.get_base():
 		Tile.TileBase.DIRT:
 			colors = Tile.DIRT_COLOR.duplicate(true)
@@ -734,8 +732,8 @@ func get_cube_colors():
 			colors[0] = Tile.ROCK_COLOR[0]
 		#Tile.TileInf.BRIDGE:
 			#colors[0] = Tile.ROCK_COLOR[0]
-	
 
+	
 	return colors
 
 # Update the given tree based on its starting coordintes and properties

@@ -79,13 +79,6 @@ func _ready():
 	$VBoxContainer.add_child(sensorSection)
 	sensorSection.set_bg(sensorSection.rect_size, Color("e03c3c3c"))
 	
-	var beachButtons = [
-		["wave_breaker", "res://assets/buttons/wave_breaker", "Wavebreaker"]
-	]
-	var beachSection = toolbarSectionScene.instance()
-	beachSection.add_button("Beach Services", beachButtons)
-	$VBoxContainer.add_child(beachSection)
-	beachSection.set_bg(beachSection.rect_size, Color("526e7584"))
 	
 	#Once we create all the buttons, we want to add the functionality to each of them
 	for i in group.get_buttons():
@@ -329,8 +322,6 @@ func button_pressed():
 			Global.mapTool = Global.Tool.SENSOR_RAIN
 		'wind sensor_button':
 			Global.mapTool = Global.Tool.SENSOR_WIND
-		'wave_breaker_button':
-			Global.mapTool = Global.Tool.INF_WAVE_BREAKER
 		'raise_ocean_button':
 			Global.mapTool = Global.Tool.NONE
 			if Global.oceanHeight < Global.MAX_HEIGHT:

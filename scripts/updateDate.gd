@@ -27,6 +27,19 @@ var week = Weeks.Week1
 var month = Months.April
 var year = 2022
 
+func get_date_data():
+	var data = {
+		"ticksSinceLastWeekChange": ticksSinceLastWeekChange,
+		"month": month,
+		"year": year
+	}
+	
+	return data
+	
+func load_date_data(data):
+	for key in data:
+		self.set(key, data[key])
+
 func update_date():
 	if Weather.willStorm == true:
 		if RainLevel.sensorPresent == true:
@@ -57,6 +70,7 @@ func update_date():
 		update_date_display()
 		Econ.profit()
 		UpdatePopulation.calc_pop_growth()
+		City.calculate_wear_and_tear()
 
 func update_date_display():
 	if week == Weeks.Week1:

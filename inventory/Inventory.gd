@@ -24,14 +24,13 @@ var items = {
 	'hv_com_zone': 0, #don't use
 	"tide sensor": 0,
 	"rain sensor": 0,
-	"wind sensor": 0,
-	"wave_breaker": 0
+	"wind sensor": 0
 }
 
-var tide_info = " Used to measure the speed and\n height of the tide and other\n weather metrics."
+var tide_info = "Used to measure the speed and\n height of the tide and other\n weather metrics."
 var tide_ext_info = "A tide gauge is a device used to measure the change in sea level relative to the surface of land.\nSensors continuously record the height of the water level by measuring the distance to the water's surface and comparing it to the height of the land it is connected to.\nTide gauges are important sensors when predicting upcoming storms, since storms create higher waves."
-var placeholder = " This is the extended sensor description. TBA"
-var rain_info = " Used to measure the amount of\n rain fall an area has had over\n a period of time."
+var placeholder = "This is the extended sensor description. TBA"
+var rain_info = "Used to measure the amount of\n rain fall an area has had over\n a period of time."
 var wind_info = "Used to measure wind\n speed and air pressure."
 var wind_ext_info = "A wind gauge is a device used to measure wind\n speed and pressure."
 var sensors = []
@@ -40,6 +39,53 @@ var tide_bought = false
 var rain_bought = false
 var wind_bought = false
 
+
+func get_inventory_data():
+	var sensor_data = []
+	
+	for sensor in sensors:
+		sensor_data.append(sensor.to_dict())
+	
+	var data = {
+		"items": items,
+		"sensors": sensor_data
+	}
+	
+	return data
+
+func load_inventory_data(data):
+	items = data["items"]
+	
+	sensors.clear()
+	
+	# Create sensors
+	var sensor1 = Sensor.new("", "", "", "")
+	var sensor1Data = data["sensors"][0]
+	
+	# Override default data with saved data
+	for key in sensor1Data:
+		sensor1.set(key, sensor1Data[key])
+	
+	var sensor2 = Sensor.new("", "", "", "")
+	var sensor2Data = data["sensors"][1]
+	
+	for key in sensor1Data:
+		sensor2.set(key, sensor2Data[key])
+	
+	var sensor3 = Sensor.new("", "", "", "")
+	var sensor3Data = data["sensors"][2]
+	
+	for key in sensor3Data:
+		sensor3.set(key, sensor3Data[key])
+		
+	sensors.append(sensor1)
+	sensors.append(sensor2)
+	sensors.append(sensor3)
+	
+	# Update inventory numbers
+	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
+
+	
 # adds all types of sensor currently available to inventory
 func _ready():
 	sensors.append(Sensor.new("Tide Gauge", tide_info, tide_ext_info, " "))
