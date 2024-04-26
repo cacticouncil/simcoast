@@ -14,13 +14,13 @@ var counts = false
 
 func update_wind_level():
 	if WindLevel.windOn:
-		if WindLevel.currentMonth == UpdateDate.month:
-			if (WindLevel.currentMonth == UpdateDate.Months.December):
-				WindLevel.currentMonth = UpdateDate.Months.January
+		if WindLevel.currentWeek == UpdateDate.week:
+			if (WindLevel.currentWeek == UpdateDate.Weeks.Week4):
+				WindLevel.currentWeek = UpdateDate.Weeks.Week1
 				if WindLevel.sensorPresent == true:
 					print("W", WindLevel.allWindLevels)
 			else:
-				WindLevel.currentMonth += 1
+				WindLevel.currentWeek += 1
 		
 			# updates every month
 			if WindLevel.sensorPresent == true:
@@ -31,9 +31,11 @@ func update_wind_level():
 			if Weather.willStorm == true:
 				WindLevel.counter = 1
 				counts = true
+			else:
+				counts = false
 
 			# storm month
-			elif Weather.currentlyStorming == true:
+			if Weather.currentlyStorming == true:
 				if Weather.currentType == Weather.WeatherStates.TROPICAL_STORM:
 					var wind = randi() % (32 - 18 + 1) + 18
 					WindLevel.currentWindLevel = wind

@@ -5,32 +5,41 @@ func _ready():
 
 func saveData(mapPath: String):
 	var correctMapName = mapPath.trim_suffix(".json")
-	correctMapName = correctMapName.trim_prefix("res://saves/")
+	correctMapName = correctMapName.trim_prefix("user://saves/")
 	if not (".json" in mapPath):
 		mapPath += ".json"
-	print(mapPath)
 	var tileData = []
-			
+	
+	Global.currentMap = mapPath
+	
 	for i in Global.mapWidth:
 		for j in Global.mapHeight:
 			tileData.append(Global.tileMap[i][j].get_save_tile_data())
 			
 	var data = {
-		"name": correctMapName,
-		"mapWidth": Global.mapWidth,
-		"mapHeight": Global.mapHeight,
-		"oceanHeight": Global.oceanHeight,
-		"seaLevel": Global.seaLevel,
+		"global": Global.get_global_data(),
 		"tiles": tileData,
-		"money": Econ.money
+		"city": City.get_city_data(),
+		"econ": Econ.get_econ_data(),
+		"stats": Stats.stats,
+		"population": UpdatePopulation.get_population_data(),
+		"demand": UpdateDemand.get_demand_data(),
+		"date": UpdateDate.get_date_data(),
+		"waterDir": UpdateWater.waterDir,
+		"achievements": AchievementObserver.get_completed_achievements(),
+		"inventory": Inventory.get_inventory_data()
 	}
 	
 	var file
 	file = File.new()
 	file.open(mapPath, File.WRITE)
-	file.store_line(to_json(data))
+	file.store_line(JSON.print(data, "\t"))
 	file.close()
 	Global.mapPath = mapPath
+	
+	# Update continue path
+	save_continue_map()
+
 	return [correctMapName, mapPath]
 
 
@@ -44,25 +53,55 @@ func loadData(mapPath: String):
 	var mapData = parse_json(file.get_as_text())
 	file.close()
 	
-	Global.mapName = mapData.name
-	Global.mapPath = mapPath
-	Global.mapWidth = mapData.mapWidth
-	Global.mapHeight = mapData.mapHeight
-	Global.oceanHeight = mapData.oceanHeight
-	Global.seaLevel = mapData.seaLevel
-	Econ.money = mapData.money
+	
+	Global.currentMap = mapPath
+	Global.load_global_data(mapData.global)
+	City.load_city_data(mapData.city)
+	Econ.load_econ_data(mapData.econ)
+	UpdatePopulation.load_population_data(mapData.population)
+	UpdateDemand.load_demand_data(mapData.demand)
+	UpdateDate.load_date_data(mapData.date)
+	Stats.stats = mapData.stats
+	UpdateWater.waterDir = mapData.waterDir
+	
+	AchievementObserver.load_achievements(mapData.achievements)
+	Inventory.load_inventory_data(mapData.inventory)
 	
 	Global.tileMap.clear()
-	
-	for _x in range(Global.mapHeight):
+	for _x in range(Global.mapWidth):
 		var row = []
-		row.resize(Global.mapWidth)
+		row.resize(Global.mapHeight)
 		Global.tileMap.append(row)
 
 	for tileData in mapData.tiles:
-		#FIXME: Save the tile data better. As soon as I add a tile INF type, the beach grass breaks
-		var tileType = int(tileData[6])
-		if tileType == 5 || tileType == 6:
-			tileType += 8
-		Global.tileMap[tileData[0]][tileData[1]] = Tile.new(int(tileData[0]), int(tileData[1]), int(tileData[2]), int(tileData[3]), int(tileData[4]), int(tileData[5]), tileType, tileData[7], int(tileData[8]), int(tileData[9]), int(tileData[10]))
-	return mapData.name
+		Global.tileMap[tileData["i"]][tileData["j"]] = Tile.new(tileData)
+	
+	# Update continue path
+	if mapPath != "res://data/default.json":
+		save_continue_map()
+	
+	return mapData.global.mapName
+
+func save_continue_map():
+	var continuePath = "user://data/continue.json"
+	print(Global.currentMap)
+	var data = {
+		"previous_map_path": Global.currentMap
+	}
+	
+	var file = File.new()
+	file.open(continuePath, File.WRITE)
+	file.store_line(JSON.print(data, "\t"))
+	file.close()
+	
+	return data
+
+func get_continue_map():
+	var continuePath = "user://data/continue.json"
+	var file = File.new()
+	file.open(continuePath, File.READ)
+	var continueData = parse_json(file.get_as_text())
+	file.close()
+
+	var mapPath = continueData.previous_map_path
+	return mapPath

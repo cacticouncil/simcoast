@@ -91,6 +91,7 @@ func _ready():
 	sensorSection.set_bg(sensorSection.rect_size, Color("526e7584"))
 	sensorSection.visible = false
 	
+	
 	#Once we create all the buttons, we want to add the functionality to each of them
 	for i in group.get_buttons():
 		#Handles button presses

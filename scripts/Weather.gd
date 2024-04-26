@@ -20,6 +20,8 @@ var weatherOn = true
 var monthsSinceLastStorm = 0
 var currentMonth = UpdateDate.month
 var nextMonth = UpdateDate.month+1
+var currentWeek = UpdateDate.week
+var nextWeek= UpdateDate.week+1
 var probRain = 0
 # 1 - probability of clear skies
 # change this in UpdateWeather based on month
@@ -37,7 +39,7 @@ var probCat4 = .2947
 var probCat5 = .0421 
 var beachProtection = 16
 var ticksStorming = 0
-var maximumStormTicks = UpdateDate.MONTH_TICKS / 4
+var maximumStormTicks = UpdateDate.DATE_TICKS / 4
 var currentlyStorming = false
 var probSurge = 1
 

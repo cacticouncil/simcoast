@@ -14,13 +14,13 @@ var beachProtection = 16
 
 func update_sea_level():
 	if SeaLevel.seaOn:
-		if SeaLevel.currentMonth == UpdateDate.month:
-			if (SeaLevel.currentMonth == UpdateDate.Months.December):
-				SeaLevel.currentMonth = UpdateDate.Months.January
+		if SeaLevel.currentWeek == UpdateDate.week:
+			if (SeaLevel.currentWeek == UpdateDate.Weeks.Week4):
+				SeaLevel.currentWeek = UpdateDate.Weeks.Week1
 				if SeaLevel.sensorPresent == true:
 					print("S", SeaLevel.allSeaLevels)
 			else:
-				SeaLevel.currentMonth += 1
+				SeaLevel.currentWeek += 1
 		
 			# updates every month
 			SeaLevel.currentSurge = SeaLevel.futureSurge
@@ -36,9 +36,11 @@ func update_sea_level():
 					SeaLevel.futureSurge = SeaLevel.SeaStates.STORM_SURGE
 				SeaLevel.counter = 2
 				counts = true
-
+			else:
+				counts = false
+				
 			# storm month
-			elif Weather.currentlyStorming == true:
+			if Weather.currentlyStorming == true:
 				SeaLevel.futureSurge = SeaLevel.SeaStates.NO_STORM
 				if SeaLevel.currentSurge == SeaLevel.SeaStates.NO_STORM:
 					SeaLevel.currentSeaLevel += ((rateIncrease*1.5/12)+0.1)

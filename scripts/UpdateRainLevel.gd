@@ -15,15 +15,15 @@ var counts = false
 
 func update_rain_level():
 	if RainLevel.rainOn:
-		if RainLevel.currentMonth == UpdateDate.month:
-			if (RainLevel.currentMonth == UpdateDate.Months.December):
-				RainLevel.currentMonth = UpdateDate.Months.January
+		if RainLevel.currentWeek == UpdateDate.week:
+			if (RainLevel.currentWeek == UpdateDate.Weeks.Week4):
+				RainLevel.currentWeek = UpdateDate.Weeks.Week1
 				if RainLevel.sensorPresent == true:
 					print("R", RainLevel.allRainLevels)
 			else:
-				RainLevel.currentMonth += 1
+				RainLevel.currentWeek += 1
 					
-			# updates every month
+			# updates every week
 			if RainLevel.sensorPresent == true:
 				pops = true
 				RainLevel.allRainLevels.append(RainLevel.currentRainLevel)
@@ -33,9 +33,11 @@ func update_rain_level():
 			if Weather.willStorm == true:
 				RainLevel.counter = 1
 				counts = true
+			else:
+				counts = false
 
 			# storm month
-			elif Weather.currentlyStorming == true:
+			if Weather.currentlyStorming == true:
 				if Weather.currentType == Weather.WeatherStates.TROPICAL_STORM:
 					var rain = randi() % (4) + 1
 					RainLevel.currentRainLevel = rain
@@ -82,7 +84,7 @@ func update_rain_level():
 					var rain = randf() 
 					RainLevel.currentRainLevel = rain
 		
-			# every other month 
+			# every other week
 			else:
 				var rain = randf() 
 				RainLevel.currentRainLevel = rain

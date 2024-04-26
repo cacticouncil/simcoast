@@ -1,19 +1,19 @@
 extends Node2D
 
 # var mapName	# Custom name of map # File name for quick savings/loading
-var currMapPath # Current file path of the map loaded
-var copyTile				# Stores tile to use when copy/pasting tiles on the map
+var copyTile # Stores tile to use when copy/pasting tiles on the map
 var tickDelay = Global.TICK_DELAY #time in seconds between ticks
 var numTicks = 0 #time elapsed since start
 var isFastFWD = false
 var current_sensor_tile
+var current_road_tile
 var fadedShader = preload("res://assets/shaders/faded.tres")
 var invalidShader = preload("res://assets/shaders/invalid.tres")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initCamera()
 	initSave_Exit()
-	loadMapData("res://saves/default.json")
+	loadMapData(Global.currentMap)
 	initObservers()
 	$HUD/HBoxContainer/Money.text = "$" + Econ.comma_values(str(Econ.money))
 	#$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
@@ -22,7 +22,6 @@ func _ready():
 	#$HUD/TopBar/HBoxContainer/Demand.text = "Residential Demand: " + str(UpdateDemand.calcResidentialDemand()) + "/10" + " Commercial Demand: " + str(UpdateDemand.calcCommercialDemand()) + "/10"
 	$HUD/Date/Year.text = str(UpdateDate.year)
 	$HUD/Date/Month.text = UpdateDate.Months.keys()[UpdateDate.month]
-	
 
 func initSave_Exit():
 	$Popups/SaveDialog.connect("file_selected", self, "_on_file_selected_save")
@@ -48,7 +47,6 @@ func initCamera():
 func initObservers():
 	#Add achievement observer
 	Announcer.addObserver(get_node("/root/AchievementObserver"))
-	AchievementObserver.createAchievements()
 	
 	#Add npc observers
 	Announcer.addObserver(get_node("/root/NpcObserver"))
@@ -731,46 +729,14 @@ func _unhandled_input(event):
 func saveMapData(mapPath):
 	var pathValues = SaveLoad.saveData(mapPath) 
 	var correctMapName = pathValues[0]
-	currMapPath = pathValues[1]
+	Global.currentMap = pathValues[1]
 	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json saved" % [correctMapName]
 
-func loadMapData(mapPath):
-	# var file = File.new()
-	# print(mapPath)
-	# if not file.file_exists(mapPath):
-	# 	get_node("HUD/TopBar/ActionText").text = "Error: Unable to find map file '%s'.json" % ["mapName"]
-	# 	return
-	# file.open(mapPath, File.READ)
-	# var mapData = parse_json(file.get_as_text())
-	# file.close()
-	
-	# Global.mapWidth = mapData.mapWidth
-	# Global.mapHeight = mapData.mapHeight
-	# Global.oceanHeight = mapData.oceanHeight
-	# Global.seaLevel = mapData.seaLevel
-	
-	# Global.tileMap.clear()
-	
-	# for _x in range(Global.mapWidth):
-	# 	var row = []
-	# 	row.resize(Global.mapHeight)
-	# 	Global.tileMap.append(row)
-
-	# for tileData in mapData.tiles:
-	# 	Global.tileMap[tileData[0]][tileData[1]] = Tile.new(int(tileData[0]), int(tileData[1]), int(tileData[2]), int(tileData[3]), int(tileData[4]), int(tileData[5]), int(tileData[6]), tileData[7])
-	var mapName = SaveLoad.loadData(mapPath)
+func loadMapData(filename):
+	var mapName = SaveLoad.loadData(filename)
 	$VectorMap.loadMap()
 	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json loaded" % [mapName]
 	City.connectUtilities()
-
-
-func _on_SaveButton_pressed():
-	print("Save Button Pressed")
-	$Popups/SaveDialog.popup_centered()
-
-func _on_LoadButton_pressed():
-	print("Load Button Pressed")
-	$Popups/LoadDialog.popup_centered()
 
 func _on_file_selected_load(filePath):
 	if ".json" in filePath:
@@ -786,7 +752,9 @@ func _on_file_selected_save(filePath):
 	$HUD/BottomBar/HoverText.text = "Map Data Saved"
 
 func _on_ExitButton_pressed():
-	get_tree().quit()
+	var popup = get_node("QuitGamePopup/PopupDialog")
+	popup.popup_centered()
+	#get_tree().quit()
 
 func _on_AchievementButton_pressed():
 	var AchMenu = preload("res://ui/SubMenu/AchievementMenu.tscn")
@@ -1041,6 +1009,7 @@ func placementState():
 			elif (Econ.purchase_structure(Econ.REMOVE_BEACH_ROCK)):
 				tile.clear_tile()
 
+
 func update_graphics():
 	#print("Updating graphics on tick: " + str(numTicks))
 	UpdateGraphics.update_graphics()
@@ -1174,3 +1143,37 @@ func _on_CloseNoButton_pressed():
 
 func _on_OkButton_pressed():
 	$SensorChoice/ColorRect2.visible = false # Replace with function body.
+
+
+func _on_RoadRepairYesButton_pressed():
+	var tile = current_road_tile
+	if tile.tileDamage == 0.25:
+		if (Econ.purchase_structure(Econ.ROAD_REPAIR_L_COST)):
+			tile.clear_tile()
+			tile.inf = Tile.TileInf.ROAD
+			City.connectRoads(tile)
+			City.connectUtilities()
+			City.numRoads += 1
+			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+	elif tile.tileDamage == 0.5:
+		if (Econ.purchase_structure(Econ.ROAD_REPAIR_M_COST)):
+			tile.clear_tile()
+			tile.inf = Tile.TileInf.ROAD
+			City.connectRoads(tile)
+			City.connectUtilities()
+			City.numRoads += 1
+			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+	elif tile.tileDamage == 0.75:
+		if (Econ.purchase_structure(Econ.ROAD_REPAIR_H_COST)):
+			tile.clear_tile()
+			tile.inf = Tile.TileInf.ROAD
+			City.connectRoads(tile)
+			City.connectUtilities()
+			City.numRoads += 1
+			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+			
+	$RoadRepair.visible = false
+
+
+func _on_RoadRepairNoButton_pressed():
+	$RoadRepair.visible = false

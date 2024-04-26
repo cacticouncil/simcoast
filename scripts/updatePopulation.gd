@@ -22,6 +22,30 @@ var rng = RandomNumberGenerator.new()
 var growth_rate = 0
 var previous_population = 0
 
+func get_population_data():
+	var data = {
+		"BASE_BUILD_CHANCE": BASE_BUILD_CHANCE,
+		"BASE_MOVE_CHANCE": BASE_MOVE_CHANCE,
+		"BASE_LEAVE_CHANCE": BASE_LEAVE_CHANCE,
+		"NO_UTILITIES_UNHAPPINESS": NO_UTILITIES_UNHAPPINESS,
+		"DAMAGE_UNHAPPINESS": DAMAGE_UNHAPPINESS,
+		"SEVERE_DAMAGE_UNHAPPINESS": SEVERE_DAMAGE_UNHAPPINESS,
+		"RESIDENTS": RESIDENTS,
+		"WORKERS": WORKERS,
+		"BASE_EMPLOYMENT_RATE": BASE_EMPLOYMENT_RATE,
+		"UNEMPLOYMENT_LIMIT": UNEMPLOYMENT_LIMIT,
+		"growth_rate": growth_rate,
+		"previous_population": previous_population
+	}
+	
+	return data
+
+func load_population_data(data):
+	if not data.empty():
+		for key in data:
+			self.set(key, data[key])
+
+
 #Update buildings and population
 func update_population():
 	for i in Global.mapHeight:
