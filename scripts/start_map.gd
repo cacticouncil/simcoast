@@ -974,6 +974,20 @@ func placementState():
 						tile.set_zone(Tile.TileZone.COMMERCIAL)
 						tile.on_beach = true
 				
+						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
+		#if on damaged road tile, left click to repair
+		elif Global.mapTool == Global.Tool.INF_ROAD && tile.inf == Tile.TileInf.ROAD && tile.tileDamage > 0:
+			Global.dragToPlaceState = false
+			current_road_tile = tile
+			if tile.tileDamage == 0.25:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This road has light damage.\nRepair for $15?"
+			elif tile.tileDamage == 0.50:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This road has medium damage.\nRepair for $30?"
+			elif tile.tileDamage == 0.75:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This road has heavy damage.\nRepair for $60?"
+			
+			$RoadRepair.visible = true
+			
 	elif Global.dragToRemoveState:
 		
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
@@ -1008,6 +1022,7 @@ func placementState():
 				tile.clear_tile()
 			elif (Econ.purchase_structure(Econ.REMOVE_BEACH_ROCK)):
 				tile.clear_tile()
+
 
 
 func update_graphics():
