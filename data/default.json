@@ -18513,7 +18513,7 @@
 		"SEVERE_DAMAGE_UNHAPPINESS": 30
 	},
 	"date": {
-		"ticksSinceLastMonthChange": 30,
+		"ticksSinceLastWeekChange": 30,
 		"month": 3,
 		"year": 2022
 	},
@@ -18536,6 +18536,8 @@
 			"road": 0,
 			"water": 0,
 			"bridge": 0,
+			"boardwalk": 0,
+			"wavebreaker": 0,
 			"house": 0,
 			"apartment": 0,
 			"shop": 0,
@@ -18543,9 +18545,12 @@
 			"hv_res_zone": 0,
 			"lt_com_zone": 0,
 			"hv_com_zone": 0,
-			"tide sensor": 0,
-			"rain sensor": 0,
-			"wind sensor": 0
+			"close beach": 0,
+			"remove rocks": 0,
+			"wave breaker": 0,
+			"tide gauge": 0,
+			"rain gauge": 0,
+			"wind gauge": 0
 		},
 		"sensors": [
 			{

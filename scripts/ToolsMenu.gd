@@ -316,7 +316,7 @@ func button_pressed():
 			print_stray_nodes()
 			Global.mapTool = Global.Tool.INF_WAVE_BREAKER
 			Global.placementState = true
-			Global.hoverImage = "res://assets/building_assets/2d Assets/Empty Apartment.png"
+			Global.hoverImage = "res://assets/building_assets/2d Assets/Wavebraker.png"
 			Global.infType = Tile.TileInf.WAVE_BREAKER
 			Global.buildingHeight = 1
 			Global.buildingWidth = 1

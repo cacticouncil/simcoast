@@ -436,7 +436,7 @@ func get_save_tile_data():
 		"residential_neighbors": residential_neighbors,
 		"commercial_neighbors": commercial_neighbors,
 		"industrial_neighbors": industrial_neighbors,
-		"public_works_neighbors": public_works_neighbors,
+		"public_works_neighbors": PUBLIC_WORKS_NEIGHBORS,
 		"public_works_dictionary": public_works_dictionary,
 		"prop_tax_weight": prop_tax_weight,
 		"is_sales_tax_heavy": is_sales_tax_heavy,

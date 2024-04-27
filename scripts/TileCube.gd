@@ -310,7 +310,8 @@ func update_polygons():
 	
 	elif tile.inf == Tile.TileInf.WAVE_BREAKER:
 		clear_objects()
-		var image = load("res://assets/building_assets/2d Assets/Empty Apartment.png")
+		var image = load("res://assets/building_assets/2d Assets/Wavebraker.png")
+		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
@@ -347,6 +348,9 @@ func update_polygons():
 		else:
 			image = load("res://assets/building_assets/2d Assets/Wind Sensor.png")
 		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
 		
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:

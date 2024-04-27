@@ -129,11 +129,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Observers/SfxObserver.gd"
 }, {
-"base": "Node",
-"class": "SuggestionSystem",
-"language": "GDScript",
-"path": "res://scripts/Dialogue/SuggestionSystem.gd"
-}, {
 "base": "Object",
 "class": "Tile",
 "language": "GDScript",
@@ -169,7 +164,6 @@ _global_script_class_icons={
 "Observer": "",
 "Sensor": "",
 "SfxObserver": "",
-"SuggestionSystem": "",
 "Tile": "",
 "TileCube": ""
 }
