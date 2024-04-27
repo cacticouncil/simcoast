@@ -6,7 +6,6 @@ var mapName
 var mapPath
 var savePopup
 var loadPopup
-
 var toolbarSectionScene = preload("res://ui/hud/Toolbar/ToolbarSection.tscn")
 
 var sensorSection
