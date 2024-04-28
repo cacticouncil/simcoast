@@ -119,32 +119,9 @@ func _unhandled_input(event):
 				tile.clear_tile()
 				tile.inf = Tile.TileInf.NONE
 				Weather.beachProtection -= 1
-		if tile.sensor == Tile.TileSensor.TIDE:
+		if tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN || tile.sensor == Tile.TileSensor.WIND: 
 			if Input.is_action_pressed("right_click"):
-				var sensor_name = "Tide Gauge"
-				var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
-				get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
-				SeaLevel.sensorPresent = false
-				Inventory.sensors[0].increase_amount()
-				Inventory.update_sensor_amount()
-				tile.clear_tile()
-		elif tile.sensor == Tile.TileSensor.RAIN: 
-			if Input.is_action_pressed("right_click"):
-				var sensor_name = "Rain Gauge"
-				var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
-				get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
-				RainLevel.sensorPresent = false
-				Inventory.sensors[1].increase_amount()
-				Inventory.update_sensor_amount()
-				tile.clear_tile()
-		elif tile.sensor == Tile.TileSensor.WIND: 
-			if Input.is_action_pressed("right_click"):
-				var sensor_name = "Wind Gauge"
-				var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
-				get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
-				WindLevel.sensorPresent = false
-				Inventory.sensors[2].increase_amount()
-				Inventory.update_sensor_amount()
+				sensor_back_to_inventory(tile.sensor)
 				tile.clear_tile()
 		# Perform action based on current tool selected
 		match Global.mapTool:
@@ -1112,20 +1089,7 @@ func _on_YesButton_pressed():
 		Global.Tool.SENSOR_TIDE:
 			# different colors to represent if sensor is active or not
 			if (current_sensor_tile.sensor != Tile.TileSensor.TIDE):
-				if current_sensor_tile.sensor == Tile.TileSensor.RAIN:
-					var sensor_name = "Rain Gauge"
-					var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
-					get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
-					RainLevel.sensorPresent = false
-					Inventory.sensors[1].increase_amount()
-					Inventory.update_sensor_amount()
-				elif current_sensor_tile.sensor == Tile.TileSensor.WIND:
-					var sensor_name = "Wind Gauge"
-					var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
-					get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
-					WindLevel.sensorPresent = false
-					Inventory.sensors[2].increase_amount()
-					Inventory.update_sensor_amount()
+				sensor_back_to_inventory(current_sensor_tile.sensor)
 					
 				if (current_sensor_tile.get_base() == Tile.TileBase.OCEAN):
 					current_sensor_tile.sensor_active = true
@@ -1142,20 +1106,7 @@ func _on_YesButton_pressed():
 				print("Different sensor here")
 		Global.Tool.SENSOR_RAIN:
 			if (current_sensor_tile.sensor != Tile.TileSensor.RAIN):
-				if current_sensor_tile.sensor == Tile.TileSensor.TIDE:
-					var sensor_name = "Tide Gauge"
-					var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
-					get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
-					SeaLevel.sensorPresent = false
-					Inventory.sensors[0].increase_amount()
-					Inventory.update_sensor_amount()
-				elif current_sensor_tile.sensor == Tile.TileSensor.WIND:
-					var sensor_name = "Wind Gauge"
-					var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
-					get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
-					WindLevel.sensorPresent = false
-					Inventory.sensors[2].increase_amount()
-					Inventory.update_sensor_amount()
+				sensor_back_to_inventory(current_sensor_tile.sensor)
 				# different colors to represent if sensor is active or not
 				if (current_sensor_tile.get_base() == Tile.TileBase.DIRT):
 					current_sensor_tile.sensor_active = true
@@ -1172,20 +1123,7 @@ func _on_YesButton_pressed():
 				print("Different sensor here")
 		Global.Tool.SENSOR_WIND:
 			if (current_sensor_tile.sensor != Tile.TileSensor.WIND):
-				if current_sensor_tile.sensor == Tile.TileSensor.RAIN:
-					var sensor_name = "Rain Gauge"
-					var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
-					get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
-					RainLevel.sensorPresent = false
-					Inventory.sensors[1].increase_amount()
-					Inventory.update_sensor_amount()
-				elif current_sensor_tile.sensor == Tile.TileSensor.TIDE:
-					var sensor_name = "Tide Gauge"
-					var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
-					get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
-					SeaLevel.sensorPresent = false
-					Inventory.sensors[0].increase_amount()
-					Inventory.update_sensor_amount()
+				sensor_back_to_inventory(current_sensor_tile.sensor)
 				# different colors to represent if sensor is active or not
 				if (current_sensor_tile.get_base() == Tile.TileBase.SAND):
 					current_sensor_tile.sensor_active = true
@@ -1200,6 +1138,29 @@ func _on_YesButton_pressed():
 				print("Sensor already here!")
 			else:
 				print("Different sensor here")
+
+func sensor_back_to_inventory(s):
+	if s == Tile.TileSensor.RAIN:
+		var sensor_name = "Rain Gauge"
+		var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
+		get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
+		RainLevel.sensorPresent = false
+		Inventory.sensors[1].increase_amount()
+		Inventory.update_sensor_amount()
+	elif s == Tile.TileSensor.TIDE:
+		var sensor_name = "Tide Gauge"
+		var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
+		get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
+		SeaLevel.sensorPresent = false
+		Inventory.sensors[0].increase_amount()
+		Inventory.update_sensor_amount()
+	elif s == Tile.TileSensor.WIND:
+		var sensor_name = "Wind Gauge"
+		var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
+		get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
+		WindLevel.sensorPresent = false
+		Inventory.sensors[2].increase_amount()
+		Inventory.update_sensor_amount()
 
 #does not add sensor to tile
 func _on_NoButton_pressed():

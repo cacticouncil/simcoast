@@ -56,6 +56,31 @@ func resize_bg(size):
 func remove_button(button):
 	var children = get_children()
 	var adjust = -1
+	for child in range(1, len(children) - 1):
+		if children[child].get_child(1).get_child(1).text == button:
+			children[child].get_child(1).free()
+			if child != len(children) - 2:
+				adjust = child
+			break
+		elif children[child].get_child(2).get_child(1).text == button:
+			children[child].get_child(2).free()
+			if child != len(children) - 2:
+				adjust = child
+			break
+	
+	if adjust != -1:
+		for child in range(adjust, len(children) - 2):
+			var childToMove = children[child + 1].get_child(1)
+			get_child(child + 1).remove_child(childToMove)
+			get_child(child).add_child(childToMove)
+		if len(children[len(children) - 2].get_children()) == 1:
+			children[len(children) - 2].queue_free()
+		return false
+	else:
+		if len(children[1].get_children()) == 1:
+			return true
+		else:
+			return false
 	#if all sensors are bought 
 	# tide sensor (1st sensor)
 	#print(children[1].get_child(1).get_child(1).text)
@@ -66,43 +91,43 @@ func remove_button(button):
 	
 	# at most three sensors at a time
 	# first sensor
-	if children[1].get_child(1).get_child(1).text == button:
+	#if children[1].get_child(1).get_child(1).text == button:
 	#	print(children[1].get_child(1).get_child(1).text)
 		#remove first sensor
-		children[1].get_child(1).free()
+	#	children[1].get_child(1).free()
 		# check to see if there are more sensors
 		# if there is a second sensor
-		if (children[1].get_child(1) != null):
+	#	if (children[1].get_child(1) != null):
 			#print("hey rain")
 			# if there is a third sensor, it needs to be moved to child[1]
-			if(children[2].get_child(1) != null):
+	#		if(children[2].get_child(1) != null):
 				#print("hey wind")
-				var childToMove = children[2].get_child(1)
-				get_child(2).remove_child(childToMove)
-				get_child(1).add_child(childToMove)
-				if len(children[2].get_children()) == 1:
-					children[2].queue_free()
-				#print(children[1].get_child(1).get_child(1).text)
+	#			var childToMove = children[2].get_child(1)
+	#			get_child(2).remove_child(childToMove)
+	#			get_child(1).add_child(childToMove)
+	#			if len(children[2].get_children()) == 1:
+	#				children[2].queue_free()
+	#			#print(children[1].get_child(1).get_child(1).text)
 				#print(children[1].get_child(2).get_child(1).text)
 		#no more sensors
-		else:
-			return true
+	#	else:
+	#		return true
 	# second sensor
-	elif children[1].get_child(2).get_child(1).text == button:
+	#elif children[1].get_child(2).get_child(1).text == button:
 		#remove second sensor
-		children[1].get_child(2).free()
+	#	children[1].get_child(2).free()
 		# if there is a third sensor, move it
-		if(children[2].get_child(1) != null):
+	#	if(children[2].get_child(1) != null):
 			#print("hey wind")
-			var childToMove = children[2].get_child(1)
-			get_child(2).remove_child(childToMove)
-			get_child(1).add_child(childToMove)
-			if len(children[2].get_children()) == 1:
-				children[2].queue_free()
+	#		var childToMove = children[2].get_child(1)
+	#		get_child(2).remove_child(childToMove)
+	#		get_child(1).add_child(childToMove)
+	#		if len(children[2].get_children()) == 1:
+	#			children[2].queue_free()
 	#third sensor
-	elif children[2].get_child(1).get_child(1).text == button:
+	#elif children[2].get_child(1).get_child(1).text == button:
 		#remove third sensor
-		children[2].get_child(1).free()
+	#	children[2].get_child(1).free()
 	
-	return false
+	#return false
 	
