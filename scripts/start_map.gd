@@ -587,13 +587,16 @@ func _unhandled_input(event):
 			Global.Tool.SENSOR_TIDE:
 				if Input.is_action_pressed("left_click"):
 					# bug workaround to not add sensors to already occupied tiles
-					if (tile.inf == Tile.TileInf.NONE && !(tile.has_building())):
-						if (Inventory.has_building("tide gauge")):
-							current_sensor_tile = tile
-							$SensorChoice/ColorRect.visible = true
+					if (tile.inf != Tile.TileInf.BEACH_ROCKS && tile.inf != Tile.TileInf.BEACH_GRASS && tile.inf != Tile.TileInf.WAVE_BREAKER && tile.inf != Tile.TileInf.FIRE_STATION):
+						if (tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL || tile.zone == Tile.TileZone.MULTI_FAMILY) && !(tile.has_building()):
+							$SensorNo/ColorRect.visible = true
 						else:
-							print("No available sensors!")
-							$SensorChoice/ColorRect2.visible = true
+							if (Inventory.has_building("tide gauge")):
+								current_sensor_tile = tile
+								$SensorChoice/ColorRect.visible = true
+							else:
+								print("No available sensors!")
+								$SensorChoice/ColorRect2.visible = true
 					else:
 						$SensorNo/ColorRect.visible = true
 				elif Input.is_action_pressed("right_click"):
@@ -605,13 +608,16 @@ func _unhandled_input(event):
 			Global.Tool.SENSOR_RAIN:
 				if Input.is_action_pressed("left_click"):
 					# bug workaround to not add sensors to already occupied tiles
-					if (tile.inf == Tile.TileInf.NONE && !(tile.has_building())):
-						if (Inventory.has_building("rain gauge")):
-							current_sensor_tile = tile
-							$SensorChoice/ColorRect.visible = true
+					if (tile.inf != Tile.TileInf.BEACH_ROCKS && tile.inf != Tile.TileInf.BEACH_GRASS && tile.inf != Tile.TileInf.WAVE_BREAKER && tile.inf != Tile.TileInf.FIRE_STATION):
+						if (tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL || tile.zone == Tile.TileZone.MULTI_FAMILY) && !(tile.has_building()):
+							$SensorNo/ColorRect.visible = true
 						else:
-							print("No available sensors!")
-							$SensorChoice/ColorRect2.visible = true
+							if (Inventory.has_building("rain gauge")):
+								current_sensor_tile = tile
+								$SensorChoice/ColorRect.visible = true
+							else:
+								print("No available sensors!")
+								$SensorChoice/ColorRect2.visible = true
 					else:
 						$SensorNo/ColorRect.visible = true
 				elif Input.is_action_pressed("right_click"):
@@ -623,13 +629,16 @@ func _unhandled_input(event):
 			Global.Tool.SENSOR_WIND:
 				if Input.is_action_pressed("left_click"):
 					# bug workaround to not add sensors to already occupied tiles
-					if (tile.inf == Tile.TileInf.NONE && !(tile.has_building())):
-						if (Inventory.has_building("wind gauge")):
-							current_sensor_tile = tile
-							$SensorChoice/ColorRect.visible = true
+					if (tile.inf != Tile.TileInf.BEACH_ROCKS && tile.inf != Tile.TileInf.BEACH_GRASS && tile.inf != Tile.TileInf.WAVE_BREAKER && tile.inf != Tile.TileInf.FIRE_STATION):
+						if (tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL || tile.zone == Tile.TileZone.MULTI_FAMILY) && !(tile.has_building()):
+							$SensorNo/ColorRect.visible = true
 						else:
-							print("No available sensors!")
-							$SensorChoice/ColorRect2.visible = true
+							if (Inventory.has_building("wind gauge")):
+								current_sensor_tile = tile
+								$SensorChoice/ColorRect.visible = true
+							else:
+								print("No available sensors!")
+								$SensorChoice/ColorRect2.visible = true
 					else:
 						$SensorNo/ColorRect.visible = true
 				elif Input.is_action_pressed("right_click"):
@@ -1096,7 +1105,7 @@ func _on_YesButton_pressed():
 					SeaLevel.sensorPresent = true
 				else:
 					current_sensor_tile.sensor_active = false
-				current_sensor_tile.clear_tile()
+				#current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.TIDE
 				Inventory.remove_sensor("tide gauge")
 				get_node("/root/CityMap/HUD/ToolsMenu").removeSensorButton("Tide Gauge")
@@ -1113,7 +1122,7 @@ func _on_YesButton_pressed():
 					RainLevel.sensorPresent = true
 				else:
 					current_sensor_tile.sensor_active = false
-				current_sensor_tile.clear_tile()
+				#current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.RAIN
 				Inventory.remove_sensor("rain gauge")
 				get_node("/root/CityMap/HUD/ToolsMenu").removeSensorButton("Rain Gauge")
@@ -1130,7 +1139,7 @@ func _on_YesButton_pressed():
 					WindLevel.sensorPresent = true
 				else:
 					current_sensor_tile.sensor_active = false
-				current_sensor_tile.clear_tile()
+				#current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.WIND
 				Inventory.remove_sensor("wind gauge")
 				get_node("/root/CityMap/HUD/ToolsMenu").removeSensorButton("Wind Gauge")
