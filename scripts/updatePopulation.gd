@@ -55,8 +55,8 @@ func update_population():
 			if currTile.on_beach && Global.beginBeachEvacuation:
 				if currTile.data[2] > 0:
 					var peopleMovedOut = currTile.pre_evacuation_residents - currTile.data[2]
-					var ticksPerPerson = floor(UpdateDate.MONTH_TICKS / currTile.pre_evacuation_residents)
-					var expectedPeopleMoveOut = UpdateDate.ticksSinceLastMonthChange / ticksPerPerson
+					var ticksPerPerson = floor(UpdateDate.DATE_TICKS / currTile.pre_evacuation_residents)
+					var expectedPeopleMoveOut = UpdateDate.ticksSinceLastWeekChange / ticksPerPerson
 					if expectedPeopleMoveOut > peopleMovedOut:
 						currTile.remove_people(1)
 			elif currTile.on_beach && Global.stayEvacuated:
@@ -64,8 +64,8 @@ func update_population():
 			elif currTile.on_beach && Global.moveBackIn:
 				if currTile.pre_evacuation_residents > 0:
 					var peopleMovedIn = currTile.data[2]
-					var ticksPerPerson = floor(UpdateDate.MONTH_TICKS / currTile.pre_evacuation_residents)
-					var expectedPeopleMoveIn = UpdateDate.ticksSinceLastMonthChange / ticksPerPerson
+					var ticksPerPerson = floor(UpdateDate.DATE_TICKS / currTile.pre_evacuation_residents)
+					var expectedPeopleMoveIn = UpdateDate.ticksSinceLastWeekChange / ticksPerPerson
 					if expectedPeopleMoveIn > peopleMovedIn:
 						currTile.add_people(1)
 			else:
