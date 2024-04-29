@@ -12690,7 +12690,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "beach_grass",
+			"inf": "none",
 			"data": [
 				0,
 				0,
@@ -12762,7 +12762,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "beach_rocks",
+			"inf": "beach_grass",
 			"data": [
 				0,
 				0,
@@ -12834,7 +12834,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "none",
+			"inf": "beach_rocks",
 			"data": [
 				0,
 				0,
@@ -12906,7 +12906,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "none",
+			"inf": "beach_grass",
 			"data": [
 				0,
 				0,
@@ -13338,7 +13338,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "none",
+			"inf": "beach_grass",
 			"data": [
 				0,
 				0,
@@ -13482,7 +13482,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "beach_grass",
+			"inf": "none",
 			"data": [
 				0,
 				0,
@@ -13626,7 +13626,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "beach_rocks",
+			"inf": "none",
 			"data": [
 				0,
 				0,
@@ -13698,7 +13698,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "none",
+			"inf": "beach_rocks",
 			"data": [
 				0,
 				0,
@@ -13770,7 +13770,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "none",
+			"inf": "beach_grass",
 			"data": [
 				0,
 				0,
@@ -13842,7 +13842,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "beach_grass",
+			"inf": "none",
 			"data": [
 				0,
 				0,
@@ -13914,7 +13914,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "beach_rocks",
+			"inf": "none",
 			"data": [
 				0,
 				0,
@@ -13986,7 +13986,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "none",
+			"inf": "beach_grass",
 			"data": [
 				0,
 				0,
@@ -14202,7 +14202,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "none",
+			"inf": "beach_rocks",
 			"data": [
 				0,
 				0,
@@ -14274,7 +14274,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "none",
+			"inf": "beach_rocks",
 			"data": [
 				0,
 				0,
@@ -14490,7 +14490,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "none",
+			"inf": "beach_rocks",
 			"data": [
 				0,
 				0,
@@ -14562,7 +14562,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "none",
+			"inf": "beach_grass",
 			"data": [
 				0,
 				0,
@@ -14634,7 +14634,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "beach_grass",
+			"inf": "none",
 			"data": [
 				0,
 				0,
@@ -14778,7 +14778,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "beach_rocks",
+			"inf": "beach_grass",
 			"data": [
 				0,
 				0,
@@ -15642,7 +15642,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "none",
+			"inf": "beach_grass",
 			"data": [
 				0,
 				0,
@@ -15786,7 +15786,7 @@
 			"bridgeHeight": 0,
 			"base": "sand",
 			"zone": "none",
-			"inf": "beach_grass",
+			"inf": "none",
 			"data": [
 				0,
 				0,
