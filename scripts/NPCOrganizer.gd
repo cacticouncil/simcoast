@@ -7,7 +7,7 @@ var npcCount = 0
 #Add in the NPCs here with their json files
 #Called only once to intialize the NPCs
 func _ready():
-	addNPC("Researcher", 1, "res://resources/PLAYER.json", "res://resources/NPC.json", "res://assets/characters/researcher_icon.png", "I am a researcher!")
+	addNPC("Researcher", 1, "res://resources/tutorial.json", "res://resources/tutorial.json", "res://assets/characters/researcher_icon.png", "I am a researcher!")
 	addNPC("Environmental Engineer", 2, "res://resources/shop.json", "res://resources/shop.json", "res://assets/characters/environmental_engineer_icon.png", "I am an environmental engineer!")
 	addNPC("Scientist", 3, "res://resources/tutorial.json", "res://resources/tutorial.json", "res://assets/characters/scientist_icon.png", "I am a scientist!")
 	addNPC("Test Profession", 4, "res://resources/tutorial.json", "res://resources/tutorial.json", "res://assets/characters/test_profession_icon.png", "I am definitely something!")
