@@ -197,6 +197,7 @@ func _unhandled_input(event):
 			
 			Global.Tool.REMOVE_BEACH_ROCKS:
 				Global.dragToRemoveState = true
+				Weather.beachProtection -= 1
 				
 			Global.Tool.INF_UTILITIES_PLANT:
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
@@ -556,9 +557,11 @@ func _unhandled_input(event):
 						if (Inventory.removeIfHave('wave breaker')):
 							tile.set_tile_inf(Tile.TileInf.WAVE_BREAKER, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numWaveBreaker += 1
+							Weather.beachProtection += 1
 						elif (Econ.purchase_structure(Econ.WAVE_BREAKER_COST)):
 							tile.set_tile_inf(Tile.TileInf.WAVE_BREAKER, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numWaveBreaker += 1
+							Weather.beachProtection += 1
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -578,11 +581,13 @@ func _unhandled_input(event):
 					if tile.inf == Tile.TileInf.WAVE_BREAKER:
 						tile.clear_tile()
 						City.numWaveBreaker -= 1
+						Weather.beachProtection -= 1
 					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
 						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
 						if parentTile.inf == Tile.TileInf.WAVE_BREAKER:
 							parentTile.clear_tile()
 							City.numWaveBreaker -= 1
+							Weather.beachProtection -= 1
 			
 			Global.Tool.SENSOR_TIDE:
 				if Input.is_action_pressed("left_click"):

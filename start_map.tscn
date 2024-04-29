@@ -773,7 +773,7 @@ margin_top = 10.0
 margin_right = 208.0
 margin_bottom = 218.0
 custom_fonts/normal_font = ExtResource( 49 )
-text = "For now, you are not allowed to place a sensor in a tile that is already assigned. Please pick an empty tile."
+text = "You are not allowed to place a sensor here."
 
 [node name="CloseNoButton" type="Button" parent="SensorNo/ColorRect/BoxNo"]
 margin_left = 130.0
