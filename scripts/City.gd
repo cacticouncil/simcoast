@@ -231,10 +231,10 @@ func roadConnected(tile, n, diff):
 	return true
 
 func is_tile_inbounds(i, j):
-	if i < 0 || Global.mapWidth <= i:
+	if i < 0 || Global.mapHeight <= i:
 		return false
 	
-	if j < 0 || Global.mapHeight <= j:
+	if j < 0 || Global.mapWidth <= j:
 		return false
 	
 	return true
@@ -375,8 +375,8 @@ func calculate_damage():
 
 # Update wear and tear for road and bridge tiles. called in updateDate
 func calculate_wear_and_tear():
-	for i in Global.mapWidth:
-		for j in Global.mapHeight:
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
 			var tile = Global.tileMap[i][j]
 			
 			if tile.inf == tile.TileInf.ROAD || tile.inf == tile.TileInf.BRIDGE:

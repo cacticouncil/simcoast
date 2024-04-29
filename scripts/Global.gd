@@ -21,7 +21,7 @@ var mapName = ""
 var mapPath = ""
 var currentMap = "res://data/default.json"
 var mapWidth = 16
-var mapHeight = 16
+var mapHeight = 18
 
 var mapTool = Tool.NONE
 var tileMap = initTileMap()
@@ -91,9 +91,9 @@ func load_global_data(data):
 func initTileMap():
 	var tm = []
 	
-	for _i in range(mapWidth):
+	for _i in range(mapHeight):
 		var row = []
-		row.resize(mapHeight)
+		row.resize(mapWidth)
 		tm.append(row)
 
 	for i in mapHeight:

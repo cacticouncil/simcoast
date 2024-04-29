@@ -68,9 +68,9 @@ func loadData(mapPath: String):
 	Inventory.load_inventory_data(mapData.inventory)
 	
 	Global.tileMap.clear()
-	for _x in range(Global.mapWidth):
+	for _x in range(Global.mapHeight):
 		var row = []
-		row.resize(Global.mapHeight)
+		row.resize(Global.mapWidth)
 		Global.tileMap.append(row)
 
 	for tileData in mapData.tiles:
