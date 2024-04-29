@@ -60,6 +60,7 @@ func update_date():
 		ticksSinceLastWeekChange = 0
 		if (week == Weeks.Week4):
 			week = Weeks.Week1
+			City.calculate_wear_and_tear()
 			if (month == Months.December):
 				month = Months.January
 				year += 1
@@ -70,7 +71,7 @@ func update_date():
 		update_date_display()
 		Econ.profit()
 		UpdatePopulation.calc_pop_growth()
-		City.calculate_wear_and_tear()
+		
 		if Global.closeBeach:
 			Global.closeBeach = false
 			print("Closing beach")
@@ -81,7 +82,7 @@ func update_date():
 					if currTile.on_beach:
 						currTile.pre_evacuation_residents = max(currTile.data[2], currTile.pre_evacuation_residents)
 		elif Global.beginBeachEvacuation:
-			print("Stay evacuated for storm month")
+			print("Stay evacuated for storm week")
 			Global.stayEvacuated = true
 			Global.beginBeachEvacuation = false
 		elif Global.stayEvacuated:
