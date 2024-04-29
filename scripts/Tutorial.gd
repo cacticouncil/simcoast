@@ -15,6 +15,7 @@ func _ready():
 	getNextText()
 func setCharacter(character):
 	self.character = character
+	NPCOrganizer.unlockNPC(character)
 #Gets and displays next text
 func getNextText():
 	var nextText = NPCOrganizer.nextDialogue(character, segment)
