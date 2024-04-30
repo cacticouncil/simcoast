@@ -37,7 +37,7 @@ func _draw():
 	var baseColor = get_cube_colors()
 	var waterColor = Tile.WATER_COLOR
 	var buildingColor = get_building_colors()
-	
+
 	# Draw the sides of the base of the tile cube
 	if tile.get_base_height() > 0:
 		draw_polygon(base_cube[1].get_polygon(), PoolColorArray([baseColor[1]]))
@@ -59,34 +59,44 @@ func _draw():
 			get_parent().add_child(building)
 			
 	elif tile.inf == Tile.TileInf.PARK:
-		get_parent().add_child(buildingSprite)
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 			
 	elif tile.inf == Tile.TileInf.UTILITIES_PLANT:
-		get_parent().add_child(buildingSprite)
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 		
 	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
-		get_parent().add_child(buildingSprite)
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 		
 	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
-		get_parent().add_child(buildingSprite)
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 		
 	elif tile.inf == Tile.TileInf.LIBRARY:
-		get_parent().add_child(buildingSprite)
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
-		get_parent().add_child(buildingSprite)
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 		
 	elif tile.inf == Tile.TileInf.SCHOOL:
-		get_parent().add_child(buildingSprite)
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 		
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
-		get_parent().add_child(buildingSprite)
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 		
 	elif tile.inf == Tile.TileInf.HOSPITAL:
-		get_parent().add_child(buildingSprite)
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
-		get_parent().add_child(buildingSprite)
+		for building in listOfBuildings:
+			get_parent().add_child(building)
 		
 	elif tile.inf == Tile.TileInf.WAVE_BREAKER:
 		get_parent().add_child(buildingSprite)
@@ -100,11 +110,19 @@ func _draw():
 	elif tile.inf == Tile.TileInf.BEACH_GRASS:
 		for g in objects:
 			draw_polyline(g, Tile.TREE_COLOR[0])
-			
+		
 	elif tile.inf == Tile.TileInf.ROAD:
 		for building in listOfBuildings:
+			#shade road tiles if theyre damaged for players to see
+			if (tile.tileDamage > 0):
+				if tile.tileDamage == 0.25:
+					building.modulate = Color(1, 0, 0)
+				elif tile.tileDamage == 0.50:
+					building.modulate = Color(0.5, 0, 0)
+				else:
+					building.modulate = Color(0.25, 0, 0)
 			get_parent().add_child(building)
-	
+		
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		for building in listOfBuildings:
 			get_parent().add_child(building)
@@ -114,40 +132,41 @@ func _draw():
 			get_parent().add_child(building)
 
 	elif tile.sensor == Tile.TileSensor.TIDE:
-		if tile.sensor_active == true:
-			for s in objects:
-				draw_circle(s,3,Color("D2042D"))
-		else:
-			for s in objects:
-				draw_circle(s,3,Color("808080"))
+		for building in listOfBuildings:
+			get_parent().add_child(building)
+	#	if tile.sensor_active == true:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("D2042D"))
+	#	else:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("808080"))
 	elif tile.sensor == Tile.TileSensor.RAIN:
-		if tile.sensor_active == true:
-			for s in objects:
-				draw_circle(s,3,Color("515ADD"))
-		else:
-			for s in objects:
-				draw_circle(s,3,Color("808080"))
+		for building in listOfBuildings:
+			get_parent().add_child(building)
+	#	if tile.sensor_active == true:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("515ADD"))
+	#	else:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("808080"))
 	elif tile.sensor == Tile.TileSensor.WIND:
-		if tile.sensor_active == true:
-			for s in objects:
-				draw_circle(s,3,Color("097969"))
-		else:
-			for s in objects:
-				draw_circle(s,3,Color("808080"))
-
-func clear_objects():
-	for o in objects:
-		for p in o:
-			if typeof(p) != TYPE_VECTOR2 && typeof(p) != TYPE_INT:
-				p.queue_free()
-	objects.clear()
-	buildingSprite = null
+		for building in listOfBuildings:
+			get_parent().add_child(building)
+		#get_parent().add_child(buildingSprite)
+	#	if tile.sensor_active == true:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("097969"))
+	#	else:
+	#		for s in objects:
+	#			draw_circle(s,3,Color("808080"))
 
 func update_polygons():
 	var tile = Global.tileMap[i][j]
 	var h = tile.get_base_height()
 	var w = tile.get_water_height()
 	
+	var sensor_height = 0
+	var sensor_zindex = (i + j) * 10
 	update_cube(base_cube, x, y, Global.TILE_WIDTH, Global.TILE_HEIGHT, h, 0, 0)
 	update_cube(water_cube, x, y, Global.TILE_WIDTH, Global.TILE_HEIGHT, h + w, h, 0)
 	
@@ -170,6 +189,7 @@ func update_polygons():
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
 	
 	# Create some one pixel high blades of grass
 	elif tile.inf == Tile.TileInf.BEACH_GRASS:
@@ -211,6 +231,9 @@ func update_polygons():
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
+		sensor_height = 20
+		sensor_zindex+=1
 				
 	elif tile.inf == Tile.TileInf.SEWAGE_FACILITY:
 		clear_objects()
@@ -219,6 +242,9 @@ func update_polygons():
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
+		sensor_height = 16
+		sensor_zindex+=1
 	
 	elif tile.inf == Tile.TileInf.WASTE_TREATMENT:
 		clear_objects()
@@ -227,6 +253,9 @@ func update_polygons():
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
+		sensor_height = 16
+		sensor_zindex+=1
 	
 	elif tile.inf == Tile.TileInf.LIBRARY:
 		"""
@@ -255,6 +284,9 @@ func update_polygons():
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
+		sensor_height = 32
+		sensor_zindex+=2
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
 		clear_objects()
@@ -263,6 +295,9 @@ func update_polygons():
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
+		sensor_height = 16
+		sensor_zindex+=1
 	
 	elif tile.inf == Tile.TileInf.SCHOOL:
 		clear_objects()
@@ -271,6 +306,9 @@ func update_polygons():
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
+		sensor_height = 16
+		sensor_zindex+=1
 
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
 		clear_objects()
@@ -280,6 +318,9 @@ func update_polygons():
 		buildingSprite.position = Vector2(x, y - h - 32)
 		buildingSprite.scale = Vector2(2, 2)
 		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
+		sensor_height = 16
+		sensor_zindex+=1
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
 		clear_objects()
@@ -288,6 +329,9 @@ func update_polygons():
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
+		sensor_height = 16
+		sensor_zindex+=1
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
 		clear_objects()
@@ -296,20 +340,24 @@ func update_polygons():
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
+		sensor_height = 16
+		sensor_zindex+=1
 	
 	elif tile.inf == Tile.TileInf.WAVE_BREAKER:
 		clear_objects()
-		var image = load("res://assets/building_assets/2d Assets/Empty Apartment.png")
+		var image = load("res://assets/building_assets/2d Assets/Wavebraker.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
 		buildingSprite.position = Vector2(x, y - h)
 		buildingSprite.z_index = (i + j) * 10
-
+		
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
 	elif tile.inf == Tile.TileInf.ROAD:
-		clear_objects()
 		var image
 		var currBuilding
+		
+		clear_objects()
 		
 		if w == 0:
 			if tile.connections[0]:
@@ -331,7 +379,6 @@ func update_polygons():
 			currBuilding = Sprite.new()
 			currBuilding.texture = image
 			currBuilding.position = Vector2(x, y - h)
-			currBuilding.z_index = (i + j) * 10
 			listOfBuildings.append(currBuilding)
 			
 			if tile.connections[2]:
@@ -355,7 +402,6 @@ func update_polygons():
 			currBuilding.position = Vector2(x, y - h)
 			currBuilding.z_index = (i + j) * 10
 			listOfBuildings.append(currBuilding)
-		
 		
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		clear_objects()
@@ -530,13 +576,7 @@ func update_polygons():
 			
 			update_rock(r, rock_x, rock_y, rock_width, rock_depth, rock_height, w)
 			objects.append(r)
-	# tide sensor marker
-	elif tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN || tile.sensor == Tile.TileSensor.WIND :
-		var sens_x = x
-		var sens_y = y - h + (Global.TILE_HEIGHT / 2.0) / 2.0
-			
-		objects.append(Vector2(sens_x, sens_y))
-	
+
 	# Generate building polygons depending on density and water height
 	elif tile.has_building():
 		clear_objects()
@@ -597,11 +637,15 @@ func update_polygons():
 					currBuilding.z_index = (i + j) * 10
 					listOfBuildings.append(currBuilding)
 					
+					#sensor_height = 16
+					sensor_zindex+=1
+					
 			Tile.TileZone.SINGLE_FAMILY:
 				building_width = Global.TILE_WIDTH / 4.0
 				building_depth = building_width / 2.0
 				building_height = 5
-				
+				sensor_zindex+=1
+				#sensor_height = building_height
 				if w > building_height:
 					building_visible = false
 				else:
@@ -674,7 +718,7 @@ func update_polygons():
 					currentHeight += 16
 					zIndex += 1
 				
-				var remainingResidents = tile.data[2] % 16
+				var remainingResidents = int(tile.data[2]) % 16
 				var image
 				
 				if tile.data[3] - tile.data[2] > 0:
@@ -692,7 +736,50 @@ func update_polygons():
 					currBuilding.position = Vector2(x, y - h - currentHeight)
 					currBuilding.z_index = zIndex
 					listOfBuildings.append(currBuilding)
-	
+				
+				sensor_height = currentHeight+16
+				sensor_zindex = zIndex+1
+		
+	#sensors
+	if tile.sensor == Tile.TileSensor.TIDE:
+		#clear_objects())
+		var image = null
+		if tile.sensor_active == false:
+			image = load("res://assets/building_assets/2d Assets/Inactive Sensor.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/Tide Sensor.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h - sensor_height)
+		buildingSprite.z_index = sensor_zindex
+		listOfBuildings.append(buildingSprite)
+		
+	elif tile.sensor == Tile.TileSensor.RAIN:
+		#clear_objects()
+		var image = null
+		if tile.sensor_active == false:
+			image = load("res://assets/building_assets/2d Assets/Inactive Sensor.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/Rain Sensor.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h - sensor_height)
+		buildingSprite.z_index = sensor_zindex
+		listOfBuildings.append(buildingSprite)
+		
+	elif tile.sensor == Tile.TileSensor.WIND:
+		#clear_objects()
+		var image = null
+		if tile.sensor_active == false:
+			image = load("res://assets/building_assets/2d Assets/Inactive Sensor.png")
+		else:
+			image = load("res://assets/building_assets/2d Assets/Wind Sensor.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h - sensor_height)
+		buildingSprite.z_index = sensor_zindex
+		listOfBuildings.append(buildingSprite)
+		
 	# Set the clickable area of the polygon (the entire base cube)
 	coll.set_polygon(PoolVector2Array([
 		Vector2(x, y - h), 
@@ -704,6 +791,14 @@ func update_polygons():
 		Vector2(x, y - h)
 		]))
 
+func clear_objects():
+	for o in objects:
+		for p in o:
+			if typeof(p) != TYPE_VECTOR2 && typeof(p) != TYPE_INT:
+				p.queue_free()
+	objects.clear()
+	buildingSprite = null
+	
 # Returns a buildings color based on tile status (occupied, damaged, etc.)
 func get_building_colors():	
 	# If damaged, return status color 
@@ -726,7 +821,7 @@ func get_building_colors():
 func get_cube_colors():
 	var tile = Global.tileMap[i][j]
 	var colors = []
-	
+
 	match tile.get_base():
 		Tile.TileBase.DIRT:
 			colors = Tile.DIRT_COLOR.duplicate(true)
@@ -759,8 +854,8 @@ func get_cube_colors():
 			colors[0] = Tile.ROCK_COLOR[0]
 		#Tile.TileInf.BRIDGE:
 			#colors[0] = Tile.ROCK_COLOR[0]
-	
 
+	
 	return colors
 
 # Update the given tree based on its starting coordintes and properties

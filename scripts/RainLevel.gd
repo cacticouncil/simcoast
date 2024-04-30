@@ -11,6 +11,7 @@ extends Node
 var rainOn = true
 var currentRainLevel = 0
 var currentMonth = UpdateDate.month
+var currentWeek = UpdateDate.week
 var sensorPresent = false
 # recorded rain levels by rain sensor
 var counter = 0

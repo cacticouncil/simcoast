@@ -22,6 +22,30 @@ var rng = RandomNumberGenerator.new()
 var growth_rate = 0
 var previous_population = 0
 
+func get_population_data():
+	var data = {
+		"BASE_BUILD_CHANCE": BASE_BUILD_CHANCE,
+		"BASE_MOVE_CHANCE": BASE_MOVE_CHANCE,
+		"BASE_LEAVE_CHANCE": BASE_LEAVE_CHANCE,
+		"NO_UTILITIES_UNHAPPINESS": NO_UTILITIES_UNHAPPINESS,
+		"DAMAGE_UNHAPPINESS": DAMAGE_UNHAPPINESS,
+		"SEVERE_DAMAGE_UNHAPPINESS": SEVERE_DAMAGE_UNHAPPINESS,
+		"RESIDENTS": RESIDENTS,
+		"WORKERS": WORKERS,
+		"BASE_EMPLOYMENT_RATE": BASE_EMPLOYMENT_RATE,
+		"UNEMPLOYMENT_LIMIT": UNEMPLOYMENT_LIMIT,
+		"growth_rate": growth_rate,
+		"previous_population": previous_population
+	}
+	
+	return data
+
+func load_population_data(data):
+	if not data.empty():
+		for key in data:
+			self.set(key, data[key])
+
+
 #Update buildings and population
 func update_population():
 	for i in Global.mapHeight:
@@ -31,8 +55,8 @@ func update_population():
 			if currTile.on_beach && Global.beginBeachEvacuation:
 				if currTile.data[2] > 0:
 					var peopleMovedOut = currTile.pre_evacuation_residents - currTile.data[2]
-					var ticksPerPerson = floor(UpdateDate.MONTH_TICKS / currTile.pre_evacuation_residents)
-					var expectedPeopleMoveOut = UpdateDate.ticksSinceLastMonthChange / ticksPerPerson
+					var ticksPerPerson = floor(UpdateDate.DATE_TICKS / currTile.pre_evacuation_residents)
+					var expectedPeopleMoveOut = UpdateDate.ticksSinceLastWeekChange / ticksPerPerson
 					if expectedPeopleMoveOut > peopleMovedOut:
 						currTile.remove_people(1)
 			elif currTile.on_beach && Global.stayEvacuated:
@@ -40,8 +64,8 @@ func update_population():
 			elif currTile.on_beach && Global.moveBackIn:
 				if currTile.pre_evacuation_residents > 0:
 					var peopleMovedIn = currTile.data[2]
-					var ticksPerPerson = floor(UpdateDate.MONTH_TICKS / currTile.pre_evacuation_residents)
-					var expectedPeopleMoveIn = UpdateDate.ticksSinceLastMonthChange / ticksPerPerson
+					var ticksPerPerson = floor(UpdateDate.DATE_TICKS / currTile.pre_evacuation_residents)
+					var expectedPeopleMoveIn = UpdateDate.ticksSinceLastWeekChange / ticksPerPerson
 					if expectedPeopleMoveIn > peopleMovedIn:
 						currTile.add_people(1)
 			else:

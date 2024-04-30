@@ -12,6 +12,7 @@ enum SeaStates{
 var seaOn = true
 var currentSeaLevel = 0
 var currentMonth = UpdateDate.month
+var currentWeek = UpdateDate.week
 var currentSurge = SeaStates.NO_STORM
 var futureSurge = SeaStates.NO_STORM
 var sensorPresent = false

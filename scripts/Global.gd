@@ -19,8 +19,9 @@ const TICK_DELAY = 0.05#Time between ticks
 
 var mapName = ""
 var mapPath = ""
+var currentMap = "res://data/default.json"
 var mapWidth = 16
-var mapHeight = 16
+var mapHeight = 18
 
 var mapTool = Tool.NONE
 var tileMap = initTileMap()
@@ -66,17 +67,43 @@ var beginBeachEvacuation = false
 var stayEvacuated = false
 var moveBackIn = false
 
+func get_global_data():
+	var globalData = {
+		"mapName": mapName,
+		"mapPath": mapPath,
+		"mapWidth": mapWidth,
+		"mapHeight": mapHeight,
+		"seaLevel": seaLevel,
+		"oceanHeight": oceanHeight,
+		"numZones": numZones,
+		"numPeople": numPeople
+	}
+	
+	return globalData
+
+
+func load_global_data(data):
+	if not data.empty():
+		for key in data:
+			self.set(key, data[key])
+
+
 func initTileMap():
 	var tm = []
 	
-	for _i in range(mapWidth):
+	for _i in range(mapHeight):
 		var row = []
-		row.resize(mapHeight)
+		row.resize(mapWidth)
 		tm.append(row)
 
 	for i in mapHeight:
 		for j in mapWidth:
-			tm[i][j] = Tile.new(i, j, 0, 0, 0, 0, 0, [0, 0, 0, 0, 0], 0, Econ.TILE_BASE_VALUE, 0)
+			# Load default tile
+			tm[i][j] = Tile.new({
+				"i": i,
+				"j": j,
+				"landValue": Econ.TILE_BASE_VALUE
+			})
 	
 	return tm
 

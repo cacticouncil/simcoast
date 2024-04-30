@@ -6,7 +6,6 @@ var mapName
 var mapPath
 var savePopup
 var loadPopup
-
 var toolbarSectionScene = preload("res://ui/hud/Toolbar/ToolbarSection.tscn")
 
 var sensorSection
@@ -90,6 +89,7 @@ func _ready():
 	$VBoxContainer.add_child(sensorSection)
 	sensorSection.set_bg(sensorSection.rect_size, Color("526e7584"))
 	sensorSection.visible = false
+	
 	
 	#Once we create all the buttons, we want to add the functionality to each of them
 	for i in group.get_buttons():
@@ -315,7 +315,7 @@ func button_pressed():
 			print_stray_nodes()
 			Global.mapTool = Global.Tool.INF_WAVE_BREAKER
 			Global.placementState = true
-			Global.hoverImage = "res://assets/building_assets/2d Assets/Empty Apartment.png"
+			Global.hoverImage = "res://assets/building_assets/2d Assets/Wavebraker.png"
 			Global.infType = Tile.TileInf.WAVE_BREAKER
 			Global.buildingHeight = 1
 			Global.buildingWidth = 1
