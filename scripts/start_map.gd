@@ -1087,6 +1087,9 @@ func _on_Warnings_pressed():
 	var WarningMenuInstance = WarningMenu.instance()
 	add_child(WarningMenuInstance)
 
+func _on_Safety_pressed():
+	print("Safety")
+
 func _on_DashboardButton_mouse_entered():
 	$HUD/TopBarBG/DashboardHover.visible = true
 
@@ -1110,6 +1113,12 @@ func _on_Warnings_mouse_entered():
 
 func _on_Warnings_mouse_exited():
 	$HUD/TopBarBG/WarningHover.visible = false
+
+func _on_Safety_mouse_entered():
+	$HUD/TopBarBG/SafetyHover.visible = true
+
+func _on_Safety_mouse_exited():
+	$HUD/TopBarBG/SafetyHover.visible = false
 
 # sensor options -> yes, no, or ask for help
 # yes adds sensor to tile
@@ -1254,3 +1263,4 @@ func _on_RoadRepairYesButton_pressed():
 
 func _on_RoadRepairNoButton_pressed():
 	$RoadRepair.visible = false
+
