@@ -58,7 +58,6 @@ func loadData(mapPath: String):
 	City.load_city_data(mapData.city)
 	Econ.load_econ_data(mapData.econ)
 	UpdatePopulation.load_population_data(mapData.population)
-	UpdateDemand.load_demand_data(mapData.demand)
 	Stats.stats = mapData.stats
 	UpdateWater.waterDir = mapData.waterDir
 	
