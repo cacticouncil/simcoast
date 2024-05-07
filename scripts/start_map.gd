@@ -1088,7 +1088,13 @@ func _on_Warnings_pressed():
 	add_child(WarningMenuInstance)
 
 func _on_Safety_pressed():
-	print("Safety")
+	$HUD/TopBarBG/DashboardSelected.visible = false
+	$HUD/TopBarBG/AchievementSelected.visible = false
+	$HUD/TopBarBG/StoreSelected.visible = false
+	$HUD/TopBarBG/WarningSelected.visible = false
+	var SafetyEvent = preload("res://ui/SafetyEvents/SafetyEvents.tscn")
+	var SafetyEventInstance = SafetyEvent.instance()
+	add_child(SafetyEventInstance)
 
 func _on_DashboardButton_mouse_entered():
 	$HUD/TopBarBG/DashboardHover.visible = true

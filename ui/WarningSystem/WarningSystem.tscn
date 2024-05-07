@@ -5,9 +5,9 @@
 [ext_resource path="res://assets/fonts/upheavtt_80.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=4]
 
-[sub_resource type="GDScript" id=12]
+[sub_resource type="GDScript" id=27]
 
-[sub_resource type="Shader" id=13]
+[sub_resource type="Shader" id=28]
 code = "shader_type canvas_item;
 
 uniform float value = 1.0;
@@ -22,9 +22,9 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=15]
-shader = SubResource( 13 )
+shader = SubResource( 28 )
 shader_param/value = 1.0
-script = SubResource( 12 )
+script = SubResource( 27 )
 
 [sub_resource type="StyleBoxEmpty" id=16]
 
@@ -36,11 +36,11 @@ script = SubResource( 12 )
 
 [sub_resource type="StyleBoxEmpty" id=20]
 
-[sub_resource type="InputEventKey" id=14]
+[sub_resource type="InputEventKey" id=29]
 scancode = 16777217
 
 [sub_resource type="ShortCut" id=21]
-shortcut = SubResource( 14 )
+shortcut = SubResource( 29 )
 
 [sub_resource type="StyleBoxEmpty" id=22]
 
