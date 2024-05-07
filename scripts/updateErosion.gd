@@ -28,6 +28,8 @@ func update_erosion():
 				# otherwise just reduce height of tile
 				else:
 					currTile.baseHeight -= 1
+
+#get the number of neighbors of this tile that are water
 func calc_water_neighbors(tile):
 	# check 4 adjacent tiles for water
 	var numWaterTiles = 0
