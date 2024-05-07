@@ -3,6 +3,7 @@ extends Node
 func _ready():
 	pass
 
+#turns data for save into a dictionary and puts that into a json
 func saveData(mapPath: String):
 	var correctMapName = mapPath.trim_suffix(".json")
 	correctMapName = correctMapName.trim_prefix("user://saves/")
@@ -41,7 +42,7 @@ func saveData(mapPath: String):
 
 	return [correctMapName, mapPath]
 
-
+#load data from json and put it into the game
 func loadData(mapPath: String):
 	if not (".json" in mapPath):
 		return "not a json"
@@ -79,6 +80,7 @@ func loadData(mapPath: String):
 	
 	return mapData.global.mapName
 
+#saves the most recently played game to be resumed later
 func save_continue_map():
 	var continuePath = "user://data/continue.json"
 	print(Global.currentMap)
@@ -93,6 +95,7 @@ func save_continue_map():
 	
 	return data
 
+#loads the most recently played game
 func get_continue_map():
 	var continuePath = "user://data/continue.json"
 	var file = File.new()
