@@ -38,7 +38,7 @@ func update_date():
 	ticksSinceLastMonthChange += 1
 	#update profit display weekly
 	if int(ticksSinceLastMonthChange) % (MONTH_TICKS/4) == 0:
-		Econ.updateProfitDisplay()
+		Econ.profit()
 	if (ticksSinceLastMonthChange >= MONTH_TICKS):
 		ticksSinceLastMonthChange = 0
 		if (month == Months.December):
@@ -47,7 +47,6 @@ func update_date():
 		else:
 			month += 1
 		update_month_display()
-		Econ.profit()
 		UpdatePopulation.calc_pop_growth()
 		City.calculate_wear_and_tear()
 func update_month_display():
