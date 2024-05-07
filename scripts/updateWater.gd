@@ -36,12 +36,3 @@ func find_highest_water(tile):
 		return 0
 	else:
 		return highest.waterHeight + highest.baseHeight
-	
-#Update waves
-func update_waves():
-	if Global.oceanHeight == 0:
-			Global.oceanHeight = 1
-	Global.oceanHeight += (1 * waterDir)
-	City.updateOceanHeight(waterDir);
-	if Global.oceanHeight <= 1 || Global.oceanHeight >= 5:
-		waterDir *= -1
