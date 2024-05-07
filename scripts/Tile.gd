@@ -444,17 +444,6 @@ func get_save_tile_data():
 	
 	return tileData
 
-func paste_tile(tile):
-	baseHeight = tile.baseHeight
-	waterHeight = tile.waterHeight
-	base = tile.base
-	zone = tile.zone
-	inf = tile.inf
-	data = tile.data
-	tileDamage = tile.tileDamage
-	landValue = tile.landValue
-	profitRate = tile.profitRate
-
 func check_if_valid_placement(inf_to_be, height, width):
 	if !((get_base() == TileBase.DIRT || get_base() == TileBase.ROCK) && inf != inf_to_be):
 		return false
@@ -532,19 +521,11 @@ func clear_tile():
 		Global.tileMap[child[0]][child[1]].clear_tile()
 	children.clear()
 	parent = [-1, -1]
-	
-func raise_tile():
-	baseHeight += 1
-	if baseHeight > Global.MAX_HEIGHT:
-		baseHeight = Global.MAX_HEIGHT
 
 func lower_tile():
 	baseHeight -= 1
 	if baseHeight < 0:
 		baseHeight = 0
-
-func set_height_zero():
-	baseHeight = 0
 
 func raise_water():
 	waterHeight += 3
@@ -557,9 +538,6 @@ func lower_water():
 	changeInWaterHeight = -1
 	if waterHeight < 0:
 		waterHeight = 0
-
-func can_zone():
-	return base == TileBase.DIRT || base == TileBase.ROCK
 
 func get_base():
 	return base
@@ -619,10 +597,6 @@ func is_ocean():
 # - [2] People living there
 # - [3] Maximum people
 # - [4] Status of tile (0: unoccupied, 1: Occupied, 2: Damaged, 3: Severe Damage, 4: Abandonded)
-
-func remove_water():
-	waterHeight = 0
-	changeInWaterHeight = 0
 
 func set_damage(n):
 	#tiles without buildings/zoning or roads/bridges should not be damaged
