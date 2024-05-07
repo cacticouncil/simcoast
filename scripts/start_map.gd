@@ -103,6 +103,8 @@ func clear_mission_tip():
 	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = ""
 
 # Handle inputs (clicks, keys)
+# this function is what drives the player interaction with the game by allowing the selection of a MapTool
+# to actually do something
 func _unhandled_input(event):
 	var actionText = get_node("HUD/BottomBar/HoverText")
 	
@@ -658,6 +660,7 @@ func _process(delta):
 			else:
 				tickDelay = Global.TICK_DELAY
 
+#called every tick to update the game state
 func update_game_state():
 	UpdateWater.update_water_spread()
 	City.calculate_damage()
