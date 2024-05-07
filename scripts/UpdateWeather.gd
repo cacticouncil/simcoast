@@ -20,6 +20,9 @@ var tideCategory3Warning = 57
 var tideCategory4Warning = 37
 var tideCategory5Warning = 47
 
+#For Safety Events
+var beachClose = 0
+
 
 func update_weather():
 	if Weather.weatherOn:

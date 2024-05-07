@@ -1,7 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/achievement_icons/XIcon.png" type="Texture" id=1]
 [ext_resource path="res://ui/SafetyEvents/SafetyEvents.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/fonts/upheavtt_80.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=5]
 
 [sub_resource type="GDScript" id=12]
 
@@ -40,13 +43,44 @@ scancode = 16777217
 [sub_resource type="ShortCut" id=21]
 shortcut = SubResource( 14 )
 
+[sub_resource type="BitmapFont" id=22]
+
+[sub_resource type="BitmapFont" id=23]
+
+[sub_resource type="BitmapFont" id=24]
+
+[sub_resource type="BitmapFont" id=25]
+
+[sub_resource type="BitmapFont" id=26]
+
+[sub_resource type="BitmapFont" id=27]
+
+[sub_resource type="BitmapFont" id=28]
+
 [node name="SafetyEvents" type="CanvasLayer"]
 script = ExtResource( 2 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BG" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.462745, 0.462745, 0.462745, 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 1280.0
+margin_bottom = 83.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+custom_fonts/font = ExtResource( 4 )
+text = "Saftey Events"
+align = 1
+valign = 1
+
+[node name="Content" type="ColorRect" parent="."]
+margin_top = 83.0
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0.258824, 0.258824, 0.258824, 1 )
 
 [node name="QuitButton" type="Button" parent="."]
 material = SubResource( 15 )
@@ -64,7 +98,159 @@ shortcut = SubResource( 21 )
 icon = ExtResource( 1 )
 icon_align = 1
 
+[node name="Rows" type="VBoxContainer" parent="."]
+margin_top = 83.0
+margin_right = 1280.0
+margin_bottom = 720.0
+
+[node name="BeachClose" type="HBoxContainer" parent="Rows"]
+margin_right = 1280.0
+margin_bottom = 92.0
+custom_constants/separation = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="Rows/BeachClose"]
+margin_right = 300.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 300, 92 )
+
+[node name="Label" type="Label" parent="Rows/BeachClose/CenterContainer"]
+margin_left = 23.0
+margin_top = 28.0
+margin_right = 277.0
+margin_bottom = 64.0
+custom_fonts/font = ExtResource( 3 )
+text = "Close Beach"
+
+[node name="Control" type="Control" parent="Rows/BeachClose"]
+margin_left = 300.0
+margin_right = 1280.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 980, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="Rows/BeachClose/Control"]
+margin_left = 42.0
+margin_top = 43.5
+margin_right = 936.0
+margin_bottom = 48.5
+color = Color( 0.462745, 0.462745, 0.462745, 1 )
+
+[node name="Buttons" type="Control" parent="Rows/BeachClose/Control"]
+margin_left = 34.0
+margin_top = 34.0
+margin_right = 946.0
+margin_bottom = 58.0
+
+[node name="Never" type="CheckBox" parent="Rows/BeachClose/Control/Buttons"]
+margin_right = 24.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 22 )
+text = "0"
+
+[node name="TropStrom" type="CheckBox" parent="Rows/BeachClose/Control/Buttons"]
+margin_left = 148.0
+margin_right = 172.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 23 )
+
+[node name="Cat1" type="CheckBox" parent="Rows/BeachClose/Control/Buttons"]
+margin_left = 296.0
+margin_right = 320.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 24 )
+text = "2"
+
+[node name="Cat2" type="CheckBox" parent="Rows/BeachClose/Control/Buttons"]
+margin_left = 444.0
+margin_right = 468.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 25 )
+text = "3"
+
+[node name="Cat3" type="CheckBox" parent="Rows/BeachClose/Control/Buttons"]
+margin_left = 592.0
+margin_right = 616.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 26 )
+text = "4"
+
+[node name="Cat4" type="CheckBox" parent="Rows/BeachClose/Control/Buttons"]
+margin_left = 740.0
+margin_right = 764.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 27 )
+text = "5"
+
+[node name="Cat5" type="CheckBox" parent="Rows/BeachClose/Control/Buttons"]
+margin_left = 888.0
+margin_right = 912.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 28 )
+text = "6"
+
+[node name="Never" type="Label" parent="Rows/BeachClose/Control"]
+margin_left = 8.0
+margin_top = 55.0
+margin_right = 83.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 5 )
+text = "Never"
+
+[node name="TropStrom" type="Label" parent="Rows/BeachClose/Control"]
+margin_left = 122.0
+margin_top = 55.0
+margin_right = 267.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 5 )
+text = "Trop Storm"
+
+[node name="Cat1" type="Label" parent="Rows/BeachClose/Control"]
+margin_left = 312.0
+margin_top = 55.0
+margin_right = 371.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 5 )
+text = "Cat 1"
+
+[node name="Cat2" type="Label" parent="Rows/BeachClose/Control"]
+margin_left = 456.0
+margin_top = 55.0
+margin_right = 524.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 5 )
+text = "Cat 2"
+
+[node name="Cat3" type="Label" parent="Rows/BeachClose/Control"]
+margin_left = 604.0
+margin_top = 55.0
+margin_right = 672.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 5 )
+text = "Cat 3"
+
+[node name="Cat4" type="Label" parent="Rows/BeachClose/Control"]
+margin_left = 752.0
+margin_top = 55.0
+margin_right = 820.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 5 )
+text = "Cat 4"
+
+[node name="Cat5" type="Label" parent="Rows/BeachClose/Control"]
+margin_left = 900.0
+margin_top = 55.0
+margin_right = 968.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 5 )
+text = "Cat 5"
+
 [connection signal="button_down" from="QuitButton" to="." method="_on_QuitButton_button_down"]
 [connection signal="mouse_entered" from="QuitButton" to="." method="_on_QuitButton_mouse_entered"]
 [connection signal="mouse_exited" from="QuitButton" to="." method="_on_QuitButton_mouse_exited"]
 [connection signal="pressed" from="QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="Rows/BeachClose/Control/Buttons/Never" to="." method="_on_CloseBeach_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="Rows/BeachClose/Control/Buttons/TropStrom" to="." method="_on_CloseBeach_pressed" binds= [ 1 ]]
+[connection signal="pressed" from="Rows/BeachClose/Control/Buttons/Cat1" to="." method="_on_CloseBeach_pressed" binds= [ 2 ]]
+[connection signal="pressed" from="Rows/BeachClose/Control/Buttons/Cat2" to="." method="_on_CloseBeach_pressed" binds= [ 3 ]]
+[connection signal="pressed" from="Rows/BeachClose/Control/Buttons/Cat3" to="." method="_on_CloseBeach_pressed" binds= [ 4 ]]
+[connection signal="pressed" from="Rows/BeachClose/Control/Buttons/Cat4" to="." method="_on_CloseBeach_pressed" binds= [ 5 ]]
+[connection signal="pressed" from="Rows/BeachClose/Control/Buttons/Cat5" to="." method="_on_CloseBeach_pressed" binds= [ 6 ]]
