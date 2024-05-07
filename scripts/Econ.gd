@@ -112,6 +112,7 @@ func adjust_player_money(adjustVal):
 	Announcer.notify(Event.new("Money", "Amount of money", money))
 	get_node("/root/CityMap/HUD/HBoxContainer/Money").text = "$" + comma_values(str(money))
 
+#purchases a structure in the city 
 func purchase_structure(structureCost):
 	if ((money - structureCost) >= 0):
 		money -= structureCost
@@ -121,6 +122,7 @@ func purchase_structure(structureCost):
 		get_node("/root/Overlay").error_pop("Insufficient Funds")
 		return false
 
+#calculates cost of keeping the city running
 func calculate_upkeep_costs():
 	city_costs = 0
 	city_costs += City.numUtilityPlants * UTILITIES_PLANT_UPKEEP_COST
@@ -139,7 +141,7 @@ func calculate_upkeep_costs():
 	city_costs += City.numMultiFamilyZones * MULTI_FAMILY_UPKEEP_COST
 	city_costs += UpdatePopulation.get_population() * UPKEEP_PER_PERSON
 	
-	
+#gives the player money (or takes money) depending on city income and upkeep costs
 func profit():
 	var profit = round(city_income - city_costs)
 	adjust_player_money(profit)
@@ -165,7 +167,8 @@ func adjust_sales_tax_rate(val):
 	
 func adjust_income_tax_rate(val):
 	INCOME_TAX = val
-			
+	
+#calculates the amount of money the player should be making from each tile		
 func calc_profit_rates():
 	var total_income = 0
 	var total_profit = 0
@@ -225,7 +228,8 @@ func comma_values(val):
 		res += val[i]
 		
 	return res
-	
+
+#calculates average income in a radius around a given tile
 func avg_income_around_tile(i, j):
 	var total_income = 0
 	var res_tiles = 0
