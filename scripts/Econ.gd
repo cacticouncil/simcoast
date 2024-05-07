@@ -139,10 +139,6 @@ func calculate_upkeep_costs():
 	city_costs += City.numMultiFamilyZones * MULTI_FAMILY_UPKEEP_COST
 	city_costs += UpdatePopulation.get_population() * UPKEEP_PER_PERSON
 	
-func updateProfitDisplay():
-	var profit = round(city_income - city_costs)
-	#get_node("/root/CityMap/HUD/TopBar/HBoxContainer/City_Income").text = "$" + comma_values(str(profit))
-	#print("$" + comma_values(str(profit)))
 	
 func profit():
 	var profit = round(city_income - city_costs)
@@ -160,15 +156,6 @@ func calcCityIncome(): #Calculate tax profit
 	city_income = taxProfit
 	return round(taxProfit)
 
-#Made redundant since adjustment on UI is a range bar in dashboard
-func adjust_tax_rate(val):
-	BASE_TAX_RATE += val
-	if (BASE_TAX_RATE < 0):
-		BASE_TAX_RATE = 0
-	elif (BASE_TAX_RATE > 1):
-		BASE_TAX_RATE = 1
-	#get_node("/root/CityMap/HUD/TopBar/HBoxContainer/City_Tax_Rate").text = "Tax Rate: " + str(BASE_TAX_RATE * 100) + "%"
-
 #range bar prevents taxes from going over/under 0-100%
 func adjust_property_tax_rate(val):
 	PROPERTY_TAX = val
@@ -178,42 +165,6 @@ func adjust_sales_tax_rate(val):
 	
 func adjust_income_tax_rate(val):
 	INCOME_TAX = val
-
-func adjust_individual_tax_rate(num, dir):
-	var currRate
-	match num:
-		0:
-			currRate = LIGHT_RES_PROPERTY_RATE
-			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			LIGHT_RES_PROPERTY_RATE = currRate
-		1:
-			currRate = LIGHT_RES_INCOME_RATE
-			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			LIGHT_RES_INCOME_RATE = currRate
-		2:
-			currRate = HEAVY_RES_PROPERTY_RATE
-			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			HEAVY_RES_PROPERTY_RATE = currRate
-		3:
-			currRate = HEAVY_RES_INCOME_RATE
-			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			HEAVY_RES_INCOME_RATE = currRate
-		4:
-			currRate = COM_PROPERTY_RATE
-			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			COM_PROPERTY_RATE = currRate
-		5:
-			currRate = COM_INCOME_RATE
-			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			COM_INCOME_RATE = currRate
-		6:
-			currRate = COM_PROPERTY_RATE
-			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			COM_PROPERTY_RATE = currRate
-		7:
-			currRate = COM_INCOME_RATE
-			currRate = adjust_individual_tax_rate_helper(currRate, dir)
-			COM_INCOME_RATE = currRate
 			
 func calc_profit_rates():
 	var total_income = 0
@@ -274,19 +225,6 @@ func comma_values(val):
 		res += val[i]
 		
 	return res
-
-func adjust_individual_tax_rate_helper(currRate, dir):
-	if (dir == 0):
-		currRate += 0.01
-	else:
-		currRate -= 0.01
-	
-	if (currRate < 0):
-		currRate = 0
-	elif (currRate > 1):
-		currRate = 1
-	
-	return currRate
 	
 func avg_income_around_tile(i, j):
 	var total_income = 0
