@@ -44,59 +44,6 @@ func load_city_data(data):
 		for key in data:
 			self.set(key, data[key])
 
-# Delete the last row and column of the map
-func reduce_map():
-	if Global.mapHeight <= Global.MIN_MAP_SIZE || Global.mapWidth <= Global.MIN_MAP_SIZE:
-		return
-	
-	Global.mapHeight -= 1
-	
-	for j in Global.mapWidth:
-		$VectorMap.remove_tile(Global.mapHeight, j)
-	
-	Global.mapWidth -= 1
-	
-	for i in Global.mapHeight:
-		$VectorMap.remove_tile(i, Global.mapWidth)
-	
-	Global.tileMap.pop_back()
-	
-	for i in Global.tileMap.size():
-		Global.tileMap[i].pop_back()
-	
-	get_node("HUD/BottomBar/HoverText").text = "Map size reduced to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
-	
-# Add a new row and column of empty tiles
-func extend_map():
-	if Global.mapHeight >= Global.MAX_MAP_SIZE || Global.mapWidth >= Global.MAX_MAP_SIZE:
-		return
-	
-	var new_row = []
-	new_row.resize(Global.mapWidth)
-	Global.tileMap.append(new_row)
-
-	for j in Global.mapWidth:
-		Global.tileMap[Global.mapHeight][j] = Tile.new({
-				"i": Global.mapHeight,
-				"j": j,
-				"landValue": Econ.TILE_BASE_VALUE
-			})
-		$VectorMap.add_tile(Global.mapHeight, j)
-	
-	Global.mapHeight += 1
-		
-	for i in Global.mapHeight:
-		Global.tileMap[i].append(Tile.new({
-				"i": i,
-				"j": Global.mapWidth,
-				"landValue": Econ.TILE_BASE_VALUE
-			}))
-		$VectorMap.add_tile(i, Global.mapWidth)
-	
-	Global.mapWidth += 1
-
-	get_node("HUD/BottomBar/HoverText").text = "Map size extended to (%s x %s)" % [Global.mapWidth, Global.mapHeight]
-	
 
 # Starting from each utility plant, trace utility distribution and utility tiles if they are connected
 func connectUtilities():
@@ -279,45 +226,12 @@ func updateOceanHeight(dir):
 					if Global.tileMap[n[0]][n[1]].waterHeight >= 1:
 						queue.append(Global.tileMap[n[0]][n[1]])
 
-# Changes a tile's height depending on type of click
-func adjust_tile_height(tile):	
-	if Input.is_action_pressed("left_click"):
-		tile.raise_tile()
-	elif Input.is_action_pressed("right_click"):
-		tile.lower_tile()
-
-func make_tile_water(tile):
-	tile.set_height_zero()
-
 # Change water height of tile
 func adjust_tile_water(tile):
 	if Input.is_action_pressed("left_click"):
 		tile.raise_water()
 	elif Input.is_action_just_pressed("right_click"):
 		tile.lower_water()
-
-func adjust_building_number(tile):
-	if Input.is_action_pressed("left_click"):
-		tile.add_building()
-	elif Input.is_action_pressed("right_click"):
-		tile.remove_building()
-
-func adjust_people_number(tile):
-	if Input.is_action_pressed("left_click"):
-		tile.add_people(1)
-	elif Input.is_action_pressed("right_click"):
-		tile.remove_people(1)
-
-func calculate_satisfaction():
-	var population = 0
-	var employees = 0
-	var houses = 0
-	var apartments = 0
-	var stores = 0
-	var offices = 0
-	var roads = 0
-	var parks = 0
-	var beaches = 0
 	
 # When flooding occurs, determine damage to infrastructure and perform tile erosion
 # When wear and tear occurs on road tiles, determine damage
@@ -351,9 +265,7 @@ func calculate_damage():
 				elif tile.get_base() == Tile.TileBase.SAND:
 					if tile.get_water_height() >= 5:
 						tile.lower_tile()
-				#TODO: Decide later if we want to remove the water from flooded tiles automatically
-				#tile.remove_water()
-				#tile.cube.update()
+
 				tile.changeInWaterHeight = 0
 			# For now, only road tiles can get wear and tear damage. If changed further checks should be implemented.
 			# Determine damage based on wear and tear to roads
