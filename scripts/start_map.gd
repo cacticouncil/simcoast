@@ -19,7 +19,6 @@ func _ready():
 	#$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
 	#$HUD/TopBar/HBoxContainer/City_Tax_Rate.text = "Tax Rate: " + str(Econ.city_tax_rate * 100) + "%"
 	$HUD/HBoxContainer/Population.text = str(UpdatePopulation.get_population())
-	#$HUD/TopBar/HBoxContainer/Demand.text = "Residential Demand: " + str(UpdateDemand.calcResidentialDemand()) + "/10" + " Commercial Demand: " + str(UpdateDemand.calcCommercialDemand()) + "/10"
 	$HUD/Date/Year.text = str(UpdateDate.year)
 	$HUD/Date/Month.text = UpdateDate.Months.keys()[UpdateDate.month]
 
@@ -121,34 +120,10 @@ func _unhandled_input(event):
 		
 		# Perform action based on current tool selected
 		match Global.mapTool:
-			# Change Base or (if same base) raise/lower tile height
-			Global.Tool.BASE_DIRT:
-				if tile.get_base() != Tile.TileBase.DIRT:
-					tile.clear_tile()
-					tile.set_base(Tile.TileBase.DIRT)
-				else:
-					City.adjust_tile_height(tile)
-				
-			Global.Tool.BASE_ROCK:
-				if tile.get_base() != Tile.TileBase.ROCK:
-					tile.clear_tile()
-					tile.set_base(Tile.TileBase.ROCK)
-				else:
-					City.adjust_tile_height(tile)
-
-			Global.Tool.BASE_SAND:
-				if tile.get_base() != Tile.TileBase.SAND:
-					tile.clear_tile()
-					tile.set_base(Tile.TileBase.SAND)
-				else:
-					City.adjust_tile_height(tile)
 			
 			Global.Tool.BASE_OCEAN:
 				if Input.is_action_pressed("left_click"):
 					Global.dragToPlaceState = true
-			
-			Global.Tool.BASE_SAND:
-				City.adjust_tile_height(tile)
 	
 			# Clear and zone a tile (if it is not already of the same zone)
 			Global.Tool.ZONE_SINGLE_FAMILY, Global.Tool.ZONE_MULTI_FAMILY, Global.Tool.ZONE_COM:
@@ -158,24 +133,6 @@ func _unhandled_input(event):
 					Global.dragToPlaceState = true
 				elif Input.is_action_pressed("right_click"):
 					Global.dragToRemoveState = true
-
-			# Add/Remove Buildings
-			Global.Tool.ADD_RES_BLDG:
-				if tile.is_residential():
-					City.adjust_building_number(tile)
-
-			Global.Tool.ADD_COM_BLDG:
-				if tile.is_commercial():
-					City.adjust_building_number(tile)
-
-			# Add/Remove People
-			Global.Tool.ADD_RES_PERSON:
-				if tile.is_residential():
-					tile.add_people(1)
-
-			Global.Tool.ADD_COM_PERSON:
-				if tile.is_commercial() && UpdatePopulation.RESIDENTS * UpdatePopulation.BASE_EMPLOYMENT_RATE > UpdatePopulation.WORKERS:
-					tile.add_people(1)
 
 			# Water Tool
 			Global.Tool.LAYER_WATER:
@@ -607,17 +564,7 @@ func _unhandled_input(event):
 				else:
 					tile.tileDamage = 0
 					tile.data[4] = 0
-
-			Global.Tool.COPY_TILE:
-				copyTile = tile
-				actionText.text = "Tile copy saved"
-				Global.mapTool = Global.Tool.NONE
 				
-			Global.Tool.PASTE_TILE:
-				tile.paste_tile(copyTile)
-				
-		# Refresh graphics for cube and status bar text
-		#cube.update()
 		$HUD.update_tile_display(cube.i, cube.j)
 
 	elif event is InputEventKey && event.pressed:
@@ -631,12 +578,6 @@ func _unhandled_input(event):
 		elif event.scancode == KEY_P:
 			actionText.text = "Utilities grid recalculated"
 			City.connectUtilities()
-		elif event.scancode == KEY_C:
-			actionText.text = "Select tile to copy"
-			Global.mapTool = Global.Tool.COPY_TILE
-		elif event.scancode == KEY_V:
-			actionText.text = "Paste tool selected"
-			Global.mapTool = Global.Tool.PASTE_TILE
 		elif event.scancode == KEY_ESCAPE && get_node("/root/CityMap/AchievementMenu") == null && get_node("/root/CityMap/Dashboard") == null:
 			if $PauseMenu.visible:
 				$PauseMenu.visible = false
@@ -718,16 +659,11 @@ func _process(delta):
 				tickDelay = Global.TICK_DELAY
 
 func update_game_state():
-	#print("Updating game state on tick: " + str(numTicks))
-	#UpdateWaves.update_waves()
-	#turning this function off until it can be fixed
-	#UpdateWater.update_waves()
 	UpdateWater.update_water_spread()
 	City.calculate_damage()
 	UpdateValue.update_land_value()
 	UpdateHappiness.update_happiness()
 	UpdatePopulation.update_population()
-	UpdateDemand.get_demand()
 	UpdateErosion.update_erosion()
 	Econ.calc_profit_rates()
 	Econ.calcCityIncome()
