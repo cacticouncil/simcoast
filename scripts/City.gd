@@ -140,6 +140,7 @@ func connectRoads(tile):
 		if roadConnected(road, [road.i, road.j+1], maxHeightDiff):
 			road.connections[3] = 1
 
+#check if bridge is connected to any dirt tile
 func disconnectBridges(tile):
 	tile.bridge_connected_to_dirt = false
 	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
@@ -159,7 +160,7 @@ func disconnectBridges(tile):
 				if not [currTile.i, currTile.j+1] in checked:
 					neighbors.append([currTile.i, currTile.j+1])
 	
-
+#check if there is a road connected to this tile
 func roadConnected(tile, n, diff):
 	if !is_tile_inbounds(n[0], n[1]):
 		return false
@@ -326,6 +327,7 @@ func calculate_wear_and_tear():
 						tile.wearAndTear += 3
 					tile.changeInWearAndTear = true
 				
+#change likelihood of wear and tear damage based on the population				
 func pop_based_damage_helper(tile):
 	var chanceOfDamage = 0
 	# damage from commercial or res zones is based on tile population (data[2])
