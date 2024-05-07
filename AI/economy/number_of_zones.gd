@@ -4,7 +4,8 @@ const ZONE_CAP = 30
 const PEOPLE_CAP = 100
 
 
-# How developed is the city in terms of number of zones and population number?
+# Counts the number of zones in the city of each type, up to a cap
+#more zones of a type beyond the cap don't affect desirability 
 func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var tile = blackboard.get_data("queue").front()
 	var numResidentialZones = 0
