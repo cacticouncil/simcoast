@@ -53,18 +53,6 @@ func calc_presence_of_water(tile): #Return value of nearby water tiles within a 
 	
 	return numWaterTiles * WATER_TILE_WEIGHT
 
-func calc_tile_base(tile): #Return value of tiles' base type
-	var tile_base = tile.base
-	match(tile_base):
-		Tile.TileBase.DIRT:
-			return BASE_DIRT_VALUE
-		Tile.TileBase.ROCK:
-			return BASE_ROCK_VALUE
-		Tile.TileBase.SAND:
-			return BASE_ROCK_VALUE
-		_:
-			pass
-	return
 
 func calc_zone_connections(tile): #Return final value of the tiles surrounding selected tile
 	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1],
@@ -108,28 +96,11 @@ func calc_zone_connections(tile): #Return final value of the tiles surrounding s
 			(PARK_VALUE * park_neighbor) + \
 			(ROAD_VALUE * road_neighbor)
 
-func calc_num_zones(tile): #Return value number of zones in city
-	var numZones = 0
-	for i in Global.mapWidth:
-		for j in Global.mapHeight:
-			var current = Global.tileMap[i][j]
-			if current.is_zoned():
-				numZones += 1
-	return ZONE_VALUE * numZones
-
-func  calc_num_people(tile): #Return value of number of people in city
-	return UpdatePopulation.get_population() * PERSON_VALUE
-
 func calc_tile_damage(tile): #Return a value depending on tile damage
 	#this returns a value that represents the percentage of damage a tile has
 	#this limits happiness to, at most, 100 - the damage of the tile.
 	#introducing a cap to happiness that is proportional to damage of the tile
 	return tile.tileDamage * 100 #1 is max tile health, so *100 is percentiles
-
-func calc_city_wealth(tile): #Return a value based on city wealth
-	var cityWealthValue = 0
-	#cityWealthValue = Econ.money * CITY_WEALTH_WEIGHT #TODO: Make this logarithmic?
-	return cityWealthValue
 
 func calc_taxation_rate(tile): #Return a weight depending on tax rate of tile
 	var cityTaxValue = 0
