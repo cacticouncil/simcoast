@@ -27,6 +27,8 @@ const CITY_WEALTH_WEIGHT = 0.001
 const TAX_WEIGHT = -100
 
 const BASE_VALUE = 1.5
+
+#calculates the value of a given tile for all tiles in map
 func update_land_value():
 	for i in Global.mapWidth:
 		for j in Global.mapHeight:
@@ -53,8 +55,8 @@ func calc_presence_of_water(tile): #Return value of nearby water tiles within a 
 	
 	return numWaterTiles * WATER_TILE_WEIGHT
 
-
-func calc_zone_connections(tile): #Return final value of the tiles surrounding selected tile
+#returns value of all the zones surrounding the given tile
+func calc_zone_connections(tile):
 	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1],
 			[tile.i-2, tile.j], [tile.i+2, tile.j], [tile.i, tile.j-2], [tile.i, tile.j+2],
 			[tile.i+1, tile.j+1], [tile.i-1, tile.j+1], [tile.i-1, tile.j-1], [tile.i+1, tile.j-1]]
