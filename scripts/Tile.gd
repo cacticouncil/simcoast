@@ -752,6 +752,7 @@ func clear_sensor():
 func get_data():
 	return data
 
+#calculates the value of the public works surrounding a given tile for economy purposes
 func get_public_works_value():
 	var value = 0
 	#This was the calculation I came up with for diminishing returns. Each of the same neighbor provides less value
