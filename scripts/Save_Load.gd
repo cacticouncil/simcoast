@@ -23,7 +23,6 @@ func saveData(mapPath: String):
 		"econ": Econ.get_econ_data(),
 		"stats": Stats.stats,
 		"population": UpdatePopulation.get_population_data(),
-		"demand": UpdateDemand.get_demand_data(),
 		"date": UpdateDate.get_date_data(),
 		"waterDir": UpdateWater.waterDir,
 		"achievements": AchievementObserver.get_completed_achievements(),
@@ -60,7 +59,6 @@ func loadData(mapPath: String):
 	Econ.load_econ_data(mapData.econ)
 	UpdatePopulation.load_population_data(mapData.population)
 	UpdateDemand.load_demand_data(mapData.demand)
-	UpdateDate.load_date_data(mapData.date)
 	Stats.stats = mapData.stats
 	UpdateWater.waterDir = mapData.waterDir
 	
