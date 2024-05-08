@@ -537,7 +537,7 @@ func clear_tile():
 	zone = TileZone.NONE
 	
 	#reconnect utility if road or utility plant is cleared
-	if (inf == TileInf.UTILITIES_PLANT || inf == TileInf.ROAD || inf == TileInf.BRIDGE):
+	if (inf == TileInf.UTILITIES_PLANT || inf == TileInf.ROAD || inf == TileInf.BRIDGE || inf == TileInf.BOARDWALK):
 		inf = TileInf.NONE
 		City.connectUtilities()
 		
@@ -648,7 +648,7 @@ func remove_water():
 
 func set_damage(n):
 	#tiles without buildings/zoning or roads/bridges should not be damaged
-	if !is_zoned() && !TileInf.ROAD && !TileInf.BRIDGE:
+	if !is_zoned() && !TileInf.ROAD && !TileInf.BRIDGE && !TileInf.BOARDWALK:
 		return
 	if n == TileStatus.LIGHT_DAMAGE:
 		tileDamage += .25
@@ -670,7 +670,7 @@ func set_damage(n):
 			#should remove all buildings and all population?
 			while data[0] > 0:
 				remove_building()
-		elif inf == TileInf.ROAD || inf == TileInf.BRIDGE:
+		elif inf == TileInf.ROAD || inf == TileInf.BRIDGE || TileInf.BOARDWALK:
 			#if damage is absolute, clear road.
 			clear_tile()
 		

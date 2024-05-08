@@ -25,6 +25,7 @@ func get_city_data():
 		"numUtilityPlants": numUtilityPlants,
 		"numRoads": numRoads,
 		"numBridges": numBridges,
+		"numBoardwalks": numBoardwalks,
 		"numLibraries": numLibraries,
 		"numMuseums": numMuseums,
 		"numSchools": numSchools,
@@ -348,7 +349,7 @@ func calculate_damage():
 						tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
 					else:
 						tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
-				elif tile.inf == Tile.TileInf.ROAD || tile.inf == Tile.TileInf.BRIDGE:
+				elif tile.inf == Tile.TileInf.ROAD || tile.inf == Tile.TileInf.BRIDGE || tile.inf == Tile.TileInf.BOARDWALK:
 					if tile.get_water_height() > 1 && tile.get_water_height() <= 3:
 						tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
 					elif tile.get_water_height() <= 5:
@@ -379,8 +380,12 @@ func calculate_wear_and_tear():
 		for j in Global.mapWidth:
 			var tile = Global.tileMap[i][j]
 			
-			if tile.inf == tile.TileInf.ROAD || tile.inf == tile.TileInf.BRIDGE:
-				var chanceOfDamage = 0.005 #all roads have a minimum 0.5% chance of damage due to natural elements not based on usage
+			if tile.inf == tile.TileInf.ROAD || tile.inf == tile.TileInf.BRIDGE || tile.inf == tile.TileInf.BOARDWALK:
+				var chanceOfDamage
+				if tile.inf == tile.TileInf.BOARDWALK:
+					chanceOfDamage = 0.006 #boardwalk has higher chance of damage from being close to sea.
+				else:
+					chanceOfDamage = 0.005 #all roads/bridges have a minimum 0.5% chance of damage due to natural elements not based on usage
 				
 				# Check if neighbor tiles are zoned. Based on zoning determine wear and tear probability
 				var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]

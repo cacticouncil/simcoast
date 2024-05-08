@@ -853,7 +853,7 @@ color = Color( 0, 0, 0, 1 )
 [node name="ChoicePrompt" type="RichTextLabel" parent="RoadRepair/ColorRect/ChoiceBox"]
 margin_left = 12.0
 margin_top = 8.0
-margin_right = 240.0
+margin_right = 228.0
 margin_bottom = 84.0
 custom_fonts/normal_font = ExtResource( 49 )
 
@@ -872,6 +872,37 @@ margin_right = 220.0
 margin_bottom = 160.0
 custom_fonts/font = ExtResource( 49 )
 text = "No"
+
+[node name="RoadRepairError" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="RoadRepairError"]
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 0.196078 )
+
+[node name="ChoiceBox" type="ColorRect" parent="RoadRepairError/ColorRect"]
+margin_left = 600.0
+margin_top = 200.0
+margin_right = 834.0
+margin_bottom = 370.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ErrorMessage" type="RichTextLabel" parent="RoadRepairError/ColorRect/ChoiceBox"]
+margin_left = 12.0
+margin_top = 8.0
+margin_right = 240.0
+margin_bottom = 84.0
+custom_fonts/normal_font = ExtResource( 49 )
+text = "Sorry, you do not have enough funds."
+
+[node name="RoadRepairOKButton" type="Button" parent="RoadRepairError/ColorRect/ChoiceBox"]
+margin_left = 15.0
+margin_top = 91.0
+margin_right = 220.0
+margin_bottom = 120.0
+custom_fonts/font = ExtResource( 49 )
+text = "Ok"
 
 [connection signal="mouse_entered" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_entered"]
 [connection signal="mouse_exited" from="HUD/TopBarMenu/DashboardButton" to="." method="_on_DashboardButton_mouse_exited"]
@@ -898,3 +929,4 @@ text = "No"
 [connection signal="pressed" from="SensorNo/ColorRect/BoxNo/CloseNoButton" to="." method="_on_CloseNoButton_pressed"]
 [connection signal="pressed" from="RoadRepair/ColorRect/ChoiceBox/RoadRepairYesButton" to="." method="_on_RoadRepairYesButton_pressed"]
 [connection signal="pressed" from="RoadRepair/ColorRect/ChoiceBox/RoadRepairNoButton" to="." method="_on_RoadRepairNoButton_pressed"]
+[connection signal="pressed" from="RoadRepairError/ColorRect/ChoiceBox/RoadRepairOKButton" to="." method="_on_RoadRepairOKButton_pressed"]

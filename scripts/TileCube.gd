@@ -125,10 +125,26 @@ func _draw():
 		
 	elif tile.inf == Tile.TileInf.BRIDGE:
 		for building in listOfBuildings:
+			#shade bridge tiles if theyre damaged for players to see
+			if (tile.tileDamage > 0):
+				if tile.tileDamage == 0.25:
+					building.modulate = Color(1, 0, 0)
+				elif tile.tileDamage == 0.50:
+					building.modulate = Color(0.5, 0, 0)
+				else:
+					building.modulate = Color(0.25, 0, 0)
 			get_parent().add_child(building)
 	
 	elif tile.inf == Tile.TileInf.BOARDWALK:
 		for building in listOfBuildings:
+			#shade boardwalk tiles if theyre damaged for players to see
+			if (tile.tileDamage > 0):
+				if tile.tileDamage == 0.25:
+					building.modulate = Color(1, 0, 0)
+				elif tile.tileDamage == 0.50:
+					building.modulate = Color(0.5, 0, 0)
+				else:
+					building.modulate = Color(0.25, 0, 0)
 			get_parent().add_child(building)
 
 	elif tile.sensor == Tile.TileSensor.TIDE:

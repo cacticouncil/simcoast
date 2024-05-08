@@ -49,6 +49,14 @@ const WAVE_BREAKER_COST = 2000
 const ROAD_REPAIR_L_COST = 15
 const ROAD_REPAIR_M_COST = 30
 const ROAD_REPAIR_H_COST = 60
+#Bridge repair costs
+const BRIDGE_REPAIR_L_COST = 30
+const BRIDGE_REPAIR_M_COST = 60
+const BRIDGE_REPAIR_H_COST = 120
+#Boardwalk repair costs
+const BOARDWALK_REPAIR_L_COST = 30
+const BOARDWALK_REPAIR_M_COST = 60
+const BOARDWALK_REPAIR_H_COST = 120
 
 #Building upkeep costs
 const UTILITIES_PLANT_UPKEEP_COST = 100

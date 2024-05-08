@@ -1003,7 +1003,28 @@ func placementState():
 				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This road has medium damage.\nRepair for $30?"
 			elif tile.tileDamage == 0.75:
 				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This road has heavy damage.\nRepair for $60?"
+			$RoadRepair.visible = true
+		
+		elif Global.mapTool == Global.Tool.INF_BRIDGE && tile.inf == Tile.TileInf.BRIDGE && tile.tileDamage > 0:
+			Global.dragToPlaceState = false
+			current_road_tile = tile
+			if tile.tileDamage == 0.25:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This bridge has light damage.\nRepair for $30?"
+			elif tile.tileDamage == 0.50:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This bridge has medium damage.\nRepair for $60?"
+			elif tile.tileDamage == 0.75:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This bridge has heavy damage.\nRepair for $120?"
+			$RoadRepair.visible = true
 			
+		elif Global.mapTool == Global.Tool.INF_BOARDWALK && tile.inf == Tile.TileInf.BOARDWALK && tile.tileDamage > 0:
+			Global.dragToPlaceState = false
+			current_road_tile = tile
+			if tile.tileDamage == 0.25:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This boardwalk has light damage.\nRepair for $30?"
+			elif tile.tileDamage == 0.50:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This boardwalk has medium damage.\nRepair for $60?"
+			elif tile.tileDamage == 0.75:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This boardwalk has heavy damage.\nRepair for $120?"
 			$RoadRepair.visible = true
 			
 	elif Global.dragToRemoveState:
@@ -1059,7 +1080,10 @@ func _on_DashboardButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = true
 	$HUD/TopBarBG/AchievementSelected.visible = false
 	$HUD/TopBarBG/StoreSelected.visible = false
-
+	var Dashboard = preload("res://ui/Dashboard/Dashboard.tscn")
+	var DashboardInstance = Dashboard.instance()
+	add_child(DashboardInstance)
+	
 func _on_UIAchievementButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = false
 	$HUD/TopBarBG/AchievementSelected.visible = true
@@ -1207,33 +1231,79 @@ func _on_OkButton_pressed():
 
 func _on_RoadRepairYesButton_pressed():
 	var tile = current_road_tile
-	if tile.tileDamage == 0.25:
-		if (Econ.purchase_structure(Econ.ROAD_REPAIR_L_COST)):
-			tile.clear_tile()
-			tile.inf = Tile.TileInf.ROAD
-			City.connectRoads(tile)
-			City.connectUtilities()
-			City.numRoads += 1
-			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
-	elif tile.tileDamage == 0.5:
-		if (Econ.purchase_structure(Econ.ROAD_REPAIR_M_COST)):
-			tile.clear_tile()
-			tile.inf = Tile.TileInf.ROAD
-			City.connectRoads(tile)
-			City.connectUtilities()
-			City.numRoads += 1
-			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
-	elif tile.tileDamage == 0.75:
-		if (Econ.purchase_structure(Econ.ROAD_REPAIR_H_COST)):
-			tile.clear_tile()
-			tile.inf = Tile.TileInf.ROAD
-			City.connectRoads(tile)
-			City.connectUtilities()
-			City.numRoads += 1
-			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
-			
+	
+	if tile.inf == Tile.TileInf.ROAD:
+		if tile.tileDamage == 0.25:
+			if (Econ.purchase_structure(Econ.ROAD_REPAIR_L_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.5:
+			if (Econ.purchase_structure(Econ.ROAD_REPAIR_M_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.75:
+			if (Econ.purchase_structure(Econ.ROAD_REPAIR_H_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+			else:
+				$RoadRepairError.visible = true
+	elif tile.inf == Tile.TileInf.BRIDGE:
+		if tile.tileDamage == 0.25:
+			if (Econ.purchase_structure(Econ.BRIDGE_REPAIR_L_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Bridge", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.5:
+			if (Econ.purchase_structure(Econ.BRIDGE_REPAIR_M_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Bridge", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.75:
+			if (Econ.purchase_structure(Econ.BRIDGE_REPAIR_H_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Bridge", 1))
+			else:
+				$RoadRepairError.visible = true
+	elif tile.inf == Tile.TileInf.BOARDWALK:
+		if tile.tileDamage == 0.25:
+			if (Econ.purchase_structure(Econ.BOARDWALK_REPAIR_L_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Boardwalk", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.5:
+			if (Econ.purchase_structure(Econ.BOARDWALK_REPAIR_M_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Boardwalk", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.75:
+			if (Econ.purchase_structure(Econ.BOARDWALK_REPAIR_H_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Boardwalk", 1))
+			else:
+				$RoadRepairError.visible = true
 	$RoadRepair.visible = false
 
 
 func _on_RoadRepairNoButton_pressed():
 	$RoadRepair.visible = false
+
+
+func _on_RoadRepairOKButton_pressed():
+	$RoadRepairError.visible = false
