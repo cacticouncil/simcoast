@@ -50,7 +50,16 @@ func setName(id_, newName):
 	return
 #Unlocks the NPC (for character cards)
 func unlockNPC(id_):
+	if (npcDictionary[id_].unlocked):
+		return
 	npcDictionary[id_].unlocked = true
+	#Displays popup
+	var pop = preload("res://ui/Popups/Overlay.tscn")
+	var npcName = npcDictionary[id_].name
+	print(npcName)
+	var npcIcon = npcDictionary[id_].icon
+	print(npcIcon)
+	get_node("/root/Overlay").character_pop(npcName, npcIcon)
 	return
 #Access current dialogue and dialogue system
 func dialogueTrigger(id_):
