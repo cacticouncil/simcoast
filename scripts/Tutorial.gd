@@ -14,7 +14,7 @@ func getNextText():
 	var nextText = NPCOrganizer.nextDialogue(2)
 	#Node leaves scene when dialogue is done
 	if (nextText == null):
-		get_parent().remove_child(self)
+		queue_free()
 	else:
 		$DialogueBox/Dialogue.bbcode_text = nextText
 	return

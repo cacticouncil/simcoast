@@ -11,7 +11,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var residential_neighbor = 0
 	var commercial_neighbor = 0
 	var industrial_neighbor = 0
-	var public_works_neighbors = 0
+	tile.num_beach_rocks_nearby = 0
 	
 	# Get all neighbors in a circular radius.
 	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1],
@@ -27,6 +27,10 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 			
 			# Check what type of zone the neighbor is
 			var neighbor = Global.tileMap[n[0]][n[1]]
+			
+			if (neighbor.inf == Tile.TileInf.BEACH_ROCKS || neighbor.inf == Tile.TileInf.BEACH_GRASS):
+				tile.num_beach_rocks_nearby += 1
+			
 			match(neighbor.zone):
 				Tile.TileZone.SINGLE_FAMILY:
 					residential_neighbor += 1
@@ -35,7 +39,20 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 				Tile.TileZone.COMMERCIAL:
 					commercial_neighbor += 	1
 				Tile.TileZone.PUBLIC_WORKS:
-					public_works_neighbors += 1
+					if neighbor.inf == Tile.TileInf.PARK && neighbor.utilities:
+						tile.public_works_dictionary['parks'] += 1
+					elif neighbor.inf == Tile.TileInf.LIBRARY && neighbor.utilities:
+						tile.public_works_dictionary['libraries'] += 1
+					elif neighbor.inf == Tile.TileInf.MUSEUM && neighbor.utilities:
+						tile.public_works_dictionary['museums'] += 1
+					elif neighbor.inf == Tile.TileInf.SCHOOL && neighbor.utilities:
+						tile.public_works_dictionary['school'] += 1
+					elif neighbor.inf == Tile.TileInf.FIRE_STATION && neighbor.utilities:
+						tile.public_works_dictionary['fire_stations'] += 1
+					elif neighbor.inf == Tile.TileInf.HOSPITAL && neighbor.utilities:
+						tile.public_works_dictionary['hospitals'] += 1
+					elif neighbor.inf == Tile.TileInf.POLICE_STATION && neighbor.utilities:
+						tile.public_works_dictionary['police_stations'] += 1
 				_:
 					continue
 	
@@ -46,21 +63,18 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 		commercial_neighbor = NEIGHBOR_CAP
 	if industrial_neighbor > NEIGHBOR_CAP:
 		industrial_neighbor = NEIGHBOR_CAP
-	if public_works_neighbors > NEIGHBOR_CAP:
-		public_works_neighbors = NEIGHBOR_CAP
 		
 	tile.residential_neighbors = residential_neighbor
 	tile.commercial_neighbors = commercial_neighbor
 	tile.industrial_neighbors = industrial_neighbor
-	tile.public_works_neighbors = public_works_neighbors
 	
 	return succeed()
 
 
 # Check to see if these indices are valid tile coordinates
 func is_valid_tile(i, j) -> bool:
-	if i < 0 || Global.mapWidth <= i:
+	if i < 0 || Global.mapHeight <= i:
 		return false
-	if j < 0 || Global.mapHeight <= j:
+	if j < 0 || Global.mapWidth <= j:
 		return false
 	return true

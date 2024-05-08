@@ -15,6 +15,8 @@ var items = {
 	'road': 0,
 	'water': 0,
 	'bridge': 0,
+	'boardwalk': 0,
+	'wavebreaker': 0,
 	'house': 0, #don't use
 	'apartment': 0, #don't use
 	'shop': 0, #don't use
@@ -22,16 +24,25 @@ var items = {
 	'hv_res_zone': 0, #don't use
 	'lt_com_zone': 0, #don't use
 	'hv_com_zone': 0, #don't use
-	"tide sensor": 0,
-	"rain sensor": 0
+	'close beach': 0, #don't use
+	'remove rocks': 0,
+	'wave breaker': 0,
+	"tide gauge": 0,
+	"rain gauge": 0,
+	"wind gauge": 0
 }
 
-var tide_info = " Used to measure the speed and\n height of the tide and other\n weather metrics."
+var tide_info = "Used to measure the speed and\n height of the tide and other\n weather metrics."
 var tide_ext_info = "A tide gauge is a device used to measure the change in sea level relative to the surface of land.\nSensors continuously record the height of the water level by measuring the distance to the water's surface and comparing it to the height of the land it is connected to.\nTide gauges are important sensors when predicting upcoming storms, since storms create higher waves."
-var placeholder = " This is the extended sensor description. TBA"
-var rain_info = " Used to measure the amount of\n rain fall an area has had over\n a period of time."
+var placeholder = "This is the extended sensor description. TBA"
+var rain_info = "Used to measure the amount of\n rain fall an area has had over\n a period of time."
+var wind_info = "Used to measure wind\n speed and air pressure."
+var wind_ext_info = "A wind gauge is a device used to measure wind\n speed and pressure."
 var sensors = []
 var current_sensor = ""
+var tide_bought = false
+var rain_bought = false
+var wind_bought = false
 
 
 func get_inventory_data():
@@ -66,8 +77,15 @@ func load_inventory_data(data):
 	for key in sensor1Data:
 		sensor2.set(key, sensor2Data[key])
 	
+	var sensor3 = Sensor.new("", "", "", "")
+	var sensor3Data = data["sensors"][2]
+	
+	for key in sensor3Data:
+		sensor3.set(key, sensor3Data[key])
+		
 	sensors.append(sensor1)
 	sensors.append(sensor2)
+	sensors.append(sensor3)
 	
 	# Update inventory numbers
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
@@ -78,7 +96,7 @@ func _ready():
 	sensors.append(Sensor.new("Tide Gauge", tide_info, tide_ext_info, " "))
 	sensors[0].set_status(true)
 	sensors.append(Sensor.new("Rain Gauge", rain_info, placeholder,"Buy a Tide Gauge"))
-
+	sensors.append(Sensor.new("Wind Gauge", wind_info, wind_ext_info, "Buy a Rain Gauge"))
 # add building to inventory
 func add_building(building):
 	items[building] += 1
@@ -116,23 +134,43 @@ func change_sensor_status(var n, var s):
 			
 func remove_sensor(s):
 	items[s] -= 1
-	if s == "tide sensor":
+	if s == "tide gauge":
 		for sensor in sensors:
 			if sensor.get_name() == "Tide Gauge":
 				sensor.decrease_amount()
-	elif s == "rain sensor":
+	elif s == "rain gauge":
 		for sensor in sensors:
 			if sensor.get_name() == "Rain Gauge":
+				sensor.decrease_amount()
+	elif s == "wind gauge":
+		for sensor in sensors:
+			if sensor.get_name() == "Wind Gauge":
 				sensor.decrease_amount()
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
 
 func update_sensor_amount():
 	for sensor in sensors:
 		if sensor.get_name() == "Tide Gauge":
-			items["tide sensor"] = sensor.get_amount()
+			items["tide gauge"] = sensor.get_amount()
+			if sensor.get_amount() != 0:
+				tide_bought = true
 		if sensor.get_name() == "Rain Gauge":
-			items["rain sensor"] = sensor.get_amount()
+			items["rain gauge"] = sensor.get_amount()
+			if sensor.get_amount() != 0:
+				rain_bought = true
+		if sensor.get_name() == "Wind Gauge":
+			items["wind gauge"] = sensor.get_amount()
+			if sensor.get_amount() != 0:
+				wind_bought = true
 	get_node("/root/CityMap/HUD/ToolsMenu").updateAmounts()
+
+func bought(var s):
+	if s == "Tide Gauge":
+		return tide_bought
+	elif s == "Rain Gauge":
+		return rain_bought
+	else:
+		return wind_bought
 
 func set_current_sensor(var s):
 	current_sensor = s

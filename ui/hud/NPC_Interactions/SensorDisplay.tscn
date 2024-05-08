@@ -90,6 +90,7 @@ text = "More information"
 icon_align = 1
 
 [node name="BuyButton" type="Button" parent="SensorsBG/SensorName"]
+visible = false
 margin_left = 118.667
 margin_top = 73.0
 margin_right = 221.667

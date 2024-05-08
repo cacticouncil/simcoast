@@ -30,8 +30,8 @@ func loadMap():
 
 # Draws all of the individual cubes in the map space
 func _draw():	
-	for i in Global.mapWidth:
-		for j in Global.mapHeight:
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
 			Global.tileMap[i][j].cube.update()
 
 # Returns the tile cube at the provided mouse x/y pixel position (pos)

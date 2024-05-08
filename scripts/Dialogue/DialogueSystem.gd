@@ -1,4 +1,4 @@
-class_name DialogueSystem extends Node
+class_name DialogueSystem
 
 # keeps track of current dialogue sequence for npc and player
 var currentNPC = 0

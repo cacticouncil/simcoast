@@ -1,4 +1,4 @@
-class_name Sensor extends Node
+class_name Sensor
 
 # name of sensor
 var sensor_name
