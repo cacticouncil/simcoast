@@ -114,15 +114,10 @@ func _unhandled_input(event):
 			return
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
-		if tile.inf == Tile.TileInf.BEACH_ROCKS || tile.inf == Tile.TileInf.BEACH_GRASS:
-			if Input.is_action_pressed("right_click"):
-				tile.clear_tile()
-				tile.inf = Tile.TileInf.NONE
-				Weather.beachProtection -= 1
 		if tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN || tile.sensor == Tile.TileSensor.WIND: 
 			if Input.is_action_pressed("right_click"):
 				sensor_back_to_inventory(tile.sensor)
-				tile.clear_tile()
+				tile.sensor = Tile.TileSensor.NONE
 		# Perform action based on current tool selected
 		match Global.mapTool:
 			# Change Base or (if same base) raise/lower tile height
@@ -916,7 +911,7 @@ func placementState():
 						Announcer.notify(currEvent)
 						currEvent.queue_free()
 						if tile.has_utilities():
-							currEvent = Event.new("Added Tile", "Added Commercial Area", 1)
+							currEvent = Event.new("Added Powered Tile", "Added Commercial Area", 1)
 							Announcer.notify(currEvent)
 							currEvent.queue_free()
 						tile.clear_tile()
