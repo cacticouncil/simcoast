@@ -896,14 +896,8 @@ func _on_UIAchievementButton_pressed():
 	add_child(AchMenuInstance)
 
 func _on_StoreButton_pressed():
-	var tut = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
-	var TutInstance = tut.instance()
-	add_child(TutInstance)
-	if (Global.newGame):
-		var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
-		var TutorialInstance = tutorial.instance()
-		TutorialInstance.setCharacter(2)
-		add_child(TutorialInstance)
+	# TODO add event announcement
+	pass
 
 func _on_DashboardButton_mouse_entered():
 	$HUD/TopBarBG/DashboardHover.visible = true
