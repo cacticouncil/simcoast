@@ -39,8 +39,6 @@ func updateStats(event):
 			stats['# of Residential Areas'] += event.eventValue
 		elif event.eventDescription == "Added Commercial Area":
 			stats['# of Commercial Areas'] += event.eventValue
-			print("c")
-			print(stats['# of Commercial Areas'])
 		elif event.eventDescription == "Added Power Plant":
 			stats['# of Power Plants'] += event.eventValue
 		elif event.eventDescription == "Added Road":

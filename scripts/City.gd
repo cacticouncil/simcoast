@@ -19,6 +19,7 @@ var numCommercialZones = 0
 var numSingleFamilyZones = 0
 var numMultiFamilyZones = 0
 
+
 func get_city_data():
 	var cityData = {
 		"numParks": numParks,
@@ -373,6 +374,65 @@ func calculate_damage():
 				else:
 					tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
 				tile.changeInWearAndTear = false
+				
+	#damage for storms
+	if Weather.currentlyStorming == true && Weather.stormDamage == true:
+		Weather.stormDamage = false
+		
+		for i in Global.mapHeight:
+			for j in Global.mapWidth:
+				var tile = Global.tileMap[i][j]
+				
+				# when beaches are closed
+				if Global.beginBeachEvacuation == true:
+					# damage depending on place and category of storm
+					if (tile.base == Tile.TileBase.SAND):
+						match Weather.currentType:
+							Weather.WeatherStates.HURRICANE_3:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_4:
+								tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+							Weather.WeatherStates.HURRICANE_5:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+					else:
+						match Weather.currentType:
+							Weather.WeatherStates.HURRICANE_3:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_4:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_5:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+				# when beaches do not close
+				else:
+					# damage depending on place and category of storm
+					if (tile.base == Tile.TileBase.SAND):
+						match Weather.currentType:
+							Weather.WeatherStates.TROPICAL_STORM:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_1:
+								tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+							Weather.WeatherStates.HURRICANE_2:
+								tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+							Weather.WeatherStates.HURRICANE_3:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+							Weather.WeatherStates.HURRICANE_4:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+							Weather.WeatherStates.HURRICANE_5:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+					else:
+						match Weather.currentType:
+							Weather.WeatherStates.TROPICAL_STORM:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_1:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_2:
+								tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+							Weather.WeatherStates.HURRICANE_3:
+								tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+							Weather.WeatherStates.HURRICANE_4:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+							Weather.WeatherStates.HURRICANE_5:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
 
 # Update wear and tear for road and bridge tiles. called in updateDate
 func calculate_wear_and_tear():

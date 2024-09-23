@@ -18,6 +18,8 @@ func update_weather():
 			
 			Weather.currentlyStorming = Weather.willStorm
 			Weather.currentType = Weather.futureType
+			if Weather.currentType != Weather.WeatherStates.CLEAR:
+				Weather.stormDamage = true
 			Global.currentWeatherState = Weather.currentType
 			if Weather.currentlyStorming == true:
 				print("currently storming")
@@ -25,7 +27,7 @@ func update_weather():
 			if Weather.currentMonth == UpdateDate.Months.August || Weather.currentMonth == UpdateDate.Months.September || Weather.currentMonth == UpdateDate.Months.October:
 				Weather.probStorm = .075
 			elif Weather.currentMonth == UpdateDate.Months.June || Weather.currentMonth == UpdateDate.Months.July || Weather.currentMonth== UpdateDate.Months.November:
-				Weather.probStorm = .015
+				Weather.probStorm = .025
 			else:
 				Weather.probStorm = 0
 			rng.randomize()

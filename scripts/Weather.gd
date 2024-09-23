@@ -16,7 +16,7 @@ enum WeatherStates{
 }
 
 var weatherOn = true
-
+var stormDamage = false
 var monthsSinceLastStorm = 0
 var currentMonth = UpdateDate.month
 var nextMonth = UpdateDate.month+1
