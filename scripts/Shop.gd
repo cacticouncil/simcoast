@@ -79,6 +79,7 @@ func _on_QuitShop_button_down():
 
 # closes buy popup
 func _on_CloseBuy_pressed():
+	Announcer.notify(Event.new("Info popup", "Closed", 2))
 	for sensor in Inventory.sensors:
 		if sensor.buy_bttn == true:
 			sensor.buy_bttn = false

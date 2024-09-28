@@ -21,7 +21,7 @@ var Options = load("res://scripts/Dialogue/Options.gd")
 # Currently, 1 is a placeholder for the Maria character
 var convs = [
 	Conversation.new([
-		Dialogue.new("Hello, Mayor Patriel! Welcome to Shore City. I’m so happy to have you as our new mayor. We’re a small community right now, but I’m sure you can lead us to becoming a bustling city.", 1),
+		Dialogue.new("Hello, Mayor PLAYER_NAME! Welcome to Shore City. I’m so happy to have you as our new mayor. We’re a small community right now, but I’m sure you can lead us to becoming a bustling city.", 1),
 		Dialogue.new("My name is Maria. Let me give you a tour of the city as I explain your role as mayor.", 1),
 		Dialogue.new("This is the map of the city. On the left are the tools you need to build infrastructure around town. Powerplants power all the buildings in town. Go ahead and place a power plant.", 1),
 		null
@@ -31,18 +31,22 @@ var convs = [
 		null
 	], {"event_name": "Added Powered Tile", "event_description": ["Added Commercial Area", "Added Resedential Area"]}),
 	Conversation.new([
-		Dialogue.new("Look at that. Now we have new people moving in! I’m so excited, Mayor Patriel. Our city is growing. As the city grows, it’s important to pay attention to the impact your decisions have on citizens. Let’s check out the dashboard.", 1),
+		Dialogue.new("Look at that. Now we have new people moving in! I’m so excited, Mayor PLAYER_NAME. Our city is growing. As the city grows, it’s important to pay attention to the impact your decisions have on citizens. Let’s check out the dashboard.", 1),
 		null
 	], {"event_name": "Dashboard", "event_description": "Entered"}),
 	Conversation.new([
-		Dialogue.new("This is your dashboard. This is where you can monitor citizens’ happiness, change tax rates, and monitor sensors. Take a look around. I’ll be waiting for you at the shop when you’re ready.", 1),
+		Dialogue.new("This is your dashboard. This is where you can monitor citizens’ happiness, change tax rates, and monitor sensors. Take a look around. I’ll be waiting for you at the store when you’re ready.", 1),
 		null
-	], {"event_name": "Shop", "event_description": "Entered"}), # This conditions dictionary isn't right
+	], {"event_name": "Store", "event_description": "Entered"}),
 	Conversation.new([
 		Dialogue.new("Thanks for joining me, Mayor. This is the shop where you can purchase sensors. Sensors help monitor the weather. Because our city is right next to the ocean, we use sensors to let us know if there’s a storm approaching.", 1),
 		Dialogue.new("Sensors are expensive but they’re good investments. Luckily, the city has received a donated tide gauge, so this one is free. You can go ahead and accept it, Mayor.", 1),
 		null
-	], {}), # The empty dictionary is just a placeholder
+	], {"event_name": "Info popup", "event_description": "Closed"}),
+	Conversation.new([
+		Dialogue.new("After you've purchased a sensor, you can learn even more about it by talking to Dr. Clarke. Dr Clarke is our resident evironmental scientist. He's very knowledgeable about sensors and how they impact that environment. When you're ready to meet with him, click on \"learn more\" on the tide gauge to to head on over to the lab.", 1),
+		null
+	], {}),
 	null
 ]
 

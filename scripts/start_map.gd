@@ -896,8 +896,10 @@ func _on_UIAchievementButton_pressed():
 	add_child(AchMenuInstance)
 
 func _on_StoreButton_pressed():
-	# TODO add event announcement
-	pass
+	var store = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
+	var store_instance = store.instance()
+	add_child(store_instance)
+	Announcer.notify(Event.new("Store", "Entered", 1))
 
 func _on_DashboardButton_mouse_entered():
 	$HUD/TopBarBG/DashboardHover.visible = true
