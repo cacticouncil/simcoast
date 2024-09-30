@@ -206,6 +206,7 @@ NPCOrganizer="*res://scripts/NPCOrganizer.gd"
 Inventory="*res://inventory/Inventory.tscn"
 BadgeObserver="*res://scripts/Observers/BadgeObserver.gd"
 Introduction="*res://ui/NPC_Interactions/Introduction.gd"
+TutorialData="*res://scripts/TutorialData.gd"
 
 [debug]
 
