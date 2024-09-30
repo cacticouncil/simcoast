@@ -21,10 +21,12 @@ var mapName = ""
 var mapPath = ""
 var currentMap = "res://data/default.json"
 var mapWidth = 16
-var mapHeight = 16
+var mapHeight = 18
 
 var mapTool = Tool.NONE
 var tileMap = initTileMap()
+
+var userName = "noName"
 
 var seaLevel = 2       # World value that ocean resets to after a storm surge
 var oceanHeight = 0    # Current ocean level on map
@@ -59,6 +61,12 @@ const ZONE_BALANCE = -.01
 var isPaused = false
 var currentWeatherState = 0;
 
+# The beach should shut down when this is true
+var closeBeach = false
+var beginBeachEvacuation = false
+var stayEvacuated = false
+var moveBackIn = false
+
 func get_global_data():
 	var globalData = {
 		"mapName": mapName,
@@ -83,9 +91,9 @@ func load_global_data(data):
 func initTileMap():
 	var tm = []
 	
-	for _i in range(mapWidth):
+	for _i in range(mapHeight):
 		var row = []
-		row.resize(mapHeight)
+		row.resize(mapWidth)
 		tm.append(row)
 
 	for i in mapHeight:
@@ -124,13 +132,17 @@ enum Tool {
 	INF_SCHOOL,
 	INF_ROAD,
 	INF_BRIDGE,
+	INF_BOARDWALK,
 	INF_SEWAGE_FACILITY,
 	INF_WASTE_TREATMENT,
 	INF_UTILITIES_PLANT,
+	INF_WAVE_BREAKER,
 	INF_BEACH_ROCKS,
 	INF_BEACH_GRASS,
+	REMOVE_BEACH_ROCKS,
 	SENSOR_TIDE,
 	SENSOR_RAIN,
+	SENSOR_WIND,
 	WATER,
 	CLEAR_TILE,
 	REPAIR,

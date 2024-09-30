@@ -23,6 +23,7 @@ enum TileInf {
 	NONE,
 	ROAD,
 	BRIDGE,
+	BOARDWALK,
 	PARK,
 	FIRE_STATION,
 	HOSPITAL,
@@ -37,13 +38,15 @@ enum TileInf {
 	UTILITIES_PLANT,
 	SEWAGE_FACILITY,
 	WASTE_TREATMENT,
+	WAVE_BREAKER,
 	CHILD
 }
 
 enum TileSensor {
 	NONE,
 	TIDE,
-	RAIN
+	RAIN,
+	WIND
 }
 
 # Flooding damage levels affect building and road tiles
@@ -165,10 +168,13 @@ var bridge_connected_to_dirt = false
 var tile_base_dirt = false
 var tile_base_rock = false
 var tile_base_sand = false
+
+var on_beach = false
+var pre_evacuation_residents = -1
+
 var residential_neighbors = 0
 var commercial_neighbors = 0
 var industrial_neighbors = 0
-var public_works_neighbors = 0
 var public_works_dictionary = {
 	"parks": 0,
 	"libraries": 0,
@@ -191,6 +197,7 @@ var is_income_tax_light = false
 var is_neg_profit = false
 var wealth_weight = 0
 var tile_dmg_weight = 0
+var num_beach_rocks_nearby = 0
 var children = [] #List of List of children's indicies
 var parent = [-1, -1] #If this tile is a child, this is it's parent, otherwise -1, -1
 
@@ -327,6 +334,8 @@ func convert_string_to_sensor(sensor):
 			return TileSensor.TIDE
 		"rain":
 			return TileSensor.RAIN
+		"wind":
+			return TileSensor.WIND
 
 
 func convert_string_to_tile_status(status):
@@ -375,6 +384,8 @@ func convert_sensor_to_string():
 			return "tide"
 		TileSensor.RAIN:
 			return "rain"
+		TileSensor.WIND:
+			return "wind"
 
 
 func convert_tile_status_to_string():
@@ -425,7 +436,7 @@ func get_save_tile_data():
 		"residential_neighbors": residential_neighbors,
 		"commercial_neighbors": commercial_neighbors,
 		"industrial_neighbors": industrial_neighbors,
-		"public_works_neighbors": public_works_neighbors,
+		"public_works_neighbors": PUBLIC_WORKS_NEIGHBORS,
 		"public_works_dictionary": public_works_dictionary,
 		"prop_tax_weight": prop_tax_weight,
 		"is_sales_tax_heavy": is_sales_tax_heavy,
@@ -456,7 +467,10 @@ func paste_tile(tile):
 	profitRate = tile.profitRate
 
 func check_if_valid_placement(inf_to_be, height, width):
-	if !((get_base() == TileBase.DIRT || get_base() == TileBase.ROCK) && inf != inf_to_be):
+	if inf_to_be == TileInf.WAVE_BREAKER:
+		if !get_base() == TileBase.SAND || baseHeight > 5:
+			return false
+	elif !((get_base() == TileBase.DIRT || get_base() == TileBase.ROCK) && inf != inf_to_be):
 		return false
 	
 	for a in range(0, height):
@@ -495,27 +509,35 @@ func clear_tile():
 	
 	#inform the Announcer that we have removed a zone
 	if is_commercial():
-			Announcer.notify(Event.new("Removed Tile", "Removed Commercial Area", 1))
+			var currEvent = Event.new("Removed Tile", "Removed Commercial Area", 1)
+			Announcer.notify(currEvent)
+			currEvent.queue_free()
 	elif is_residential():
 		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
-		Announcer.notify(Event.new("Removed Tile", "Removed Residential Area", 1))
+		var currEvent = Event.new("Removed Tile", "Removed Residential Area", 1)
+		Announcer.notify(currEvent)
+		currEvent.queue_free()
 	else:
 		tileDamage -= data[0] * Econ.REMOVE_BUILDING_DAMAGE
 	if tileDamage < 0:
 		tileDamage = 0
 	if inf == TileInf.UTILITIES_PLANT:
-		Announcer.notify(Event.new("Removed Tile", "Removed Power Plant", 1))
+		var currEvent = Event.new("Removed Tile", "Removed Power Plant", 1)
+		Announcer.notify(currEvent)
+		currEvent.queue_free()
 	elif inf == TileInf.ROAD:
-		Announcer.notify(Event.new("Removed Tile", "Removed Road", 1))
-	elif inf == TileInf.BRIDGE:
-		Announcer.notify(Event.new("Removed Tile", "Removed Bridge", 1))
+		var currEvent = Event.new("Removed Tile", "Removed Road", 1)
+		Announcer.notify(currEvent)
+		currEvent.queue_free()
 	elif inf == TileInf.PARK:
-		Announcer.notify(Event.new("Removed Tile", "Removed Park", 1))
+		var currEvent = Event.new("Removed Tile", "Removed Park", 1)
+		Announcer.notify(currEvent)
+		currEvent.queue_free()
 	#reset zones
 	zone = TileZone.NONE
 	
 	#reconnect utility if road or utility plant is cleared
-	if (inf == TileInf.UTILITIES_PLANT || inf == TileInf.ROAD || inf == TileInf.BRIDGE):
+	if (inf == TileInf.UTILITIES_PLANT || inf == TileInf.ROAD || inf == TileInf.BRIDGE || inf == TileInf.BOARDWALK):
 		inf = TileInf.NONE
 		City.connectUtilities()
 		
@@ -626,7 +648,7 @@ func remove_water():
 
 func set_damage(n):
 	#tiles without buildings/zoning or roads/bridges should not be damaged
-	if !is_zoned() && !TileInf.ROAD && !TileInf.BRIDGE:
+	if !is_zoned() && !TileInf.ROAD && !TileInf.BRIDGE && !TileInf.BOARDWALK:
 		return
 	if n == TileStatus.LIGHT_DAMAGE:
 		tileDamage += .25
@@ -648,7 +670,7 @@ func set_damage(n):
 			#should remove all buildings and all population?
 			while data[0] > 0:
 				remove_building()
-		elif inf == TileInf.ROAD || inf == TileInf.BRIDGE:
+		elif inf == TileInf.ROAD || inf == TileInf.BRIDGE || TileInf.BOARDWALK:
 			#if damage is absolute, clear road.
 			clear_tile()
 		
@@ -780,6 +802,8 @@ func get_data():
 
 func get_public_works_value():
 	var value = 0
+	if zone == TileZone.SINGLE_FAMILY:
+		pass
 	#This was the calculation I came up with for diminishing returns. Each of the same neighbor provides less value
 	var parkValue = PARK_NEIGHBORS
 	for i in range(public_works_dictionary['parks']):
@@ -824,7 +848,7 @@ func is_commercial():
 
 func distance_to_water():
 #	 set distance to the maximum possible value any tile could be from water
-	var distance = sqrt(pow(Global.mapWidth, 2) - pow(Global.mapHeight, 2))
+	var distance = 999999
 #	checking a 6 tile radius circle around the current tile
 	for x in range(i-6, i+7):
 		for y in range(j-6, j+7):
@@ -838,7 +862,7 @@ func distance_to_water():
 						 distance = temp_distance
 	
 #	if the distance value has been changed, return it
-	if distance != max(Global.mapHeight, Global.mapWidth):
+	if distance != 999999:
 		return distance
 	else:
 		 return null

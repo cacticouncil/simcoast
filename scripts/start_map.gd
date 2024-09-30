@@ -36,12 +36,13 @@ func initCamera():
 	$Camera2D.position.y = mid_y
 	
 	#Change offeset so it's the center of the actual area
-	$Camera2D.offset.x = -75 #75 since toolbar is 150 so half of that
+	$Camera2D.offset.x = -45 #75 since toolbar is 150 so half of that
 	
 	$Camera2D.limit_left = (mid_x * -1) - Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_top = -Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_right = mid_x + Global.MAP_EDGE_BUFFER
 	$Camera2D.limit_bottom = Global.mapHeight * Global.TILE_HEIGHT + Global.MAP_EDGE_BUFFER
+
 
 func initObservers():
 	#Add achievement observer
@@ -59,6 +60,14 @@ func initObservers():
 	$HUD/MissionsBG.margin_bottom = 28 + (14 * missions.size()) + (20 * (missions.size() + 1))
 	$HUD/Missions/VBoxContainer/Mission1.text = missions[0]
 	
+	#FIXME: This line should add hover text but isn't
+	""" For reference from ui_buttons.gd
+	for i in group.get_buttons():
+		i.connect("pressed", self, "button_pressed")
+		i.connect("mouse_entered", self, "button_hover", [i])
+		i.connect("mouse_exited", self, "button_exit")
+	"""
+	#$HUD/Missions/VBoxContainer/Mission1.connect("mouse_entered", self, "MissionObserver.hoverMission", [0])
 	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_entered", self, "show_mission_tip", [0])
 	get_node("HUD/Missions/VBoxContainer/Mission1").connect("mouse_exited", self, "clear_mission_tip")
 	if missions.size() > 1:
@@ -79,23 +88,10 @@ func initObservers():
 	Announcer.addObserver(sfxObserver)
 	self.add_child(sfxObserver)
 	
-	#Add Badge Observer
-	Announcer.addObserver(get_node("/root/BadgeObserver"))
-	#Remove these, solely for testing purposes
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 1", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 2", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 3", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 4", 2))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 5", 2))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 6", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 7", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 8", 0))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 9", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 10", 1))
-	Announcer.notify(Event.new("Unlocked Badge", "Badge Category 11", 2))
-	
 	# Just in case their's any action to take about this right away
-	Announcer.notify(Event.new("Money", "Amount of money", Econ.money))
+	var currEvent = Event.new("Money", "Amount of money", Econ.money)
+	Announcer.notify(currEvent)
+	currEvent.queue_free()
 
 func show_mission_tip(num):
 	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = MissionObserver.getMissionsDescriptions()[num]
@@ -118,7 +114,10 @@ func _unhandled_input(event):
 			return
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
-		
+		if tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN || tile.sensor == Tile.TileSensor.WIND: 
+			if Input.is_action_pressed("right_click"):
+				sensor_back_to_inventory(tile.sensor)
+				tile.sensor = Tile.TileSensor.NONE
 		# Perform action based on current tool selected
 		match Global.mapTool:
 			# Change Base or (if same base) raise/lower tile height
@@ -152,8 +151,10 @@ func _unhandled_input(event):
 	
 			# Clear and zone a tile (if it is not already of the same zone)
 			Global.Tool.ZONE_SINGLE_FAMILY, Global.Tool.ZONE_MULTI_FAMILY, Global.Tool.ZONE_COM:
-				if (tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE && (tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK)):
-					Announcer.notify(Event.new("Added Tile", "Play SFX", 1))
+				if (tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE && (tile.get_base() == Tile.TileBase.DIRT || tile.get_base() == Tile.TileBase.ROCK || (tile.get_base() == Tile.TileBase.SAND && tile.baseHeight > 8))):
+					var currEvent = Event.new("Added Tile", "Play SFX", 1)
+					Announcer.notify(currEvent)
+					currEvent.queue_free()
 				if Input.is_action_pressed("left_click"):
 					Global.dragToPlaceState = true
 				elif Input.is_action_pressed("right_click"):
@@ -188,6 +189,10 @@ func _unhandled_input(event):
 					
 			Global.Tool.CLEAR_TILE:
 				tile.clear_tile()
+			
+			Global.Tool.REMOVE_BEACH_ROCKS:
+				Global.dragToRemoveState = true
+				Weather.beachProtection -= 1
 				
 			Global.Tool.INF_UTILITIES_PLANT:
 				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
@@ -195,11 +200,15 @@ func _unhandled_input(event):
 						if (Inventory.removeIfHave('utility plant')):
 							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT, Tile.TileZone.NONE, Global.buildingHeight, Global.buildingWidth)
 							City.numUtilityPlants += 1
-							Announcer.notify(Event.new("Added Tile", "Added Power Plant", 1))
+							var currEvent = Event.new("Added Tile", "Added Power Plant", 1)
+							Announcer.notify(currEvent)
+							currEvent.queue_free()
 						elif (Econ.purchase_structure(Econ.UTILITIES_PLANT_COST)):
 							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT, Tile.TileZone.NONE, Global.buildingHeight, Global.buildingWidth)
 							City.numUtilityPlants += 1
-							Announcer.notify(Event.new("Added Tile", "Added Power Plant", 1))
+							var currEvent = Event.new("Added Tile", "Added Power Plant", 1)
+							Announcer.notify(currEvent)
+							currEvent.queue_free()
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -230,10 +239,8 @@ func _unhandled_input(event):
 					if (tile.check_if_valid_placement(Tile.TileInf.SEWAGE_FACILITY, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('sewage facility')):
 							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
-							Announcer.notify(Event.new("Added Tile", "Added Sewage Facility", 1))
 						elif (Econ.purchase_structure(Econ.SEWAGE_FACILITY_COST)):
 							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
-							Announcer.notify(Event.new("Added Tile", "Added Sewage Facility", 1))
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -263,10 +270,8 @@ func _unhandled_input(event):
 					if (tile.check_if_valid_placement(Tile.TileInf.WASTE_TREATMENT, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('waste treatment')):
 							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
-							Announcer.notify(Event.new("Added Tile", "Added Waste Treatment Facility", 1))
 						elif (Econ.purchase_structure(Econ.WASTE_TREATMENT_COST)):
 							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
-							Announcer.notify(Event.new("Added Tile", "Added Waste Treatment Facility", 1))
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -298,12 +303,16 @@ func _unhandled_input(event):
 							tile.set_tile_inf(Tile.TileInf.PARK, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
-							Announcer.notify(Event.new("Added Tile", "Added Park", 1))
+							var currEvent = Event.new("Added Tile", "Added Park", 1)
+							Announcer.notify(currEvent)
+							currEvent.queue_free()
 						elif (Econ.purchase_structure(Econ.PARK_COST)):
 							tile.set_tile_inf(Tile.TileInf.PARK, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
-							Announcer.notify(Event.new("Added Tile", "Added Park", 1))
+							var currEvent = Event.new("Added Tile", "Added Park", 1)
+							Announcer.notify(currEvent)
+							currEvent.queue_free()
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -336,12 +345,10 @@ func _unhandled_input(event):
 							tile.set_tile_inf(Tile.TileInf.LIBRARY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numLibraries += 1
-							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
 						elif (Econ.purchase_structure(Econ.LIBRARY_COST)):
 							tile.set_tile_inf(Tile.TileInf.LIBRARY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numLibraries += 1
-							Announcer.notify(Event.new("Added Tile", "Added Library", 1))
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -374,12 +381,10 @@ func _unhandled_input(event):
 							tile.set_tile_inf(Tile.TileInf.MUSEUM, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numMuseums += 1
-							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
 						elif (Econ.purchase_structure(Econ.MUSEUM_COST)):
 							tile.set_tile_inf(Tile.TileInf.MUSEUM, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numMuseums += 1
-							Announcer.notify(Event.new("Added Tile", "Added Museum", 1))
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -411,11 +416,9 @@ func _unhandled_input(event):
 						if (Inventory.removeIfHave('fire station')):
 							tile.set_tile_inf(Tile.TileInf.FIRE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numFireStations += 1
-							Announcer.notify(Event.new("Added Tile", "Added Fire Station", 1))
 						elif (Econ.purchase_structure(Econ.FIRE_STATION_COST)):
 							tile.set_tile_inf(Tile.TileInf.FIRE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numFireStations += 1
-							Announcer.notify(Event.new("Added Tile", "Added Fire Station", 1))
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -447,11 +450,9 @@ func _unhandled_input(event):
 						if (Inventory.removeIfHave('hospital')):
 							tile.set_tile_inf(Tile.TileInf.HOSPITAL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numHospital += 1
-							Announcer.notify(Event.new("Added Tile", "Added Hospital", 1))
 						elif (Econ.purchase_structure(Econ.HOSPITAL_COST)):
 							tile.set_tile_inf(Tile.TileInf.HOSPITAL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numHospital += 1
-							Announcer.notify(Event.new("Added Tile", "Added Hospital", 1))
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -483,11 +484,9 @@ func _unhandled_input(event):
 						if (Inventory.removeIfHave('police station')):
 							tile.set_tile_inf(Tile.TileInf.POLICE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numPoliceStations += 1
-							Announcer.notify(Event.new("Added Tile", "Added Police Station", 1))
 						elif (Econ.purchase_structure(Econ.POLICE_STATION_COST)):
 							tile.set_tile_inf(Tile.TileInf.POLICE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numPoliceStations += 1
-							Announcer.notify(Event.new("Added Tile", "Added Police Station", 1))
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -519,11 +518,9 @@ func _unhandled_input(event):
 						if (Inventory.removeIfHave('school')):
 							tile.set_tile_inf(Tile.TileInf.SCHOOL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numSchools += 1
-							Announcer.notify(Event.new("Added Tile", "Added School", 1))
 						elif (Econ.purchase_structure(Econ.SCHOOL_COST)):
 							tile.set_tile_inf(Tile.TileInf.SCHOOL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numSchools += 1
-							Announcer.notify(Event.new("Added Tile", "Added School", 1))
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -549,36 +546,107 @@ func _unhandled_input(event):
 							parentTile.clear_tile()
 							City.numSchools -= 1
 			
+			Global.Tool.INF_WAVE_BREAKER:
+				if Input.is_action_pressed("left_click") && tile.get_zone() == Tile.TileZone.NONE && tile.inf == Tile.TileInf.NONE:
+					if (tile.check_if_valid_placement(Tile.TileInf.WAVE_BREAKER, Global.buildingHeight, Global.buildingWidth)):
+						if (Inventory.removeIfHave('wave breaker')):
+							tile.set_tile_inf(Tile.TileInf.WAVE_BREAKER, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
+							City.numWaveBreaker += 1
+							Weather.beachProtection += 1
+						elif (Econ.purchase_structure(Econ.WAVE_BREAKER_COST)):
+							tile.set_tile_inf(Tile.TileInf.WAVE_BREAKER, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
+							City.numWaveBreaker += 1
+							Weather.beachProtection += 1
+						else:
+							actionText.text = "Not enough funds!"
+						
+						Global.placementState = false
+						Global.mapTool = Global.Tool.NONE
+						if Global.hoverSprite != null:
+							Global.hoverSprite.queue_free()
+							Global.hoverSprite = null
+						$PreviewFade.stop()
+						$HUD/ToolsMenu.deactivateButtons()
+						
+					elif (tile.inf == Tile.TileInf.WAVE_BREAKER):
+						actionText.text = "Cannot build here!"
+					else:
+						actionText.text = "Schools must be built on a dirt base!"
+				elif Input.is_action_pressed("right_click"):
+					if tile.inf == Tile.TileInf.WAVE_BREAKER:
+						tile.clear_tile()
+						City.numWaveBreaker -= 1
+						Weather.beachProtection -= 1
+					elif tile.inf == Tile.TileInf.CHILD and tile.parent[0] > -1 and tile.parent[1] > -1:
+						var parentTile = Global.tileMap[tile.parent[0]][tile.parent[1]]
+						if parentTile.inf == Tile.TileInf.WAVE_BREAKER:
+							parentTile.clear_tile()
+							City.numWaveBreaker -= 1
+							Weather.beachProtection -= 1
+			
 			Global.Tool.SENSOR_TIDE:
 				if Input.is_action_pressed("left_click"):
 					# bug workaround to not add sensors to already occupied tiles
-					if (tile.inf == Tile.TileInf.NONE && !(tile.has_building())):
-						if (Inventory.has_building("tide sensor")):
-							current_sensor_tile = tile
-							$SensorChoice/ColorRect.visible = true
+					if (tile.inf != Tile.TileInf.BEACH_ROCKS && tile.inf != Tile.TileInf.BEACH_GRASS && tile.inf != Tile.TileInf.WAVE_BREAKER && tile.inf != Tile.TileInf.FIRE_STATION):
+						if (tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL || tile.zone == Tile.TileZone.MULTI_FAMILY) && !(tile.has_building()):
+							$SensorNo/ColorRect.visible = true
 						else:
-							print("No available sensors!")
-							$SensorChoice/ColorRect2.visible = true
+							if (Inventory.has_building("tide gauge")):
+								current_sensor_tile = tile
+								$SensorChoice/ColorRect.visible = true
+							else:
+								print("No available sensors!")
+								$SensorChoice/ColorRect2.visible = true
 					else:
 						$SensorNo/ColorRect.visible = true
 				elif Input.is_action_pressed("right_click"):
 					if tile.sensor == Tile.TileSensor.TIDE:
 						tile.clear_sensor()
+						SeaLevel.sensorPresent = false
+						Inventory.sensors[0].increase_amount()
+						Inventory.update_sensor_amount()
 			Global.Tool.SENSOR_RAIN:
 				if Input.is_action_pressed("left_click"):
 					# bug workaround to not add sensors to already occupied tiles
-					if (tile.inf == Tile.TileInf.NONE && !(tile.has_building())):
-						if (Inventory.has_building("rain sensor")):
-							current_sensor_tile = tile
-							$SensorChoice/ColorRect.visible = true
+					if (tile.inf != Tile.TileInf.BEACH_ROCKS && tile.inf != Tile.TileInf.BEACH_GRASS && tile.inf != Tile.TileInf.WAVE_BREAKER && tile.inf != Tile.TileInf.FIRE_STATION):
+						if (tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL || tile.zone == Tile.TileZone.MULTI_FAMILY) && !(tile.has_building()):
+							$SensorNo/ColorRect.visible = true
 						else:
-							print("No available sensors!")
-							$SensorChoice/ColorRect2.visible = true
+							if (Inventory.has_building("rain gauge")):
+								current_sensor_tile = tile
+								$SensorChoice/ColorRect.visible = true
+							else:
+								print("No available sensors!")
+								$SensorChoice/ColorRect2.visible = true
 					else:
 						$SensorNo/ColorRect.visible = true
 				elif Input.is_action_pressed("right_click"):
 					if tile.sensor == Tile.TileSensor.RAIN:
 						tile.clear_sensor()
+						RainLevel.sensorPresent = false
+						Inventory.sensors[1].increase_amount()
+						Inventory.update_sensor_amount()
+			Global.Tool.SENSOR_WIND:
+				if Input.is_action_pressed("left_click"):
+					# bug workaround to not add sensors to already occupied tiles
+					if (tile.inf != Tile.TileInf.BEACH_ROCKS && tile.inf != Tile.TileInf.BEACH_GRASS && tile.inf != Tile.TileInf.WAVE_BREAKER && tile.inf != Tile.TileInf.FIRE_STATION):
+						if (tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.COMMERCIAL || tile.zone == Tile.TileZone.MULTI_FAMILY) && !(tile.has_building()):
+							$SensorNo/ColorRect.visible = true
+						else:
+							if (Inventory.has_building("wind gauge")):
+								current_sensor_tile = tile
+								$SensorChoice/ColorRect.visible = true
+							else:
+								print("No available sensors!")
+								$SensorChoice/ColorRect2.visible = true
+					else:
+						$SensorNo/ColorRect.visible = true
+				elif Input.is_action_pressed("right_click"):
+					if tile.sensor == Tile.TileSensor.WIND:
+						tile.clear_sensor()
+						WindLevel.sensorPresent = false
+						Inventory.sensors[2].increase_amount()
+						Inventory.update_sensor_amount()
 			Global.Tool.INF_ROAD:
 				if Input.is_action_pressed("left_click"):
 					Global.dragToPlaceState = true
@@ -590,16 +658,28 @@ func _unhandled_input(event):
 					Global.dragToPlaceState = true
 				elif Input.is_action_pressed("right_click"):
 					Global.dragToRemoveState = true
+			
+			Global.Tool.INF_BOARDWALK:
+				if Input.is_action_pressed("left_click"):
+					Global.dragToPlaceState = true
+				elif Input.is_action_pressed("right_click"):
+					Global.dragToRemoveState = true
 
 			Global.Tool.INF_BEACH_ROCKS:
 				if tile.get_base() == Tile.TileBase.SAND:
 					tile.clear_tile()
 					tile.inf = Tile.TileInf.BEACH_ROCKS
+					if Input.is_action_pressed("right_click"):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.NONE
 
 			Global.Tool.INF_BEACH_GRASS:
 				if tile.get_base() == Tile.TileBase.SAND:
 					tile.clear_tile()
 					tile.inf = Tile.TileInf.BEACH_GRASS
+					if Input.is_action_pressed("right_click"):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.NONE
 
 			Global.Tool.REPAIR:
 				if tile.waterHeight > 0:
@@ -637,7 +717,7 @@ func _unhandled_input(event):
 		elif event.scancode == KEY_V:
 			actionText.text = "Paste tool selected"
 			Global.mapTool = Global.Tool.PASTE_TILE
-		elif event.scancode == KEY_ESCAPE && get_node("/root/CityMap/AchievementMenu") == null && get_node("/root/CityMap/Dashboard") == null:
+		elif event.scancode == KEY_ESCAPE && get_node("/root/CityMap/AchievementMenu") == null:
 			if $PauseMenu.visible:
 				$PauseMenu.visible = false
 				$HUD/play_button.pressed = false
@@ -720,6 +800,11 @@ func _process(delta):
 func update_game_state():
 	#print("Updating game state on tick: " + str(numTicks))
 	#UpdateWaves.update_waves()
+	UpdateWeather.update_weather()
+	UpdateSeaLevel.update_sea_level()
+	UpdateWindLevel.update_wind_level()
+	UpdateRainLevel.update_rain_level()
+	
 	#turning this function off until it can be fixed
 	#UpdateWater.update_waves()
 	UpdateWater.update_water_spread()
@@ -786,33 +871,49 @@ func placementState():
 						City.connectRoads(tile)
 						City.connectUtilities()
 						City.numRoads += 1
-						Announcer.notify(Event.new("Added Tile", "Added Road", 1))
+						var currEvent = Event.new("Added Tile", "Added Road", 1)
+						Announcer.notify(currEvent)
+						currEvent.queue_free()
 					elif (Econ.purchase_structure(Econ.ROAD_COST)):
 						tile.clear_tile()
 						tile.inf = Tile.TileInf.ROAD
 						City.connectRoads(tile)
 						City.connectUtilities()
 						City.numRoads += 1
-						Announcer.notify(Event.new("Added Tile", "Added Road", 1))
+						var currEvent = Event.new("Added Tile", "Added Road", 1)
+						Announcer.notify(currEvent)
+						currEvent.queue_free()
 				elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
 					if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
-						Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+						var currEvent = Event.new("Added Tile", "Added Resedential Area", 1)
+						Announcer.notify(currEvent)
+						currEvent.queue_free()
 						if tile.has_utilities():
-							Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
+							currEvent = Event.new("Added Powered Tile", "Added Resedential Area", 1)
+							Announcer.notify(currEvent)
+							currEvent.queue_free()
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
 				elif (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY):
 					if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
-						Announcer.notify(Event.new("Added Tile", "Added Resedential Area", 1))
+						var currEvent = Event.new("Added Tile", "Added Resedential Area", 1)
+						Announcer.notify(currEvent)
+						currEvent.queue_free()
 						if tile.has_utilities():
-							Announcer.notify(Event.new("Added Powered Tile", "Added Resedential Area", 1))
+							currEvent = Event.new("Added Powered Tile", "Added Resedential Area", 1)
+							Announcer.notify(currEvent)
+							currEvent.queue_free()
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.MULTI_FAMILY)
 				elif (Global.mapTool == Global.Tool.ZONE_COM):
 					if !tile.is_commercial():
-						Announcer.notify(Event.new("Added Tile", "Added Commercial Area", 1))
+						var currEvent = Event.new("Added Tile", "Added Commercial Area", 1)
+						Announcer.notify(currEvent)
+						currEvent.queue_free()
 						if tile.has_utilities():
-							Announcer.notify(Event.new("Added Powered Tile", "Added Commercial Area", 1))
+							currEvent = Event.new("Added Powered Tile", "Added Commercial Area", 1)
+							Announcer.notify(currEvent)
+							currEvent.queue_free()
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.COMMERCIAL)
 				elif (Global.mapTool == Global.Tool.BASE_OCEAN):
@@ -829,13 +930,63 @@ func placementState():
 						City.connectRoads(tile)
 						City.connectUtilities()
 						City.numBridges += 1
-						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
 					elif (Econ.purchase_structure(Econ.BRIDGE_COST)):
 						tile.clear_tile()
 						tile.inf = Tile.TileInf.BRIDGE
 						City.connectRoads(tile)
 						City.connectUtilities()
 						City.numBridges += 1
+			elif (tile.get_base() == Tile.TileBase.SAND):
+				if (Global.mapTool == Global.Tool.INF_BOARDWALK):
+					if (Inventory.removeIfHave('boardwalk')):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.BOARDWALK
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numBoardwalks += 1
+					elif (Econ.purchase_structure(Econ.BOARDWALK_COST)):
+						tile.clear_tile()
+						tile.inf = Tile.TileInf.BOARDWALK
+						City.connectRoads(tile)
+						City.connectUtilities()
+						City.numBoardwalks += 1
+				elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
+					if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY && tile.baseHeight > 8:
+						var currEvent = Event.new("Added Tile", "Added Resedential Area", 1)
+						Announcer.notify(currEvent)
+						currEvent.queue_free()
+						if tile.has_utilities():
+							currEvent = Event.new("Added Powered Tile", "Added Resedential Area", 1)
+							Announcer.notify(currEvent)
+							currEvent.queue_free()
+						tile.clear_tile()
+						tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
+						tile.on_beach = true
+				elif (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY):
+					if tile.get_zone() != Tile.TileZone.MULTI_FAMILY && tile.baseHeight > 8:
+						var currEvent = Event.new("Added Tile", "Added Resedential Area", 1)
+						Announcer.notify(currEvent)
+						currEvent.queue_free()
+						if tile.has_utilities():
+							currEvent = Event.new("Added Powered Tile", "Added Resedential Area", 1)
+							Announcer.notify(currEvent)
+							currEvent.queue_free()
+						tile.clear_tile()
+						tile.set_zone(Tile.TileZone.MULTI_FAMILY)
+						tile.on_beach = true
+				elif (Global.mapTool == Global.Tool.ZONE_COM):
+					if !tile.is_commercial() && tile.baseHeight > 8:
+						var currEvent = Event.new("Added Tile", "Added Commercial Area", 1)
+						Announcer.notify(currEvent)
+						currEvent.queue_free()
+						if tile.has_utilities():
+							currEvent = Event.new("Added Powered Tile", "Added Commercial Area", 1)
+							Announcer.notify(currEvent)
+							currEvent.queue_free()
+						tile.clear_tile()
+						tile.set_zone(Tile.TileZone.COMMERCIAL)
+						tile.on_beach = true
+				
 						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
 		#if on damaged road tile, left click to repair
 		elif Global.mapTool == Global.Tool.INF_ROAD && tile.inf == Tile.TileInf.ROAD && tile.tileDamage > 0:
@@ -847,7 +998,28 @@ func placementState():
 				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This road has medium damage.\nRepair for $30?"
 			elif tile.tileDamage == 0.75:
 				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This road has heavy damage.\nRepair for $60?"
+			$RoadRepair.visible = true
+		
+		elif Global.mapTool == Global.Tool.INF_BRIDGE && tile.inf == Tile.TileInf.BRIDGE && tile.tileDamage > 0:
+			Global.dragToPlaceState = false
+			current_road_tile = tile
+			if tile.tileDamage == 0.25:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This bridge has light damage.\nRepair for $30?"
+			elif tile.tileDamage == 0.50:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This bridge has medium damage.\nRepair for $60?"
+			elif tile.tileDamage == 0.75:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This bridge has heavy damage.\nRepair for $120?"
+			$RoadRepair.visible = true
 			
+		elif Global.mapTool == Global.Tool.INF_BOARDWALK && tile.inf == Tile.TileInf.BOARDWALK && tile.tileDamage > 0:
+			Global.dragToPlaceState = false
+			current_road_tile = tile
+			if tile.tileDamage == 0.25:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This boardwalk has light damage.\nRepair for $30?"
+			elif tile.tileDamage == 0.50:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This boardwalk has medium damage.\nRepair for $60?"
+			elif tile.tileDamage == 0.75:
+				$RoadRepair/ColorRect/ChoiceBox/ChoicePrompt.text = "This boardwalk has heavy damage.\nRepair for $120?"
 			$RoadRepair.visible = true
 			
 	elif Global.dragToRemoveState:
@@ -872,8 +1044,19 @@ func placementState():
 			City.connectRoads(tile)
 			City.connectUtilities()
 			City.numBridges -= 1
+		elif Global.mapTool == Global.Tool.INF_BOARDWALK && tile.inf == Tile.TileInf.BOARDWALK:
+			tile.clear_tile()
+			City.connectRoads(tile)
+			City.connectUtilities()
+			City.numBoardwalks -= 1
 		elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY && tile.zone == Tile.TileZone.SINGLE_FAMILY) || (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY && tile.zone == Tile.TileZone.MULTI_FAMILY) || (Global.mapTool == Global.Tool.ZONE_COM && tile.zone == Tile.TileZone.COMMERCIAL):
 			tile.clear_tile()
+		elif Global.mapTool == Global.Tool.REMOVE_BEACH_ROCKS && (tile.inf == Tile.TileInf.BEACH_ROCKS || tile.inf == Tile.TileInf.BEACH_GRASS):
+			if (Inventory.removeIfHave('remove rocks')):
+				tile.clear_tile()
+			elif (Econ.purchase_structure(Econ.REMOVE_BEACH_ROCK)):
+				tile.clear_tile()
+
 
 
 func update_graphics():
@@ -895,7 +1078,7 @@ func _on_DashboardButton_pressed():
 	var Dashboard = preload("res://ui/Dashboard/Dashboard.tscn")
 	var DashboardInstance = Dashboard.instance()
 	add_child(DashboardInstance)
-
+	
 func _on_UIAchievementButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = false
 	$HUD/TopBarBG/AchievementSelected.visible = true
@@ -939,33 +1122,78 @@ func _on_YesButton_pressed():
 		Global.Tool.SENSOR_TIDE:
 			# different colors to represent if sensor is active or not
 			if (current_sensor_tile.sensor != Tile.TileSensor.TIDE):
+				sensor_back_to_inventory(current_sensor_tile.sensor)
+					
 				if (current_sensor_tile.get_base() == Tile.TileBase.OCEAN):
 					current_sensor_tile.sensor_active = true
+					SeaLevel.sensorPresent = true
 				else:
 					current_sensor_tile.sensor_active = false
-				current_sensor_tile.clear_tile()
+				#current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.TIDE
-				Announcer.notify(Event.new("Added Sensor", "Added Tide Sensor", 1))
-				Inventory.remove_sensor("tide sensor")
+				Inventory.remove_sensor("tide gauge")
+				get_node("/root/CityMap/HUD/ToolsMenu").removeSensorButton("Tide Gauge")
 			elif (current_sensor_tile.sensor == Tile.TileSensor.TIDE):
 				print("Sensor already here!")
 			else:
 				print("Different sensor here")
 		Global.Tool.SENSOR_RAIN:
 			if (current_sensor_tile.sensor != Tile.TileSensor.RAIN):
+				sensor_back_to_inventory(current_sensor_tile.sensor)
 				# different colors to represent if sensor is active or not
 				if (current_sensor_tile.get_base() == Tile.TileBase.DIRT):
 					current_sensor_tile.sensor_active = true
+					RainLevel.sensorPresent = true
 				else:
 					current_sensor_tile.sensor_active = false
-				current_sensor_tile.clear_tile()
+				#current_sensor_tile.clear_tile()
 				current_sensor_tile.sensor = Tile.TileSensor.RAIN
-				Announcer.notify(Event.new("Added Sensor", "Added Rain Sensor", 1))
-				Inventory.remove_sensor("rain sensor")
+				Inventory.remove_sensor("rain gauge")
+				get_node("/root/CityMap/HUD/ToolsMenu").removeSensorButton("Rain Gauge")
 			elif (current_sensor_tile.sensor == Tile.TileSensor.RAIN):
 				print("Sensor already here!")
 			else:
 				print("Different sensor here")
+		Global.Tool.SENSOR_WIND:
+			if (current_sensor_tile.sensor != Tile.TileSensor.WIND):
+				sensor_back_to_inventory(current_sensor_tile.sensor)
+				# different colors to represent if sensor is active or not
+				if (current_sensor_tile.get_base() == Tile.TileBase.SAND):
+					current_sensor_tile.sensor_active = true
+					WindLevel.sensorPresent = true
+				else:
+					current_sensor_tile.sensor_active = false
+				#current_sensor_tile.clear_tile()
+				current_sensor_tile.sensor = Tile.TileSensor.WIND
+				Inventory.remove_sensor("wind gauge")
+				get_node("/root/CityMap/HUD/ToolsMenu").removeSensorButton("Wind Gauge")
+			elif (current_sensor_tile.sensor == Tile.TileSensor.WIND):
+				print("Sensor already here!")
+			else:
+				print("Different sensor here")
+
+func sensor_back_to_inventory(s):
+	if s == Tile.TileSensor.RAIN:
+		var sensor_name = "Rain Gauge"
+		var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
+		get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
+		RainLevel.sensorPresent = false
+		Inventory.sensors[1].increase_amount()
+		Inventory.update_sensor_amount()
+	elif s == Tile.TileSensor.TIDE:
+		var sensor_name = "Tide Gauge"
+		var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
+		get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
+		SeaLevel.sensorPresent = false
+		Inventory.sensors[0].increase_amount()
+		Inventory.update_sensor_amount()
+	elif s == Tile.TileSensor.WIND:
+		var sensor_name = "Wind Gauge"
+		var button = [sensor_name.to_lower(), "res://assets/buttons/" + sensor_name.to_lower(), sensor_name]
+		get_node("/root/CityMap/HUD/ToolsMenu").addSensorButton(button)
+		WindLevel.sensorPresent = false
+		Inventory.sensors[2].increase_amount()
+		Inventory.update_sensor_amount()
 
 #does not add sensor to tile
 func _on_NoButton_pressed():
@@ -979,6 +1207,8 @@ func _on_HelpButton_pressed():
 			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
 		Global.Tool.SENSOR_RAIN:
 			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting rain sensors inland, near tall buildings, where they will be most effective."
+		Global.Tool.SENSOR_WIND:
+			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting wind sensors near the beach, where they will be most effective."
 	
 
 func _on_CloseHelpButton_pressed():
@@ -996,33 +1226,79 @@ func _on_OkButton_pressed():
 
 func _on_RoadRepairYesButton_pressed():
 	var tile = current_road_tile
-	if tile.tileDamage == 0.25:
-		if (Econ.purchase_structure(Econ.ROAD_REPAIR_L_COST)):
-			tile.clear_tile()
-			tile.inf = Tile.TileInf.ROAD
-			City.connectRoads(tile)
-			City.connectUtilities()
-			City.numRoads += 1
-			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
-	elif tile.tileDamage == 0.5:
-		if (Econ.purchase_structure(Econ.ROAD_REPAIR_M_COST)):
-			tile.clear_tile()
-			tile.inf = Tile.TileInf.ROAD
-			City.connectRoads(tile)
-			City.connectUtilities()
-			City.numRoads += 1
-			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
-	elif tile.tileDamage == 0.75:
-		if (Econ.purchase_structure(Econ.ROAD_REPAIR_H_COST)):
-			tile.clear_tile()
-			tile.inf = Tile.TileInf.ROAD
-			City.connectRoads(tile)
-			City.connectUtilities()
-			City.numRoads += 1
-			Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
-			
+	
+	if tile.inf == Tile.TileInf.ROAD:
+		if tile.tileDamage == 0.25:
+			if (Econ.purchase_structure(Econ.ROAD_REPAIR_L_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.5:
+			if (Econ.purchase_structure(Econ.ROAD_REPAIR_M_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.75:
+			if (Econ.purchase_structure(Econ.ROAD_REPAIR_H_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Road", 1))
+			else:
+				$RoadRepairError.visible = true
+	elif tile.inf == Tile.TileInf.BRIDGE:
+		if tile.tileDamage == 0.25:
+			if (Econ.purchase_structure(Econ.BRIDGE_REPAIR_L_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Bridge", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.5:
+			if (Econ.purchase_structure(Econ.BRIDGE_REPAIR_M_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Bridge", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.75:
+			if (Econ.purchase_structure(Econ.BRIDGE_REPAIR_H_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Bridge", 1))
+			else:
+				$RoadRepairError.visible = true
+	elif tile.inf == Tile.TileInf.BOARDWALK:
+		if tile.tileDamage == 0.25:
+			if (Econ.purchase_structure(Econ.BOARDWALK_REPAIR_L_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Boardwalk", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.5:
+			if (Econ.purchase_structure(Econ.BOARDWALK_REPAIR_M_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Boardwalk", 1))
+			else:
+				$RoadRepairError.visible = true
+		elif tile.tileDamage == 0.75:
+			if (Econ.purchase_structure(Econ.BOARDWALK_REPAIR_H_COST)):
+				tile.tileDamage = 0
+				tile.wearAndTear = 0
+				Announcer.notify(Event.new("Repaired Tile", "Repaired Boardwalk", 1))
+			else:
+				$RoadRepairError.visible = true
 	$RoadRepair.visible = false
 
 
 func _on_RoadRepairNoButton_pressed():
 	$RoadRepair.visible = false
+
+
+func _on_RoadRepairOKButton_pressed():
+	$RoadRepairError.visible = false

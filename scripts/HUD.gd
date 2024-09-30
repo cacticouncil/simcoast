@@ -37,12 +37,12 @@ func update_tile_display(i, j):
 		if tile.get_zone() == Tile.TileZone.PUBLIC_WORKS:
 			$BottomBar/HoverText.text += "     Zone: %s, Tile Damage: %s%%" % [zone_values[tile.get_zone()], tile.tileDamage*100]
 		else:
-			$BottomBar/HoverText.text += "     Zone: %s, People: %s / %s, Tile Damage: %s%%, Happiness: %s%%, Tile Value: %s" % [zone_values[tile.get_zone()], tile.data[2], tile.data[3], tile.tileDamage*100, tile.happiness, tile.landValue]
+			$BottomBar/HoverText.text += "     Zone: %s, People: %s / %s, Tile Damage: %s%%, Happiness: %s%%, Desirability: %s" % [zone_values[tile.get_zone()], tile.data[2], tile.data[3], tile.tileDamage*100, tile.happiness, tile.desirability]
 		if tile.utilities:
 			$BottomBar/HoverText.text += "     Utilities: ON"
 		else:
 			$BottomBar/HoverText.text += "     Utilities: OFF"
-	elif tile.inf == Tile.TileInf.ROAD || tile.inf == Tile.TileInf.BRIDGE:
+	elif tile.inf == Tile.TileInf.ROAD || tile.inf == Tile.TileInf.BRIDGE || tile.inf == Tile.TileInf.BOARDWALK:
 		if tile.utilities:
 			$BottomBar/HoverText.text += "     Utilities: ON"
 		else:
@@ -52,12 +52,20 @@ func update_tile_display(i, j):
 		$BottomBar/HoverText.text += "     Sensor: Tide"
 		if (tile.sensor_active):
 			$BottomBar/HoverText.text += "     Status: ACTIVE"
+			$BottomBar/HoverText.text += "     Sea Level: %s mm" % [SeaLevel.currentSeaLevel]
 		else:
 			$BottomBar/HoverText.text += "     Status: INACTIVE"
 	if tile.get_sensor() == Tile.TileSensor.RAIN:
 		$BottomBar/HoverText.text += "     Sensor: Rain"
 		if (tile.sensor_active):
 			$BottomBar/HoverText.text += "     Status: ACTIVE"
+			$BottomBar/HoverText.text += "     Rain Level: %s mm" % [RainLevel.currentRainLevel]
 		else:
 			$BottomBar/HoverText.text += "     Status: INACTIVE"
-
+	if tile.get_sensor() == Tile.TileSensor.WIND:
+		$BottomBar/HoverText.text += "     Sensor: Wind"
+		if (tile.sensor_active):
+			$BottomBar/HoverText.text += "     Status: ACTIVE"
+			$BottomBar/HoverText.text += "     Wind Level: %s mps" % [WindLevel.currentWindLevel]
+		else:
+			$BottomBar/HoverText.text += "     Status: INACTIVE"

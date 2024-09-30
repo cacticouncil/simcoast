@@ -6,8 +6,9 @@ var mapName
 var mapPath
 var savePopup
 var loadPopup
-
 var toolbarSectionScene = preload("res://ui/hud/Toolbar/ToolbarSection.tscn")
+
+var sensorSection
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,7 +19,8 @@ func _ready():
 	#Second parameter is for images, utilizes the fact that all file names end in second part + '_normal' or '_active' or '_hover'
 	var infrastructureButtons = [
 		["road", "res://assets/buttons/road", "Road/Power Tile"], 
-		["bridge", "res://assets/buttons/bridge", "Bridge/Power Tile"], 
+		["bridge", "res://assets/buttons/bridge", "Bridge/Power Tile"],
+		["boardwalk", "res://assets/buttons/boardwalk", "Boardwalk/Power Tile"],
 		["water", "res://assets/buttons/water", "Lowers tile to water level"]
 	]
 	var infrastructureSection = toolbarSectionScene.instance()
@@ -69,14 +71,25 @@ func _ready():
 	$VBoxContainer.add_child(publicServiceSection)
 	publicServiceSection.set_bg(publicServiceSection.rect_size, Color("526e7584"))
 	
-	var sensorButtons = [
-		["tide sensor", "res://assets/buttons/tide_sensor", "Tide Gauge"], 
-		["rain sensor", "res://assets/buttons/rain_gauge", "Rain Gauge"]
+	var beachButtons = [
+		["wave breaker", "res://assets/buttons/wave_breaker", "Wavebreaker"],
+		["close beach", "res://assets/buttons/close_beach", "Close Beach"],
+		["remove rocks", "res://assets/buttons/remove_beach_rocks", "Remove Beach Rocks"]
 	]
-	var sensorSection = toolbarSectionScene.instance()
+	var beachSection = toolbarSectionScene.instance()
+	#Creates a section of the buttons and takes in the list of ones to add
+	beachSection.add_button("Beach", beachButtons)
+	$VBoxContainer.add_child(beachSection)
+	beachSection.set_bg(beachSection.rect_size, Color("e03c3c3c"))
+	
+	var sensorButtons = [
+	]
+	sensorSection = toolbarSectionScene.instance()
 	sensorSection.add_button("Sensors", sensorButtons)
 	$VBoxContainer.add_child(sensorSection)
-	sensorSection.set_bg(sensorSection.rect_size, Color("e03c3c3c"))
+	sensorSection.set_bg(sensorSection.rect_size, Color("526e7584"))
+	sensorSection.visible = false
+	
 	
 	#Once we create all the buttons, we want to add the functionality to each of them
 	for i in group.get_buttons():
@@ -298,10 +311,24 @@ func button_pressed():
 			Global.buildingHeight = 1
 			Global.buildingWidth = 1
 			get_node("/root/CityMap/PreviewFade").play("Fade")
+		'wave breaker_button':
+			print_stray_nodes()
+			Global.mapTool = Global.Tool.INF_WAVE_BREAKER
+			Global.placementState = true
+			Global.hoverImage = "res://assets/building_assets/2d Assets/Wavebraker.png"
+			Global.infType = Tile.TileInf.WAVE_BREAKER
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
+			get_node("/root/CityMap/PreviewFade").play("Fade")
 		'road_button':
 			Global.mapTool = Global.Tool.INF_ROAD
 		'bridge_button':
 			Global.mapTool = Global.Tool.INF_BRIDGE
+		'boardwalk_button':
+			Global.mapTool = Global.Tool.INF_BOARDWALK
+		'close beach_button':
+			if !Global.closeBeach && !Global.beginBeachEvacuation && !Global.stayEvacuated && !Global.moveBackIn:
+				Global.closeBeach = true
 		'beach_rocks_button':
 			Global.mapTool = Global.Tool.INF_BEACH_ROCKS
 		'beach_grass_button':
@@ -314,10 +341,14 @@ func button_pressed():
 			Global.mapTool = Global.Tool.LAYER_WATER
 		'clear_water_button':
 			Global.mapTool = Global.Tool.CLEAR_WATER
-		'tide sensor_button':
+		'remove rocks_button':
+			Global.mapTool = Global.Tool.REMOVE_BEACH_ROCKS
+		'tide gauge_button':
 			Global.mapTool = Global.Tool.SENSOR_TIDE
-		'rain sensor_button':
+		'rain gauge_button':
 			Global.mapTool = Global.Tool.SENSOR_RAIN
+		'wind gauge_button':
+			Global.mapTool = Global.Tool.SENSOR_WIND
 		'raise_ocean_button':
 			Global.mapTool = Global.Tool.NONE
 			if Global.oceanHeight < Global.MAX_HEIGHT:
@@ -382,3 +413,26 @@ func updateAmounts():
 		else:
 			#If we have none, hide the indicator
 			i.get_node("BG").visible = false
+
+func addSensorButton(button):
+	if !sensorSection.visible:
+		sensorSection.visible = true
+	sensorSection.add_one_button(button)
+	sensorSection.resize_bg(sensorSection.rect_size)
+	
+	#Once we create all the buttons, we want to add the functionality to each of them
+	for i in group.get_buttons():
+		if i.get_name() == button[0] + "_button":
+			#Handles button presses
+			i.connect("pressed", self, "button_pressed")
+			#Handles adding hover text to bottom bar
+			i.connect("mouse_entered", self, "button_hover", [i])
+			#Handles removing hover text
+			i.connect("mouse_exited", self, "button_exit")
+	#Updates the little icon that indicates how much of each item we have
+	updateAmounts()
+
+func removeSensorButton(button):
+	var noMoreButtons = sensorSection.remove_button(button)
+	if noMoreButtons:
+		sensorSection.visible = false
