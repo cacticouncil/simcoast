@@ -36,7 +36,9 @@ func getNextText():
 	# Increment conv_index so that the next call will get the next dialogue
 	conv_index += 1
 	# Display the dialogue text
-	$DialogueBox/Dialogue.bbcode_text = dialogue.text 
+	var text = dialogue.text.replace("PLAYER_NAME", Global.userName)
+	print(Global.userName)
+	$DialogueBox/Dialogue.bbcode_text = text 
 
 func _on_NextButton_pressed():
 	#Switches position of the character in a loop
