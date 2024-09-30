@@ -4,6 +4,7 @@ extends CanvasLayer
 var overlayPopup = preload("res://ui/Popups/OverlayPopup.tscn")
 var errorPopup = preload("res://ui/Popups/ErrorPopup.tscn")
 var characterPopup = preload("res://ui/Popups/CharacterUnlock.tscn")
+var warningPopup = preload("res://ui/Popups/WarningPopup.tscn")
 # A queue of the name of achievements, the first one is the next one displayed
 var queue = []
 # We use a queue in case multiple achievements are unlocked at once
@@ -42,10 +43,20 @@ func character_pop(npcName, npcPic):
 	$OverlayControl.add_child(inst)
 	print(queue)
 	$AnimationPlayer.queue("Fade")
+func warning_pop(wName, warningPic, wColor):
+	if get_node_or_null("/root/Overlay/OverlayControl/Warning") == null:
+		var inst = warningPopup.instance()
+		inst.set_warning(wName, warningPic, wColor)
+		inst.name = "Warning"
+		inst.visible = false
+		queue.append("Warning")
+		$OverlayControl.add_child(inst)
+		# Made a sick fade animation
+		$AnimationPlayer.queue("Fade")
 
 func animationStart():
 	get_node("/root/Overlay/OverlayControl/" + queue[0]).visible = true
 
 func animationEnd():
-	$OverlayControl.remove_child(get_node("/root/Overlay/OverlayControl/" + queue[0]))
+	get_node("/root/Overlay/OverlayControl/" + queue[0]).queue_free()
 	queue.remove(0)

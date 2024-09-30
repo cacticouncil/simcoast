@@ -4,8 +4,8 @@ const BASE_HAPPINESS = 50
 const HIGH_UNEMPLOYMENT_PENALTY = -15
 
 func update_happiness():
-	for i in Global.mapWidth:
-		for j in Global.mapHeight:
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
 			if (Global.tileMap[i][j].is_zoned() && Global.tileMap[i][j].data[2] != 0):
 				var currTile = Global.tileMap[i][j]
 				var happiness = BASE_HAPPINESS

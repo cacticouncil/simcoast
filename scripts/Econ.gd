@@ -34,6 +34,7 @@ const UTILITIES_PLANT_COST = 10000
 const PARK_COST = 500
 const ROAD_COST = 100
 const BRIDGE_COST = 200
+const BOARDWALK_COST = 200
 const LIBRARY_COST = 3000
 const MUSEUM_COST = 3000
 const SCHOOL_COST = 3000
@@ -41,12 +42,28 @@ const FIRE_STATION_COST = 5000
 const HOSPITAL_COST = 5000
 const POLICE_STATION_COST = 5000
 const WATER_COST = 5000
+const REMOVE_BEACH_ROCK = 3000
+const WAVE_BREAKER_COST = 2000
+
+#Road repair costs
+const ROAD_REPAIR_L_COST = 15
+const ROAD_REPAIR_M_COST = 30
+const ROAD_REPAIR_H_COST = 60
+#Bridge repair costs
+const BRIDGE_REPAIR_L_COST = 30
+const BRIDGE_REPAIR_M_COST = 60
+const BRIDGE_REPAIR_H_COST = 120
+#Boardwalk repair costs
+const BOARDWALK_REPAIR_L_COST = 30
+const BOARDWALK_REPAIR_M_COST = 60
+const BOARDWALK_REPAIR_H_COST = 120
 
 #Building upkeep costs
 const UTILITIES_PLANT_UPKEEP_COST = 100
 const PARK_UPKEEP_COST = 10
 const ROAD_UPKEEP_COST = 2
 const BRIDGE_UPKEEP_COST = 4
+const BOARDWALK_UPKEEP_COST = 4
 const LIBRARY_UPKEEP_COST = 50
 const MUSEUM_UPKEEP_COST = 50
 const SCHOOL_UPKEEP_COST = 50
@@ -58,6 +75,7 @@ const WASTE_TREATMENT_UPKEEP_COST = 100
 const MULTI_FAMILY_UPKEEP_COST = 50
 const SINGLE_FAMILY_UPKEEP_COST = 10
 const UPKEEP_PER_PERSON = 2
+const WAVE_BREAKER_UPKEEP_COST = 10
 
 # Player/Mayor Constants
 var money
@@ -104,7 +122,9 @@ func load_econ_data(data):
 # EX: if player spends $500 then adjustVal should be -500
 func adjust_player_money(adjustVal):
 	money += adjustVal
-	Announcer.notify(Event.new("Money", "Amount of money", money))
+	var currEvent = Event.new("Money", "Amount of money", money)
+	Announcer.notify(currEvent)
+	currEvent.queue_free()
 	get_node("/root/CityMap/HUD/HBoxContainer/Money").text = "$" + comma_values(str(money))
 
 func purchase_structure(structureCost):
@@ -122,6 +142,7 @@ func calculate_upkeep_costs():
 	city_costs += City.numParks * PARK_UPKEEP_COST
 	city_costs += City.numRoads * ROAD_UPKEEP_COST
 	city_costs += City.numBridges * BRIDGE_UPKEEP_COST
+	city_costs += City.numBoardwalks * BOARDWALK_UPKEEP_COST
 	city_costs += City.numLibraries * LIBRARY_UPKEEP_COST
 	city_costs += City.numMuseums * MUSEUM_UPKEEP_COST
 	city_costs += City.numSchools * SCHOOL_UPKEEP_COST
@@ -130,6 +151,7 @@ func calculate_upkeep_costs():
 	city_costs += City.numPoliceStations * POLICE_STATION_UPKEEP_COST
 	city_costs += City.numSewageFacilities * SEWAGE_FACILITY_UPKEEP_COST
 	city_costs += City.numWasteTreatment * WASTE_TREATMENT_UPKEEP_COST
+	city_costs += City.numWaveBreaker * WAVE_BREAKER_UPKEEP_COST
 	city_costs += City.numSingleFamilyZones * SINGLE_FAMILY_UPKEEP_COST
 	city_costs += City.numMultiFamilyZones * MULTI_FAMILY_UPKEEP_COST
 	city_costs += UpdatePopulation.get_population() * UPKEEP_PER_PERSON
@@ -142,7 +164,9 @@ func updateProfitDisplay():
 func profit():
 	var profit = round(city_income - city_costs)
 	adjust_player_money(profit)
-	Announcer.notify(Event.new("Profit", "Money Made Each Month", profit))
+	var currEvent = Event.new("Profit", "Money Made Each Month", profit)
+	Announcer.notify(currEvent)
+	currEvent.queue_free()
 
 func calcCityIncome(): #Calculate tax profit
 	var taxProfit = 0

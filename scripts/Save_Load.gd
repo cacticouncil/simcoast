@@ -12,8 +12,8 @@ func saveData(mapPath: String):
 	
 	Global.currentMap = mapPath
 	
-	for i in Global.mapWidth:
-		for j in Global.mapHeight:
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
 			tileData.append(Global.tileMap[i][j].get_save_tile_data())
 			
 	var data = {
@@ -68,9 +68,9 @@ func loadData(mapPath: String):
 	Inventory.load_inventory_data(mapData.inventory)
 	
 	Global.tileMap.clear()
-	for _x in range(Global.mapWidth):
+	for _x in range(Global.mapHeight):
 		var row = []
-		row.resize(Global.mapHeight)
+		row.resize(Global.mapWidth)
 		Global.tileMap.append(row)
 
 	for tileData in mapData.tiles:

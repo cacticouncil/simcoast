@@ -4,6 +4,7 @@ var numParks = 0
 var numUtilityPlants = 0
 var numRoads = 0
 var numBridges = 0
+var numBoardwalks = 0
 var numLibraries = 0
 var numMuseums = 0
 var numSchools = 0
@@ -12,10 +13,12 @@ var numHospital = 0
 var numPoliceStations = 0
 var numSewageFacilities = 0
 var numWasteTreatment = 0
+var numWaveBreaker = 0
 var numResidentialZones = 0
 var numCommercialZones = 0
 var numSingleFamilyZones = 0
 var numMultiFamilyZones = 0
+
 
 func get_city_data():
 	var cityData = {
@@ -23,6 +26,7 @@ func get_city_data():
 		"numUtilityPlants": numUtilityPlants,
 		"numRoads": numRoads,
 		"numBridges": numBridges,
+		"numBoardwalks": numBoardwalks,
 		"numLibraries": numLibraries,
 		"numMuseums": numMuseums,
 		"numSchools": numSchools,
@@ -103,8 +107,8 @@ func connectUtilities():
 	var utilityPlants = []
 	
 	# De-utility every tile on the map, find location of any utility plants
-	for i in Global.mapWidth:
-		for j in Global.mapHeight:
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
 			Global.tileMap[i][j].utilities = false
 			#Global.tileMap[i][j].cube.update()
 			if Global.tileMap[i][j].inf == Tile.TileInf.UTILITIES_PLANT:
@@ -141,7 +145,7 @@ func connectUtilities():
 				for n in neighbors:
 					if is_tile_inbounds(n[0], n[1]):
 						var currTile = Global.tileMap[n[0]][n[1]]
-						if currTile.inf == Tile.TileInf.ROAD || currTile.inf == Tile.TileInf.BRIDGE:
+						if currTile.inf == Tile.TileInf.ROAD || currTile.inf == Tile.TileInf.BRIDGE || currTile.inf == Tile.TileInf.BOARDWALK:
 							if roadConnected(road, n, Global.MAX_CONNECTION_HEIGHT):
 								if currTile.utilities == false:
 									queue.append(currTile)
@@ -165,10 +169,15 @@ func connectUtilities():
 								resPowered += 1
 							currTile.utilities = true
 							#Global.tileMap[n[0]][n[1]].cube.update()
-	
-	Announcer.notify(Event.new("Tiles Powered", "Number of powered roads", roadsPowered))
-	Announcer.notify(Event.new("Tiles Powered", "Number of powered commercial areas", commsPowered))
-	Announcer.notify(Event.new("Tiles Powered", "Number of powered residential areas", resPowered))
+	var event1 = Event.new("Tiles Powered", "Number of powered roads", roadsPowered)
+	Announcer.notify(event1)
+	event1.queue_free()
+	var event2 = Event.new("Tiles Powered", "Number of powered commercial areas", commsPowered)
+	Announcer.notify(event2)
+	event2.queue_free()
+	var event3 = Event.new("Tiles Powered", "Number of powered residential areas", resPowered)
+	Announcer.notify(event3)
+	event3.queue_free()
 
 # Check tile for neighboring road connections, and create connections from any connecting roads to tile
 func connectRoads(tile):
@@ -216,7 +225,7 @@ func disconnectBridges(tile):
 func roadConnected(tile, n, diff):
 	if !is_tile_inbounds(n[0], n[1]):
 		return false
-	if Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.ROAD && Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.BRIDGE:
+	if Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.ROAD && Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.BRIDGE && Global.tileMap[n[0]][n[1]].inf != Tile.TileInf.BOARDWALK:
 		return false
 	if abs(tile.get_base_height() - Global.tileMap[n[0]][n[1]].get_base_height()) > diff:
 		return false
@@ -224,10 +233,10 @@ func roadConnected(tile, n, diff):
 	return true
 
 func is_tile_inbounds(i, j):
-	if i < 0 || Global.mapWidth <= i:
+	if i < 0 || Global.mapHeight <= i:
 		return false
 	
-	if j < 0 || Global.mapHeight <= j:
+	if j < 0 || Global.mapWidth <= j:
 		return false
 	
 	return true
@@ -320,29 +329,34 @@ func calculate_satisfaction():
 	var beaches = 0
 	
 # When flooding occurs, determine damage to infrastructure and perform tile erosion
+# When wear and tear occurs on road tiles, determine damage
 func calculate_damage():
-	for i in Global.mapWidth:
-		for j in Global.mapHeight:
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
 			var tile = Global.tileMap[i][j]
-			# If buildings present, determine damage based on water height
-			if tile.get_water_height() > 0:
+			# Determine damage based on water height to buildings and roads
+			if tile.get_water_height() > 0 && tile.changeInWaterHeight > 0:
 				if tile.has_building() && tile.is_light_zoned():
-					if tile.get_water_height() <= 1 && tile.changeInWaterHeight > 0:
+					if tile.get_water_height() <= 1:
 						tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
-					elif tile.get_water_height() <= 3 && tile.changeInWaterHeight > 0:
+					elif tile.get_water_height() <= 3:
 						tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
-					elif tile.get_water_height() > 3 && tile.changeInWaterHeight > 0: 
+					else:
 						tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
 				elif tile.has_building() && tile.is_heavy_zoned():
-					if tile.get_water_height() <= 3 && tile.changeInWaterHeight > 0:
+					if tile.get_water_height() <= 3:
 						tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
-					elif tile.get_water_height() <= 6 && tile.changeInWaterHeight > 0:
+					elif tile.get_water_height() <= 6:
 						tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
-					elif tile.get_water_height() > 6 && tile.changeInWaterHeight > 0:
+					else:
 						tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
-				elif tile.inf == Tile.TileInf.ROAD:
-					if tile.get_water_height() >= 5:
-						tile.clear_tile()
+				elif tile.inf == Tile.TileInf.ROAD || tile.inf == Tile.TileInf.BRIDGE || tile.inf == Tile.TileInf.BOARDWALK:
+					if tile.get_water_height() > 1 && tile.get_water_height() <= 3:
+						tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+					elif tile.get_water_height() <= 5:
+						tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+					else:
+						tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
 				elif tile.get_base() == Tile.TileBase.SAND:
 					if tile.get_water_height() >= 5:
 						tile.lower_tile()
@@ -350,7 +364,141 @@ func calculate_damage():
 				#tile.remove_water()
 				#tile.cube.update()
 				tile.changeInWaterHeight = 0
+			# For now, only road tiles can get wear and tear damage. If changed further checks should be implemented.
+			# Determine damage based on wear and tear to roads
+			if tile.get_wear_and_tear() >= 1 && tile.changeInWearAndTear:
+				if tile.get_wear_and_tear() <= 3:
+					tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+				elif tile.get_wear_and_tear() <= 5:
+					tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+				else:
+					tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+				tile.changeInWearAndTear = false
+				
+	#damage for storms
+	if Weather.currentlyStorming == true && Weather.stormDamage == true:
+		Weather.stormDamage = false
 		
+		for i in Global.mapHeight:
+			for j in Global.mapWidth:
+				var tile = Global.tileMap[i][j]
+				
+				# when beaches are closed
+				if Global.beginBeachEvacuation == true:
+					# damage depending on place and category of storm
+					if (tile.base == Tile.TileBase.SAND):
+						match Weather.currentType:
+							Weather.WeatherStates.HURRICANE_3:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_4:
+								tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+							Weather.WeatherStates.HURRICANE_5:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+					else:
+						match Weather.currentType:
+							Weather.WeatherStates.HURRICANE_3:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_4:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_5:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+				# when beaches do not close
+				else:
+					# damage depending on place and category of storm
+					if (tile.base == Tile.TileBase.SAND):
+						match Weather.currentType:
+							Weather.WeatherStates.TROPICAL_STORM:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_1:
+								tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+							Weather.WeatherStates.HURRICANE_2:
+								tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+							Weather.WeatherStates.HURRICANE_3:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+							Weather.WeatherStates.HURRICANE_4:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+							Weather.WeatherStates.HURRICANE_5:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+					else:
+						match Weather.currentType:
+							Weather.WeatherStates.TROPICAL_STORM:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_1:
+								tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+							Weather.WeatherStates.HURRICANE_2:
+								tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+							Weather.WeatherStates.HURRICANE_3:
+								tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+							Weather.WeatherStates.HURRICANE_4:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+							Weather.WeatherStates.HURRICANE_5:
+								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+
+# Update wear and tear for road and bridge tiles. called in updateDate
+func calculate_wear_and_tear():
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
+			var tile = Global.tileMap[i][j]
+			
+			if tile.inf == tile.TileInf.ROAD || tile.inf == tile.TileInf.BRIDGE || tile.inf == tile.TileInf.BOARDWALK:
+				var chanceOfDamage
+				if tile.inf == tile.TileInf.BOARDWALK:
+					chanceOfDamage = 0.006 #boardwalk has higher chance of damage from being close to sea.
+				else:
+					chanceOfDamage = 0.005 #all roads/bridges have a minimum 0.5% chance of damage due to natural elements not based on usage
+				
+				# Check if neighbor tiles are zoned. Based on zoning determine wear and tear probability
+				var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1]]
+				for n in neighbors:
+					if is_tile_inbounds(n[0], n[1]) and Global.tileMap[n[0]][n[1]].is_zoned():
+						var currTile = Global.tileMap[n[0]][n[1]]
+						if currTile.get_zone() != tile.TileZone.PUBLIC_WORKS:
+							chanceOfDamage += pop_based_damage_helper(currTile)
+						# for public works zones
+						else:
+							# police and fire stations depend on how many people work there
+							if currTile.inf == tile.TileInf.POLICE_STATION \
+							or currTile.inf == tile.TileInf.FIRE_STATION:
+								chanceOfDamage += 0.01
+							# damage from hospital decreases if more than one hospital
+							elif currTile.inf == tile.TileInf.HOSPITAL:
+								chanceOfDamage += 0.02 + (0.02 / numHospital)
+							# parks, libraries, schools, and museums depend on surrounding population
+							else:
+								var pwNeighbors = [[currTile.i-1, currTile.j], [currTile.i-1, currTile.j-1], \
+								[currTile.i, currTile.j-1], [currTile.i+1, currTile.j-1], [currTile.i+1, currTile.j], \
+								[currTile.i+1, currTile.j+1], [currTile.i, currTile.j+1], [currTile.i-1, currTile.j+1]]
+								for pw in pwNeighbors:
+									if is_tile_inbounds(pw[0], pw[1]) and Global.tileMap[pw[0]][pw[1]].is_zoned() and \
+									Global.tileMap[pw[0]][pw[1]].get_zone() != tile.TileZone.PUBLIC_WORKS:
+										var pwTile = Global.tileMap[pw[0]][pw[1]]						
+										chanceOfDamage += pop_based_damage_helper(pwTile)
+				var randomNum = randf()
+				#if random number is within chance of damage range, damage has occured.
+				if randomNum <= chanceOfDamage:
+					#generate another random number to determine extent of damage
+					randomNum = randf()
+					if randomNum <= 0.50:
+						tile.wearAndTear += 1
+					elif randomNum <= 0.75:
+						tile.wearAndTear += 2
+					else:
+						tile.wearAndTear += 3
+					tile.changeInWearAndTear = true
+				
+func pop_based_damage_helper(tile):
+	var chanceOfDamage = 0
+	# damage from commercial or res zones is based on tile population (data[2])
+	# data[2] value of 4 is max single family, 72 is max multi family, and 16 is max commerical
+	if tile.data[2] >= 4:
+		if tile.data[2] <= 16:
+			chanceOfDamage += 0.01
+		elif tile.data[2] <= 32:
+			chanceOfDamage += 0.03
+		else:
+			chanceOfDamage += 0.05
+	return chanceOfDamage
+						
 func tile_out_of_bounds(cube):
 	return cube.i < 0 || Global.mapWidth <= cube.i || cube.j < 0 || Global.mapHeight <= cube.j
 	

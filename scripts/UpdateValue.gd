@@ -28,8 +28,8 @@ const TAX_WEIGHT = -100
 
 const BASE_VALUE = 1.5
 func update_land_value():
-	for i in Global.mapWidth:
-		for j in Global.mapHeight:
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
 			if (Global.tileMap[i][j].is_zoned()):
 				var currTile = Global.tileMap[i][j]
 				
@@ -146,8 +146,8 @@ func calc_taxation_rate(tile): #Return a weight depending on tax rate of tile
 	return cityTaxValue
 
 func is_valid_tile(i, j) -> bool: # Check to see if these indices are valid tile coordinates
-	if i < 0 || Global.mapWidth <= i:
+	if i < 0 || Global.mapHeight <= i:
 		return false
-	if j < 0 || Global.mapHeight <= j:
+	if j < 0 || Global.mapWidth <= j:
 		return false
 	return true

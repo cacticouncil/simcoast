@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scenes/userName.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="InputEventKey" id=6]
+scancode = 16777221
+
+[sub_resource type="ShortCut" id=7]
+shortcut = SubResource( 6 )
+
+[node name="userName" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="BG" type="ColorRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Question" type="Label" parent="."]
+margin_top = 200.0
+margin_right = 1280.0
+margin_bottom = 275.0
+custom_fonts/font = ExtResource( 1 )
+text = "What is your
+name?"
+align = 1
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="."]
+margin_left = 490.0
+margin_top = 320.0
+margin_right = 790.0
+margin_bottom = 370.0
+custom_fonts/font = ExtResource( 1 )
+align = 1
+
+[node name="Start" type="Button" parent="."]
+margin_left = 565.0
+margin_top = 400.0
+margin_right = 715.0
+margin_bottom = 450.0
+custom_colors/font_color_hover = Color( 0.341176, 0.341176, 0.341176, 1 )
+custom_colors/font_color_pressed = Color( 0.180392, 0.180392, 0.180392, 1 )
+custom_fonts/font = ExtResource( 1 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+shortcut = SubResource( 7 )
+text = "Start"
+icon_align = 1
+
+[connection signal="text_entered" from="LineEdit" to="." method="_on_LineEdit_text_entered"]
+[connection signal="pressed" from="Start" to="." method="_on_Start_pressed"]

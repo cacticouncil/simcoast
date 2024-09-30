@@ -19,8 +19,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 		water = abs(tile.distance_to_water()-5) * tile.WATER_WEIGHT
 		
 #	variable representing the influence of a tile's neighbors on its desirability
-	var neighbors = tile.residential_neighbors * tile.RESIDENTIAL_NEIGHBOR + tile.commercial_neighbors * tile.COMMERCIAL_NEIGHBOR + \
-	tile.industrial_neighbors * tile.INDUSTRIAL_NEIGHBOR + tile.get_public_works_value()
+	var neighbors = tile.residential_neighbors * tile.RESIDENTIAL_NEIGHBOR + tile.commercial_neighbors * tile.COMMERCIAL_NEIGHBOR + tile.industrial_neighbors * tile.INDUSTRIAL_NEIGHBOR + tile.get_public_works_value()
 	
 # this variable has a negative impact on desirability if the number of zones of each type differs. 
 # may need more refinement; a 1-1 relationship between commercial and residential isn't really viable, but under the current 
@@ -49,14 +48,23 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	#see city_wealth.gd for more
 	var wealth_influence = tile.wealth_weight * tile.WEALTH_INFLUENCE
 	
+	#It is more desirable to live on the beach
+	var beach
+	if tile.get_base() == Tile.TileBase.SAND:
+		beach = 0.1
+		beach -= tile.num_beach_rocks_nearby * 0.025
+	else:
+		beach = 0
+	
+	
 	#tile_dmg_weight is a value that subtracts from desirability if a tile is damaged, doesn't add anything only removes
 	#desirability explains itself in the name, and is influenced by all the factors defined above
 	#single family zones are very desirable, so they have a different base desirability than everyone else
 	var desirability = 0
 	if (tile.zone == Tile.TileZone.SINGLE_FAMILY):
-		desirability = tile.BASE_SINGLE_FAMILY_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + tile.tile_dmg_weight
+		desirability = tile.BASE_SINGLE_FAMILY_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + beach + tile.tile_dmg_weight
 	else:
-		desirability = tile.BASE_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + tile.tile_dmg_weight
+		desirability = tile.BASE_DESIRABILITY + water + neighbors + zone_balance + population + growth + tax_burden + wealth_influence + beach + tile.tile_dmg_weight
 
 	if desirability > UPPER_LIMIT:
 		desirability = UPPER_LIMIT
