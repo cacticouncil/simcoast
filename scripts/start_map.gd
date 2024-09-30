@@ -888,22 +888,22 @@ func placementState():
 						currEvent.queue_free()
 				elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
 					if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
-						var currEvent = Event.new("Added Tile", "Added Resedential Area", 1)
+						var currEvent = Event.new("Added Tile", "Added Residential Area", 1)
 						Announcer.notify(currEvent)
 						currEvent.queue_free()
 						if tile.has_utilities():
-							currEvent = Event.new("Added Powered Tile", "Added Resedential Area", 1)
+							currEvent = Event.new("Added Powered Tile", "Added Residential Area", 1)
 							Announcer.notify(currEvent)
 							currEvent.queue_free()
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
 				elif (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY):
 					if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
-						var currEvent = Event.new("Added Tile", "Added Resedential Area", 1)
+						var currEvent = Event.new("Added Tile", "Added Residential Area", 1)
 						Announcer.notify(currEvent)
 						currEvent.queue_free()
 						if tile.has_utilities():
-							currEvent = Event.new("Added Powered Tile", "Added Resedential Area", 1)
+							currEvent = Event.new("Added Powered Tile", "Added Residential Area", 1)
 							Announcer.notify(currEvent)
 							currEvent.queue_free()
 						tile.clear_tile()
