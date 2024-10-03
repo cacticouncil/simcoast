@@ -14,7 +14,6 @@ func onNotify(event):
 			# Load the tutorial instance
 			var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 			var TutorialInstance = tutorial.instance()
-			TutorialInstance.setCharacter(1)
 
 			# Increment segment and set it in the tutorial scene
 			segment += 1

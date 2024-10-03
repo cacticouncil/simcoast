@@ -15,10 +15,6 @@ func _ready():
 	print("Tutorial instance created. Parent: " + String(get_parent().get_path()))
 	getNextText()
 
-func setCharacter(character):
-	self.character = character
-	NPCOrganizer.unlockNPC(character)
-
 # Gets and displays next text
 func getNextText():
 	# Get the current conversation from array
@@ -38,14 +34,22 @@ func getNextText():
 	# Display the dialogue text
 	var text = dialogue.text.replace("PLAYER_NAME", Global.userName)
 	print(Global.userName)
-	$DialogueBox/Dialogue.bbcode_text = text 
+	$DialogueBox/Dialogue.bbcode_text = text
+	
+	# Load the texture for the NPC
+	NPCOrganizer.printNPCList()
+	var npc: NPC = NPCOrganizer.npcDictionary[int(dialogue.char_id)]
+	var npc_icon = load(npc.icon)
+	var npc_name = npc.name
+	$DialogueBox/SpeakerBox/Speaker.texture = npc_icon
+	$DialogueBox/SpeakerBox/SpeakerName.bbcode_text = "[center]" + npc_name + "[/center]"
+	
+	# Unlock the character
+	NPCOrganizer.unlockNPC(int(dialogue.char_id))
 
 func _on_NextButton_pressed():
 	#Switches position of the character in a loop
 	if (!locked):
-		if (currentFrame == 4):
-			currentFrame = 0
-		$DialogueBox/Teacher.frame += 1
 		getNextText()
 	return
 func isLocked():
@@ -58,4 +62,3 @@ func setSegment(segment_):
 	segment = segment_
 func getConvIndex():
 	return conv_index
-#TODO add JSON file to have "emotions" to set currentFrame

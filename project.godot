@@ -209,6 +209,7 @@ WindLevel="*res://scripts/WindLevel.gd"
 UpdateWindLevel="*res://scripts/UpdateWindLevel.gd"
 RainLevel="*res://scripts/RainLevel.gd"
 UpdateRainLevel="*res://scripts/UpdateRainLevel.gd"
+NpcOrganizer="*res://scripts/NPCOrganizer.gd"
 
 [debug]
 

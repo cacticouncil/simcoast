@@ -1232,7 +1232,6 @@ func _on_OkButton_pressed():
 func initTutorial():
 	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 	var TutorialInstance = tutorial.instance()
-	TutorialInstance.setCharacter(1)
 	add_child(TutorialInstance)
 
 

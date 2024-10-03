@@ -100,7 +100,7 @@
 			"dialogues": [
 				{
 					"type": "Dialogue",
-					"text": "After you've purchased a sensor, you can learn even more about it by talking to Dr. Clarke. Dr Clarke is our resident environmental scientist. He's very knowledgeable about sensors and how they impact the environment. When you're ready to meet with him, click on 'learn more' on the tide gauge to head on over to the lab.",
+					"text": "After you've purchased a sensor, you can learn even more about it by talking to Dr. Clarke. Dr. Clarke is our resident environmental scientist. He's very knowledgeable about sensors and how they impact the environment. When you're ready to meet with him, click on 'more information' on the tide gauge to head on over to the lab.",
 					"char_id": 1,
 					"parent_path": "/root/CityMap"
 				},
