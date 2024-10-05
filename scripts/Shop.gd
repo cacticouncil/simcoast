@@ -58,11 +58,22 @@ func _on_QuitShop_pressed():
 	get_node("/root/CityMap/HUD/TopBarBG/StoreSelected").visible = false
 	queue_free()
 
+var tutorial_lab_scene_created = false
 # closes information popup
 func _on_CloseInfo_pressed():
 	for sensor in Inventory.sensors:
 		if sensor.info_bttn == true:
 			sensor.info_bttn = false
+			
+		# Instantiate the Lab scene the first time the info popup is closed
+		if sensor.get_name() == "Tide Gauge" and not tutorial_lab_scene_created:
+			print("Lab scene")
+			var lab = preload("res://ui/hud/NPC_Interactions/Lab.tscn")
+			var lab_instance = lab.instance()
+			add_child(lab_instance)
+			tutorial_lab_scene_created = true
+
+			
 	$InformationBox.visible = false
 
 
@@ -79,7 +90,7 @@ func _on_QuitShop_button_down():
 
 # closes buy popup
 func _on_CloseBuy_pressed():
-	Announcer.notify(Event.new("Info popup", "Closed", 2))
+	Announcer.notify(Event.new("Buy popup", "Closed", 2))
 	for sensor in Inventory.sensors:
 		if sensor.buy_bttn == true:
 			sensor.buy_bttn = false

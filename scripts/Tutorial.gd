@@ -7,12 +7,10 @@ var character = 1
 #This is updated by events
 var segment = 0
 var conv_index = 0;
-#Locked if waiting for action by user!
-var locked = false
 
 #Called when scene first enters the tree
 func _ready():
-	print("Tutorial instance created. Parent: " + String(get_parent().get_path()))
+	print("Turtorial scene created. Parent: " + get_parent().get_path())
 	getNextText()
 
 # Gets and displays next text
@@ -23,7 +21,6 @@ func getNextText():
 	# Check if the dialogue is null (end of conversation)
 	if current_conv.dialogues[conv_index] == null:
 		# Remove the tutorial scene
-		print("Removing tutorial scene")
 		get_parent().remove_child(self)
 		return
 	
@@ -33,14 +30,12 @@ func getNextText():
 	conv_index += 1
 	# Display the dialogue text
 	var text = dialogue.text.replace("PLAYER_NAME", Global.userName)
-	print(Global.userName)
 	$DialogueBox/Dialogue.bbcode_text = text
 	
 	# Load the texture for the NPC
-	NPCOrganizer.printNPCList()
 	var npc: NPC = NPCOrganizer.npcDictionary[int(dialogue.char_id)]
 	var npc_icon = load(npc.icon)
-	var npc_name = npc.name
+	var npc_name = npc.name if npc.name != "PLAYER_NAME" else Global.userName
 	$DialogueBox/SpeakerBox/Speaker.texture = npc_icon
 	$DialogueBox/SpeakerBox/SpeakerName.bbcode_text = "[center]" + npc_name + "[/center]"
 	
@@ -48,14 +43,8 @@ func getNextText():
 	NPCOrganizer.unlockNPC(int(dialogue.char_id))
 
 func _on_NextButton_pressed():
-	#Switches position of the character in a loop
-	if (!locked):
-		getNextText()
-	return
-func isLocked():
-	return locked
-func setLocked(locked_):
-	locked = locked_
+	getNextText()
+	
 func getSegment():
 	return segment
 func setSegment(segment_):

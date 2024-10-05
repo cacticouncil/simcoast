@@ -61,9 +61,9 @@ margin_bottom = 211.0
 stretch_mode = 1
 
 [node name="SpeakerName" type="RichTextLabel" parent="DialogueBox/SpeakerBox"]
-margin_left = 7.0
-margin_top = 218.0
-margin_right = 274.0
+margin_left = -3.0
+margin_top = 210.0
+margin_right = 283.0
 margin_bottom = 262.0
 custom_fonts/normal_font = ExtResource( 7 )
 bbcode_enabled = true

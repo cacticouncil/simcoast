@@ -7,6 +7,7 @@ var npcCount: int = 0
 #Add in the NPCs here with their json files
 #Called only once to intialize the NPCs
 func _ready():
+	addNPC("PLAYER_NAME", 0, "res://assets/characters/test_profession_icon.png", "")
 	addNPC("Researcher", 1, "res://assets/characters/researcher_icon.png", "I am a researcher!")
 	addNPC("Environmental Engineer", 2, "res://assets/characters/environmental_engineer_icon.png", "I am an environmental engineer!")
 	addNPC("Scientist", 3, "res://assets/characters/scientist_icon.png", "I am a scientist!")
@@ -50,7 +51,7 @@ func setName(id_, newName):
 	return
 #Unlocks the NPC (for character cards)
 func unlockNPC(id_):
-	if (npcDictionary[id_].unlocked):
+	if (npcDictionary[id_].unlocked || npcDictionary[id_].name == "PLAYER_NAME"):
 		return
 	npcDictionary[id_].unlocked = true
 	#Displays popup
