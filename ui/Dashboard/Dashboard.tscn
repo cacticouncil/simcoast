@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://ui/Dashboard/Dashboard.gd" type="Script" id=1]
 [ext_resource path="res://ui/Badges/UnlockedBadges.tscn" type="PackedScene" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://assets/buttons/plus_button.png" type="Texture" id=7]
 [ext_resource path="res://assets/buttons/Info_button.png" type="Texture" id=8]
 [ext_resource path="res://ui/Dashboard/MenuContainer.gd" type="Script" id=9]
+[ext_resource path="res://ui/SensorGraphs/SensorGraph.tscn" type="PackedScene" id=10]
+[ext_resource path="res://ui/SensorGraphs/WindLevelSensorGraph.gd" type="Script" id=11]
+[ext_resource path="res://ui/SensorGraphs/RainLevelSensorGraph.gd" type="Script" id=12]
 [ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=15]
 [ext_resource path="res://ui/Dashboard/CityStatsBar.gd" type="Script" id=16]
 
@@ -287,6 +290,26 @@ text = "Sensor Data"
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="RainGraph" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3" instance=ExtResource( 10 )]
+margin_left = 32.0
+margin_top = 60.0
+margin_right = 462.0
+margin_bottom = 273.0
+script = ExtResource( 12 )
+
+[node name="SeaLevelGraph" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3" instance=ExtResource( 10 )]
+margin_left = 218.0
+margin_top = 322.0
+margin_right = 773.0
+margin_bottom = 507.0
+
+[node name="WindGraph" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3" instance=ExtResource( 10 )]
+margin_left = 514.0
+margin_top = 59.0
+margin_right = 947.0
+margin_bottom = 272.0
+script = ExtResource( 11 )
 
 [node name="ColorRect" type="ColorRect" parent="BadgesSensorStats"]
 visible = false

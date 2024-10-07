@@ -17,10 +17,30 @@ func update_rain_level():
 	if RainLevel.rainOn:
 		if RainLevel.currentWeek == UpdateDate.week:
 			if (RainLevel.currentWeek == UpdateDate.Weeks.Week4):
+				RainLevel.weeklyRainLevels.append(RainLevel.currentRainLevel)
+				
+				var avgRain = 0
+				for val in RainLevel.weeklyRainLevels:
+					avgRain += val
+				
+				if len(RainLevel.weeklyRainLevels) == 0:
+					avgRain = 0
+				else:
+					avgRain = avgRain / len(RainLevel.weeklyRainLevels)
+				
+				RainLevel.monthlyRainLevels.append([UpdateDate.month, avgRain])
+				print(RainLevel.monthlyRainLevels)
+				if len(RainLevel.monthlyRainLevels) > 12:
+					RainLevel.monthlyRainLevels.pop_front()
+				
+				RainLevel.weeklyRainLevels.clear()
+				
 				RainLevel.currentWeek = UpdateDate.Weeks.Week1
+				
 				if RainLevel.sensorPresent == true:
 					print("R", RainLevel.allRainLevels)
 			else:
+				RainLevel.weeklyRainLevels.append(RainLevel.currentRainLevel)
 				RainLevel.currentWeek += 1
 					
 			# updates every week
