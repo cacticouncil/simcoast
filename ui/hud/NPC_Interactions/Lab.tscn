@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/lab/vecteezy_biology-laboratory-for-plants-science-research_16962289.jpg" type="Texture" id=1]
+[ext_resource path="res://assets/achievement_icons/XIcon.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Lab.gd" type="Script" id=3]
+
+[sub_resource type="Shader" id=16]
+code = "shader_type canvas_item;
+
+uniform float value = 1.0;
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV);
+	if (value != 1.0) {
+		if (COLOR.r > 0.3 && COLOR.b > 0.3 && COLOR.g > 0.3) {
+			COLOR.rgb = vec3(value);
+		}
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = SubResource( 16 )
+shader_param/value = 1.0
+
+[sub_resource type="StyleBoxEmpty" id=18]
+
+[sub_resource type="StyleBoxEmpty" id=19]
+
+[sub_resource type="StyleBoxEmpty" id=20]
+
+[sub_resource type="StyleBoxEmpty" id=21]
+
+[sub_resource type="StyleBoxEmpty" id=22]
+
+[node name="Lab" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="LabBackground" type="TextureRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+rect_pivot_offset = Vector2( -255, -220 )
+texture = ExtResource( 1 )
+expand = true
+
+[node name="QuitLab" type="Button" parent="LabBackground"]
+material = SubResource( 17 )
+margin_left = 1206.0
+margin_top = 16.0
+margin_right = 1254.0
+margin_bottom = 64.0
+rect_scale = Vector2( 1, 1.005 )
+custom_styles/hover = SubResource( 18 )
+custom_styles/pressed = SubResource( 19 )
+custom_styles/focus = SubResource( 20 )
+custom_styles/disabled = SubResource( 21 )
+custom_styles/normal = SubResource( 22 )
+icon = ExtResource( 2 )
+icon_align = 1
+
+[connection signal="button_down" from="LabBackground/QuitLab" to="." method="_on_QuitLab_button_down"]
+[connection signal="mouse_entered" from="LabBackground/QuitLab" to="." method="_on_QuitLab_mouse_entered"]
+[connection signal="mouse_exited" from="LabBackground/QuitLab" to="." method="_on_QuitLab_mouse_exited"]
+[connection signal="pressed" from="LabBackground/QuitLab" to="." method="_on_QuitLab_pressed"]

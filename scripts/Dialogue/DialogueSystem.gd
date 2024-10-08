@@ -6,6 +6,7 @@ var currentPlayer = 0
 var turn = true
 var currentDialogue=""
 var currentSequence = 0
+var currentSegment = 0
 var choices = false
 var cd
 var solo = false
@@ -34,10 +35,16 @@ func _init(playerDialogue, npcDialogue):
 	
 
 
-func get_next_dialogue():
+func get_next_dialogue(segment):
 	#npc sequence
+	
 	if (solo == true):
-		if (int(currentNPC) == -2):
+		if (segment != currentSegment):
+			currentDialogue = NPC_CONV[int(currentNPC)]["dialogue"]
+			currentNPC = NPC_CONV[int(currentNPC)]["next"]
+			currentSegment = segment
+			return currentDialogue
+		if (int(currentNPC) < 0):
 			currentPlayer = -2
 			return
 		currentDialogue = NPC_CONV[int(currentNPC)]["dialogue"]
@@ -81,7 +88,7 @@ func dialogueSequence(n):
 		else:
 			nextNPCLine(cd[0])
 			
-	cd = get_next_dialogue()
+	cd = get_next_dialogue(0)
 	print(cd)
 	
 	if (typeof(cd) == TYPE_ARRAY && cd.size() != 1):

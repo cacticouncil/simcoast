@@ -1,0 +1,18 @@
+[
+{
+	"dialogue":"Welcome to the shop. You can buy sensors here.",
+	"next":"1"
+},
+{
+	"dialogue":"These sensors wil help you monitor the city and the environment.",
+	"next":"2"
+},
+{
+	"dialogue":"This information will be very important to ensuring Shore City is ready for anything that comes its way.",
+	"next":"3"
+},
+{
+	"dialogue":"As a gift for starting your position as mayor you can buy a tide gauge for free.",
+	"next":"-2"
+}
+]
