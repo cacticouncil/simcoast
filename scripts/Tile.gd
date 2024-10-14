@@ -765,6 +765,10 @@ func add_people(n):
 	var diff = data[2] - before
 	if (is_residential()):
 		UpdatePopulation.change_residents(diff)
+		# people can be added
+		if diff > 0 :
+			UpdateAgent.add_agent(i,j)
+			
 	elif (is_commercial()):
 		UpdatePopulation.change_workers(diff)
 	return diff
