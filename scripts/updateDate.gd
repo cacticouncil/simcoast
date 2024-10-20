@@ -49,9 +49,9 @@ func update_date():
 		elif SeaLevel.sensorPresent == true:
 			DATE_TICKS = 250
 		else:
-			DATE_TICKS = 10
+			DATE_TICKS = 100
 	else:
-		DATE_TICKS = 10
+		DATE_TICKS = 100
 	ticksSinceLastWeekChange += 1
 	#update profit display weekly
 	if int(ticksSinceLastWeekChange) % (DATE_TICKS) == 0:
