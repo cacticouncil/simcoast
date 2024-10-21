@@ -19,5 +19,7 @@ var sensorPresent = false
 # recorded sea levels by tide sensor
 var counter = -1
 var allSeaLevels = []
+var weeklySeaLevels = []
+var monthlySeaLevels = []
 func _ready():
-	pass # Replace with function body.
+	pass
