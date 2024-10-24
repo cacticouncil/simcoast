@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/Beach Cleanup/drift wood.png" type="Texture" id=1]
+[ext_resource path="res://assets/Beach Cleanup/beach.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/Beach Cleanup/rock.png" type="Texture" id=3]
+[ext_resource path="res://assets/Beach Cleanup/grass-2.png" type="Texture" id=4]
+[ext_resource path="res://assets/Beach Cleanup/grass-1.png" type="Texture" id=5]
+[ext_resource path="res://assets/Beach Cleanup/rocks.png" type="Texture" id=6]
+[ext_resource path="res://assets/Beach Cleanup/palm tree-2.png" type="Texture" id=7]
+
+[node name="MiniGame" type="Node2D"]
+
+[node name="Beach" type="TextureRect" parent="."]
+margin_right = 1277.0
+margin_bottom = 722.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="PalmTree" type="TextureRect" parent="Beach"]
+margin_left = -68.0
+margin_top = -164.0
+margin_right = 173.0
+margin_bottom = 141.0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="Grass1" type="TextureRect" parent="Beach"]
+margin_left = 112.0
+margin_top = 324.0
+margin_right = 236.0
+margin_bottom = 471.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Rock1" type="TextureRect" parent="Beach/Grass1"]
+margin_left = -118.0
+margin_top = 40.0
+margin_right = 91.0
+margin_bottom = 195.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="Driftwood" type="TextureRect" parent="Beach"]
+margin_left = -8.0
+margin_top = 173.0
+margin_right = 224.0
+margin_bottom = 261.0
+rect_rotation = -6.2
+texture = ExtResource( 1 )
+expand = true
+flip_h = true
+
+[node name="Rock2" type="TextureRect" parent="Beach"]
+margin_left = 640.0
+margin_top = 12.0
+margin_right = 1035.0
+margin_bottom = 215.0
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Grass2" type="TextureRect" parent="Beach"]
+margin_left = 514.0
+margin_top = 419.0
+margin_right = 716.0
+margin_bottom = 567.0
+texture = ExtResource( 5 )
+expand = true
+
+[node name="Grass3" type="TextureRect" parent="Beach"]
+margin_left = 570.0
+margin_top = 425.0
+margin_right = 792.0
+margin_bottom = 577.0
+texture = ExtResource( 5 )
+expand = true
+flip_h = true
+
+[node name="Grass4" type="TextureRect" parent="Beach"]
+margin_left = 728.0
+margin_top = 421.0
+margin_right = 861.0
+margin_bottom = 570.0
+texture = ExtResource( 4 )
+expand = true
