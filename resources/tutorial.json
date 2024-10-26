@@ -16,7 +16,7 @@
 				},
 				{
 					"type": "Dialogue",
-					"text": "This is the map of the city. On the left are the tools you need to build infrastructure around town. Powerplants power all the buildings in town. Go ahead and place a power plant.",
+					"text": "This is the map of the city. On the left are the tools you need to build infrastructure around town. Utility plants power all the buildings in town. Go ahead and place a utility plant.",
 					"char_id": 1,
 					"parent_path": "/root/CityMap"
 				},
@@ -31,7 +31,7 @@
 			"dialogues": [
 				{
 					"type": "Dialogue",
-					"text": "Placing new buildings costs money. The town has started with a modest budget but you can earn more taxes as new citizens move in. Now place a building and connect it with a road.",
+					"text": "Placing new buildings costs money. The town has started with a modest budget but you can earn more taxes as new citizens move in. Now place a house or shop and connect it with a road.",
 					"char_id": 1,
 					"parent_path": "/root/CityMap"
 				},
@@ -106,7 +106,10 @@
 				},
 				null
 			],
-			"conditions": {"event_name":"Lab", "event_description":"Entered"}
+			"conditions": {
+				"event_name": "Lab",
+				"event_description": "Entered"
+			}
 		},
 		{
 			"dialogues": [
