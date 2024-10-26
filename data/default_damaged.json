@@ -1,7 +1,7 @@
 {
 	"global": {
 		"mapName": "default",
-		"mapPath": "res://saves/default.json",
+		"mapPath": "res://saves/default_damaged.json",
 		"mapWidth": 16,
 		"mapHeight": 18,
 		"seaLevel": 2,
