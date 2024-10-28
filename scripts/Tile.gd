@@ -490,6 +490,10 @@ func set_tile_inf(infType, zoneType, height, width):
 	clear_tile()
 	inf = infType
 	zone = zoneType
+	#Add to active tiles
+	#Global.activeTiles[[i, j]] = true
+	set_active_tile()
+	#Global.activeTiles.append([i, j])
 	for a in range(0, height):
 		for b in range(0, width):
 			if a == 0 and b == 0:
@@ -500,6 +504,8 @@ func set_tile_inf(infType, zoneType, height, width):
 			currTile.zone = zoneType
 			currTile.parent = [i, j]
 			children.append([i - a, j - b])
+			#Add to active tiles
+			Global.activeTiles[[i - a, j - b]] = true
 	City.connectUtilities()
 
 func clear_tile():
@@ -547,6 +553,10 @@ func clear_tile():
 	data = [0, 0, 0, 0, 0]
 	tileDamage = 0
 	connections = [0, 0, 0, 0]
+	
+	#Remove the tile from the active tiles list
+	deactivate_tile()
+	#Global.activeTiles.erase([i, j])
 	
 	for child in children:
 		#Only works under the assumption that two tiles will not be both children of each other
@@ -874,3 +884,8 @@ func is_valid_tile(i, j) -> bool:
 	if j < 0 || Global.mapWidth <= j:
 		return false
 	return true
+#Helper functions for setting/deactivating active tiles
+func set_active_tile():
+	Global.activeTiles[[i, j]] = true
+func deactivate_tile():
+	Global.activeTiles.erase([i, j])

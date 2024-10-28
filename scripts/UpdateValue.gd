@@ -39,7 +39,14 @@ func update_land_value():
 				if currTile.desirability < currTile.BASE_DESIRABILITY:
 					value -= .5
 				currTile.landValue = value
-
+func update_land_value_tile(currTile):
+	if (currTile.is_zoned()):
+		#tile value is based on how desirable the land is
+		var value = BASE_VALUE * currTile.desirability
+		#if the tile is less desirable than an empty plot of land, value gets a penalty
+		if currTile.desirability < currTile.BASE_DESIRABILITY:
+			value -= .5
+		currTile.landValue = value
 func calc_presence_of_water(tile): #Return value of nearby water tiles within a radius
 	var numWaterTiles = 0
 	var neighbors = [[tile.i-1, tile.j], [tile.i+1, tile.j], [tile.i, tile.j-1], [tile.i, tile.j+1], \

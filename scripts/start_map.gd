@@ -9,6 +9,19 @@ var current_sensor_tile
 var current_road_tile
 var fadedShader = preload("res://assets/shaders/faded.tres")
 var invalidShader = preload("res://assets/shaders/invalid.tres")
+var updateFuncs = [
+	funcref(UpdateWeather, "update_weather"),
+	funcref(UpdateSeaLevel, "update_sea_level"),
+	funcref(UpdateWindLevel, "update_wind_level"),
+	funcref(UpdateRainLevel, "update_rain_level"),
+	funcref(UpdatePopulation, "update_population"),
+	funcref(UpdateDemand, "get_demand"),
+	funcref(Econ, "calc_profit_rates"),
+	funcref(Econ, "calcCityIncome"),
+	funcref(Econ, "calculate_upkeep_costs"),
+	funcref(UpdateDate, "update_date"),
+	funcref(self, "placementState")
+]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initCamera()
@@ -790,36 +803,63 @@ func _process(delta):
 			#print("Ticks since start: " + str(ticksSinceStart))
 			
 			# print("Updating on tick: " + str(numTicks))
-			update_game_state()
+			update_game(updateFuncs)
+			#Graphics are now updated in the update_tiles function
 			update_graphics()
 			if isFastFWD:
 				tickDelay = Global.TICK_DELAY * 0.5
 			else:
 				tickDelay = Global.TICK_DELAY
 
-func update_game_state():
+func update_game(updateFuncs):
 	#print("Updating game state on tick: " + str(numTicks))
 	#UpdateWaves.update_waves()
-	UpdateWeather.update_weather()
-	UpdateSeaLevel.update_sea_level()
-	UpdateWindLevel.update_wind_level()
-	UpdateRainLevel.update_rain_level()
+	# UpdateWeather.update_weather()
+	#UpdateSeaLevel.update_sea_level()
+	#UpdateWindLevel.update_wind_level()
+	#UpdateRainLevel.update_rain_level()
 	
 	#turning this function off until it can be fixed
 	#UpdateWater.update_waves()
-	UpdateWater.update_water_spread()
-	City.calculate_damage()
-	UpdateValue.update_land_value()
-	UpdateHappiness.update_happiness()
-	UpdatePopulation.update_population()
-	UpdateDemand.get_demand()
-	UpdateErosion.update_erosion()
-	Econ.calc_profit_rates()
-	Econ.calcCityIncome()
-	Econ.calculate_upkeep_costs()
-	UpdateDate.update_date()
-	placementState()
-
+	update_tiles()
+	# UpdateWater.update_water_spread()
+	# City.calculate_damage()
+	# UpdateValue.update_land_value()
+	#UpdateHappiness.update_happiness()
+	for func_ref in updateFuncs:
+		func_ref.call_func()
+	#UpdatePopulation.update_population()
+	#UpdateDemand.get_demand()
+	# UpdateErosion.update_erosion()
+	# Econ.calc_profit_rates()
+	# Econ.calcCityIncome()
+	#Econ.calculate_upkeep_costs()
+	#UpdateDate.update_date()
+	#placementState()
+func update_tiles():
+	for tiles in Global.activeTiles.keys():
+		print(tiles)
+		var currTile = Global.tileMap[tiles[0]][tiles[1]]
+		UpdateWater.update_water_spread_tile(currTile)
+		City.calculate_damage_tile(currTile)
+		#damage for storms
+		if Weather.currentlyStorming == true && Weather.stormDamage == true:
+			Weather.stormDamage = false
+			City.calc_storm_damage_tile(currTile)
+		UpdateValue.update_land_value_tile(currTile)
+		UpdateHappiness.update_happiness_tile(currTile)
+		#UpdatePopulation.update_population_tile(currTile)
+		#UpdateDemand.get_demand_tile(currTile)
+		UpdateErosion.update_erosion_tile(currTile)
+		#Update the graphics for each tile
+		#currTile.cube.update()
+		#Global.tileMap[i][j].cube.update()
+		#Econ.calc_profit_rates_tile(currTile)
+		#Econ.calcCityIncomeTile(currTile)
+	#for i in Global.mapHeight:
+		#for j in Global.mapWidth:
+			#var currTile = Global.tileMap[i][j]
+	return
 func placementState():
 	if Global.placementState:
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
