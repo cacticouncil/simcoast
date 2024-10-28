@@ -8,9 +8,6 @@ func onNotify(event):
 		var current_conv = TutorialData.convs[segment]
 		# Check if the conditions to move on to the next segment are met
 		if conditions_met(current_conv.conditions, event):
-			print("Conditions met")
-			print(event.eventName)
-			print(event.eventDescription)
 			# Load the tutorial instance
 			var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 			var TutorialInstance = tutorial.instance()
@@ -41,7 +38,6 @@ func triggerDialogue(npcName):
 	#Update state of the NPC
 	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 	var TutorialInstance = tutorial.instance()
-	TutorialInstance.setCharacter(1)
 	TutorialInstance.setSegment(1)
 	add_child(TutorialInstance)
 
