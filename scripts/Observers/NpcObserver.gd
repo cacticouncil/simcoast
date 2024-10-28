@@ -6,9 +6,11 @@ func onNotify(event):
 	if Global.newGame:
 		# Get the current conversation from the convs array
 		var current_conv = TutorialData.convs[segment]
-
 		# Check if the conditions to move on to the next segment are met
 		if conditions_met(current_conv.conditions, event):
+			print("Conditions met")
+			print(event.eventName)
+			print(event.eventDescription)
 			# Load the tutorial instance
 			var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
 			var TutorialInstance = tutorial.instance()
