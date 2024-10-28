@@ -26,19 +26,18 @@ func update_AI():
 
 # Refills the zone queue
 func update_queue() -> Array:
-	# Because the map is scalable, update map dimensions
-	var mapHeight = Global.mapHeight
-	var mapWidth = Global.mapWidth
+#func add_agent(i, j):
+#	var tile = Global.tileMap[i][j]
+#	var newAgent = load("res://AI/population/Agent.gd")
+#	var currentAgent = newAgent.new(tile)
+#	ActiveAgents.append(currentAgent)
+#	print("done")
+
+	var activeAgents = UpdateAgent.ActiveAgents
 	var latest = []
-	for i in mapHeight:
-		for j in mapWidth:
-			var current = Global.tileMap[i][j]
-			var accept		
-			# Check tile zone type. If it's zoned, accept the tile into the queue
-			if current.is_zoned():
-				accept = true
-			else:
-				accept = false
-			if accept:
-				latest.push_back(current)
+	
+	for i in activeAgents.size():
+		var current = activeAgents[i]
+		latest.push_back(current)
+		
 	return latest

@@ -8,8 +8,8 @@ extends BTConditional
 # The condition is checked BEFORE ticking. So it should be in _pre_tick.
 # Checks if the queue is empty. If it is, do not proceed.
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
-	var tile = blackboard.get_data("queue").front()
-	if tile.zone == Tile.TileZone.SINGLE_FAMILY || tile.zone == Tile.TileZone.MULTI_FAMILY:
-		verified = true
-	else:
+	var current_agent = blackboard.get_data("queue").front()
+	if (current_agent.hasJob == false):
 		verified = false
+	else:
+		verified = true
