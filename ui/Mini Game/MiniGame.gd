@@ -20,12 +20,19 @@ var recycling_sprites = ["res://assets/Beach Cleanup/bottle.png",
 var trash_sprites = ["res://assets/Beach Cleanup/teddy bear.png",
 					"res://assets/Beach Cleanup/football.png"]
 
+var accuracy = 100
+var remaining_trash = 5
+
 var num_items = 5
 var trash_positions = []
 onready var trash_items_scene = preload("res://ui/Mini Game/TrashItems.tscn")
 
+func _process(delta):
+	if remaining_trash == 0:
+		print(accuracy)
+		get_parent().remove_child(self)
+
 # Called when the node enters the scene tree for the first time.
-# Inside _ready function
 func _ready():
 	trash_positions = $Beach/TrashPositions.get_children()
 	print(trash_positions.size())
@@ -46,19 +53,24 @@ func _ready():
 # Updated _on_item_dropped function
 func _on_item_dropped(texture_path, pos, trash_item_instance):
 	# Check if the item was dropped in any of the bins
-	if is_overlapping($Beach/FoodWaste/FWCollision, pos) and texture_path in food_waste_sprites:
+	if is_overlapping($Beach/FoodWaste/FWCollision, pos):
 		print("Item dropped in Food Waste bin.")
+		if not texture_path in food_waste_sprites:
+			accuracy -= 100 / num_items
+		remaining_trash -= 1
 		trash_item_instance.queue_free()  # Remove the trash item from the scene
-	elif is_overlapping($Beach/RecyclingBin/RBCollision, pos) and texture_path in recycling_sprites:
+	elif is_overlapping($Beach/RecyclingBin/RBCollision, pos):
 		print("Item dropped in Recycling bin.")
+		if not texture_path in recycling_sprites:
+			accuracy -= 100 / num_items
+		remaining_trash -= 1
 		trash_item_instance.queue_free()  # Remove the trash item from the scene
-	elif is_overlapping($Beach/TrashBin/TBCollision, pos) and texture_path in trash_sprites:
+	elif is_overlapping($Beach/TrashBin/TBCollision, pos):
 		print("Item dropped in Trash bin.")
+		if not texture_path in trash_sprites:
+			accuracy -= 100 / num_items
+		remaining_trash -= 1
 		trash_item_instance.queue_free()  # Remove the trash item from the scene
-	else:
-		print("Item was not dropped in a bin.")
-
-
 
 func get_random_nodes(nodes, amount):
 	var selected = []
@@ -73,7 +85,6 @@ func is_overlapping(node: CollisionShape2D, pos: Vector2) -> bool:
 	# Get the global position and scale of the CollisionShape2D's parent
 	var global_position = node.get_global_position()
 	
-	# Get the shape and check if it is a RectangleShape2D
 	var collision_shape = node.shape
 	# Calculate the full size using extents and global scale
 	var rect_size = collision_shape.extents * 2 * node.get_global_scale()
@@ -81,20 +92,6 @@ func is_overlapping(node: CollisionShape2D, pos: Vector2) -> bool:
 	var rect = Rect2(global_position - rect_size / 2, rect_size)
 	# Check if the position is within the rectangle
 	return rect.has_point(pos)
-
-
-
-func _on_QuitMiniGame_pressed():
-	get_parent().remove_child(self)
-
-func _on_QuitMiniGame_button_down():
-	$Beach/QuitMiniGame.material.set_shader_param("value", 0.1)
-
-func _on_QuitMiniGame_mouse_entered():
-	$Beach/QuitMiniGame.material.set_shader_param("value", 0.3)
-
-func _on_QuitMiniGame_mouse_exited():
-	$Beach/QuitMiniGame.material.set_shader_param("value", 1)
 
 func _on_FoodWaste_area_entered(area):
 	$Beach/FoodWaste/FWTexture.material.set_shader_param("enable", true)
