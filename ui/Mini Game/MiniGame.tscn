@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/Beach Cleanup/drift wood.png" type="Texture" id=1]
 [ext_resource path="res://assets/Beach Cleanup/beach.jpg" type="Texture" id=2]
@@ -11,8 +11,6 @@
 [ext_resource path="res://assets/Beach Cleanup/trash bin.png" type="Texture" id=9]
 [ext_resource path="res://assets/Beach Cleanup/recycling bin.png" type="Texture" id=10]
 [ext_resource path="res://ui/Mini Game/MiniGame.gd" type="Script" id=11]
-[ext_resource path="res://assets/Beach Cleanup/fishbone-2.png" type="Texture" id=12]
-[ext_resource path="res://ui/Mini Game/fish.gd" type="Script" id=13]
 [ext_resource path="res://assets/achievement_icons/XIcon.png" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -153,9 +151,6 @@ shader_param/stretch_y = 0.5
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 58, 93.125 )
 
-[sub_resource type="CircleShape2D" id=10]
-radius = 20.025
-
 [sub_resource type="Shader" id=11]
 code = "shader_type canvas_item;
 
@@ -261,8 +256,8 @@ expand = true
 
 [node name="FoodWaste" type="Area2D" parent="Beach"]
 position = Vector2( 264, 147 )
-collision_layer = 2
-collision_mask = 2
+collision_layer = 256
+collision_mask = 256
 input_pickable = false
 
 [node name="FWCollision" type="CollisionShape2D" parent="Beach/FoodWaste"]
@@ -280,8 +275,8 @@ expand = true
 
 [node name="RecyclingBin" type="Area2D" parent="Beach"]
 position = Vector2( 430, 150 )
-collision_layer = 2
-collision_mask = 2
+collision_layer = 256
+collision_mask = 256
 
 [node name="RBCollision" type="CollisionShape2D" parent="Beach/RecyclingBin"]
 position = Vector2( -1, 8.5 )
@@ -298,8 +293,8 @@ expand = true
 
 [node name="TrashBin" type="Area2D" parent="Beach"]
 position = Vector2( 596, 149 )
-collision_layer = 2
-collision_mask = 2
+collision_layer = 256
+collision_mask = 256
 
 [node name="TBTexture" type="TextureRect" parent="Beach/TrashBin"]
 material = SubResource( 9 )
@@ -313,21 +308,6 @@ expand = true
 [node name="TBCollision" type="CollisionShape2D" parent="Beach/TrashBin"]
 position = Vector2( 2, 9.125 )
 shape = SubResource( 5 )
-
-[node name="fish" type="Area2D" parent="Beach"]
-position = Vector2( 351, 313 )
-collision_layer = 2
-collision_mask = 2
-script = ExtResource( 13 )
-
-[node name="fishcollision" type="CollisionShape2D" parent="Beach/fish"]
-position = Vector2( 6, 1 )
-shape = SubResource( 10 )
-
-[node name="fishTexture" type="Sprite" parent="Beach/fish"]
-position = Vector2( 5.62499, -5.46199 )
-scale = Vector2( 0.426887, 0.486519 )
-texture = ExtResource( 12 )
 
 [node name="QuitMiniGame" type="Button" parent="Beach"]
 material = SubResource( 12 )
@@ -343,6 +323,24 @@ custom_styles/disabled = SubResource( 16 )
 custom_styles/normal = SubResource( 17 )
 icon = ExtResource( 14 )
 icon_align = 1
+
+[node name="TrashPositions" type="Node2D" parent="Beach"]
+position = Vector2( 0, 1 )
+
+[node name="Position2D" type="Position2D" parent="Beach/TrashPositions"]
+position = Vector2( 178, 501 )
+
+[node name="Position2D2" type="Position2D" parent="Beach/TrashPositions"]
+position = Vector2( 606, 556 )
+
+[node name="Position2D3" type="Position2D" parent="Beach/TrashPositions"]
+position = Vector2( 837, 155 )
+
+[node name="Position2D4" type="Position2D" parent="Beach/TrashPositions"]
+position = Vector2( 71, 271 )
+
+[node name="Position2D5" type="Position2D" parent="Beach/TrashPositions"]
+position = Vector2( 961, 192 )
 
 [connection signal="area_entered" from="Beach/FoodWaste" to="." method="_on_FoodWaste_area_entered"]
 [connection signal="area_exited" from="Beach/FoodWaste" to="." method="_on_FoodWaste_area_exited"]
