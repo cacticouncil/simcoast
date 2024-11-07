@@ -39,7 +39,7 @@ func _on_Phone_pressed():
 
 
 func _on_Computer_pressed():
-	pass # Replace with function body.
+	$Computer/ComputerPic.visible = true
 
 
 func _on_Worker_pressed():
@@ -56,3 +56,7 @@ func _on_WorkerNext_pressed():
 
 func _on_ExitPhone_pressed():
 	$Phone/PhonePic.visible = false
+
+
+func _on_ExitComputer_pressed():
+	$Computer/ComputerPic.visible = false

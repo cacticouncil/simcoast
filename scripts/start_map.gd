@@ -1311,3 +1311,9 @@ func _on_RoadRepairNoButton_pressed():
 
 func _on_RoadRepairOKButton_pressed():
 	$RoadRepairError.visible = false
+
+
+func _on_OfficeButton_pressed():
+	var office = preload("res://ui/hud/NPC_Interactions/Office.tscn")
+	var OfficeInstance = office.instance()
+	add_child(OfficeInstance)

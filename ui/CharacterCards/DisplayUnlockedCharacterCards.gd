@@ -13,7 +13,7 @@ Character cards are displayed in the same way Badges are
 func _ready():
 	var cards = NPCOrganizer.getUnlockedNPCs()
 	#Calculates num of cards per row based on the length of the scene instatiated
-	var cardsPerRow = 2
+	var cardsPerRow = 1
 	var container
 	
 	self.rect_position.x = 10

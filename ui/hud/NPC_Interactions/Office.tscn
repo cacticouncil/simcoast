@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/achievement_icons/XIcon.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/upheavtt_80.tres" type="DynamicFont" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=10]
 [ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=11]
 [ext_resource path="res://ui/CharacterCards/DisplayUnlockedCharacterCards.gd" type="Script" id=12]
+[ext_resource path="res://ui/hud/NPC_Interactions/DisplayActiveSensors.gd" type="Script" id=13]
 
 [sub_resource type="Shader" id=16]
 code = "shader_type canvas_item;
@@ -156,18 +157,25 @@ margin_right = 307.0
 margin_bottom = 348.0
 color = Color( 1, 1, 1, 0.705882 )
 
+[node name="TextureRect" type="ColorRect" parent="Phone/PhonePic"]
+margin_left = 427.0
+margin_top = 104.0
+margin_right = 881.0
+margin_bottom = 684.0
+color = Color( 0.780392, 0.886275, 1, 1 )
+
 [node name="ExitPhone" type="Button" parent="Phone/PhonePic"]
-margin_left = 871.0
-margin_top = 105.0
-margin_right = 923.0
-margin_bottom = 151.0
+margin_left = 818.0
+margin_top = 116.0
+margin_right = 870.0
+margin_bottom = 162.0
 icon = ExtResource( 1 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Phone/PhonePic"]
-margin_left = 374.0
-margin_top = 86.0
-margin_right = 947.0
-margin_bottom = 686.0
+margin_left = 554.0
+margin_top = 151.0
+margin_right = 754.0
+margin_bottom = 642.0
 rect_min_size = Vector2( 150, 300 )
 
 [node name="DisplayCharacterCards" type="VBoxContainer" parent="Phone/PhonePic/ScrollContainer"]
@@ -182,13 +190,40 @@ margin_top = 240.0
 margin_right = 882.0
 margin_bottom = 400.0
 
-[node name="ComputerPic" type="TextureRect" parent="Computer"]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="ComputerPic" type="ColorRect" parent="Computer"]
+visible = false
+margin_left = -585.0
+margin_top = -241.0
+margin_right = 701.0
+margin_bottom = 483.0
+color = Color( 1, 1, 1, 0.705882 )
+
+[node name="TextureRect" type="ColorRect" parent="Computer/ComputerPic"]
+margin_left = 427.0
+margin_top = 104.0
+margin_right = 881.0
+margin_bottom = 684.0
+color = Color( 0.780392, 0.886275, 1, 1 )
 
 [node name="ExitComputer" type="Button" parent="Computer/ComputerPic"]
-margin_right = 12.0
-margin_bottom = 20.0
+margin_left = 818.0
+margin_top = 116.0
+margin_right = 870.0
+margin_bottom = 162.0
+icon = ExtResource( 1 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Computer/ComputerPic"]
+margin_left = 554.0
+margin_top = 151.0
+margin_right = 754.0
+margin_bottom = 642.0
+rect_min_size = Vector2( 150, 300 )
+
+[node name="DisplayActiveSensors" type="VBoxContainer" parent="Computer/ComputerPic/ScrollContainer"]
+margin_right = 150.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 150, 300 )
+script = ExtResource( 13 )
 
 [node name="Worker" type="TextureButton" parent="."]
 margin_left = 170.0
@@ -215,19 +250,19 @@ action_mode = 0
 flat = true
 
 [node name="Label" type="Label" parent="Worker/DialogueBox/WorkerNext"]
-margin_left = 20.0
-margin_top = 5.0
-margin_right = 115.0
-margin_bottom = 43.0
+margin_left = 103.0
+margin_top = 9.0
+margin_right = 198.0
+margin_bottom = 47.0
 custom_fonts/font = ExtResource( 11 )
 text = "NEXT"
 align = 1
 
 [node name="Dialogue" type="RichTextLabel" parent="Worker/DialogueBox"]
-margin_left = 46.0
-margin_top = 18.0
-margin_right = 731.0
-margin_bottom = 174.0
+margin_left = 89.0
+margin_top = 19.0
+margin_right = 774.0
+margin_bottom = 192.0
 custom_fonts/normal_font = ExtResource( 10 )
 text = "Hey There! I am the deputy mayor. Responsible for assisting you with anything you may need.
 At the office you can vizualize active sensor information by using the computer. 
@@ -242,5 +277,6 @@ The phone will let you contact anyone you have previously spoken to.
 [connection signal="pressed" from="Phone" to="." method="_on_Phone_pressed"]
 [connection signal="pressed" from="Phone/PhonePic/ExitPhone" to="." method="_on_ExitPhone_pressed"]
 [connection signal="pressed" from="Computer" to="." method="_on_Computer_pressed"]
+[connection signal="pressed" from="Computer/ComputerPic/ExitComputer" to="." method="_on_ExitComputer_pressed"]
 [connection signal="pressed" from="Worker" to="." method="_on_Worker_pressed"]
 [connection signal="pressed" from="Worker/DialogueBox/WorkerNext" to="." method="_on_WorkerNext_pressed"]
