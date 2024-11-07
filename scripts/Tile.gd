@@ -502,8 +502,6 @@ func set_tile_inf(infType, zoneType, height, width):
 			currTile.zone = zoneType
 			currTile.parent = [i, j]
 			children.append([i - a, j - b])
-			#Add to active tiles
-			Global.activeTiles[[i - a, j - b]] = true
 	City.connectUtilities()
 
 func clear_tile():
