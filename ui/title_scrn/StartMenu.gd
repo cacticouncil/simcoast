@@ -7,7 +7,7 @@ func _ready():
 	
 func disableContinueButton():
 	print(SaveLoad.get_continue_map())
-	if SaveLoad.get_continue_map() == "res://data/default.json":
+	if SaveLoad.get_continue_map() == Global.defaultMap:
 		$MenuLayout/Buttons/ContinueButton.disabled = true
 
 func createUserFolders():
@@ -25,7 +25,7 @@ func createUserFolders():
 func createContinueFile():
 	var continuePath = "user://data/continue.json"
 	var data = {
-		"previous_map_path": "res://data/default.json"
+		"previous_map_path": Global.defaultMap
 	}
 	
 	var file = File.new()
