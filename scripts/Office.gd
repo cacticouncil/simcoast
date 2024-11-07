@@ -32,3 +32,27 @@ func _on_QuitOffice_mouse_exited():
 func _on_QuitOffice_button_down():
 	$QuitOffice.material.set_shader_param("value", 0.1)
 
+
+
+func _on_Phone_pressed():
+	$Phone/PhonePic.visible = true
+
+
+func _on_Computer_pressed():
+	pass # Replace with function body.
+
+
+func _on_Worker_pressed():
+	$Worker/DialogueBox.visible = true
+
+
+func _on_Next_pressed():
+	$Introduction.visible = false
+
+
+func _on_WorkerNext_pressed():
+	$Worker/DialogueBox.visible = false
+
+
+func _on_ExitPhone_pressed():
+	$Phone/PhonePic.visible = false

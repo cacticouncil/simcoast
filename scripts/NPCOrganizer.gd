@@ -39,6 +39,13 @@ func addNPC(npcName, npcID, npcIcon, npcDescription):
 	npcDictionary[npcID] = npcObject
 	return
 
+func getUnlockedNPCs():
+	var npcs = []
+	for n in self.npcDictionary.values():
+		if n.unlocked == true:
+			npcs.append(n)
+	return npcs
+	
 #Deletes NPC by ID
 func deleteNPC(id_):
 	npcDictionary.erase(id_)
