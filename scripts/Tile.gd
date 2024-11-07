@@ -111,6 +111,7 @@ var data = [0, 0, 0, 0, TileStatus.NONE]
 var utilities = false
 var tileDamage = 0
 var erosion = 0
+var isActive = false
 # Purchase price of a tile
 var landValue = 0
 # Income of a zone
@@ -419,6 +420,7 @@ func get_save_tile_data():
 		"parent": parent,
 		"tileDamage": tileDamage,
 		"erosion": erosion,
+		"isActive": isActive,
 		"landValue": landValue,
 		"profitRate": profitRate,
 		"happiness": happiness,
@@ -490,10 +492,6 @@ func set_tile_inf(infType, zoneType, height, width):
 	clear_tile()
 	inf = infType
 	zone = zoneType
-	#Add to active tiles
-	#Global.activeTiles[[i, j]] = true
-	set_active_tile()
-	#Global.activeTiles.append([i, j])
 	for a in range(0, height):
 		for b in range(0, width):
 			if a == 0 and b == 0:
@@ -553,10 +551,6 @@ func clear_tile():
 	data = [0, 0, 0, 0, 0]
 	tileDamage = 0
 	connections = [0, 0, 0, 0]
-	
-	#Remove the tile from the active tiles list
-	deactivate_tile()
-	#Global.activeTiles.erase([i, j])
 	
 	for child in children:
 		#Only works under the assumption that two tiles will not be both children of each other
@@ -889,3 +883,9 @@ func set_active_tile():
 	Global.activeTiles[[i, j]] = true
 func deactivate_tile():
 	Global.activeTiles.erase([i, j])
+func check_if_active():
+	if (is_zoned() || has_building() || inf != TileInf.NONE || sensor != TileSensor.NONE):
+		isActive = true
+		return true
+	else:
+		return false
