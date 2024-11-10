@@ -77,7 +77,7 @@ func loadData(mapPath: String):
 		Global.tileMap[tileData["i"]][tileData["j"]] = Tile.new(tileData)
 	
 	# Update continue path
-	if mapPath != "res://data/default.json":
+	if mapPath != Global.defaultMap:
 		save_continue_map()
 	
 	return mapData.global.mapName

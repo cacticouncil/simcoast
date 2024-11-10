@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://ui/Dashboard/Dashboard.gd" type="Script" id=1]
 [ext_resource path="res://ui/Badges/UnlockedBadges.tscn" type="PackedScene" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://assets/buttons/plus_button.png" type="Texture" id=7]
 [ext_resource path="res://assets/buttons/Info_button.png" type="Texture" id=8]
 [ext_resource path="res://ui/Dashboard/MenuContainer.gd" type="Script" id=9]
+[ext_resource path="res://ui/SensorGraphs/SensorGraph.tscn" type="PackedScene" id=10]
+[ext_resource path="res://ui/SensorGraphs/WindLevelSensorGraph.gd" type="Script" id=11]
+[ext_resource path="res://ui/SensorGraphs/RainLevelSensorGraph.gd" type="Script" id=12]
 [ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=15]
 [ext_resource path="res://ui/Dashboard/CityStatsBar.gd" type="Script" id=16]
 
@@ -287,6 +290,48 @@ text = "Sensor Data"
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="RainGraph" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3" instance=ExtResource( 10 )]
+margin_left = 30.0
+margin_top = 84.0
+margin_right = 416.0
+margin_bottom = 271.0
+script = ExtResource( 12 )
+
+[node name="SeaLevelGraph" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3" instance=ExtResource( 10 )]
+margin_left = 218.0
+margin_top = 322.0
+margin_right = 773.0
+margin_bottom = 507.0
+
+[node name="WindGraph" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3" instance=ExtResource( 10 )]
+margin_left = 500.0
+margin_top = 84.0
+margin_right = 886.0
+margin_bottom = 271.0
+script = ExtResource( 11 )
+
+[node name="RainLabel" type="Label" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3"]
+margin_left = 144.0
+margin_top = 58.0
+margin_right = 218.0
+margin_bottom = 89.0
+text = "Rain Sensor
+"
+
+[node name="WindLabel" type="Label" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3"]
+margin_left = 627.0
+margin_top = 58.0
+margin_right = 707.0
+margin_bottom = 72.0
+text = "Wind Sensor"
+
+[node name="SeaLabel" type="Label" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect3"]
+margin_left = 469.0
+margin_top = 299.0
+margin_right = 529.0
+margin_bottom = 313.0
+text = "Sea Level"
 
 [node name="ColorRect" type="ColorRect" parent="BadgesSensorStats"]
 visible = false

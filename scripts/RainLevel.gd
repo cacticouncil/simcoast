@@ -16,5 +16,8 @@ var sensorPresent = false
 # recorded rain levels by rain sensor
 var counter = 0
 var allRainLevels = []
+var weeklyRainLevels = []
+var monthlyRainLevels = []
+
 func _ready():
 	pass # Replace with function body.
