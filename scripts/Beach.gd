@@ -27,14 +27,14 @@ var item_counts = {
 
 var base_attractiveness = 50.0
 var max_attractiveness = 95.0
-var min_attractiveness = 10.0
-var scaling_factor = 1.25
+var min_attractiveness = 5.0
+var scaling_factor = 2
 
 var beach_rows = [10, 16]
 var beach_cols = 16
 
 func _ready():
-	update_counts()
+	pass
 
 func update_counts():
 	# Reset item counts to zero
@@ -73,10 +73,13 @@ func calculate_attractivness():
 	# Sum of item count * item weight
 	for item in item_counts:
 		if item in WEIGHTS:
-			total_impact += item_counts[item] * WEIGHTS[item]
+			var count = item_counts[item]
+			var weight = WEIGHTS[item]
+			if count > 0:
+				for i in range(1, count+1):
+					var value = weight * (-i/4+4) # weight * scaling factor for that item
+					total_impact += value
 	
-	var adjusted_impact = total_impact * scaling_factor
-	
-	var attractiveness = base_attractiveness + adjusted_impact
+	var attractiveness = base_attractiveness + total_impact
 	
 	return clamp(attractiveness, min_attractiveness, max_attractiveness)
