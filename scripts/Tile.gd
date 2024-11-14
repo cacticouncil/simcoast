@@ -140,6 +140,9 @@ const PARK_NEIGHBORS = 0.1
 const LIBRARY_NEIGHBORS = 0.2
 const MUSEUM_NEIGHBORS = 0.2
 const SCHOOL_NEIGHBORS = 0.2
+# Population AI 
+var jobMax = 0
+var jobCapacity = 0
 
 #These 3 give a one time boost
 const FIRE_STATION_NEIGHBORS = 0.3
@@ -544,6 +547,8 @@ func clear_tile():
 	sensor = TileSensor.NONE	
 	#reset tile to base
 	inf = TileInf.NONE
+	jobMax = 0
+	jobCapacity = 0
 	data = [0, 0, 0, 0, 0]
 	tileDamage = 0
 	connections = [0, 0, 0, 0]

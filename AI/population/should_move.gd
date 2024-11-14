@@ -21,17 +21,18 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	# iterates through the map to find possible better living spaces
 	for i in mapHeight:
 		for j in mapWidth:
-			var current_tile = Global.tileMap[i][j]
-			var maxRange = current_tile.landValue + current_tile.happiness
-			var select_tile = BASE_MOVE_CHANCE * (current_tile.landValue + current_tile.happiness)
+			if moved == false:
+				var current_tile = Global.tileMap[i][j]
+				var maxRange = current_tile.landValue + current_tile.happiness
+				var select_tile = BASE_MOVE_CHANCE * (current_tile.landValue + current_tile.happiness)
 			
-			if current_tile.TileZone == Tile.TileZone.MULTI_FAMILY || current_tile.TileZone == Tile.TileZone.SINGLE_FAMILY:
-				if current_tile.has_utilities() && current_tile.tileDamage == 0:
-					# if living space is suitable and chance of moving allows for move to happen, move agent
-					if (select_tile > selectTile):
-						UpdateAgent.ActiveAgents.find(current_agent).residential_tile = current_tile
-						moved = true
-						break
+				if current_tile.TileZone == Tile.TileZone.MULTI_FAMILY || current_tile.TileZone == Tile.TileZone.SINGLE_FAMILY:
+					if current_tile.has_utilities() && current_tile.tileDamage == 0:
+						# if living space is suitable and chance of moving allows for move to happen, move agent
+						if (select_tile > selectTile):
+							UpdateAgent.ActiveAgents.find(current_agent).residential_tile = current_tile
+							moved = true
+							break
 	if (moved == true):
 		verified = true
 	else:
