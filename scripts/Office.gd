@@ -10,8 +10,6 @@ extends Node
 func _ready():
 	pass # Replace with function body.
 
-func _process(delta):
-	pass
 # closes office scene
 func _on_QuitOffice_pressed():
 	$EntireScreen/QuitOffice.material.set_shader_param("value", 1)
@@ -37,9 +35,9 @@ func _on_QuitOffice_button_down():
 
 
 func _on_Phone_pressed():
-	$EntireScreen/Office/Phone/phone_background.visible = true
-	$EntireScreen/Office/Computer.visible = false
-	$EntireScreen/Office/Worker.visible = false
+	var phone = preload("res://ui/hud/NPC_Interactions/Phone.tscn")
+	var phone_instance = phone.instance()
+	add_child(phone_instance)
 
 func _on_Computer_pressed():
 	$EntireScreen/Office/Computer/ComputerPic.visible = true

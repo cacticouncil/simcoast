@@ -2,13 +2,6 @@ extends VBoxContainer
 
 export var seperation = 10
 
-#This value is derived by the pixel length (x) of the icons (200 currently), plus the space between icons.
-#var iconSize = 200 + seperation
-
-"""
-Note: see UnlockedBadges.gd for description on how seperation and sizes work
-Character cards are displayed in the same way Badges are
-"""
 
 func _ready():
 	var cards = NPCOrganizer.getUnlockedNPCs()
