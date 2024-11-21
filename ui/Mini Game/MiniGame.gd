@@ -29,7 +29,7 @@ onready var trash_items_scene = preload("res://ui/Mini Game/TrashItems.tscn")
 
 func _process(delta):
 	if remaining_trash == 0:
-		print(accuracy)
+		UpdateTrashLevel.minigame_reduction(accuracy)
 		get_parent().remove_child(self)
 
 # Called when the node enters the scene tree for the first time.

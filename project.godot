@@ -207,6 +207,7 @@ WindLevel="*res://scripts/WindLevel.gd"
 UpdateWindLevel="*res://scripts/UpdateWindLevel.gd"
 RainLevel="*res://scripts/RainLevel.gd"
 UpdateRainLevel="*res://scripts/UpdateRainLevel.gd"
+UpdateTrashLevel="*res://scripts/UpdateTrashLevel.gd"
 
 [debug]
 
