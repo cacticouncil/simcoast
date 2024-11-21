@@ -10,6 +10,8 @@ extends Node
 func _ready():
 	pass # Replace with function body.
 
+func _process(delta):
+	pass
 # closes office scene
 func _on_QuitOffice_pressed():
 	$EntireScreen/QuitOffice.material.set_shader_param("value", 1)
