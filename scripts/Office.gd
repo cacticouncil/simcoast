@@ -12,7 +12,7 @@ func _ready():
 
 # closes office scene
 func _on_QuitOffice_pressed():
-	$QuitOffice.material.set_shader_param("value", 1)
+	$EntireScreen/QuitOffice.material.set_shader_param("value", 1)
 	get_node("/root/CityMap/HUD/TopBarBG/DashboardSelected").visible = false
 	get_node("/root/CityMap/HUD/TopBarBG/AchievementSelected").visible = false
 	get_node("/root/CityMap/HUD/TopBarBG/StoreSelected").visible = false
@@ -22,28 +22,29 @@ func _on_QuitOffice_pressed():
 
 
 func _on_QuitOffice_mouse_entered():
-	$QuitOffice.material.set_shader_param("value", 0.3)
+	$EntireScreen/QuitOffice.material.set_shader_param("value", 0.3)
 
 
 func _on_QuitOffice_mouse_exited():
-	$QuitOffice.material.set_shader_param("value", 1)
+	$EntireScreen/QuitOffice.material.set_shader_param("value", 1)
 
 
 func _on_QuitOffice_button_down():
-	$QuitOffice.material.set_shader_param("value", 0.1)
+	$EntireScreen/QuitOffice.material.set_shader_param("value", 0.1)
 
 
 
 func _on_Phone_pressed():
-	$Phone/PhonePic.visible = true
-
+	$EntireScreen/Office/Phone/phone_background.visible = true
+	$EntireScreen/Office/Computer.visible = false
+	$EntireScreen/Office/Worker.visible = false
 
 func _on_Computer_pressed():
-	$Computer/ComputerPic.visible = true
+	$EntireScreen/Office/Computer/ComputerPic.visible = true
 
 
 func _on_Worker_pressed():
-	$Worker/DialogueBox.visible = true
+	$EntireScreen/Office/Worker/DialogueBox.visible = true
 
 
 func _on_Next_pressed():
@@ -51,12 +52,18 @@ func _on_Next_pressed():
 
 
 func _on_WorkerNext_pressed():
-	$Worker/DialogueBox.visible = false
+	$EntireScreen/Office/Worker/DialogueBox.visible = false
 
 
 func _on_ExitPhone_pressed():
-	$Phone/PhonePic.visible = false
+	$EntireScreen/Office/Phone/PhonePic.visible = false
 
 
 func _on_ExitComputer_pressed():
-	$Computer/ComputerPic.visible = false
+	$EntireScreen/Office/Computer/ComputerPic.visible = false
+
+
+func _on_exit_phone_button_pressed():
+	$EntireScreen/Office/Phone/phone_background.visible = false
+	$EntireScreen/Office/Computer.visible = true
+	$EntireScreen/Office/Worker.visible = true

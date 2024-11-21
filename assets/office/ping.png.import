@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/phone_regular.png-ca3433c990d6996be1e3ed12102d2ba9.stex"
+path="res://.import/ping.png-689b9bc4fed446ef122191ebc2e23172.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/office/phone_regular.png"
-dest_files=[ "res://.import/phone_regular.png-ca3433c990d6996be1e3ed12102d2ba9.stex" ]
+source_file="res://assets/office/ping.png"
+dest_files=[ "res://.import/ping.png-689b9bc4fed446ef122191ebc2e23172.stex" ]
 
 [params]
 

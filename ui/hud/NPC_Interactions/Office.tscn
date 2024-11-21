@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://assets/achievement_icons/XIcon.png" type="Texture" id=1]
 [ext_resource path="res://assets/fonts/upheavtt_80.tres" type="DynamicFont" id=2]
@@ -13,8 +13,13 @@
 [ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=11]
 [ext_resource path="res://ui/CharacterCards/DisplayUnlockedCharacterCards.gd" type="Script" id=12]
 [ext_resource path="res://ui/hud/NPC_Interactions/DisplayActiveSensors.gd" type="Script" id=13]
-[ext_resource path="res://assets/office/phone_regular.png" type="Texture" id=14]
+[ext_resource path="res://assets/office/pc_normal.png" type="Texture" id=14]
 [ext_resource path="res://assets/office/phone_hover.png" type="Texture" id=15]
+[ext_resource path="res://assets/office/deputy_normal.png" type="Texture" id=16]
+[ext_resource path="res://assets/office/deputy_hover.png" type="Texture" id=17]
+[ext_resource path="res://assets/office/phone_normal.png" type="Texture" id=18]
+[ext_resource path="res://assets/office/pc_hover.png" type="Texture" id=19]
+[ext_resource path="res://assets/office/big_phone.png" type="Texture" id=20]
 
 [sub_resource type="Shader" id=16]
 code = "shader_type canvas_item;
@@ -44,6 +49,24 @@ shader_param/value = 1.0
 
 [sub_resource type="StyleBoxEmpty" id=22]
 
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float value = 1.0;
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV);
+	if (value != 1.0) {
+		if (COLOR.r > 0.3 && COLOR.b > 0.3 && COLOR.g > 0.3) {
+			COLOR.rgb = vec3(value);
+		}
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=24]
+shader = SubResource( 1 )
+shader_param/value = 1.0
+
 [sub_resource type="SpriteFrames" id=23]
 animations = [ {
 "frames": [ ExtResource( 9 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 8 ) ],
@@ -61,16 +84,17 @@ margin_right = 1280.0
 margin_bottom = 720.0
 color = Color( 0.258824, 0.258824, 0.258824, 1 )
 
-[node name="Top" type="ColorRect" parent="."]
-margin_right = 1280.0
+[node name="Top" type="ColorRect" parent="EntireScreen"]
+margin_left = 3.0
+margin_right = 1283.0
 margin_bottom = 85.0
 color = Color( 0.462745, 0.462745, 0.462745, 1 )
 
-[node name="QuitOffice" type="Button" parent="."]
+[node name="QuitOffice" type="Button" parent="EntireScreen"]
 material = SubResource( 17 )
-margin_left = 1206.0
+margin_left = 1209.0
 margin_top = 16.0
-margin_right = 1254.0
+margin_right = 1257.0
 margin_bottom = 64.0
 rect_scale = Vector2( 1, 1.005 )
 custom_styles/hover = SubResource( 18 )
@@ -81,9 +105,11 @@ custom_styles/normal = SubResource( 22 )
 icon = ExtResource( 1 )
 icon_align = 1
 
-[node name="OfficeLabel" type="Label" parent="."]
-margin_right = 1280.0
-margin_bottom = 81.0
+[node name="OfficeLabel" type="Label" parent="EntireScreen/QuitOffice"]
+margin_left = -1206.0
+margin_top = -15.9204
+margin_right = 74.0
+margin_bottom = 65.0796
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 5
 custom_constants/shadow_offset_y = 5
@@ -92,13 +118,180 @@ text = "Office"
 align = 1
 valign = 1
 
-[node name="TextureRect" type="TextureRect" parent="."]
-margin_left = -28.0
-margin_top = 81.0
-margin_right = 1138.0
-margin_bottom = 724.0
+[node name="Office" type="TextureRect" parent="EntireScreen"]
+margin_left = -21.0
+margin_top = 87.0
+margin_right = 1148.0
+margin_bottom = 748.0
 rect_scale = Vector2( 1.13, 1 )
 texture = ExtResource( 4 )
+
+[node name="Worker" type="TextureButton" parent="EntireScreen/Office"]
+margin_left = 150.0
+margin_top = 100.0
+margin_right = 458.0
+margin_bottom = 585.0
+rect_scale = Vector2( 0.68, 0.64 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 17 )
+texture_hover = ExtResource( 17 )
+
+[node name="DialogueBox" type="ColorRect" parent="EntireScreen/Office/Worker"]
+visible = false
+margin_left = -26.0
+margin_top = 258.0
+margin_right = 896.0
+margin_bottom = 437.0
+color = Color( 0.364706, 0.65098, 0.862745, 1 )
+
+[node name="WorkerNext" type="Button" parent="EntireScreen/Office/Worker/DialogueBox"]
+anchor_left = -0.102
+anchor_top = -0.587
+margin_left = 799.044
+margin_top = 224.073
+margin_right = 838.0
+margin_bottom = 172.0
+action_mode = 0
+flat = true
+
+[node name="Label" type="Label" parent="EntireScreen/Office/Worker/DialogueBox/WorkerNext"]
+margin_left = 103.0
+margin_top = 9.0
+margin_right = 198.0
+margin_bottom = 47.0
+custom_fonts/font = ExtResource( 11 )
+text = "NEXT"
+align = 1
+
+[node name="Dialogue" type="RichTextLabel" parent="EntireScreen/Office/Worker/DialogueBox"]
+margin_left = 89.0
+margin_top = 19.0
+margin_right = 774.0
+margin_bottom = 192.0
+custom_fonts/normal_font = ExtResource( 10 )
+text = "Hey There! I am the deputy mayor. Responsible for assisting you with anything you may need.
+At the office you can vizualize active sensor information by using the computer. 
+The phone will let you contact anyone you have previously spoken to. 
+ "
+
+[node name="Phone" type="TextureButton" parent="EntireScreen/Office"]
+margin_left = 872.567
+margin_top = 279.0
+margin_right = 1049.57
+margin_bottom = 578.0
+rect_scale = Vector2( 0.45, 0.4 )
+texture_normal = ExtResource( 18 )
+texture_pressed = ExtResource( 15 )
+texture_hover = ExtResource( 15 )
+
+[node name="phone_background" type="ColorRect" parent="EntireScreen/Office/Phone"]
+visible = false
+margin_left = -1891.84
+margin_top = -915.0
+margin_right = -611.839
+margin_bottom = -195.0
+color = Color( 1, 1, 1, 0.784314 )
+
+[node name="phone" type="TextureRect" parent="EntireScreen/Office/Phone/phone_background"]
+margin_left = 298.0
+margin_top = -27.0
+margin_right = 951.0
+margin_bottom = 770.0
+texture = ExtResource( 20 )
+
+[node name="exit_phone_button" type="Button" parent="EntireScreen/Office/Phone/phone_background"]
+material = SubResource( 24 )
+margin_left = 1206.0
+margin_top = 16.0
+margin_right = 1258.0
+margin_bottom = 64.0
+rect_scale = Vector2( 1, 1.005 )
+icon = ExtResource( 1 )
+icon_align = 1
+
+[node name="PhonePic" type="ColorRect" parent="EntireScreen/Office/Phone"]
+visible = false
+anchor_left = -12.044
+anchor_top = -3.033
+anchor_right = -12.044
+anchor_bottom = -3.033
+margin_left = 254.01
+margin_top = 179.367
+margin_right = 2674.01
+margin_bottom = 1419.37
+color = Color( 1, 1, 1, 0.705882 )
+
+[node name="TextureRect" type="ColorRect" parent="EntireScreen/Office/Phone/PhonePic"]
+margin_left = 427.0
+margin_top = 104.0
+margin_right = 881.0
+margin_bottom = 684.0
+color = Color( 0.780392, 0.886275, 1, 1 )
+
+[node name="ExitPhone" type="Button" parent="EntireScreen/Office/Phone/PhonePic"]
+margin_left = 818.0
+margin_top = 116.0
+margin_right = 870.0
+margin_bottom = 162.0
+icon = ExtResource( 1 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="EntireScreen/Office/Phone/PhonePic"]
+margin_left = 554.0
+margin_top = 151.0
+margin_right = 754.0
+margin_bottom = 642.0
+rect_min_size = Vector2( 150, 300 )
+
+[node name="DisplayCharacterCards" type="VBoxContainer" parent="EntireScreen/Office/Phone/PhonePic/ScrollContainer"]
+margin_right = 150.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 150, 300 )
+script = ExtResource( 12 )
+
+[node name="Computer" type="TextureButton" parent="EntireScreen/Office"]
+margin_left = 516.814
+margin_top = 152.0
+margin_right = 857.814
+margin_bottom = 435.0
+rect_scale = Vector2( 0.9, 0.85 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 19 )
+texture_hover = ExtResource( 19 )
+
+[node name="ComputerPic" type="ColorRect" parent="EntireScreen/Office/Computer"]
+visible = false
+margin_left = -585.0
+margin_top = -241.0
+margin_right = 701.0
+margin_bottom = 483.0
+color = Color( 1, 1, 1, 0.705882 )
+
+[node name="TextureRect" type="ColorRect" parent="EntireScreen/Office/Computer/ComputerPic"]
+margin_left = 427.0
+margin_top = 104.0
+margin_right = 881.0
+margin_bottom = 684.0
+color = Color( 0.780392, 0.886275, 1, 1 )
+
+[node name="ExitComputer" type="Button" parent="EntireScreen/Office/Computer/ComputerPic"]
+margin_left = 818.0
+margin_top = 116.0
+margin_right = 870.0
+margin_bottom = 162.0
+icon = ExtResource( 1 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="EntireScreen/Office/Computer/ComputerPic"]
+margin_left = 554.0
+margin_top = 151.0
+margin_right = 754.0
+margin_bottom = 642.0
+rect_min_size = Vector2( 150, 300 )
+
+[node name="DisplayActiveSensors" type="VBoxContainer" parent="EntireScreen/Office/Computer/ComputerPic/ScrollContainer"]
+margin_right = 150.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 150, 300 )
+script = ExtResource( 13 )
 
 [node name="Introduction" type="ColorRect" parent="."]
 visible = false
@@ -146,144 +339,15 @@ margin_bottom = 153.0
 custom_fonts/normal_font = ExtResource( 10 )
 text = "Welcome to the Office! Please see the deputy mayor to discover how you can utilize this resource."
 
-[node name="Phone" type="TextureButton" parent="."]
-margin_left = 959.0
-margin_top = 362.0
-margin_right = 1135.0
-margin_bottom = 628.0
-rect_scale = Vector2( 0.45, 0.4 )
-texture_normal = ExtResource( 14 )
-texture_pressed = ExtResource( 15 )
-texture_hover = ExtResource( 15 )
-
-[node name="PhonePic" type="ColorRect" parent="Phone"]
-visible = false
-margin_left = -979.0
-margin_top = -376.0
-margin_right = 307.0
-margin_bottom = 348.0
-color = Color( 1, 1, 1, 0.705882 )
-
-[node name="TextureRect" type="ColorRect" parent="Phone/PhonePic"]
-margin_left = 427.0
-margin_top = 104.0
-margin_right = 881.0
-margin_bottom = 684.0
-color = Color( 0.780392, 0.886275, 1, 1 )
-
-[node name="ExitPhone" type="Button" parent="Phone/PhonePic"]
-margin_left = 818.0
-margin_top = 116.0
-margin_right = 870.0
-margin_bottom = 162.0
-icon = ExtResource( 1 )
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Phone/PhonePic"]
-margin_left = 554.0
-margin_top = 151.0
-margin_right = 754.0
-margin_bottom = 642.0
-rect_min_size = Vector2( 150, 300 )
-
-[node name="DisplayCharacterCards" type="VBoxContainer" parent="Phone/PhonePic/ScrollContainer"]
-margin_right = 150.0
-margin_bottom = 300.0
-rect_min_size = Vector2( 150, 300 )
-script = ExtResource( 12 )
-
-[node name="Computer" type="TextureButton" parent="."]
-margin_left = 585.0
-margin_top = 240.0
-margin_right = 882.0
-margin_bottom = 400.0
-
-[node name="ComputerPic" type="ColorRect" parent="Computer"]
-visible = false
-margin_left = -585.0
-margin_top = -241.0
-margin_right = 701.0
-margin_bottom = 483.0
-color = Color( 1, 1, 1, 0.705882 )
-
-[node name="TextureRect" type="ColorRect" parent="Computer/ComputerPic"]
-margin_left = 427.0
-margin_top = 104.0
-margin_right = 881.0
-margin_bottom = 684.0
-color = Color( 0.780392, 0.886275, 1, 1 )
-
-[node name="ExitComputer" type="Button" parent="Computer/ComputerPic"]
-margin_left = 818.0
-margin_top = 116.0
-margin_right = 870.0
-margin_bottom = 162.0
-icon = ExtResource( 1 )
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Computer/ComputerPic"]
-margin_left = 554.0
-margin_top = 151.0
-margin_right = 754.0
-margin_bottom = 642.0
-rect_min_size = Vector2( 150, 300 )
-
-[node name="DisplayActiveSensors" type="VBoxContainer" parent="Computer/ComputerPic/ScrollContainer"]
-margin_right = 150.0
-margin_bottom = 300.0
-rect_min_size = Vector2( 150, 300 )
-script = ExtResource( 13 )
-
-[node name="Worker" type="TextureButton" parent="."]
-margin_left = 170.0
-margin_top = 225.0
-margin_right = 364.0
-margin_bottom = 480.0
-
-[node name="DialogueBox" type="ColorRect" parent="Worker"]
-visible = false
-margin_left = -26.0
-margin_top = 258.0
-margin_right = 896.0
-margin_bottom = 437.0
-color = Color( 0.364706, 0.65098, 0.862745, 1 )
-
-[node name="WorkerNext" type="Button" parent="Worker/DialogueBox"]
-anchor_left = -0.102
-anchor_top = -0.587
-margin_left = 799.044
-margin_top = 224.073
-margin_right = 838.0
-margin_bottom = 172.0
-action_mode = 0
-flat = true
-
-[node name="Label" type="Label" parent="Worker/DialogueBox/WorkerNext"]
-margin_left = 103.0
-margin_top = 9.0
-margin_right = 198.0
-margin_bottom = 47.0
-custom_fonts/font = ExtResource( 11 )
-text = "NEXT"
-align = 1
-
-[node name="Dialogue" type="RichTextLabel" parent="Worker/DialogueBox"]
-margin_left = 89.0
-margin_top = 19.0
-margin_right = 774.0
-margin_bottom = 192.0
-custom_fonts/normal_font = ExtResource( 10 )
-text = "Hey There! I am the deputy mayor. Responsible for assisting you with anything you may need.
-At the office you can vizualize active sensor information by using the computer. 
-The phone will let you contact anyone you have previously spoken to. 
- "
-
-[connection signal="button_down" from="QuitOffice" to="." method="_on_QuitOffice_button_down"]
-[connection signal="mouse_entered" from="QuitOffice" to="." method="_on_QuitOffice_mouse_entered"]
-[connection signal="mouse_exited" from="QuitOffice" to="." method="_on_QuitOffice_mouse_exited"]
-[connection signal="pressed" from="QuitOffice" to="." method="_on_QuitOffice_pressed"]
+[connection signal="button_down" from="EntireScreen/QuitOffice" to="." method="_on_QuitOffice_button_down"]
+[connection signal="mouse_entered" from="EntireScreen/QuitOffice" to="." method="_on_QuitOffice_mouse_entered"]
+[connection signal="mouse_exited" from="EntireScreen/QuitOffice" to="." method="_on_QuitOffice_mouse_exited"]
+[connection signal="pressed" from="EntireScreen/QuitOffice" to="." method="_on_QuitOffice_pressed"]
+[connection signal="pressed" from="EntireScreen/Office/Worker" to="." method="_on_Worker_pressed"]
+[connection signal="pressed" from="EntireScreen/Office/Worker/DialogueBox/WorkerNext" to="." method="_on_WorkerNext_pressed"]
+[connection signal="pressed" from="EntireScreen/Office/Phone" to="." method="_on_Phone_pressed"]
+[connection signal="pressed" from="EntireScreen/Office/Phone/phone_background/exit_phone_button" to="." method="_on_exit_phone_button_pressed"]
+[connection signal="pressed" from="EntireScreen/Office/Phone/PhonePic/ExitPhone" to="." method="_on_ExitPhone_pressed"]
+[connection signal="pressed" from="EntireScreen/Office/Computer" to="." method="_on_Computer_pressed"]
+[connection signal="pressed" from="EntireScreen/Office/Computer/ComputerPic/ExitComputer" to="." method="_on_ExitComputer_pressed"]
 [connection signal="pressed" from="Introduction/DialogueBox/Next" to="." method="_on_Next_pressed"]
-[connection signal="pressed" from="Phone" to="." method="_on_Phone_pressed"]
-[connection signal="pressed" from="Phone/PhonePic/ExitPhone" to="." method="_on_ExitPhone_pressed"]
-[connection signal="pressed" from="Computer" to="." method="_on_Computer_pressed"]
-[connection signal="pressed" from="Computer/ComputerPic/ExitComputer" to="." method="_on_ExitComputer_pressed"]
-[connection signal="pressed" from="Worker" to="." method="_on_Worker_pressed"]
-[connection signal="pressed" from="Worker/DialogueBox/WorkerNext" to="." method="_on_WorkerNext_pressed"]
