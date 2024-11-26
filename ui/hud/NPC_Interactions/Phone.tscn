@@ -33,6 +33,7 @@ rect_scale = Vector2( 1.25, 1 )
 texture = ExtResource( 4 )
 
 [node name="phone_info" type="TextureButton" parent="."]
+visible = false
 margin_left = 408.0
 margin_top = 98.0
 margin_right = 766.0
