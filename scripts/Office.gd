@@ -40,7 +40,10 @@ func _on_Phone_pressed():
 	add_child(phone_instance)
 
 func _on_Computer_pressed():
-	$EntireScreen/Office/Computer/ComputerPic.visible = true
+	var computer = preload("res://ui/hud/NPC_Interactions/Computer.tscn")
+	var computer_instance = computer.instance()
+	add_child(computer_instance)
+	#$EntireScreen/Office/Computer/ComputerPic.visible = true
 
 
 func _on_Worker_pressed():
