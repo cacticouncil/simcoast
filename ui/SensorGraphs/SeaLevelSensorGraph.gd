@@ -107,6 +107,9 @@ func create_labels():
 		y_labels.append(label)
 		
 func _draw():
+	if !Inventory.tide_bought:
+		return 
+		
 	# Draw vertical lines
 	for ind in range(1, 13):
 		var x_pos = ind * (x_spacing)
@@ -155,20 +158,9 @@ func draw_data():
 
 
 func _process(delta):
-#	if (UpdateDate.month != currentMonth):
-#		print("month changed")
-#		print(SeaLevel.monthlySeaLevels)
-#
-#		if len(SeaLevel.monthlySeaLevels) == 12:
-#			pass
-#
-#		if (currentMonth == firstMonth):
-#			update_month_labels()
-#			firstMonth = firstMonth + 1
-#			if firstMonth > 11:
-#				firstMonth = 0
-#
-#		currentMonth = UpdateDate.month
+	if !Inventory.tide_bought:
+		return 
+		
 	update_month_labels()
 	update_min_max()
 	update()
@@ -180,6 +172,7 @@ func _ready():
 	if len(SeaLevel.monthlySeaLevels) > 0:
 		firstMonth = SeaLevel.monthlySeaLevels[0][0]
 		
-	create_labels()
-	update()
+	if Inventory.tide_bought:
+		create_labels()
+		update()
 		
