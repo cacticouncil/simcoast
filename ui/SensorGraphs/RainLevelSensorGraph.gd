@@ -72,7 +72,7 @@ func create_labels():
 		y_labels.append(label)
 
 func _draw():
-	if !Inventory.wind_bought:
+	if !Inventory.rain_bought:
 		return 
 		
 	# Draw vertical lines

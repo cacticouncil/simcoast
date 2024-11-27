@@ -68,3 +68,8 @@ func _on_SalesTaxSlider_value_changed(value):
 func _on_IncomeTaxSlider_value_changed(value):
 	Econ.adjust_income_tax_rate(value/100)
 	$ColorRect2/CityStatsBar/HBoxContainer9/IncomeTaxValue.text = str(round(Econ.INCOME_TAX * 909.1)) + "%"
+
+
+
+func _on_Button_pressed():
+	print("here")

@@ -1075,7 +1075,7 @@ func _on_DashboardButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = true
 	$HUD/TopBarBG/AchievementSelected.visible = false
 	$HUD/TopBarBG/StoreSelected.visible = false
-	var Dashboard = preload("res://ui/Dashboard/DashboardNew.tscn")
+	var Dashboard = preload("res://ui/Dashboard/Dashboard.tscn")
 	var DashboardInstance = Dashboard.instance()
 	add_child(DashboardInstance)
 	
