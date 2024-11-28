@@ -22,9 +22,9 @@ func _ready():
 	$ColorRect2/CityStatsBar/HBoxContainer9/IncomeTaxValue.text = str(round(Econ.INCOME_TAX * 909.1)) + "%"
 	$ColorRect2/CityStatsBar/HBoxContainer9/IncomeTaxSlider.value = Econ.INCOME_TAX*100
 	
-	var rainLabel = $Panel/ScrollContainer/VBoxContainer/Rain/RainSensorNeededLabel
-	var windLabel = $Panel/ScrollContainer/VBoxContainer/Wind/WindSensorNeededLabel
-	var tideLabel = $Panel/ScrollContainer/VBoxContainer/Sea/TideSensorNeededLabel
+	var rainLabel = $Panel/ScrollContainer/VBoxContainer/RainButton/Rain/RainSensorNeededLabel
+	var windLabel = $Panel/ScrollContainer/VBoxContainer/WindButton/Wind/WindSensorNeededLabel
+	var tideLabel = $Panel/ScrollContainer/VBoxContainer/SeaButton/Sea/TideSensorNeededLabel
 	
 	if !Inventory.rain_bought:
 		rainLabel.visible = true
@@ -69,7 +69,22 @@ func _on_IncomeTaxSlider_value_changed(value):
 	Econ.adjust_income_tax_rate(value/100)
 	$ColorRect2/CityStatsBar/HBoxContainer9/IncomeTaxValue.text = str(round(Econ.INCOME_TAX * 909.1)) + "%"
 
+var openedGraph = null
 
+func _on_WindButton_pressed():
+	if Inventory.wind_bought:
+		openedGraph = $WindLarger
+		openedGraph.visible = true
 
-func _on_Button_pressed():
-	print("here")
+func _on_RainButton_pressed():
+	if Inventory.rain_bought:
+		openedGraph = $RainLarger
+		openedGraph.visible = true
+		
+func _on_SeaButton_pressed():
+	if Inventory.tide_bought:
+		openedGraph = $SeaLarger
+		openedGraph.visible = true
+	
+func _on_QuitLarger_pressed():
+	openedGraph.visible = false
