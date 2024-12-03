@@ -1,9 +1,16 @@
 extends Node
 
+var aggregate = 0
+var num_tiles = 0 # Number of tiles that are used to calculate happiness
+
 const BASE_HAPPINESS = 50
 const HIGH_UNEMPLOYMENT_PENALTY = -15
+const CLOSED_BEACH_PENALTY = -5
 
 func update_happiness():
+	# Set the aggregate and num_tiles back to 0
+	aggregate = 0
+	num_tiles = 0
 	for i in Global.mapHeight:
 		for j in Global.mapWidth:
 			if (Global.tileMap[i][j].is_zoned() && Global.tileMap[i][j].data[2] != 0):
@@ -19,7 +26,10 @@ func update_happiness():
 				if UpdatePopulation.is_unemployment_high():
 					happiness += HIGH_UNEMPLOYMENT_PENALTY
 				
-				happiness = happiness + waterValue + zoneConnectionsValue + taxRateValue - tileDamageValue
+				if Global.closeBeach:
+					happiness += CLOSED_BEACH_PENALTY
+					
+				happiness += currTile.desirability * 20
 				
 				if happiness < 0:
 					happiness = 0
@@ -27,3 +37,10 @@ func update_happiness():
 					happiness = 100
 					
 				currTile.happiness = happiness
+				aggregate += happiness
+				num_tiles += 1
+
+func get_average_happiness():
+	if num_tiles == 0:
+		return 0
+	return aggregate / num_tiles

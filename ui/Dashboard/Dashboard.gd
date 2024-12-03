@@ -44,7 +44,7 @@ func _process(delta):
 	#updates money and population as game continues
 	$ColorRect2/CityStatsBar/Money.text = "$" + Econ.comma_values(str(Econ.money))
 	$ColorRect2/CityStatsBar/Population.text = str(UpdatePopulation.get_population())
-	
+	$ColorRect2/CityStatsBar/Happiness.text = String(UpdateHappiness.get_average_happiness())
 
 #When user adjusts tax sliders, functions are called to change the values in Econ.gd and update the text displayed to the user.
 func _on_PropertyTaxSlider_value_changed(value):
