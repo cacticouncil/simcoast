@@ -8,8 +8,10 @@ extends BTConditional
 # The condition is checked BEFORE ticking. So it should be in _pre_tick.
 # Checks if the queue is empty. If it is, do not proceed.
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
-	var queue_empty = blackboard.get_data("queue_empty")
+	var queue_empty = blackboard.get_data("queue2_empty")
 	if queue_empty:
+		print("failed queue empty")
 		verified = false
 	else:
+		print("passed queue empty")
 		verified = true

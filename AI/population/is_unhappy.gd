@@ -12,7 +12,7 @@ var SEVERE_DAMAGE_UNHAPPINESS = 30
 # The condition is checked BEFORE ticking. So it should be in _pre_tick.
 # Checks if the queue is empty. If it is, do not proceed.
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
-	var current_agent = blackboard.get_data("queue").front()
+	var current_agent = blackboard.get_data("queue2").front()
 	var currTile = current_agent.residential_tile
 	var leaveChance = 0
 	var status = currTile.get_status()
@@ -24,6 +24,8 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	elif (status == Tile.TileStatus.HEAVY_DAMAGE):
 		leaveChance += SEVERE_DAMAGE_UNHAPPINESS
 	if (selectTile * leaveChance > 0.5):
+		print("passed is_unhappy")
 		verified = true
 	else:
+		print("failed is_unhappy")
 		verified = false

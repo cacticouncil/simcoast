@@ -214,6 +214,7 @@ UpdateWindLevel="*res://scripts/UpdateWindLevel.gd"
 RainLevel="*res://scripts/RainLevel.gd"
 UpdateRainLevel="*res://scripts/UpdateRainLevel.gd"
 UpdateAgent="*res://AI/population/UpdateAgent.gd"
+Population="*res://AI/population/Population.tscn"
 
 [debug]
 
