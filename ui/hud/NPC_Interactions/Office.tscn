@@ -134,18 +134,18 @@ color = Color( 0.364706, 0.65098, 0.862745, 1 )
 [node name="WorkerNext" type="Button" parent="EntireScreen/Office/Worker/DialogueBox"]
 anchor_left = -0.102
 anchor_top = -0.587
-margin_left = 799.044
+margin_left = 883.044
 margin_top = 224.073
-margin_right = 838.0
-margin_bottom = 172.0
+margin_right = 908.0
+margin_bottom = 167.0
 action_mode = 0
 flat = true
 
 [node name="Label" type="Label" parent="EntireScreen/Office/Worker/DialogueBox/WorkerNext"]
-margin_left = 103.0
-margin_top = 9.0
-margin_right = 198.0
-margin_bottom = 47.0
+margin_left = 11.7982
+margin_top = 1.83301
+margin_right = 106.798
+margin_bottom = 39.833
 custom_fonts/font = ExtResource( 11 )
 text = "NEXT"
 align = 1
@@ -166,5 +166,6 @@ The phone will let you contact anyone you have previously spoken to.
 [connection signal="mouse_exited" from="EntireScreen/QuitOffice" to="." method="_on_QuitOffice_mouse_exited"]
 [connection signal="pressed" from="EntireScreen/QuitOffice" to="." method="_on_QuitOffice_pressed"]
 [connection signal="pressed" from="EntireScreen/Office/Phone" to="." method="_on_Phone_pressed"]
+[connection signal="pressed" from="EntireScreen/Office/Computer" to="." method="_on_Computer_pressed"]
 [connection signal="pressed" from="EntireScreen/Office/Worker" to="." method="_on_Worker_pressed"]
 [connection signal="pressed" from="EntireScreen/Office/Worker/DialogueBox/WorkerNext" to="." method="_on_WorkerNext_pressed"]
