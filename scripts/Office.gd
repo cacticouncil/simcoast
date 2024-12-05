@@ -1,11 +1,5 @@
 extends Node
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -20,53 +14,26 @@ func _on_QuitOffice_pressed():
 	queue_free()
 
 
-
+#shading for closing office scene button
 func _on_QuitOffice_mouse_entered():
 	$EntireScreen/QuitOffice.material.set_shader_param("value", 0.3)
-
-
+#shading for closing office scene button
 func _on_QuitOffice_mouse_exited():
 	$EntireScreen/QuitOffice.material.set_shader_param("value", 1)
-
-
+#shading for closing office scene button
 func _on_QuitOffice_button_down():
 	$EntireScreen/QuitOffice.material.set_shader_param("value", 0.1)
 
-
-
+# opens phone scene
 func _on_Phone_pressed():
 	var phone = preload("res://ui/hud/NPC_Interactions/Phone.tscn")
 	var phone_instance = phone.instance()
 	add_child(phone_instance)
 
-func _on_Computer_pressed():
-	var computer = preload("res://ui/hud/NPC_Interactions/Computer.tscn")
-	var computer_instance = computer.instance()
-	add_child(computer_instance)
-	#$EntireScreen/Office/Computer/ComputerPic.visible = true
-
-
+# opens deputy mayor dialogue
 func _on_Worker_pressed():
 	$EntireScreen/Office/Worker/DialogueBox.visible = true
 
-
-func _on_Next_pressed():
-	$Introduction.visible = false
-
-
+#closes deputy mayor dialogue
 func _on_WorkerNext_pressed():
 	$EntireScreen/Office/Worker/DialogueBox.visible = false
-
-
-func _on_ExitPhone_pressed():
-	$EntireScreen/Office/Phone/PhonePic.visible = false
-
-
-func _on_ExitComputer_pressed():
-	$EntireScreen/Office/Computer/ComputerPic.visible = false
-
-
-func _on_exit_phone_button_pressed():
-	$EntireScreen/Office/Phone/phone_background.visible = false
-	$EntireScreen/Office/Computer.visible = true
-	$EntireScreen/Office/Worker.visible = true

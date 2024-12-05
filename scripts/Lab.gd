@@ -21,3 +21,10 @@ func _on_QuitLab_mouse_exited():
 
 func _on_QuitLab_button_down():
 	$LabBackground/QuitLab.material.set_shader_param("value", 0.1)
+
+
+func _on_Clark_pressed():
+	$Clark/DialogueBox.visible = true 
+
+func _on_WorkerNext_pressed():
+	$Clark/DialogueBox.visible = false

@@ -6,7 +6,6 @@ extends VBoxContainer
 #If character is locked, hovering displays lock symbol (that I drew on procreate, its a bit jankey)
 
 var currCharacter
-signal dict_changed(dict)
 #function updates character values to display in dashboard
 func updateValues(character):
 	$contact/name.text = character.name
