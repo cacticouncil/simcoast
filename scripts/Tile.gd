@@ -287,7 +287,8 @@ func convert_string_to_inf(inf):
 			return TileInf.WASTE_TREATMENT
 		"child":
 			return TileInf.CHILD
-
+		"boardwalk":
+			return TileInf.BOARDWALK
 
 func convert_inf_to_string():
 	match inf:
@@ -327,6 +328,8 @@ func convert_inf_to_string():
 			return "waste_treatment"
 		TileInf.CHILD:
 			return "child"
+		TileInf.BOARDWALK:
+			return "boardwalk"
 
 
 func convert_string_to_sensor(sensor):

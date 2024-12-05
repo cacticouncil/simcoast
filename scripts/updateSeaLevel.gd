@@ -16,12 +16,33 @@ func update_sea_level():
 	if SeaLevel.seaOn:
 		if SeaLevel.currentWeek == UpdateDate.week:
 			if (SeaLevel.currentWeek == UpdateDate.Weeks.Week4):
+				SeaLevel.weeklySeaLevels.append(SeaLevel.currentSeaLevel)
+				
+				var avgSea = 0
+				for val in SeaLevel.weeklySeaLevels:
+					avgSea += val
+				
+				if len(SeaLevel.weeklySeaLevels) == 0:
+					avgSea = 0
+				else:
+					avgSea = avgSea / len(SeaLevel.weeklySeaLevels)
+				
+				SeaLevel.monthlySeaLevels.append([UpdateDate.month, avgSea])
+				
+				print(SeaLevel.monthlySeaLevels)
+				if len(SeaLevel.monthlySeaLevels) > 12:
+					SeaLevel.monthlySeaLevels.pop_front()
+				
+				SeaLevel.weeklySeaLevels.clear()
+				
+				
 				SeaLevel.currentWeek = UpdateDate.Weeks.Week1
 				if SeaLevel.sensorPresent == true:
 					print("S", SeaLevel.allSeaLevels)
 			else:
+				SeaLevel.weeklySeaLevels.append(SeaLevel.currentSeaLevel)
 				SeaLevel.currentWeek += 1
-		
+			
 			# updates every month
 			SeaLevel.currentSurge = SeaLevel.futureSurge
 			if SeaLevel.sensorPresent == true:
