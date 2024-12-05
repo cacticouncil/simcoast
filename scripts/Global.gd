@@ -79,7 +79,8 @@ func get_global_data():
 		"seaLevel": seaLevel,
 		"oceanHeight": oceanHeight,
 		"numZones": numZones,
-		"numPeople": numPeople
+		"numPeople": numPeople,
+		"userName": userName
 	}
 	
 	return globalData
@@ -154,3 +155,4 @@ enum Tool {
 	COPY_TILE,
 	PASTE_TILE
 }
+var newGame = false #If New Game is entered, this is used for game state purposes
