@@ -16,15 +16,34 @@ func update_wind_level():
 	if WindLevel.windOn:
 		if WindLevel.currentWeek == UpdateDate.week:
 			if (WindLevel.currentWeek == UpdateDate.Weeks.Week4):
+				WindLevel.weeklyWindLevels.append(WindLevel.currentWindLevel)
+				
+				var avgWind = 0
+				for val in WindLevel.weeklyWindLevels:
+					avgWind += val
+				
+				if len(WindLevel.weeklyWindLevels) == 0:
+					avgWind = 0
+				else:
+					avgWind = avgWind / len(WindLevel.weeklyWindLevels)
+				
+				WindLevel.monthlyWindLevels.append([UpdateDate.month, avgWind])
+
+				if len(WindLevel.monthlyWindLevels) > 12:
+					WindLevel.monthlyWindLevels.pop_front()
+				
+				WindLevel.weeklyWindLevels.clear()
 				WindLevel.currentWeek = UpdateDate.Weeks.Week1
+				
+				print("w", WindLevel.monthlyWindLevels)
 				if WindLevel.sensorPresent == true:
 					print("W", WindLevel.allWindLevels)
 			else:
+				WindLevel.weeklyWindLevels.append(WindLevel.currentWindLevel)
 				WindLevel.currentWeek += 1
 		
 			# updates every month
 			if WindLevel.sensorPresent == true:
-				WindLevel.allWindLevels.append(WindLevel.currentWindLevel)
 				print("wind level: ",WindLevel.currentWindLevel)
 			
 			# preparations month 
