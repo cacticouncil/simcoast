@@ -201,6 +201,9 @@ var num_beach_rocks_nearby = 0
 var children = [] #List of List of children's indicies
 var parent = [-1, -1] #If this tile is a child, this is it's parent, otherwise -1, -1
 
+#Tourism AI
+var tourists = 0
+var tourist_capacity = 2
 
 func _init(tileData):
 	if not tileData.empty():
@@ -781,6 +784,18 @@ func remove_people(n):
 	elif (is_commercial()):
 		UpdatePopulation.change_workers(diff)
 	return diff
+
+func add_tourists(n):
+	tourists += n
+	#Max capacity
+	if tourists >= tourist_capacity:
+		tourists = tourist_capacity
+func remove_tourists(n):
+	tourists -= n
+	if tourists <= 0:
+		tourists = 0
+func clear_tourists():
+	tourists = 0
 
 func clear_house():
 	if zone != TileZone.RESIDENTIAL:
