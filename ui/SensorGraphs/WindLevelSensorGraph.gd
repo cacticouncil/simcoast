@@ -72,6 +72,8 @@ func create_labels():
 		y_labels.append(label)
 
 func _draw():
+	if !Inventory.wind_bought:
+		return 
 	# Draw vertical lines
 	for ind in range(1, 13):
 		var x_pos = ind * (x_spacing)
@@ -117,6 +119,9 @@ func draw_data():
 		draw_line(Vector2(x_pos_1, y_pos_1), Vector2(x_pos_2, y_pos_2), lime_color)
 
 func _process(delta):
+	if !Inventory.wind_bought:
+		return
+		
 	update_month_labels()
 	update_max()
 	update()
@@ -128,5 +133,6 @@ func _ready():
 	if len(WindLevel.monthlyWindLevels) > 0:
 		firstMonth = WindLevel.monthlyWindLevels[0][0]
 		
-	create_labels()
-	update()
+	if Inventory.wind_bought:
+		create_labels()
+		update()
