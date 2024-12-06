@@ -790,6 +790,7 @@ func remove_people(n):
 
 func add_tourists(n):
 	tourists += n
+	UpdateTourist.add_tourist(i, j)
 	#Max capacity
 	if tourists >= tourist_capacity:
 		tourists = tourist_capacity

@@ -18,7 +18,6 @@ var beach_attractiveness
 var top_beach_row = 10
 var top_beach_cols = 16
 var rng = RandomNumberGenerator.new()
-#var total_tourists = 0
 #Calculate percentage chance of tourists, and that is how many are assigned per tile
 #Then can calculate total number of tourists from there across those tiles
 #Based off of the time of year, beach attractiveness, and whether the beach is closed, calculate the percetnage chance of tourists that can
@@ -28,7 +27,6 @@ var rng = RandomNumberGenerator.new()
 #This is the percentage chance of tourists being added in
 #This function should be called once a week
 func update_tourism():
-	#total_tourists = 0
 	#If Beach is evacuated, no tourists should be visiting
 	if Global.beginBeachEvacuation || Global.stayEvacuated:
 		TOURIST_CHANCE = 0
@@ -49,11 +47,13 @@ func update_tourism():
 		TOURIST_CHANCE = clamp(TOURIST_CHANCE, LOWER_BOUND, UPPER_BOUND)
 	#print(TOURIST_CHANCE)
 	update_beach_tiles()
-	#print(total_tourists)
+	#print(UpdateTourist.total_agents())
 	return TOURIST_CHANCE
 #Updates the beach tiles adding in tourists
 func update_beach_tiles():
 	rng.randomize()
+	#Should clear tourists weekly
+	UpdateTourist.clear_tourists()
 	for j in range(top_beach_cols):
 		var beachTile = Global.tileMap[top_beach_row][j]
 		#Should clear any left over tourists
