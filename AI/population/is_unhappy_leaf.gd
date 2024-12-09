@@ -1,6 +1,10 @@
 extends BTLeaf
 
 
+# Declare member variables here. Examples:
+# var a = 2
+# var b = "text"
+
 var BASE_MOVE_CHANCE = 0.01
 var rng = RandomNumberGenerator.new()
 
@@ -13,18 +17,19 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	# iterates through the map to find possible living spaces
 	for i in mapHeight:
 		for j in mapWidth:
-			var current_tile = Global.tileMap[i][j]
-			var maxRange = current_tile.landValue + current_tile.happiness
-			var selectTile = BASE_MOVE_CHANCE * (current_tile.landValue + current_tile.happiness)
+			if moved == false:
+				var current_tile = Global.tileMap[i][j]
+				var maxRange = current_tile.landValue + current_tile.happiness
+				var selectTile = BASE_MOVE_CHANCE * (current_tile.landValue + current_tile.happiness)
 
-			if current_tile.zone == Tile.TileZone.MULTI_FAMILY || current_tile.zone == Tile.TileZone.SINGLE_FAMILY:
-				if current_tile.has_utilities() && current_tile.tileDamage == 0:
-					rng.randomize()
-					# if living space is suitable and chance of moving allows for move to happen, move agent
-					if (selectTile > rng.randf_range(0, maxRange)):
-						UpdateAgent.ActiveAgents.find(current_agent).residential_tile = current_tile
-						moved = true
-						break
+				if current_tile.zone == Tile.TileZone.MULTI_FAMILY || current_tile.zone == Tile.TileZone.SINGLE_FAMILY:
+					if current_tile.has_utilities() && current_tile.tileDamage == 0:
+						rng.randomize()
+						# if living space is suitable and chance of moving allows for move to happen, move agent
+						if (selectTile > rng.randf_range(0, maxRange)):
+							UpdateAgent.ActiveAgents.find(current_agent).residential_tile = current_tile
+							moved = true
+							break
 
 	# if no suitable living space, agent leaves city
 	if moved == false:
@@ -34,7 +39,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 
 	# updates queue
 	check_empty(blackboard)
-	print("succeeded should_move")
+	print("succeeded is_unhappy")
 	#succeeds, if ticked
 	return succeed()
 

@@ -1,16 +1,15 @@
 extends BTConditional
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+# A conditional node MUST NOT override _tick but only 
+# _pre_tick and _post_tick.
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+# The condition is checked BEFORE ticking. So it should be in _pre_tick.
+# Checks if the queue is empty. If it is, do not proceed.
+func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
+	if UpdateAgent.can_work():
+		print("passed can_find_job")
+		verified = true
+	else:
+		print("failed can_find_job")
+		verified = false

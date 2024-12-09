@@ -8,7 +8,7 @@
 [ext_resource path="res://AI/population/should_not_move.gd" type="Script" id=6]
 [ext_resource path="res://AI/population/can_find_job_leaf.gd" type="Script" id=7]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_selector.gd" type="Script" id=8]
-[ext_resource path="res://AI/population/happy.gd" type="Script" id=9]
+[ext_resource path="res://AI/population/is_unhappy_leaf.gd" type="Script" id=9]
 [ext_resource path="res://AI/population/is_happy.gd" type="Script" id=10]
 [ext_resource path="res://AI/population/should_move.gd" type="Script" id=11]
 [ext_resource path="res://AI/population/cannot_find_job.gd" type="Script" id=12]
@@ -23,9 +23,6 @@ is_active = true
 
 [node name="queue empty\?" type="Node" parent="."]
 script = ExtResource( 2 )
-
-[node name="happy" type="Node" parent="queue empty\?"]
-script = ExtResource( 9 )
 
 [node name="BTSelector" type="Node" parent="queue empty\?"]
 script = ExtResource( 8 )
@@ -75,5 +72,5 @@ script = ExtResource( 13 )
 [node name="is_unhappy" type="Node" parent="queue empty\?/BTSelector"]
 script = ExtResource( 14 )
 
-[node name="is_unhappy" type="Node" parent="queue empty\?/BTSelector/is_unhappy"]
-script = ExtResource( 14 )
+[node name="is_unhappy_leaf" type="Node" parent="queue empty\?/BTSelector/is_unhappy"]
+script = ExtResource( 9 )
