@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=1]
+[ext_resource path="res://AI/population/queue_check.gd" type="Script" id=2]
+[ext_resource path="res://AI/population/happy.gd" type="Script" id=9]
+
+[node name="BehaviorTree" type="Node"]
+script = ExtResource( 1 )
+is_active = true
+
+[node name="queue empty\?" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="happy" type="Node" parent="queue empty\?"]
+script = ExtResource( 9 )

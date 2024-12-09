@@ -140,7 +140,9 @@ const PARK_NEIGHBORS = 0.1
 const LIBRARY_NEIGHBORS = 0.2
 const MUSEUM_NEIGHBORS = 0.2
 const SCHOOL_NEIGHBORS = 0.2
-
+# Population AI 
+var jobMax = 0
+var jobCapacity = 0
 #These 3 give a one time boost
 const FIRE_STATION_NEIGHBORS = 0.3
 const POLICE_STATION_NEIGHBORS = 0.3
@@ -200,10 +202,6 @@ var tile_dmg_weight = 0
 var num_beach_rocks_nearby = 0
 var children = [] #List of List of children's indicies
 var parent = [-1, -1] #If this tile is a child, this is it's parent, otherwise -1, -1
-
-#Tourism AI
-var tourists = 0
-var tourist_capacity = 2
 
 func _init(tileData):
 	if not tileData.empty():
@@ -547,7 +545,9 @@ func clear_tile():
 		inf = TileInf.NONE
 		City.connectUtilities()
 		
-	sensor = TileSensor.NONE	
+	sensor = TileSensor.NONE
+	jobMax = 0
+	jobCapacity = 0	
 	#reset tile to base
 	inf = TileInf.NONE
 	data = [0, 0, 0, 0, 0]
@@ -771,6 +771,9 @@ func add_people(n):
 	var diff = data[2] - before
 	if (is_residential()):
 		UpdatePopulation.change_residents(diff)
+		# people can be added
+		if diff > 0 :
+			UpdateAgent.add_agent(i,j)
 	elif (is_commercial()):
 		UpdatePopulation.change_workers(diff)
 	return diff
@@ -787,19 +790,6 @@ func remove_people(n):
 	elif (is_commercial()):
 		UpdatePopulation.change_workers(diff)
 	return diff
-
-func add_tourists(n):
-	tourists += n
-	UpdateTourist.add_tourist(i, j)
-	#Max capacity
-	if tourists >= tourist_capacity:
-		tourists = tourist_capacity
-func remove_tourists(n):
-	tourists -= n
-	if tourists <= 0:
-		tourists = 0
-func clear_tourists():
-	tourists = 0
 
 func clear_house():
 	if zone != TileZone.RESIDENTIAL:

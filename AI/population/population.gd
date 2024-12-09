@@ -32,8 +32,8 @@ func update_queue() -> Array:
 #	var currentAgent = newAgent.new(tile)
 #	ActiveAgents.append(currentAgent)
 #	print("done")
+	var activeAgents = UpdateAgent.ActiveAgents
 
-	var activeAgents = UpdateTourist.ActiveTourists
 	var latest = []
 	
 	for i in activeAgents.size():
