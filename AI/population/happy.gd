@@ -4,7 +4,7 @@ var rng = RandomNumberGenerator.new()
 
 func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var current_agent = blackboard.get_data("queue").pop_front()
-
+	print("geere")
 	# updates queue
 	check_empty(blackboard)
 	

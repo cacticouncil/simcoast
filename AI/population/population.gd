@@ -20,6 +20,7 @@ func _process(delta):
 func update_AI():
 	var latest = update_queue()
 	if latest.size() != 0:
+		print("firif")
 		$Blackboard.set_data("queue", latest)
 		$Blackboard.set_data("queue_empty", false)
 	
