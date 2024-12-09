@@ -1,0 +1,10 @@
+[
+{
+	"dialogue":"I suggest building the tide sensor in the ocean, near the shore!",
+	"next":"1"
+},
+{
+	"dialogue":"Here, they will be most effective.",
+	"next":"-2"
+}
+]
