@@ -72,7 +72,7 @@ func create_labels():
 		y_labels.append(label)
 
 func _draw():
-	if !Inventory.wind_bought:
+	if !WindLevel.sensorPresent:
 		return 
 	# Draw vertical lines
 	for ind in range(1, 13):
@@ -119,7 +119,7 @@ func draw_data():
 		draw_line(Vector2(x_pos_1, y_pos_1), Vector2(x_pos_2, y_pos_2), lime_color)
 
 func _process(delta):
-	if !Inventory.wind_bought:
+	if !WindLevel.sensorPresent:
 		return
 		
 	update_month_labels()
@@ -133,6 +133,6 @@ func _ready():
 	if len(WindLevel.monthlyWindLevels) > 0:
 		firstMonth = WindLevel.monthlyWindLevels[0][0]
 		
-	if Inventory.wind_bought:
+	if WindLevel.sensorPresent:
 		create_labels()
 		update()

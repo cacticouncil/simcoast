@@ -100,7 +100,7 @@
 			"dialogues": [
 				{
 					"type": "Dialogue",
-					"text": "After you've purchased a sensor, you can learn even more about it by talking to Dr. Clarke. Dr. Clarke is our resident environmental scientist. He's very knowledgeable about sensors and how they impact the environment. When you're ready to meet with him, click on 'more information' on the tide gauge to head on over to the lab.",
+					"text": "After you've purchased a sensor, you can learn even more about it by talking to Dr. Clark. Dr. Clark is our resident environmental scientist. He's very knowledgeable about sensors and how they impact the environment. When you're ready to meet with him, click on 'more information' on the tide gauge to head on over to the lab.",
 					"char_id": 1,
 					"parent_path": "/root/CityMap"
 				},
@@ -115,7 +115,7 @@
 			"dialogues": [
 				{
 					"type": "Dialogue",
-					"text": "Whoa! It’s our new Mayor. Haha. Sorry for the mess. I wasn’t expecting you. Nice to meet you. I’m Dr. Clarke.",
+					"text": "Whoa! It’s our new Mayor. Haha. Sorry for the mess. I wasn’t expecting you. Nice to meet you. I’m Dr. Clark.",
 					"char_id": 2,
 					"parent_path": "/root/CityMap"
 				},
@@ -145,7 +145,58 @@
 				},
 				null
 			],
-			"conditions": {}
+			"conditions": {
+				"event_name": "Lab",
+				"event_description": "Exited"
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "Alright, PLAYER_NAME. Let’s head to the office next to meet your second-in-command, the Deputy Mayor.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Office",
+				"event_description": "Entered"
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "Hey there, PLAYER_NAME! I’m your Deputy Mayor, and I’m here to help you navigate through things in the office. You’ve got some powerful tools at your disposal, and I’m excited to show you how they work.",
+					"char_id": 3,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "First, check out the computer on your desk. It’s connected to the city’s sensor network, so you can view important acquired sensor data to help guide your decisions.",
+					"char_id": 3,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "And don’t forget about the phone! You can use it to call other characters and get important updates from them. It’s a great way to stay connected and get information on what’s happening around town.",
+					"char_id": 3,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Take a moment to explore these tools, and I will be here if you have any questions!",
+					"char_id": 3,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Office",
+				"event_description": "Entered"
+			}
 		},
 		null
 	]

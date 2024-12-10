@@ -16,6 +16,15 @@ func _ready():
 #	pass
 func _npc_callback(npc_character):
 	currNPC = npc_character
+	var picPath = "res://assets/office/"+currNPC.name+".png"
+	$phone_info/photo.texture = load(picPath)
+	$phone_info/name.text = currNPC.name
+	$phone_info/job.text = currNPC.job
+	if currNPC.name !="Jermaine":
+		$phone_info/jobdesc.text = "No information available at the moment. Please check later!"
+	else:
+		$phone_info/jobdesc.text = "A deputy mayor assists the mayor in matters of running the city. He chairs council meetings, liaisons with the community, and acts on behalf of the mayor."
+	$phone_info/fee.text = str("You can consult with ",currNPC.name, " for free.")
 	$phone_info.visible = true
 	$ScrollContainer.visible = false
 

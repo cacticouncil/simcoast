@@ -96,7 +96,7 @@ func create_labels():
 		y_labels.append(label)
 		
 func _draw():
-	if !Inventory.tide_bought:
+	if !SeaLevel.sensorPresent:
 		return 
 		
 	# Draw vertical lines
@@ -148,7 +148,7 @@ func draw_data():
 
 
 func _process(delta):
-	if !Inventory.tide_bought:
+	if !SeaLevel.sensorPresent:
 		return 
 		
 	update_month_labels()
@@ -162,7 +162,7 @@ func _ready():
 	if len(SeaLevel.monthlySeaLevels) > 0:
 		firstMonth = SeaLevel.monthlySeaLevels[0][0]
 		
-	if Inventory.tide_bought:
+	if SeaLevel.sensorPresent:
 		create_labels()
 		update()
 		

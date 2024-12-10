@@ -26,13 +26,13 @@ func _ready():
 	var windLabel = $Panel/ScrollContainer/VBoxContainer/WindButton/Wind/WindSensorNeededLabel
 	var tideLabel = $Panel/ScrollContainer/VBoxContainer/SeaButton/Sea/TideSensorNeededLabel
 	
-	if !Inventory.rain_bought:
+	if !RainLevel.sensorPresent:
 		rainLabel.visible = true
 		
-	if !Inventory.wind_bought:
+	if !WindLevel.sensorPresent:
 		windLabel.visible = true
 		
-	if !Inventory.tide_bought:
+	if !SeaLevel.sensorPresent:
 		tideLabel.visible = true
 
 #quit button functions
@@ -76,18 +76,18 @@ func _on_IncomeTaxSlider_value_changed(value):
 var openedGraph = null
 
 func _on_WindButton_pressed():
-	if Inventory.wind_bought:
+	if WindLevel.sensorPresent:
 		openedGraph = $WindLarger
 		openedGraph.visible = true
 
 func _on_RainButton_pressed():
-	if Inventory.rain_bought:
+	if RainLevel.sensorPresent:
 		openedGraph = $RainLarger
 		openedGraph.visible = true
 		
 func _on_SeaButton_pressed():
 	print("ehre")
-	if Inventory.tide_bought:
+	if SeaLevel.sensorPresent:
 		openedGraph = $SeaLarger
 		openedGraph.visible = true
 	

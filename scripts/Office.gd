@@ -2,6 +2,7 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Announcer.notify(Event.new("Office", "Entered", 1))
 	pass # Replace with function body.
 
 # closes office scene

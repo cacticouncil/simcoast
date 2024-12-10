@@ -9,9 +9,9 @@ var currCharacter
 #function updates character values to display in dashboard
 func updateValues(character):
 	$contact/name.text = character.name
-	$contact/job.text = character.name
-	#var picPath = "res://assets/office/"+character.name+".png"
-	#$contact/picture.texture = load(picPath)
+	$contact/job.text = character.job
+	var picPath = "res://assets/office/"+character.name+".png"
+	$contact/picture.texture = load(picPath)
 	currCharacter = character
 
 func _on_contact_pressed():
