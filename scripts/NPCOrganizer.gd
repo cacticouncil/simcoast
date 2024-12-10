@@ -7,12 +7,11 @@ var npcCount: int = 0
 #Add in the NPCs here with their json files
 #Called only once to intialize the NPCs
 func _ready():
-	addNPC("PLAYER_NAME", 0, "res://assets/characters/test_profession_icon.png", "")
-	addNPC("Researcher", 1, "res://assets/characters/researcher_icon.png", "I am a researcher!")
-	addNPC("Environmental Engineer", 2, "res://assets/characters/environmental_engineer_icon.png", "I am an environmental engineer!")
-	addNPC("Scientist", 3, "res://assets/characters/scientist_icon.png", "I am a scientist!")
-	addNPC("Test Profession", 4, "res://assets/characters/test_profession_icon.png", "I am definitely something!")
-	addNPC("Test Profession2", 5, "res://assets/characters/test_profession_icon.png", "I am definitely something!")
+	addNPC("PLAYER_NAME", "Mayor",  0, "res://assets/characters/test_profession_icon.png", "")
+	addNPC("Maria","Researcher", 1, "res://assets/characters/researcher_icon.png", "I am a researcher!")
+	addNPC("Clark", "Environmental Engineer", 2, "res://assets/characters/scientist_icon.png", "I am an environmental engineer!")
+	addNPC("Jermaine", "Deputy Mayor", 3, "res://assets/characters/test_profession_icon.png", "I am a deputy mayor!")
+	#addNPC("Test Name","Test Profession", 4, "res://assets/characters/test_profession_icon.png", "I am definitely something!")
 	
 #Gets the number of NPCs
 func getNPCCount():
@@ -30,15 +29,22 @@ func getNPCs():
 		npcs.append(n)
 	return npcs
 #Adds NPC into dictionary as the name given and give unique ID
-func addNPC(npcName, npcID, npcIcon, npcDescription):
+func addNPC(npcName, npcJob, npcID, npcIcon, npcDescription):
 	if (npcID in npcDictionary):
 		print("Not unique ID!")
 		return
 	self.npcCount += 1
-	var npcObject = NPC.new(npcID, npcName, npcIcon, npcDescription)
+	var npcObject = NPC.new(npcID, npcName, npcJob, npcIcon, npcDescription)
 	npcDictionary[npcID] = npcObject
 	return
 
+func getUnlockedNPCs():
+	var npcs = []
+	for n in self.npcDictionary.values():
+		if n.unlocked == true:
+			npcs.append(n)
+	return npcs
+	
 #Deletes NPC by ID
 func deleteNPC(id_):
 	npcDictionary.erase(id_)
@@ -56,9 +62,9 @@ func unlockNPC(id_):
 	npcDictionary[id_].unlocked = true
 	#Displays popup
 	var pop = preload("res://ui/Popups/Overlay.tscn")
-	var npcName = npcDictionary[id_].name
-	print(npcName)
+	var npcJob = npcDictionary[id_].job
+	print(npcJob)
 	var npcIcon = npcDictionary[id_].icon
 	print(npcIcon)
-	get_node("/root/Overlay").character_pop(npcName, npcIcon)
+	get_node("/root/Overlay").character_pop(npcJob, npcIcon)
 	return
