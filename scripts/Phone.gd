@@ -1,20 +1,17 @@
 extends Node2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+#stores the current npc from clicked character card
 var currNPC
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#SceneManager.phone_npc_clicked.connect(handle_npc_clicked())
+	#connects signal to phone character card scene
 	SceneManager.connect("phone_npc_clicked", self, "_npc_callback")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+# called when signal is received from character card scene
+# which happens when a character card is clicked
 func _npc_callback(npc_character):
+	# changes name and info to that specific clicked character card
 	currNPC = npc_character
 	var picPath = "res://assets/office/"+currNPC.name+".png"
 	$phone_info/photo.texture = load(picPath)
@@ -28,12 +25,11 @@ func _npc_callback(npc_character):
 	$phone_info.visible = true
 	$ScrollContainer.visible = false
 
-
-
+# closes phone scene
 func _on_quit_phone_pressed():
 	get_parent().remove_child(self)
 
-
+# closes extra info
 func _on_phone_info_pressed():
 	$phone_info.visible = false
 	$ScrollContainer.visible = true

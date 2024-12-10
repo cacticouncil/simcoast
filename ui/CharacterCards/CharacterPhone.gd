@@ -16,5 +16,5 @@ func updateValues(character):
 
 func _on_contact_pressed():
 	currCharacter.ring = true
-	#emit_signal("dict_changed", currCharacter)
+	#connects the character card with the phone scene
 	SceneManager.emit_signal("phone_npc_clicked", currCharacter)

@@ -9,8 +9,6 @@ func _ready():
 	var cardsPerRow = 1
 	var container
 	
-	#self.rect_position.x = 10
-		
 	for i in range(cards.size()):
 		# We add cardsPerRow cards in one row and then create a new one
 #		if i % cardsPerRow == 0:
@@ -27,8 +25,3 @@ func _ready():
 		CardInstance.updateValues(currCard)
 		
 		container.add_child(CardInstance)
-
-#needed to keep the node in place (issue with Godot engine).
-func _process(delta):
-	#self.rect_position.x = 10
-	pass

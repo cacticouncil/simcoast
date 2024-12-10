@@ -2,8 +2,8 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# necessary for tutorial sequence
 	Announcer.notify(Event.new("Office", "Entered", 1))
-	pass # Replace with function body.
 
 # closes office scene
 func _on_QuitOffice_pressed():
@@ -30,13 +30,14 @@ func _on_Phone_pressed():
 	var phone = preload("res://ui/hud/NPC_Interactions/Phone.tscn")
 	var phone_instance = phone.instance()
 	add_child(phone_instance)
-
+	
+# opens sensor graphs
 func _on_Computer_pressed():
 	var computer = preload("res://ui/Dashboard/OfficeDashboard.tscn")
 	var computer_instance = computer.instance()
 	get_tree().root.add_child(computer_instance)
 
-
+#start deputy mayor dialogue
 func _on_Worker_pressed():
 	$EntireScreen/Office/Worker/DialogueBox.visible = true
 
