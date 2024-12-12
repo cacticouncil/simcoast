@@ -111,6 +111,7 @@ var data = [0, 0, 0, 0, TileStatus.NONE]
 var utilities = false
 var tileDamage = 0
 var erosion = 0
+var isActive = false
 # Purchase price of a tile
 var landValue = 0
 # Income of a zone
@@ -422,6 +423,7 @@ func get_save_tile_data():
 		"parent": parent,
 		"tileDamage": tileDamage,
 		"erosion": erosion,
+		"isActive": isActive,
 		"landValue": landValue,
 		"profitRate": profitRate,
 		"happiness": happiness,
@@ -877,3 +879,14 @@ func is_valid_tile(i, j) -> bool:
 	if j < 0 || Global.mapWidth <= j:
 		return false
 	return true
+#Helper functions for setting/deactivating active tiles
+func set_active_tile():
+	Global.activeTiles[[i, j]] = true
+func deactivate_tile():
+	Global.activeTiles.erase([i, j])
+func check_if_active():
+	if (is_zoned() || has_building() || inf != TileInf.NONE || sensor != TileSensor.NONE):
+		isActive = true
+		return true
+	else:
+		return false
