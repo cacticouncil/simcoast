@@ -7,5 +7,5 @@ func _unhandled_input(event):
 func _on_Start_pressed():
 	var _err = get_tree().change_scene("res://start_map.tscn")
 
-func _on_LineEdit_text_entered(new_text):
+func _on_LineEdit_text_changed(new_text):
 	Global.userName = new_text
