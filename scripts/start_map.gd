@@ -110,7 +110,6 @@ var anchor2: Array = [null, null]
 var selected: Array = []
 
 func reset_selected():
-	print("Reset selected")
 	anchor1 = [null, null]
 	anchor2 = [null, null]
 	selected = []
@@ -145,6 +144,7 @@ func _unhandled_input(event):
 			tile = Global.tileMap[cube.i][cube.j]
 			
 		if Input.is_action_pressed("left_click") and Input.is_action_pressed("shift"):
+			print("Shift click")
 			# Reset the multi-select if it has already been defined
 			if not anchor1.has(null) and not anchor2.has(null):
 				reset_selected()
@@ -155,13 +155,16 @@ func _unhandled_input(event):
 			else:
 				anchor2 = [tile.i, tile.j] # Define anchor2
 				populate_selected() # Populate the array
+				print(selected)
 				return
 		
 		if tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN || tile.sensor == Tile.TileSensor.WIND: 
 			if Input.is_action_pressed("right_click"):
 				sensor_back_to_inventory(tile.sensor)
 				tile.sensor = Tile.TileSensor.NONE
-		
+
+		reset_selected()
+
 		# Perform action based on current tool selected
 		match Global.mapTool:
 			# Change Base or (if same base) raise/lower tile height
@@ -781,8 +784,6 @@ func _unhandled_input(event):
 			$HUD.update_tile_display(cube.i, cube.j)
 		else:
 			get_node("HUD/BottomBar/HoverText").text = ""
-			
-	reset_selected()
 
 # Saves global variables and map data to a JSON file
 func saveMapData(mapPath):
