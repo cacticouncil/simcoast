@@ -193,10 +193,7 @@
 				},
 				null
 			],
-			"conditions": {
-				"event_name": "Office",
-				"event_description": "Entered"
-			}
+			"conditions": {}
 		},
 		null
 	]
