@@ -99,6 +99,31 @@ func show_mission_tip(num):
 func clear_mission_tip():
 	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = ""
 
+# Anchor points for tile multi-select
+var anchor1: Array = [null, null]
+var anchor2: Array = [null, null]
+
+# Array of selected tiles
+var selected: Array = []
+
+func reset_selected():
+	print("Reset selected")
+	anchor1 = [null, null]
+	anchor2 = [null, null]
+	selected = []
+	
+func populate_selected():
+	# Get the minimums and maximums
+	var min_x = min(anchor1[0], anchor2[0])
+	var max_x = max(anchor1[0], anchor2[0])
+	var min_y = min(anchor1[1], anchor2[1])
+	var max_y = max(anchor1[1], anchor2[1])
+	
+	# Iterate through the tile map using the min and max values
+	for i in range(min_x, max_x + 1):
+		for j in range(min_y, max_y + 1):
+			selected.append(Global.tileMap[i][j])
+
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):
 	var actionText = get_node("HUD/BottomBar/HoverText")
@@ -111,13 +136,29 @@ func _unhandled_input(event):
 	
 		# If the click was not on a valid tile, do nothing
 		if not cube:
+			reset_selected()
 			return
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
+			
+		if Input.is_action_pressed("left_click") and Input.is_action_pressed("shift"):
+			# Reset the multi-select if it has already been defined
+			if not anchor1.has(null) and not anchor2.has(null):
+				reset_selected()
+				
+			if anchor1[0] == null: # Check if anchor1 has been defined yet
+				anchor1 = [tile.i, tile.j] # If not, define it
+				return
+			else:
+				anchor2 = [tile.i, tile.j] # Define anchor2
+				populate_selected() # Populate the array
+				return
+		
 		if tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN || tile.sensor == Tile.TileSensor.WIND: 
 			if Input.is_action_pressed("right_click"):
 				sensor_back_to_inventory(tile.sensor)
 				tile.sensor = Tile.TileSensor.NONE
+		
 		# Perform action based on current tool selected
 		match Global.mapTool:
 			# Change Base or (if same base) raise/lower tile height
@@ -699,7 +740,7 @@ func _unhandled_input(event):
 		# Refresh graphics for cube and status bar text
 		#cube.update()
 		$HUD.update_tile_display(cube.i, cube.j)
-
+	
 	elif event is InputEventKey && event.pressed:
 		if event.scancode == KEY_S:
 			$Popups/SaveDialog.popup_centered()
@@ -737,6 +778,8 @@ func _unhandled_input(event):
 			$HUD.update_tile_display(cube.i, cube.j)
 		else:
 			get_node("HUD/BottomBar/HoverText").text = ""
+			
+	reset_selected()
 
 # Saves global variables and map data to a JSON file
 func saveMapData(mapPath):
