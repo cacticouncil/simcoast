@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/Shop.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/upheavtt_80.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/achievement_icons/XIcon.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=4]
 [ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=5]
-[ext_resource path="res://assets/shop/tide_image.png" type="Texture" id=6]
 
 [sub_resource type="Shader" id=10]
 code = "shader_type canvas_item;
@@ -102,43 +101,6 @@ margin_right = 1280.0
 margin_bottom = 40.0
 custom_constants/separation = 20
 
-[node name="InformationBox" type="ColorRect" parent="."]
-visible = false
-margin_right = 1280.0
-margin_bottom = 720.0
-color = Color( 0, 0, 0, 0.392157 )
-
-[node name="ColorRect" type="ColorRect" parent="InformationBox"]
-margin_left = 360.0
-margin_top = 100.0
-margin_right = 920.0
-margin_bottom = 640.0
-color = Color( 0, 0, 0, 1 )
-
-[node name="infoText" type="RichTextLabel" parent="InformationBox"]
-margin_left = 365.0
-margin_top = 475.0
-margin_right = 915.0
-margin_bottom = 601.0
-custom_fonts/normal_font = ExtResource( 4 )
-
-[node name="CloseInfo" type="Button" parent="InformationBox"]
-margin_left = 825.0
-margin_top = 585.0
-margin_right = 895.0
-margin_bottom = 621.0
-custom_fonts/font = ExtResource( 4 )
-text = "Close"
-icon_align = 1
-
-[node name="Sprite" type="TextureRect" parent="InformationBox"]
-margin_left = 360.0
-margin_top = 100.0
-margin_right = 1060.0
-margin_bottom = 508.0
-rect_scale = Vector2( 0.8, 0.9 )
-texture = ExtResource( 6 )
-
 [node name="BuyBox" type="ColorRect" parent="."]
 visible = false
 margin_right = 1280.0
@@ -172,5 +134,4 @@ icon_align = 1
 [connection signal="mouse_entered" from="QuitShop" to="." method="_on_QuitShop_mouse_entered"]
 [connection signal="mouse_exited" from="QuitShop" to="." method="_on_QuitShop_mouse_exited"]
 [connection signal="pressed" from="QuitShop" to="." method="_on_QuitShop_pressed"]
-[connection signal="pressed" from="InformationBox/CloseInfo" to="." method="_on_CloseInfo_pressed"]
 [connection signal="pressed" from="BuyBox/CloseBuy" to="." method="_on_CloseBuy_pressed"]

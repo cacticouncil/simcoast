@@ -10,7 +10,7 @@ var conv_index = 0;
 
 #Called when scene first enters the tree
 func _ready():
-	print("Turtorial scene created. Parent: " + get_parent().get_path())
+	print("Tutorial scene created. Parent: " + get_parent().get_path())
 	getNextText()
 
 # Gets and displays next text
