@@ -37,6 +37,10 @@ func _ready():
 	cam_x = (viewport_size.x / 2) * self.zoom.x
 	cam_y = (viewport_size.y / 2) * self.zoom.y
 
+	self.zoom.x = 1.375
+	self.zoom.y = 1.375
+	self.position.x += 40
+
 func _process(delta):
 	var move_vector = Vector2()
 	
