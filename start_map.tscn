@@ -282,7 +282,7 @@ margin_right = 441.0
 margin_bottom = 24.0
 texture = ExtResource( 118 )
 
-[node name="Hapiness" type="Label" parent="HUD/HBoxContainer"]
+[node name="Happiness" type="Label" parent="HUD/HBoxContainer"]
 margin_left = 445.0
 margin_top = 5.0
 margin_right = 469.0

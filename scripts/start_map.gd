@@ -24,6 +24,8 @@ func _ready():
 	#$HUD/TopBar/HBoxContainer/Demand.text = "Residential Demand: " + str(UpdateDemand.calcResidentialDemand()) + "/10" + " Commercial Demand: " + str(UpdateDemand.calcCommercialDemand()) + "/10"
 	$HUD/Date/Year.text = str(UpdateDate.year)
 	$HUD/Date/Month.text = UpdateDate.Months.keys()[UpdateDate.month]
+	$HUD/HBoxContainer/Happiness.text = str(UpdateHappiness.get_average_happiness())
+	
 	if (Global.newGame):
 		initTutorial()
 

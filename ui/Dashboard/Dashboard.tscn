@@ -521,7 +521,6 @@ autowrap = true
 margin_top = 112.0
 margin_right = 260.0
 margin_bottom = 126.0
-text = "???"
 
 [node name="HSeparator3" type="HSeparator" parent="ColorRect2/CityStatsBar"]
 margin_top = 130.0
