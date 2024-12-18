@@ -433,7 +433,99 @@ func calculate_damage():
 								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
 							Weather.WeatherStates.HURRICANE_5:
 								tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+func calculate_damage_tile(tile):
+	# Determine damage based on water height to buildings and roads
+	if tile.get_water_height() > 0 && tile.changeInWaterHeight > 0:
+		if tile.has_building() && tile.is_light_zoned():
+			if tile.get_water_height() <= 1:
+				tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+			elif tile.get_water_height() <= 3:
+				tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+			else:
+				tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+		elif tile.has_building() && tile.is_heavy_zoned():
+			if tile.get_water_height() <= 3:
+				tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+			elif tile.get_water_height() <= 6:
+				tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+			else:
+				tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+		elif tile.inf == Tile.TileInf.ROAD || tile.inf == Tile.TileInf.BRIDGE || tile.inf == Tile.TileInf.BOARDWALK:
+			if tile.get_water_height() > 1 && tile.get_water_height() <= 3:
+				tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+			elif tile.get_water_height() <= 5:
+				tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+			else:
+				tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+		elif tile.get_base() == Tile.TileBase.SAND:
+			if tile.get_water_height() >= 5:
+				tile.lower_tile()
+		#TODO: Decide later if we want to remove the water from flooded tiles automatically
+		#tile.remove_water()
+		#tile.cube.update()
+		tile.changeInWaterHeight = 0
+	# For now, only road tiles can get wear and tear damage. If changed further checks should be implemented.
+	# Determine damage based on wear and tear to roads
+	if tile.get_wear_and_tear() >= 1 && tile.changeInWearAndTear:
+		if tile.get_wear_and_tear() <= 3:
+			tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+		elif tile.get_wear_and_tear() <= 5:
+			tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+		else:
+			tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+		tile.changeInWearAndTear = false
 
+func calc_storm_damage_tile(tile):
+	# when beaches are closed
+	if Global.beginBeachEvacuation == true:
+		# damage depending on place and category of storm
+		if (tile.base == Tile.TileBase.SAND):
+			match Weather.currentType:
+				Weather.WeatherStates.HURRICANE_3:
+					tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+				Weather.WeatherStates.HURRICANE_4:
+					tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+				Weather.WeatherStates.HURRICANE_5:
+					tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+		else:
+			match Weather.currentType:
+				Weather.WeatherStates.HURRICANE_3:
+					tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+				Weather.WeatherStates.HURRICANE_4:
+					tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+				Weather.WeatherStates.HURRICANE_5:
+					tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+	# when beaches do not close
+	else:
+		# damage depending on place and category of storm
+		if (tile.base == Tile.TileBase.SAND):
+			match Weather.currentType:
+				Weather.WeatherStates.TROPICAL_STORM:
+					tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+				Weather.WeatherStates.HURRICANE_1:
+					tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+				Weather.WeatherStates.HURRICANE_2:
+					tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+				Weather.WeatherStates.HURRICANE_3:
+					tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+				Weather.WeatherStates.HURRICANE_4:
+					tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+				Weather.WeatherStates.HURRICANE_5:
+					tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+		else:
+			match Weather.currentType:
+				Weather.WeatherStates.TROPICAL_STORM:
+					tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+				Weather.WeatherStates.HURRICANE_1:
+					tile.set_damage(Tile.TileStatus.LIGHT_DAMAGE)
+				Weather.WeatherStates.HURRICANE_2:
+					tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+				Weather.WeatherStates.HURRICANE_3:
+					tile.set_damage(Tile.TileStatus.MEDIUM_DAMAGE)
+				Weather.WeatherStates.HURRICANE_4:
+					tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
+				Weather.WeatherStates.HURRICANE_5:
+					tile.set_damage(Tile.TileStatus.HEAVY_DAMAGE)
 # Update wear and tear for road and bridge tiles. called in updateDate
 func calculate_wear_and_tear():
 	for i in Global.mapHeight:

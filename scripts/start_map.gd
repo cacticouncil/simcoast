@@ -9,12 +9,14 @@ var current_sensor_tile
 var current_road_tile
 var fadedShader = preload("res://assets/shaders/faded.tres")
 var invalidShader = preload("res://assets/shaders/invalid.tres")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initCamera()
 	initSave_Exit()
 	loadMapData(Global.currentMap)
 	initObservers()
+	
 	$HUD/HBoxContainer/Money.text = "$" + Econ.comma_values(str(Econ.money))
 	#$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
 	#$HUD/TopBar/HBoxContainer/City_Tax_Rate.text = "Tax Rate: " + str(Econ.city_tax_rate * 100) + "%"
@@ -22,6 +24,8 @@ func _ready():
 	#$HUD/TopBar/HBoxContainer/Demand.text = "Residential Demand: " + str(UpdateDemand.calcResidentialDemand()) + "/10" + " Commercial Demand: " + str(UpdateDemand.calcCommercialDemand()) + "/10"
 	$HUD/Date/Year.text = str(UpdateDate.year)
 	$HUD/Date/Month.text = UpdateDate.Months.keys()[UpdateDate.month]
+	if (Global.newGame):
+		initTutorial()
 
 func initSave_Exit():
 	$Popups/SaveDialog.connect("file_selected", self, "_on_file_selected_save")
@@ -790,14 +794,15 @@ func _process(delta):
 			#print("Ticks since start: " + str(ticksSinceStart))
 			
 			# print("Updating on tick: " + str(numTicks))
-			update_game_state()
+			update_game()
+			#Graphics are now updated in the update_tiles function
 			update_graphics()
 			if isFastFWD:
 				tickDelay = Global.TICK_DELAY * 0.5
 			else:
 				tickDelay = Global.TICK_DELAY
 
-func update_game_state():
+func update_game():
 	#print("Updating game state on tick: " + str(numTicks))
 	#UpdateWaves.update_waves()
 	UpdateWeather.update_weather()
@@ -807,19 +812,41 @@ func update_game_state():
 	
 	#turning this function off until it can be fixed
 	#UpdateWater.update_waves()
-	UpdateWater.update_water_spread()
-	City.calculate_damage()
-	UpdateValue.update_land_value()
-	UpdateHappiness.update_happiness()
-	UpdatePopulation.update_population()
+	#This function updates by tile and checks for active tiles
+	update_tiles()
 	UpdateDemand.get_demand()
-	UpdateErosion.update_erosion()
+	# UpdateErosion.update_erosion()
 	Econ.calc_profit_rates()
 	Econ.calcCityIncome()
 	Econ.calculate_upkeep_costs()
 	UpdateDate.update_date()
 	placementState()
-
+func update_tiles():
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
+			var currTile = Global.tileMap[i][j]
+			#Deactivate every tile at the beginning
+			currTile.isActive = false
+			UpdateWater.update_water_spread_tile(currTile)
+			City.calculate_damage_tile(currTile)
+			#damage for storms
+			if Weather.currentlyStorming == true && Weather.stormDamage == true:
+				Weather.stormDamage = false
+				City.calc_storm_damage_tile(currTile)
+			UpdateValue.update_land_value_tile(currTile)
+			UpdateHappiness.update_happiness_tile(currTile)
+			UpdatePopulation.update_population_tile(currTile)
+			UpdateErosion.update_erosion_tile(currTile)
+			#Update the graphics for each tile
+			currTile.cube.update()
+			#Checks if tile is active
+			currTile.check_if_active()
+			#Add to active tile list if it is active or erase if not
+			if currTile.isActive:
+				currTile.set_active_tile()
+			else:
+				currTile.deactivate_tile()
+	return
 func placementState():
 	if Global.placementState:
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
@@ -885,22 +912,22 @@ func placementState():
 						currEvent.queue_free()
 				elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
 					if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
-						var currEvent = Event.new("Added Tile", "Added Resedential Area", 1)
+						var currEvent = Event.new("Added Tile", "Added Residential Area", 1)
 						Announcer.notify(currEvent)
 						currEvent.queue_free()
 						if tile.has_utilities():
-							currEvent = Event.new("Added Powered Tile", "Added Resedential Area", 1)
+							currEvent = Event.new("Added Powered Tile", "Added Residential Area", 1)
 							Announcer.notify(currEvent)
 							currEvent.queue_free()
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
 				elif (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY):
 					if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
-						var currEvent = Event.new("Added Tile", "Added Resedential Area", 1)
+						var currEvent = Event.new("Added Tile", "Added Residential Area", 1)
 						Announcer.notify(currEvent)
 						currEvent.queue_free()
 						if tile.has_utilities():
-							currEvent = Event.new("Added Powered Tile", "Added Resedential Area", 1)
+							currEvent = Event.new("Added Powered Tile", "Added Residential Area", 1)
 							Announcer.notify(currEvent)
 							currEvent.queue_free()
 						tile.clear_tile()
@@ -1078,7 +1105,8 @@ func _on_DashboardButton_pressed():
 	var Dashboard = preload("res://ui/Dashboard/Dashboard.tscn")
 	var DashboardInstance = Dashboard.instance()
 	add_child(DashboardInstance)
-	
+	Announcer.notify(Event.new("Dashboard", "Entered", 2))
+
 func _on_UIAchievementButton_pressed():
 	$HUD/TopBarBG/DashboardSelected.visible = false
 	$HUD/TopBarBG/AchievementSelected.visible = true
@@ -1088,12 +1116,10 @@ func _on_UIAchievementButton_pressed():
 	add_child(AchMenuInstance)
 
 func _on_StoreButton_pressed():
-	var tut = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
-	var TutInstance = tut.instance()
-	add_child(TutInstance)
-	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
-	var TutorialInstance = tutorial.instance()
-	add_child(TutorialInstance)
+	var store = preload("res://ui/hud/NPC_Interactions/Shop.tscn")
+	var store_instance = store.instance()
+	add_child(store_instance)
+	Announcer.notify(Event.new("Store", "Entered", 1))
 
 func _on_DashboardButton_mouse_entered():
 	$HUD/TopBarBG/DashboardHover.visible = true
@@ -1201,7 +1227,7 @@ func _on_NoButton_pressed():
 
 # help display
 func _on_HelpButton_pressed():
-	$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = true
+	#$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = true
 	match Global.mapTool:
 		Global.Tool.SENSOR_TIDE:
 			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
@@ -1222,6 +1248,11 @@ func _on_CloseNoButton_pressed():
 
 func _on_OkButton_pressed():
 	$SensorChoice/ColorRect2.visible = false # Replace with function body.
+	
+func initTutorial():
+	var tutorial = preload("res://ui/hud/NPC_Interactions/Tutorial.tscn")
+	var TutorialInstance = tutorial.instance()
+	add_child(TutorialInstance)
 
 
 func _on_RoadRepairYesButton_pressed():

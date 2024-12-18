@@ -1,18 +1,152 @@
-[
 {
-	"dialogue":"Welcome to the shop. You can buy sensors here.",
-	"next":"1"
-},
-{
-	"dialogue":"These sensors wil help you monitor the city and the environment.",
-	"next":"2"
-},
-{
-	"dialogue":"This information will be very important to ensuring Shore City is ready for anything that comes its way.",
-	"next":"3"
-},
-{
-	"dialogue":"As a gift for starting your position as mayor you can buy a tide gauge for free.",
-	"next":"-2"
+	"conversations": [
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "Hello, Mayor PLAYER_NAME! Welcome to Shore City. I’m so happy to have you as our new mayor. We’re a small community right now, but I’m sure you can lead us to becoming a bustling city.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "My name is Maria. Let me give you a tour of the city as I explain your role as mayor.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "This is the map of the city. On the left are the tools you need to build infrastructure around town. Utility plants power all the buildings in town. Go ahead and place a utility plant.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Added Tile",
+				"event_description": "Added Power Plant"
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "Placing new buildings costs money. The town has started with a modest budget but you can earn more taxes as new citizens move in. Now place a house or shop and connect it with a road.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Added Powered Tile",
+				"event_description": [
+					"Added Commercial Area",
+					"Added Residential Area"
+				]
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "Look at that. Now we have new people moving in! I’m so excited, Mayor PLAYER_NAME. Our city is growing. As the city grows, it’s important to pay attention to the impact your decisions have on citizens. Let’s check out the dashboard.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Dashboard",
+				"event_description": "Entered"
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "This is your dashboard. This is where you can monitor citizens’ happiness, change tax rates, and monitor sensors. Take a look around. I’ll be waiting for you at the store when you’re ready.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Store",
+				"event_description": "Entered"
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "Thanks for joining me, Mayor. This is the shop where you can purchase sensors. Sensors help monitor the weather. Because our city is right next to the ocean, we use sensors to let us know if there’s a storm approaching.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Sensors are expensive but they’re good investments. Luckily, the city has received a donated tide gauge, so this one is free. You can go ahead and accept it, Mayor.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Buy popup",
+				"event_description": "Closed"
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "After you've purchased a sensor, you can learn even more about it by talking to Dr. Clarke. Dr. Clarke is our resident environmental scientist. He's very knowledgeable about sensors and how they impact the environment. When you're ready to meet with him, click on 'more information' on the tide gauge to head on over to the lab.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Lab",
+				"event_description": "Entered"
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "Whoa! It’s our new Mayor. Haha. Sorry for the mess. I wasn’t expecting you. Nice to meet you. I’m Dr. Clarke.",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Nice to meet you, I’m PLAYER_NAME. What do you do at the lab?",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "I’m an environmental scientist. I study the environment and use that knowledge to help preserve and protect people and the environment.",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": " That’s really interesting. Can you tell me about the new tide gauge?",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Of course! Maria’s been very excited about the new tide sensor.",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {}
+		},
+		null
+	]
 }
-]
