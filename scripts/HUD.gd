@@ -69,6 +69,3 @@ func update_tile_display(i, j):
 			$BottomBar/HoverText.text += "     Wind Level: %s mps" % [WindLevel.currentWindLevel]
 		else:
 			$BottomBar/HoverText.text += "     Status: INACTIVE"
-	
-	if (Global.tileMap[i][j].is_zoned() && Global.tileMap[i][j].data[2] != 0):
-		$BottomBar/HoverText.text += "     Happiness: %d" % [tile.happiness]

@@ -823,6 +823,7 @@ func update_game():
 	Econ.calculate_upkeep_costs()
 	UpdateDate.update_date()
 	placementState()
+
 func update_tiles():
 	for i in Global.mapHeight:
 		for j in Global.mapWidth:
@@ -1089,6 +1090,8 @@ func placementState():
 
 
 func update_graphics():
+	$HUD/HBoxContainer/Population.text = str(UpdatePopulation.get_population())
+	$HUD/HBoxContainer/Happiness.text = str(UpdateHappiness.get_average_happiness())
 	#print("Updating graphics on tick: " + str(numTicks))
 	UpdateGraphics.update_graphics()
 

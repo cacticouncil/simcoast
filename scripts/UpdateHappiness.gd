@@ -44,8 +44,13 @@ func get_average_happiness():
 	if num_tiles == 0:
 		return 0
 	return aggregate / num_tiles
-	
+
 func update_happiness_tile(currTile):
+	# Reset the aggregate and the num_tiles if recalculating from the start 
+	if currTile == Global.tileMap[0][0]:
+		aggregate = 0
+		num_tiles = 0
+
 	if (currTile.is_zoned() && currTile.data[2] != 0):
 		var happiness = BASE_HAPPINESS
 		var waterValue = UpdateValue.calc_presence_of_water(currTile)
@@ -63,5 +68,8 @@ func update_happiness_tile(currTile):
 			happiness = 0
 		elif happiness > 100:
 			happiness = 100
-					
+		
 		currTile.happiness = happiness
+		
+		aggregate += happiness
+		num_tiles += 1
