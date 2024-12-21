@@ -39,6 +39,8 @@ enum TileInf {
 	SEWAGE_FACILITY,
 	WASTE_TREATMENT,
 	WAVE_BREAKER,
+	TOWN_HALL,
+	RESEARCH_CENTER,
 	CHILD
 }
 
@@ -283,6 +285,10 @@ func convert_string_to_inf(inf):
 			return TileInf.SEWAGE_FACILITY
 		"waste_treatment":
 			return TileInf.WASTE_TREATMENT
+		"town_hall":
+			return TileInf.TOWN_HALL
+		"research_center":
+			return TileInf.RESEARCH_CENTER
 		"child":
 			return TileInf.CHILD
 		"boardwalk":
@@ -324,6 +330,10 @@ func convert_inf_to_string():
 			return "sewage_facility"
 		TileInf.WASTE_TREATMENT:
 			return "waste_treatment"
+		TileInf.TOWN_HALL:
+			return "town_hall"
+		TileInf.RESEARCH_CENTER:
+			return "research_center"
 		TileInf.CHILD:
 			return "child"
 		TileInf.BOARDWALK:

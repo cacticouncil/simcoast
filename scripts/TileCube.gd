@@ -96,8 +96,16 @@ func _draw():
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
 		for building in listOfBuildings:
+			get_parent().add_child(building)	
+	
+	elif tile.inf == Tile.TileInf.TOWN_HALL:
+		for building in listOfBuildings:
 			get_parent().add_child(building)
-		
+	
+	elif tile.inf == Tile.TileInf.RESEARCH_CENTER:
+		for building in listOfBuildings:
+			get_parent().add_child(building)
+			
 	elif tile.inf == Tile.TileInf.WAVE_BREAKER:
 		get_parent().add_child(buildingSprite)
 		
@@ -360,6 +368,28 @@ func update_polygons():
 		sensor_height = 16
 		sensor_zindex+=1
 	
+	elif tile.inf == Tile.TileInf.TOWN_HALL:
+		clear_objects()
+		var image = load("res://assets/building_assets/2d Assets/TownHall.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
+		sensor_height = 16
+		sensor_zindex+=1
+		
+	elif tile.inf == Tile.TileInf.RESEARCH_CENTER:
+		clear_objects()
+		var image = load("res://assets/building_assets/2d Assets/ResearchCenter.png")
+		buildingSprite = Sprite.new()
+		buildingSprite.texture = image
+		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.z_index = (i + j) * 10
+		listOfBuildings.append(buildingSprite)
+		sensor_height = 16
+		sensor_zindex+=1	
+		
 	elif tile.inf == Tile.TileInf.WAVE_BREAKER:
 		clear_objects()
 		var image = load("res://assets/building_assets/2d Assets/Wavebraker.png")
