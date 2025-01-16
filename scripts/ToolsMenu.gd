@@ -223,8 +223,8 @@ func button_pressed():
 			Global.placementState = true
 			Global.hoverImage = "res://assets/building_assets/2d Assets/Firehouse.png"
 			Global.infType = Tile.TileInf.FIRE_STATION
-			Global.buildingHeight = 2
-			Global.buildingWidth = 2
+			Global.buildingHeight = 1
+			Global.buildingWidth = 1
 			get_node("/root/CityMap/PreviewFade").play("Fade")
 		'hospital_button':
 			Global.mapTool = Global.Tool.INF_HOSPITAL

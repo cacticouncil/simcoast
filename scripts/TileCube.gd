@@ -233,7 +233,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Library.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.position = Vector2(x - w, y - h)
 		buildingSprite.z_index = (i + j) * 10
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
@@ -241,7 +241,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Museum.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.position = Vector2(x - w, y - h)
 		buildingSprite.z_index = (i + j) * 10
 	
 	elif tile.inf == Tile.TileInf.SCHOOL:
@@ -249,7 +249,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/School.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.position = Vector2(x - w, y - h)
 		buildingSprite.z_index = (i + j) * 10
 
 	elif tile.inf == Tile.TileInf.FIRE_STATION:
@@ -257,8 +257,8 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h - 32)
-		buildingSprite.scale = Vector2(2, 2)
+		buildingSprite.position = Vector2(x -w , y - h)
+		#buildingSprite.scale = Vector2(2, 2)
 		buildingSprite.z_index = (i + j) * 10
 	
 	elif tile.inf == Tile.TileInf.HOSPITAL:
@@ -266,7 +266,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Hospital.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.position = Vector2(x - w, y - h)
 		buildingSprite.z_index = (i + j) * 10
 		
 	elif tile.inf == Tile.TileInf.POLICE_STATION:
@@ -274,7 +274,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/PoliceStation.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.position = Vector2(x - w, y - h)
 		buildingSprite.z_index = (i + j) * 10
 
 	# Draws roads depending on data values, which indicate which neighbords tile is connected to
@@ -567,7 +567,7 @@ func update_polygons():
 
 		# Draws a single building whose size is scaled to number of buildings
 			Tile.TileZone.MULTI_FAMILY:
-				# I'm guessing tile.data[2] = current num of residents, tile.data[3] = max num of residents
+				#tile.data[2] = current num of residents, tile.data[3] = max num of residents
 				building_width = (Global.TILE_WIDTH / 2.0) + (2 * num_buildings) 
 				building_depth = building_width / 2.0
 				building_height = 10 + (3 * num_buildings)
