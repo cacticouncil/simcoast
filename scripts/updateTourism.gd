@@ -33,7 +33,7 @@ func update_tourism():
 	else:
 		#Update Beach attractiveness, turning into percentage
 		#beach_attractiveness = Beach.attractiveness / 100.0
-		beach_attractiveness = 0.5
+		beach_attractiveness = Beach.calculate_attractivness() / 100.0
 		#Calculate traffic based on the current month
 		match int(UpdateDate.month):
 			1, 2, 3:

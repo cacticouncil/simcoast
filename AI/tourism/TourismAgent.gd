@@ -10,5 +10,5 @@ var location = null
 var rng = RandomNumberGenerator.new()
 func _init(tile):
 	location = tile
-	purchaseChance = rng.randf_range(0.5, 1)
+	purchaseChance = rng.randf_range(0.1, 0.5)
 	litterChance = rng.randf_range(0.1, 0.5)
