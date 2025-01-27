@@ -1129,7 +1129,8 @@ func _on_UIAchievementButton_mouse_entered():
 
 func _on_StoreButton_mouse_entered():
 	$HUD/TopBarBG/StoreHover.visible = true
-
+func _on_OfficeButton_mouse_entered():
+	$HUD/TopBarBG/OfficeHover.visible = true
 func _on_DashboardButton_mouse_exited():
 	$HUD/TopBarBG/DashboardHover.visible = false
 
@@ -1138,7 +1139,8 @@ func _on_UIAchievementButton_mouse_exited():
 
 func _on_StoreButton_mouse_exited():
 	$HUD/TopBarBG/StoreHover.visible = false
-
+func _on_OfficeButton_mouse_exited():
+	$HUD/TopBarBG/OfficeHover.visible = false
 # sensor options -> yes, no, or ask for help
 # yes adds sensor to tile
 func _on_YesButton_pressed():
@@ -1333,3 +1335,9 @@ func _on_RoadRepairNoButton_pressed():
 
 func _on_RoadRepairOKButton_pressed():
 	$RoadRepairError.visible = false
+
+
+func _on_OfficeButton_pressed():
+	var office = preload("res://ui/hud/NPC_Interactions/Office.tscn")
+	var OfficeInstance = office.instance()
+	add_child(OfficeInstance)

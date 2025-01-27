@@ -16,14 +16,10 @@ var y_labels = []
 
 var data = []
 
-var timer_counter = 0
-var interval = 1
-var month_counter = 0
-
-var rng = RandomNumberGenerator.new()
 var currentMonth = UpdateDate.month
 var firstMonth = UpdateDate.month
 
+# Update the month labels. Gets the last 12 months
 func update_month_labels():
 	var currentMonthInd = UpdateDate.month
 	if len(SeaLevel.monthlySeaLevels) > 0:
@@ -37,19 +33,12 @@ func update_month_labels():
 		if currentMonthInd > len(months) - 1:
 			currentMonthInd = 0
 
-#	var first_label = month_labels[0].text
-#
-#	for ind in range(1, len(month_labels)):
-#		month_labels[ind - 1].text = ""
-#		month_labels[ind - 1].text = month_labels[ind].text
-#
-#	month_labels[-1].text = ""
-#	month_labels[-1].text = first_label
-
 func update_y_labels():
 	for ind in range(len(y_labels)):
 		y_labels[ind].text = str(minSeaLevel + ind * (float(maxSeaLevel - minSeaLevel) / y_line_count))
-	
+
+# Update the min and max so the graph y axis changes dynamically
+# I.e the sea level increases above the current max y point, change the y axis to hold the new points
 func update_min_max():
 	var maxVal = 0
 	var minVal = -1
@@ -107,6 +96,9 @@ func create_labels():
 		y_labels.append(label)
 		
 func _draw():
+	if !SeaLevel.sensorPresent:
+		return 
+		
 	# Draw vertical lines
 	for ind in range(1, 13):
 		var x_pos = ind * (x_spacing)
@@ -124,6 +116,7 @@ func _draw():
 	# Draw the data
 	draw_data()
 
+# Uses the respective data to plot the y points
 func draw_data():
 	for ind in len(SeaLevel.monthlySeaLevels):
 		var point = SeaLevel.monthlySeaLevels[ind]
@@ -155,20 +148,9 @@ func draw_data():
 
 
 func _process(delta):
-#	if (UpdateDate.month != currentMonth):
-#		print("month changed")
-#		print(SeaLevel.monthlySeaLevels)
-#
-#		if len(SeaLevel.monthlySeaLevels) == 12:
-#			pass
-#
-#		if (currentMonth == firstMonth):
-#			update_month_labels()
-#			firstMonth = firstMonth + 1
-#			if firstMonth > 11:
-#				firstMonth = 0
-#
-#		currentMonth = UpdateDate.month
+	if !SeaLevel.sensorPresent:
+		return 
+		
 	update_month_labels()
 	update_min_max()
 	update()
@@ -180,6 +162,7 @@ func _ready():
 	if len(SeaLevel.monthlySeaLevels) > 0:
 		firstMonth = SeaLevel.monthlySeaLevels[0][0]
 		
-	create_labels()
-	update()
+	if SeaLevel.sensorPresent:
+		create_labels()
+		update()
 		

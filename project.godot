@@ -210,6 +210,7 @@ UpdateWindLevel="*res://scripts/UpdateWindLevel.gd"
 RainLevel="*res://scripts/RainLevel.gd"
 UpdateRainLevel="*res://scripts/UpdateRainLevel.gd"
 NpcOrganizer="*res://scripts/NPCOrganizer.gd"
+SceneManager="*res://scripts/SceneManager.gd"
 
 [debug]
 
