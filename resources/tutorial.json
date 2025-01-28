@@ -4,35 +4,133 @@
 			"dialogues": [
 				{
 					"type": "Dialogue",
-					"text": "Hello, Mayor PLAYER_NAME! Welcome to Shore City. I’m so happy to have you as our new mayor. We’re a small community right now, but I’m sure you can lead us to becoming a bustling city.",
+					"text": "Welcome to your first day in office, Mayor PLAYER_NAME. The city is happy to have you as its leader. I’m Jermaine, your Deputy Mayor.",
 					"char_id": 1,
 					"parent_path": "/root/CityMap"
 				},
 				{
 					"type": "Dialogue",
-					"text": "My name is Maria. Let me give you a tour of the city as I explain your role as mayor.",
+					"text": "Thank you, Jermaine. I can’t wait to start working together.",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": " I’m happy you’re excited. We’ll need that enthusiasm to help get the city fixed up.",
 					"char_id": 1,
 					"parent_path": "/root/CityMap"
 				},
 				{
 					"type": "Dialogue",
-					"text": "This is the map of the city. On the left are the tools you need to build infrastructure around town. Utility plants power all the buildings in town. Go ahead and place a utility plant.",
-					"char_id": 1,
+					"text": "Oh no. The storm was really bad.",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "We need to get the city fixed up.",
+							"response": "That’s right! We have to get things in tip-top shape. Join me in the office, and we can get started.",
+							"offset": 1,
+							"force_scene_change": true,
+							"scene_path": "res://ui/hud/NPC_Interactions/Office.tscn"
+						},
+						{
+							"selection": "We need to help our citizens.",
+							"response": "That’s right! We have to get things in tip-top shape. Join me in the office, and we can get started.",
+							"offset": 1,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
 					"parent_path": "/root/CityMap"
 				},
 				null
 			],
 			"conditions": {
-				"event_name": "Added Tile",
-				"event_description": "Added Power Plant"
+				"event_name": "Office",
+				"event_description": "Entered"
 			}
 		},
 		{
 			"dialogues": [
 				{
 					"type": "Dialogue",
-					"text": "Placing new buildings costs money. The town has started with a modest budget but you can earn more taxes as new citizens move in. Now place a house or shop and connect it with a road.",
+					"text": "Welcome to our office, Mayor PLAYER_NAME. This is the hub for all things Saltpoint City.",
 					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "This is so nice.",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "First, let’s check out the dashboard. If you click on the computer, you can see stats about the city and its citizens. Right now, our citizens’ happiness is very low because of all the damage from the storm.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "How can we help improve citizens' happiness?",
+							"response": "We can start by addressing citizen's issues with the city.",
+							"offset": 1,
+							"force_scene_change": false
+						},
+						{
+							"selection": "How can we help improve the city?",
+							"response": "We need to fix the damaged facilities around the city.",
+							"offset": 1,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Managing the city’s resources is a big part of our job. Storms are quite frequent here on the coast, so we need to make sure the city can handle any impending storms.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "That sounds like a big task.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "It is. But we’ll take step by step. How about you start with the beach? The beach was closed due to the storm. It needs to be cleaned before it can be reopened.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "That sounds like a great idea. Let's go!",
+							"response": null,
+							"offset": 1,
+							"force_scene_change": true,
+							"scene_path":"res://ui/hud/NPC_Interactions/Lab.tscn"
+						},
+						{
+							"selection": "I’ll meet you at the beach. I’d like to explore the city first.",
+							"response": null,
+							"offset": 1,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
 					"parent_path": "/root/CityMap"
 				},
 				null

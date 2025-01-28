@@ -8,9 +8,9 @@ var npcCount: int = 0
 #Called only once to intialize the NPCs
 func _ready():
 	addNPC("PLAYER_NAME", "Mayor",  0, "res://assets/characters/test_profession_icon.png", "")
-	addNPC("Maria","Researcher", 1, "res://assets/characters/researcher_icon.png", "I am a researcher!")
-	addNPC("Clark", "Environmental Engineer", 2, "res://assets/characters/scientist_icon.png", "I am an environmental engineer!")
-	addNPC("Jermaine", "Deputy Mayor", 3, "res://assets/characters/test_profession_icon.png", "I am a deputy mayor!")
+	addNPC("Jermaine", "Deputy Mayor", 1, "res://assets/characters/test_profession_icon.png", "I am a deputy mayor!")
+	addNPC("Maria","Researcher", 2, "res://assets/characters/researcher_icon.png", "I am a researcher!")
+	addNPC("Clark", "Environmental Engineer", 3, "res://assets/characters/scientist_icon.png", "I am an environmental engineer!")
 	#addNPC("Test Name","Test Profession", 4, "res://assets/characters/test_profession_icon.png", "I am definitely something!")
 	
 #Gets the number of NPCs
