@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasLayer
 
 var food_waste_sprites = ["res://assets/Beach Cleanup/apple core.png", 
 						"res://assets/Beach Cleanup/apples.png", 
@@ -31,6 +31,7 @@ func _process(delta):
 	if remaining_trash == 0:
 		UpdateTrashLevel.minigame_reduction(accuracy)
 		get_parent().remove_child(self)
+		Announcer.notify(Event.new("Mini Game", "Exited", 1))
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

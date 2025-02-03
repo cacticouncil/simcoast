@@ -21,16 +21,22 @@ func getNextText():
 	# Check if the dialogue is null (end of conversation)
 	if current_conv.dialogues[conv_index] == null:
 		# Remove the tutorial scene
-		var parent = get_parent()
-		parent.remove_child(self)
+		var city_map = get_parent()
+		city_map.remove_child(self)
 		print("Removed tutorial scene")
 		
 		# If there is a forced scene change
 		if scene_change:
-			print(parent.get_path())
+			print(city_map.get_path())
+			
+			var node = city_map.get_node("OfficeScreen")
+			if node:
+				print("FOUND OFFICE SCENE")
+				city_map.remove_child(node)
+				
 			var scene = load(scene_change)
 			var instance = scene.instance()
-			parent.add_child(instance)
+			city_map.add_child(instance)
 			scene_change = null
 			
 		return
@@ -59,22 +65,27 @@ func getNextText():
 		$DialogueBox/Option0.text = choices[0].selection
 		$DialogueBox/Option1.text = choices[1].selection
 		
+		# Enable the options
+		$DialogueBox/Option0.disabled = false
+		$DialogueBox/Option1.disabled = false
+		
 		# Not always a 3rd option
 		if choices[2]:
 			$DialogueBox/Option2.text = choices[2].selection
-		
-		
+			$DialogueBox/Option2.disabled = false
+	
+	display_char_photo_and_name(int(dialogue.char_id))
+	
+	# Unlock the character
+	NPCOrganizer.unlockNPC(int(dialogue.char_id))
+	
+func display_char_photo_and_name(char_id: int):
 	# Load the texture for the NPC
-	var npc: NPC = NPCOrganizer.npcDictionary[int(dialogue.char_id)]
+	var npc: NPC = NPCOrganizer.npcDictionary[char_id]
 	var npc_icon = load(npc.icon)
 	var npc_name = npc.name if npc.name != "PLAYER_NAME" else Global.userName
 	$DialogueBox/SpeakerBox/Speaker.texture = npc_icon
 	$DialogueBox/SpeakerBox/SpeakerName.bbcode_text = "[center]" + npc_name + "[/center]"
-		
-	# Unlock the character
-	NPCOrganizer.unlockNPC(int(dialogue.char_id))
-	
-	
 
 func _on_NextButton_pressed():
 	getNextText()
@@ -88,9 +99,9 @@ func getConvIndex():
 
 
 func disableOptions():
-	$DialogueBox/Option0.disabled = false
-	$DialogueBox/Option1.disabled = false
-	$DialogueBox/Option2.disabled = false
+	$DialogueBox/Option0.disabled = true
+	$DialogueBox/Option1.disabled = true
+	$DialogueBox/Option2.disabled = true
 	$DialogueBox/Option0.text = ""
 	$DialogueBox/Option1.text = ""
 	$DialogueBox/Option2.text = ""
@@ -114,6 +125,8 @@ func _on_Option0_pressed():
 	var text = choice.response.replace("PLAYER_NAME", Global.userName)
 
 	$DialogueBox/Dialogue.bbcode_text = text
+	
+	display_char_photo_and_name(int(choice.char_id))
 
 func _on_Option1_pressed():
 	disableOptions()
@@ -134,6 +147,8 @@ func _on_Option1_pressed():
 	var text = choice.response.replace("PLAYER_NAME", Global.userName)
 
 	$DialogueBox/Dialogue.bbcode_text = text
+	
+	display_char_photo_and_name(int(choice.char_id))
 
 
 func _on_Option2_pressed():
@@ -155,3 +170,5 @@ func _on_Option2_pressed():
 	var text = choice.response.replace("PLAYER_NAME", Global.userName)
 
 	$DialogueBox/Dialogue.bbcode_text = text
+	
+	display_char_photo_and_name(int(choice.char_id))

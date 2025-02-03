@@ -118,10 +118,18 @@ func _unhandled_input(event):
 			return
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
+		
 		if tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN || tile.sensor == Tile.TileSensor.WIND: 
 			if Input.is_action_pressed("right_click"):
 				sensor_back_to_inventory(tile.sensor)
 				tile.sensor = Tile.TileSensor.NONE
+		
+		if Input.is_action_pressed("right_click"):
+			var mini_game = preload("res://ui/Mini Game/MiniGame.tscn")
+			var mini_game_inst = mini_game.instance()
+			add_child(mini_game_inst)
+			return
+
 		# Perform action based on current tool selected
 		match Global.mapTool:
 			# Change Base or (if same base) raise/lower tile height

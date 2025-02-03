@@ -150,7 +150,7 @@ shader_param/stretch_y = 0.5
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 58, 93.125 )
 
-[node name="MiniGame" type="Node2D"]
+[node name="MiniGame" type="CanvasLayer"]
 script = ExtResource( 11 )
 
 [node name="Beach" type="TextureRect" parent="."]
