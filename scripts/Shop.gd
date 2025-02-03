@@ -61,6 +61,16 @@ func _on_QuitShop_pressed():
 	get_node("/root/CityMap/HUD/TopBarBG/StoreSelected").visible = false
 	queue_free()
 
+# closes information popup
+func _on_CloseInfo_pressed():
+	for sensor in Inventory.sensors:
+		if sensor.info_bttn == true:
+			sensor.info_bttn = false
+	$InformationBox.visible = false
+	var minigame = preload("res://ui/Mini Game/MiniGame.tscn")
+	var minigame_inst = minigame.instance()
+	add_child(minigame_inst)
+
 
 func _on_QuitShop_mouse_entered():
 	$QuitShop.material.set_shader_param("value", 0.3)

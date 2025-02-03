@@ -211,6 +211,7 @@ RainLevel="*res://scripts/RainLevel.gd"
 UpdateRainLevel="*res://scripts/UpdateRainLevel.gd"
 NpcOrganizer="*res://scripts/NPCOrganizer.gd"
 SceneManager="*res://scripts/SceneManager.gd"
+UpdateTrashLevel="*res://scripts/UpdateTrashLevel.gd"
 
 [debug]
 
