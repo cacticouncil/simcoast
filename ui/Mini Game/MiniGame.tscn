@@ -1,0 +1,306 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://assets/Beach Cleanup/drift wood.png" type="Texture" id=1]
+[ext_resource path="res://assets/Beach Cleanup/beach.jpg" type="Texture" id=2]
+[ext_resource path="res://assets/Beach Cleanup/rock.png" type="Texture" id=3]
+[ext_resource path="res://assets/Beach Cleanup/grass-2.png" type="Texture" id=4]
+[ext_resource path="res://assets/Beach Cleanup/grass-1.png" type="Texture" id=5]
+[ext_resource path="res://assets/Beach Cleanup/rocks.png" type="Texture" id=6]
+[ext_resource path="res://assets/Beach Cleanup/palm tree-2.png" type="Texture" id=7]
+[ext_resource path="res://assets/Beach Cleanup/food waste bin.png" type="Texture" id=8]
+[ext_resource path="res://assets/Beach Cleanup/trash bin.png" type="Texture" id=9]
+[ext_resource path="res://assets/Beach Cleanup/recycling bin.png" type="Texture" id=10]
+[ext_resource path="res://ui/Mini Game/MiniGame.gd" type="Script" id=11]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 56.5, 91.5 )
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform bool enable = false;
+uniform float glow_size : hint_range(0.0, 10.0) = 5.0;
+uniform vec4 glow_color : hint_color = vec4(1.0, 0.8, 0.0, 1.0); // Yellowish glow
+uniform float stretch_y : hint_range(0.5, 2.0) = 1.5; // Control vertical stretch
+
+void fragment() {
+    vec4 tex_color = texture(TEXTURE, UV);
+    if (enable)
+	{
+    // Create elliptical distance by stretching Y coordinate
+    vec2 centered_uv = UV - vec2(0.5);
+    centered_uv.y *= stretch_y;
+    float distance = length(centered_uv);
+    
+    // Create the glow effect with smoothstep
+    float alpha = smoothstep(0.5, 0.5 - glow_size / 100.0, distance);
+    
+    // Create the glow color effect
+    vec4 glow = vec4(glow_color.rgb, glow_color.a * alpha);
+    
+    // Only show glow where the texture has content
+    float final_alpha = max(tex_color.a, glow.a * (1.0 - tex_color.a));
+    vec3 final_color = mix(glow.rgb, tex_color.rgb, tex_color.a);
+    
+    // Output with proper transparency
+    COLOR = vec4(final_color, final_alpha);
+	}
+	else
+	{
+		COLOR = tex_color
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/enable = false
+shader_param/glow_size = 5.0
+shader_param/glow_color = Color( 1, 0.976471, 0.870588, 1 )
+shader_param/stretch_y = 0.5
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 56, 93.5 )
+
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+
+uniform bool enable = false;
+uniform float glow_size : hint_range(0.0, 10.0) = 5.0;
+uniform vec4 glow_color : hint_color = vec4(1.0, 0.8, 0.0, 1.0); // Yellowish glow
+uniform float stretch_y : hint_range(0.5, 2.0) = 1.5; // Control vertical stretch
+
+void fragment() {
+    vec4 tex_color = texture(TEXTURE, UV);
+    if (enable)
+	{
+    // Create elliptical distance by stretching Y coordinate
+    vec2 centered_uv = UV - vec2(0.5);
+    centered_uv.y *= stretch_y;
+    float distance = length(centered_uv);
+    
+    // Create the glow effect with smoothstep
+    float alpha = smoothstep(0.5, 0.5 - glow_size / 100.0, distance);
+    
+    // Create the glow color effect
+    vec4 glow = vec4(glow_color.rgb, glow_color.a * alpha);
+    
+    // Only show glow where the texture has content
+    float final_alpha = max(tex_color.a, glow.a * (1.0 - tex_color.a));
+    vec3 final_color = mix(glow.rgb, tex_color.rgb, tex_color.a);
+    
+    // Output with proper transparency
+    COLOR = vec4(final_color, final_alpha);
+	}
+	else
+	{
+		COLOR = tex_color
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/enable = false
+shader_param/glow_size = 5.0
+shader_param/glow_color = Color( 1, 0.976471, 0.870588, 1 )
+shader_param/stretch_y = 0.5
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+
+uniform bool enable = false;
+uniform float glow_size : hint_range(0.0, 10.0) = 5.0;
+uniform vec4 glow_color : hint_color = vec4(1.0, 0.8, 0.0, 1.0); // Yellowish glow
+uniform float stretch_y : hint_range(0.5, 2.0) = 1.5; // Control vertical stretch
+
+void fragment() {
+    vec4 tex_color = texture(TEXTURE, UV);
+    if (enable)
+	{
+    // Create elliptical distance by stretching Y coordinate
+    vec2 centered_uv = UV - vec2(0.5);
+    centered_uv.y *= stretch_y;
+    float distance = length(centered_uv);
+    
+    // Create the glow effect with smoothstep
+    float alpha = smoothstep(0.5, 0.5 - glow_size / 100.0, distance);
+    
+    // Create the glow color effect
+    vec4 glow = vec4(glow_color.rgb, glow_color.a * alpha);
+    
+    // Only show glow where the texture has content
+    float final_alpha = max(tex_color.a, glow.a * (1.0 - tex_color.a));
+    vec3 final_color = mix(glow.rgb, tex_color.rgb, tex_color.a);
+    
+    // Output with proper transparency
+    COLOR = vec4(final_color, final_alpha);
+	}
+	else
+	{
+		COLOR = tex_color
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+shader_param/enable = false
+shader_param/glow_size = 5.0
+shader_param/glow_color = Color( 1, 0.976471, 0.870588, 1 )
+shader_param/stretch_y = 0.5
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 58, 93.125 )
+
+[node name="MiniGame" type="Node2D"]
+script = ExtResource( 11 )
+
+[node name="Beach" type="TextureRect" parent="."]
+margin_right = 1277.0
+margin_bottom = 722.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="PalmTree" type="TextureRect" parent="Beach"]
+margin_left = -69.0
+margin_top = -117.0
+margin_right = 172.0
+margin_bottom = 188.0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="Grass1" type="TextureRect" parent="Beach"]
+margin_left = 112.0
+margin_top = 324.0
+margin_right = 236.0
+margin_bottom = 471.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Rock1" type="TextureRect" parent="Beach/Grass1"]
+margin_left = -118.0
+margin_top = 40.0
+margin_right = 91.0
+margin_bottom = 195.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="Driftwood" type="TextureRect" parent="Beach"]
+margin_left = -44.0
+margin_top = 221.0
+margin_right = 188.0
+margin_bottom = 309.0
+rect_rotation = -6.2
+texture = ExtResource( 1 )
+expand = true
+flip_h = true
+
+[node name="Rock2" type="TextureRect" parent="Beach"]
+margin_left = 649.0
+margin_right = 1044.0
+margin_bottom = 203.0
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Grass2" type="TextureRect" parent="Beach"]
+margin_left = 514.0
+margin_top = 419.0
+margin_right = 716.0
+margin_bottom = 567.0
+texture = ExtResource( 5 )
+expand = true
+
+[node name="Grass3" type="TextureRect" parent="Beach"]
+margin_left = 570.0
+margin_top = 425.0
+margin_right = 792.0
+margin_bottom = 577.0
+texture = ExtResource( 5 )
+expand = true
+flip_h = true
+
+[node name="Grass4" type="TextureRect" parent="Beach"]
+margin_left = 728.0
+margin_top = 421.0
+margin_right = 861.0
+margin_bottom = 570.0
+texture = ExtResource( 4 )
+expand = true
+
+[node name="FoodWaste" type="Area2D" parent="Beach"]
+position = Vector2( 264, 147 )
+collision_layer = 256
+collision_mask = 256
+input_pickable = false
+
+[node name="FWCollision" type="CollisionShape2D" parent="Beach/FoodWaste"]
+position = Vector2( -1.5, 11.5 )
+shape = SubResource( 3 )
+
+[node name="FWTexture" type="TextureRect" parent="Beach/FoodWaste"]
+material = SubResource( 2 )
+margin_left = -60.0
+margin_top = -80.0
+margin_right = 55.0
+margin_bottom = 100.0
+texture = ExtResource( 8 )
+expand = true
+
+[node name="RecyclingBin" type="Area2D" parent="Beach"]
+position = Vector2( 430, 150 )
+collision_layer = 256
+collision_mask = 256
+
+[node name="RBCollision" type="CollisionShape2D" parent="Beach/RecyclingBin"]
+position = Vector2( -1, 8.5 )
+shape = SubResource( 4 )
+
+[node name="RBTexture" type="TextureRect" parent="Beach/RecyclingBin"]
+material = SubResource( 7 )
+margin_left = -60.0
+margin_top = -83.0
+margin_right = 55.0
+margin_bottom = 97.0
+texture = ExtResource( 10 )
+expand = true
+
+[node name="TrashBin" type="Area2D" parent="Beach"]
+position = Vector2( 596, 149 )
+collision_layer = 256
+collision_mask = 256
+
+[node name="TBTexture" type="TextureRect" parent="Beach/TrashBin"]
+material = SubResource( 9 )
+margin_left = -56.0
+margin_top = -80.0
+margin_right = 59.0
+margin_bottom = 100.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="TBCollision" type="CollisionShape2D" parent="Beach/TrashBin"]
+position = Vector2( 2, 9.125 )
+shape = SubResource( 5 )
+
+[node name="TrashPositions" type="Node2D" parent="Beach"]
+position = Vector2( 0, 1 )
+
+[node name="Position2D" type="Position2D" parent="Beach/TrashPositions"]
+position = Vector2( 178, 501 )
+
+[node name="Position2D2" type="Position2D" parent="Beach/TrashPositions"]
+position = Vector2( 606, 556 )
+
+[node name="Position2D3" type="Position2D" parent="Beach/TrashPositions"]
+position = Vector2( 837, 155 )
+
+[node name="Position2D4" type="Position2D" parent="Beach/TrashPositions"]
+position = Vector2( 71, 271 )
+
+[node name="Position2D5" type="Position2D" parent="Beach/TrashPositions"]
+position = Vector2( 961, 192 )
+
+[connection signal="area_entered" from="Beach/FoodWaste" to="." method="_on_FoodWaste_area_entered"]
+[connection signal="area_exited" from="Beach/FoodWaste" to="." method="_on_FoodWaste_area_exited"]
+[connection signal="area_entered" from="Beach/RecyclingBin" to="." method="_on_RecyclingBin_area_entered"]
+[connection signal="area_exited" from="Beach/RecyclingBin" to="." method="_on_RecyclingBin_area_exited"]
+[connection signal="area_entered" from="Beach/TrashBin" to="." method="_on_TrashBin_area_entered"]
+[connection signal="area_exited" from="Beach/TrashBin" to="." method="_on_TrashBin_area_exited"]
