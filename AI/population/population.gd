@@ -19,7 +19,7 @@ func _process(delta):
 # Obtains a new tile queue and sets it in the blackboard	
 func update_AI():
 	var latest = update_queue()
-	print("ok2>")
+	#print("ok2>")
 	if latest.size() != 0:
 		print("yay")
 		$Blackboard.set_data("queue2", latest)

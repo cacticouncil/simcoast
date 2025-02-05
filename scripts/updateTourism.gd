@@ -45,6 +45,7 @@ func update_tourism():
 		#Calculate chance based on attractiveness and traffic
 		print("Beach attractiveness: ", beach_attractiveness)
 		TOURIST_CHANCE = traffic * beach_attractiveness
+		print("Number of pop: ", UpdateAgent.ActiveAgents.size())
 		#Bound by population, commercial areas, put in trash level into beach attractiveness
 		#If no commercial areas or no population, tourists should be zero
 		#If trash level is too high tourists should be zero

@@ -229,6 +229,7 @@ UpdateTourist="*res://AI/tourism/UpdateTourist.gd"
 UpdateTourism="*res://scripts/updateTourism.gd"
 UpdateTrashLevel="*res://scripts/UpdateTrashLevel.gd"
 Beach="*res://scripts/Beach.gd"
+Population="*res://AI/population/Population.tscn"
 
 [debug]
 
