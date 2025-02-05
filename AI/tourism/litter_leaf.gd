@@ -4,7 +4,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var current_agent = blackboard.get_data("queue").pop_front()
 	#print("littered")
 	#Update this to a more fair value
-	UpdateTrashLevel.trash_level += 0.1
+	UpdateTrashLevel.update_trash()
 	# updates queue
 	check_empty(blackboard)
 

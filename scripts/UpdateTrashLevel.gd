@@ -2,10 +2,11 @@ extends Node
 
 # Start with trash at level 0
 var trash_level = 0
-var trash_rate = 0.1
+var trash_rate = 0.01
 
 func update_trash():
 	trash_level += trash_rate
+	print("Trash level: ", trash_level)
 	clamp(trash_level, 0, 100)
 
 func minigame_reduction(accuracy):

@@ -43,7 +43,13 @@ func update_tourism():
 			8, 9, 10, 11, 0:
 				traffic = WEIGHTS.low_traffic
 		#Calculate chance based on attractiveness and traffic
+		print("Beach attractiveness: ", beach_attractiveness)
 		TOURIST_CHANCE = traffic * beach_attractiveness
+		#Bound by population, commercial areas, put in trash level into beach attractiveness
+		#If no commercial areas or no population, tourists should be zero
+		#If trash level is too high tourists should be zero
+		#Implement them moving to a commercial zone tile if beach is evacuated
+		#Aggregate trash 
 		TOURIST_CHANCE = clamp(TOURIST_CHANCE, LOWER_BOUND, UPPER_BOUND)
 	#print(TOURIST_CHANCE)
 	update_beach_tiles()
@@ -53,6 +59,9 @@ func update_tourism():
 func update_beach_tiles():
 	rng.randomize()
 	#Should clear tourists weekly
+	#Max amount of tourist agents is amount of commercial zones
+	#Upper bounded by population, and percentage of population
+	#Add in changing location for tourists
 	UpdateTourist.clear_tourists()
 	for j in range(top_beach_cols):
 		var beachTile = Global.tileMap[top_beach_row][j]

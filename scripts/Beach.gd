@@ -25,7 +25,7 @@ var item_counts = {
 	"public_works": 0
 }
 
-var base_attractiveness = 50.0
+var base_attractiveness = 5.0
 var max_attractiveness = 95.0
 var min_attractiveness = 5.0
 var scaling_factor = 2
