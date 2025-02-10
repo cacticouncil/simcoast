@@ -106,10 +106,16 @@ func clear_mission_tip():
 var anchor1: Array = [null, null]
 var anchor2: Array = [null, null]
 
+# Variable for highlighting the first anchor point
+var anchor1_TileCube = null
+
 # Array of selected tiles
 var selected: Array = []
 
 func reset_selected():
+	anchor1_TileCube.remove_yellow_tint()
+	for tile in selected:
+		tile.cube.remove_yellow_tint()
 	anchor1 = [null, null]
 	anchor2 = [null, null]
 	selected = []
@@ -124,7 +130,9 @@ func populate_selected():
 	# Iterate through the tile map using the min and max values
 	for i in range(min_x, max_x + 1):
 		for j in range(min_y, max_y + 1):
-			selected.append(Global.tileMap[i][j])
+			var tile = Global.tileMap[i][j]
+			selected.append(tile)
+			tile.cube.apply_yellow_tint()
 
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):
@@ -151,6 +159,8 @@ func _unhandled_input(event):
 				
 			if anchor1[0] == null: # Check if anchor1 has been defined yet
 				anchor1 = [tile.i, tile.j] # If not, define it
+				anchor1_TileCube = tile.cube
+				anchor1_TileCube.apply_yellow_tint()
 				return
 			else:
 				anchor2 = [tile.i, tile.j] # Define anchor2

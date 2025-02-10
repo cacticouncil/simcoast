@@ -29,15 +29,35 @@ func _ready():
 		polygon.visible = false
 		add_child(polygon)
 
+var tintActive = false
+
+func apply_yellow_tint():
+	tintActive = true
+	update()  # Force a redraw so _draw() will run
+
+func remove_yellow_tint():
+	tintActive = false
+	update()  # Force a redraw to clear the tint
+
+
 func _draw():
 	update_polygons()
 	
 	var tile = Global.tileMap[i][j]
 		
+	# Get the base and water colors
 	var baseColor = get_cube_colors()
-	var waterColor = Tile.WATER_COLOR
+	# Duplicate the water color array so we don't modify the constant globally
+	var waterColor = Tile.WATER_COLOR.duplicate()  
 	var buildingColor = get_building_colors()
-
+	
+	# If the tile is tinted, interpolate its colors toward yellow.
+	if tintActive:
+		for idx in baseColor.size():
+			baseColor[idx] = baseColor[idx].linear_interpolate(Color(1, 1, 0), 0.5)
+		for idx in waterColor.size():
+			waterColor[idx] = waterColor[idx].linear_interpolate(Color(1, 1, 0), 0.5)
+	
 	# Draw the sides of the base of the tile cube
 	if tile.get_base_height() > 0:
 		draw_polygon(base_cube[1].get_polygon(), PoolColorArray([baseColor[1]]))
