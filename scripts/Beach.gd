@@ -64,7 +64,7 @@ func update_counts():
 	
 			elif beachTile.zone == Tile.TileZone.PUBLIC_WORKS:
 				item_counts["public_works"] += 1
-	
+	item_counts["trash"] += UpdateTrashLevel.trash_level
 	print(calculate_attractivness())
 	
 func calculate_attractivness():
