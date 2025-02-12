@@ -5,6 +5,7 @@ var temp_container = []
 
 # initializes shop scene
 func _ready():	
+	SceneManager.connect("sensor_info_clicked", self, "_sensor_callback")
 	for i in range(Inventory.sensors.size()):
 		# We have 3 achievements side by side, then print on the next row
 		if i % 3 == 0:
@@ -28,10 +29,6 @@ func _process(delta):
 	var curr_desc3_1 = " sensor in your inventory."
 
 	for sensor in Inventory.sensors:
-		# opens extended information of sensor
-		if sensor.info_bttn == true:
-			$InformationBox.visible = true
-			$InformationBox/infoText.text = sensor.get_ext_info()	
 		# opens successfull buy display
 		if sensor.buy_bttn == true:
 			var curr_name = sensor.get_name()
@@ -50,6 +47,12 @@ func _process(delta):
 			$BuyBox/BuyText.text = "Sorry! You do not have enough funds to buy this sensor."
 			sensor.cant_buy = false
 
+func _sensor_callback(sensor):
+	var currSensor = sensor
+	var lab = preload("res://ui/hud/NPC_Interactions/Lab.tscn")
+	var lab_instance = lab.instance()
+	add_child(lab_instance)
+	
 # closes shop scene
 func _on_QuitShop_pressed():
 	$QuitShop.material.set_shader_param("value", 1)
@@ -57,24 +60,6 @@ func _on_QuitShop_pressed():
 	get_node("/root/CityMap/HUD/TopBarBG/AchievementSelected").visible = false
 	get_node("/root/CityMap/HUD/TopBarBG/StoreSelected").visible = false
 	queue_free()
-
-var tutorial_lab_scene_created = false
-# closes information popup
-func _on_CloseInfo_pressed():
-	for sensor in Inventory.sensors:
-		if sensor.info_bttn == true:
-			sensor.info_bttn = false
-			
-		# Instantiate the Lab scene the first time the info popup is closed
-		if sensor.get_name() == "Tide Gauge" and not tutorial_lab_scene_created:
-			print("Lab scene")
-			var lab = preload("res://ui/hud/NPC_Interactions/Lab.tscn")
-			var lab_instance = lab.instance()
-			add_child(lab_instance)
-			tutorial_lab_scene_created = true
-
-			
-	$InformationBox.visible = false
 
 
 func _on_QuitShop_mouse_entered():

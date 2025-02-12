@@ -37,6 +37,10 @@ func _ready():
 	cam_x = (viewport_size.x / 2) * self.zoom.x
 	cam_y = (viewport_size.y / 2) * self.zoom.y
 
+	self.zoom.x = 1.375
+	self.zoom.y = 1.375
+	self.position.x += 40
+
 func _process(delta):
 	var move_vector = Vector2()
 	
@@ -85,18 +89,18 @@ func zoom_out():
 		self.zoom.x += 0.25
 		self.zoom.y += 0.25
 			
-		viewport_size = get_viewport().size
-		cam_x = (viewport_size.x / 2) * self.zoom.x
-		cam_y = (viewport_size.y / 2) * self.zoom.y
+		# viewport_size = get_viewport().size
+		# cam_x = (viewport_size.x / 2) * self.zoom.x
+		# cam_y = (viewport_size.y / 2) * self.zoom.y
 			
-		# Checks if after zooming out the camera is outside horizontal limit
-		if self.position.x - cam_x < self.limit_left:
-			self.position.x += self.limit_left + (self.position.x - cam_x) * -1
-		elif self.position.x + cam_x > self.limit_right:
-			self.position.x -= self.position.x + cam_x - self.limit_right
+		# # Checks if after zooming out the camera is outside horizontal limit
+		# if self.position.x - cam_x < self.limit_left:
+		# 	self.position.x += self.limit_left + (self.position.x - cam_x) * -1
+		# elif self.position.x + cam_x > self.limit_right:
+		# 	self.position.x -= self.position.x + cam_x - self.limit_right
 			
-		# Checks if after zooming out the camera is outside vertical limit
-		if self.position.y - cam_y < self.limit_top:
-			self.position.y += self.limit_top + (self.position.y - cam_y) * -1
-		elif self.position.y + cam_y > self.limit_bottom:
-			self.position.y -= self.position.y + cam_y - self.limit_bottom
+		# # Checks if after zooming out the camera is outside vertical limit
+		# if self.position.y - cam_y < self.limit_top:
+		# 	self.position.y += self.limit_top + (self.position.y - cam_y) * -1
+		# elif self.position.y + cam_y > self.limit_bottom:
+		# 	self.position.y -= self.position.y + cam_y - self.limit_bottom

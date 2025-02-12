@@ -210,6 +210,7 @@ UpdateRainLevel="*res://scripts/UpdateRainLevel.gd"
 Introduction="*res://ui/NPC_Interactions/Introduction.gd"
 TutorialData="*res://scripts/TutorialData.gd"
 NpcOrganizer="*res://scripts/NPCOrganizer.gd"
+SceneManager="*res://scripts/SceneManager.gd"
 
 [debug]
 

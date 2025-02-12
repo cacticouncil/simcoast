@@ -70,6 +70,11 @@ var beginBeachEvacuation = false
 var stayEvacuated = false
 var moveBackIn = false
 
+#List of active tiles for better performance
+#Key = [i, j]
+#Value = True or False
+var activeTiles = {}
+
 func get_global_data():
 	var globalData = {
 		"mapName": mapName,
