@@ -113,11 +113,13 @@ var anchor1_TileCube = null
 var selected: Array = []
 
 func reset_selected():
-	anchor1_TileCube.remove_yellow_tint()
+	if anchor1_TileCube:
+		anchor1_TileCube.remove_yellow_tint()
 	for tile in selected:
 		tile.cube.remove_yellow_tint()
 	anchor1 = [null, null]
 	anchor2 = [null, null]
+	anchor1_TileCube = null
 	selected = []
 	
 func populate_selected():
