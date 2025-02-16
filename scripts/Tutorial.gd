@@ -7,9 +7,13 @@ var conv_index = 0
 var current_conv
 
 var scene_change = null
+var scene_to_remove = null
 
 # Called when scene first enters the tree
 func _ready():
+	$DialogueBox/Option0.connect("pressed", self, "_on_Option_pressed", [0])
+	$DialogueBox/Option1.connect("pressed", self, "_on_Option_pressed", [1])
+	$DialogueBox/Option2.connect("pressed", self, "_on_Option_pressed", [2])
 	print("Tutorial scene created. Parent: " + get_parent().get_path())
 	getNextText()
 
@@ -29,10 +33,10 @@ func getNextText():
 		if scene_change:
 			print(city_map.get_path())
 			
-			var node = city_map.get_node("OfficeScreen")
-			if node:
-				print("FOUND OFFICE SCENE")
-				city_map.remove_child(node)
+			# If the current scene needs to be removed upon the scene change
+			if scene_to_remove:
+				var child = city_map.get_node(scene_to_remove)
+				city_map.remove_child(child)
 				
 			var scene = load(scene_change)
 			var instance = scene.instance()
@@ -106,9 +110,10 @@ func disableOptions():
 	$DialogueBox/Option1.text = ""
 	$DialogueBox/Option2.text = ""
 
-func _on_Option0_pressed():
+func _on_Option_pressed(button_id: int):
 	disableOptions()
-	var choice = current_conv.dialogues[conv_index].choices[0]
+
+	var choice = current_conv.dialogues[conv_index].choices[button_id]
 	
 	conv_index += choice.offset
 	
@@ -117,51 +122,8 @@ func _on_Option0_pressed():
 	
 	if choice.force_scene_change:
 		scene_change = choice.scene_path
-
-	if choice.response == null:
-		getNextText()
-		return
-	
-	var text = choice.response.replace("PLAYER_NAME", Global.userName)
-
-	$DialogueBox/Dialogue.bbcode_text = text
-	
-	display_char_photo_and_name(int(choice.char_id))
-
-func _on_Option1_pressed():
-	disableOptions()
-	var choice = current_conv.dialogues[conv_index].choices[1]
-	
-	conv_index += choice.offset
-	
-	$DialogueBox/NextButton.disabled = false
-	$DialogueBox/NextButton/Label.text = "NEXT"
-	
-	if choice.force_scene_change:
-		scene_change = choice.scene_path
-
-	if choice.response == null:
-		getNextText()
-		return
-	
-	var text = choice.response.replace("PLAYER_NAME", Global.userName)
-
-	$DialogueBox/Dialogue.bbcode_text = text
-	
-	display_char_photo_and_name(int(choice.char_id))
-
-
-func _on_Option2_pressed():
-	disableOptions()
-	var choice = current_conv.dialogues[conv_index].choices[2]
-	
-	conv_index += choice.offset
-	
-	$DialogueBox/NextButton.disabled = false
-	$DialogueBox/NextButton/Label.text = "NEXT"
-	
-	if choice.force_scene_change:
-		scene_change = choice.scene_path
+		if choice.remove_current:
+			scene_to_remove = choice.current_path
 
 	if choice.response == null:
 		getNextText()

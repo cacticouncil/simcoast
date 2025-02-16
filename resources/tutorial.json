@@ -35,7 +35,8 @@
 							"offset": 1,
 							"char_id": 1,
 							"force_scene_change": true,
-							"scene_path": "res://ui/hud/NPC_Interactions/Office.tscn"
+							"scene_path": "res://ui/hud/NPC_Interactions/Office.tscn",
+							"remove_current": false
 						},
 						{
 							"selection": "We need to help our citizens.",
@@ -124,7 +125,9 @@
 							"response": null,
 							"offset": 1,
 							"force_scene_change": true,
-							"scene_path":"res://ui/Beach/Beach.tscn"
+							"scene_path":"res://ui/Beach/Beach.tscn",
+							"remove_current": true,
+							"current_path": "OfficeScreen"
 						},
 						{
 							"selection": "I’ll meet you at the beach. I’d like to explore the city first.",
@@ -332,7 +335,8 @@
 							"response": null,
 							"offset": 1,
 							"force_scene_change": true,
-							"scene_path": "res://ui/Mini Game/MiniGame.tscn"
+							"scene_path": "res://ui/Mini Game/MiniGame.tscn",
+							"remove_current": false
 						},
 						{
 							"selection": "No.",
@@ -381,7 +385,9 @@
 							"response": null,
 							"offset": 1,
 							"force_scene_change": true,
-							"scene_path": "res://ui/hud/NPC_Interactions/Office.tscn"
+							"scene_path": "res://ui/hud/NPC_Interactions/Office.tscn",
+							"remove_current": true,
+							"current_path": "Beach"
 						},
 						{
 							"selection": "I'm going to look around but I'll meet him at the office later.",
