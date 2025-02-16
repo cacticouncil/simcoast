@@ -19,7 +19,7 @@ func getNextText():
 	current_conv = TutorialData.convs[segment]
 	
 	# Check if the dialogue is null (end of conversation)
-	if current_conv.dialogues[conv_index] == null:
+	if current_conv == null or current_conv.dialogues[conv_index] == null:
 		# Remove the tutorial scene
 		var city_map = get_parent()
 		city_map.remove_child(self)

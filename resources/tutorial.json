@@ -394,7 +394,8 @@
 					],
 					"char_id": 0,
 					"parent_path": "/root/CityMap"
-				}
+				},
+				null
 			],
 			"conditions": {}
 		},
