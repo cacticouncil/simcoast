@@ -97,6 +97,6 @@ action_mode = 0
 flat = true
 
 [connection signal="pressed" from="DialogueBox/NextButton" to="." method="_on_NextButton_pressed"]
-[connection signal="pressed" from="DialogueBox/Option0" to="." method="_on_Option0_pressed"]
-[connection signal="pressed" from="DialogueBox/Option1" to="." method="_on_Option1_pressed"]
-[connection signal="pressed" from="DialogueBox/Option2" to="." method="_on_Option2_pressed"]
+[connection signal="pressed" from="DialogueBox/Option0" to="." method="_on_Option_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="DialogueBox/Option1" to="." method="_on_Option_pressed" binds= [ 1 ]]
+[connection signal="pressed" from="DialogueBox/Option2" to="." method="_on_Option_pressed" binds= [ 2 ]]

@@ -11,9 +11,6 @@ var scene_to_remove = null
 
 # Called when scene first enters the tree
 func _ready():
-	$DialogueBox/Option0.connect("pressed", self, "_on_Option_pressed", [0])
-	$DialogueBox/Option1.connect("pressed", self, "_on_Option_pressed", [1])
-	$DialogueBox/Option2.connect("pressed", self, "_on_Option_pressed", [2])
 	print("Tutorial scene created. Parent: " + get_parent().get_path())
 	getNextText()
 
