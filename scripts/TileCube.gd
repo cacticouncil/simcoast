@@ -29,15 +29,48 @@ func _ready():
 		polygon.visible = false
 		add_child(polygon)
 
-var tintActive = false
+var yellowTintActive = false
+var orangeTintActive = false
+var blueTintActive = false
+var purpleTintActive = false
 
 func apply_yellow_tint():
-	tintActive = true
+	yellowTintActive = true
 	update()  # Force a redraw so _draw() will run
 
 func remove_yellow_tint():
-	tintActive = false
+	yellowTintActive = false
 	update()  # Force a redraw to clear the tint
+	
+func apply_orange_tint():
+	orangeTintActive = true
+	update()  # Force a redraw so _draw() will run
+
+func remove_orange_tint():
+	orangeTintActive = false
+	update()  # Force a redraw to clear the tint
+	
+func apply_blue_tint():
+	blueTintActive = true
+	update()  # Force a redraw so _draw() will run
+
+func remove_blue_tint():
+	blueTintActive = false
+	update()  # Force a redraw to clear the tint
+
+func apply_purple_tint():
+	purpleTintActive = true
+	update()  # Force a redraw so _draw() will run
+
+func remove_purple_tint():
+	purpleTintActive = false
+	update()  # Force a redraw to clear the tint
+	
+func remove_all_tint():
+	yellowTintActive = false
+	orangeTintActive = false
+	blueTintActive = false
+	purpleTintActive = false
 
 
 func _draw():
@@ -52,11 +85,31 @@ func _draw():
 	var buildingColor = get_building_colors()
 	
 	# If the tile is tinted, interpolate its colors toward yellow.
-	if tintActive:
+	if yellowTintActive:
 		for idx in baseColor.size():
 			baseColor[idx] = baseColor[idx].linear_interpolate(Color(1, 1, 0), 0.5)
 		for idx in waterColor.size():
 			waterColor[idx] = waterColor[idx].linear_interpolate(Color(1, 1, 0), 0.5)
+	
+	if orangeTintActive:
+		for idx in baseColor.size():
+			baseColor[idx] = baseColor[idx].linear_interpolate(Color(1, 0.5, 0), 0.5)  # Orange tint
+		for idx in waterColor.size():
+			waterColor[idx] = waterColor[idx].linear_interpolate(Color(1, 0.5, 0), 0.5)  # Orange tint
+	
+	if blueTintActive:
+		for idx in baseColor.size():
+			baseColor[idx] = baseColor[idx].linear_interpolate(Color(0, 0, 1), 0.5)  # Blue tint
+		for idx in waterColor.size():
+			waterColor[idx] = waterColor[idx].linear_interpolate(Color(0, 0, 1), 0.5)  # Blue tint
+	
+	if purpleTintActive:
+		for idx in baseColor.size():
+			baseColor[idx] = baseColor[idx].linear_interpolate(Color(0.5, 0, 1), 0.5)  # Purple tint
+		for idx in waterColor.size():
+			waterColor[idx] = waterColor[idx].linear_interpolate(Color(0.5, 0, 1), 0.5)  # Purple tint
+
+	
 	
 	# Draw the sides of the base of the tile cube
 	if tile.get_base_height() > 0:

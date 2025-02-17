@@ -110,18 +110,15 @@ var anchor2: Array = [null, null]
 # Variable for highlighting the first anchor point
 var anchor1_TileCube = null
 
-# Array of selected tiles
-var selected: Array = []
-
 func reset_selected():
 	if anchor1_TileCube:
 		anchor1_TileCube.remove_yellow_tint()
-	for tile in selected:
+	for tile in Global.selected:
 		tile.cube.remove_yellow_tint()
 	anchor1 = [null, null]
 	anchor2 = [null, null]
 	anchor1_TileCube = null
-	selected = []
+	Global.selected = []
 	
 func populate_selected():
 	# Get the minimums and maximums
@@ -134,7 +131,7 @@ func populate_selected():
 	for i in range(min_x, max_x + 1):
 		for j in range(min_y, max_y + 1):
 			var tile = Global.tileMap[i][j]
-			selected.append(tile)
+			Global.selected.append(tile)
 			tile.cube.apply_yellow_tint()
 
 # Handle inputs (clicks, keys)
@@ -168,7 +165,6 @@ func _unhandled_input(event):
 			else:
 				anchor2 = [tile.i, tile.j] # Define anchor2
 				populate_selected() # Populate the array
-				print(selected)
 				return
 		
 		if tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN || tile.sensor == Tile.TileSensor.WIND: 

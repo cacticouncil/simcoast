@@ -70,6 +70,9 @@ var beginBeachEvacuation = false
 var stayEvacuated = false
 var moveBackIn = false
 
+# Tiles selected via shift + left click
+var selected = []
+
 #List of active tiles for better performance
 #Key = [i, j]
 #Value = True or False

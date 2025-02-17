@@ -60,6 +60,12 @@ enum TileStatus {
 	HEAVY_DAMAGE
 }
 
+enum BuildingCode {
+	LIGHT,
+	MEDIUM,
+	HIGH
+}
+
 const DIRT_COLOR = [Color("ffc59d76"), Color("ffbb8d5d"), Color("ff9e7758"), Color("ff666666")]
 const GRASS_COLOR = [Color("ff8bb54a"), Color("ff60822d")]
 const SAND_COLOR = [Color("ffd9d3bf"), Color("ffc9bf99"), Color("ffaca075"), Color("ff867d5e")]
@@ -113,6 +119,7 @@ var data = [0, 0, 0, 0, TileStatus.NONE]
 var utilities = false
 var tileDamage = 0
 var erosion = 0
+var buildingCodeLevel = BuildingCode.LIGHT
 var isActive = false
 # Purchase price of a tile
 var landValue = 0
