@@ -25,6 +25,9 @@ var items = {
 	'lt_com_zone': 0, #don't use
 	'hv_com_zone': 0, #don't use
 	'close beach': 0, #don't use
+	'light': 0,
+	'medium': 0,
+	'high': 0,
 	'remove rocks': 0,
 	'wave breaker': 0,
 	"tide gauge": 0,
