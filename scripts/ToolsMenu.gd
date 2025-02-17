@@ -414,14 +414,26 @@ func button_pressed():
 		'light_button':
 			for tile in Global.selected:
 				tile.buildingCodeLevel = Tile.BuildingCode.LIGHT
+				tile.cube.remove_all_tint()
+				tile.cube.apply_orange_tint()
+			
+			Global.selected = []
 			
 		'medium_button':
 			for tile in Global.selected:
 				tile.buildingCodeLevel = Tile.BuildingCode.MEDIUM
+				tile.cube.remove_all_tint()
+				tile.cube.apply_blue_tint()
+				
+			Global.selected = []
 
 		'high_button':
 			for tile in Global.selected:
 				tile.buildingCodeLevel = Tile.BuildingCode.HIGH
+				tile.cube.remove_all_tint()
+				tile.cube.apply_purple_tint()
+				
+			Global.selected = []
 
 func deactivateButtons():
 	for i in group.get_buttons():
