@@ -31,6 +31,7 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 						# if living space is suitable and chance of moving allows for move to happen, move agent
 						if (select_tile > selectTile):
 							UpdateAgent.ActiveAgents.find(current_agent).residential_tile = current_tile
+							UpdateAgent.ActiveAgents.find(current_agent).cost_of_housing = 1500 * range_lerp(current_tile.desirability, 0, 1, 0, 2)
 							moved = true
 							break
 	if (moved == true):

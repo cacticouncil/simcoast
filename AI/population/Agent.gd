@@ -39,9 +39,9 @@ var level = JOBS.LOW
 # employment status
 var hasJob = false
 
-#Economic
+#Economic - monthly costs
 var cost_of_goods_services = 0
-
+var cost_utilities = 400
 var cost_of_housing = 0
 
 var unemployed_month = null
@@ -49,6 +49,8 @@ var months_passed = 0
 
 func _init(tile):
 	residential_tile = tile
+	cost_of_housing = 1500 * range_lerp(tile.desirability, 0, 1, 0, 2)
+	#cost_of_housing = 1500 * tile.desirability
 		
 func change_job(tile):
 	hasJob = true
