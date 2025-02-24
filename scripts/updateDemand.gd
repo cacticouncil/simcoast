@@ -84,7 +84,8 @@ func calcCommercialDemand():
 				comzones += 1
 			#Test for commercial demand tiles
 			if currTile.is_commercial():
-				currTile.demand = currTile.residential_neighbors
+				currTile.resource_demand = clamp(currTile.residential_neighbors, 0, 1)
+				print(currTile.resource_demand)
 	# for every 48 residential pop (3 full residential zones), demand 1 commercial zone
 	comDemand = round(pop/48)
 	comDemand -= comzones

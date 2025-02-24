@@ -209,7 +209,7 @@ var parent = [-1, -1] #If this tile is a child, this is it's parent, otherwise -
 
 
 #Economic Agent
-var demand = 0
+var resource_demand = 0
 
 func _init(tileData):
 	if not tileData.empty():

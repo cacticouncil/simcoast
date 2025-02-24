@@ -207,17 +207,22 @@ NpcObserver="*res://scripts/Observers/NpcObserver.gd"
 NPCOrganizer="*res://scripts/NPCOrganizer.gd"
 Inventory="*res://inventory/Inventory.tscn"
 BadgeObserver="*res://scripts/Observers/BadgeObserver.gd"
+Introduction="*res://ui/NPC_Interactions/Introduction.gd"
+TutorialData="*res://scripts/TutorialData.gd"
 SeaLevel="*res://scripts/SeaLevel.gd"
 UpdateSeaLevel="*res://scripts/updateSeaLevel.gd"
 WindLevel="*res://scripts/WindLevel.gd"
 UpdateWindLevel="*res://scripts/UpdateWindLevel.gd"
 RainLevel="*res://scripts/RainLevel.gd"
 UpdateRainLevel="*res://scripts/UpdateRainLevel.gd"
-Introduction="*res://ui/NPC_Interactions/Introduction.gd"
-TutorialData="*res://scripts/TutorialData.gd"
 NpcOrganizer="*res://scripts/NPCOrganizer.gd"
 SceneManager="*res://scripts/SceneManager.gd"
 UpdateAgent="*res://AI/population/UpdateAgent.gd"
+Tourism="*res://AI/tourism/Tourism.tscn"
+UpdateTourist="*res://AI/tourism/UpdateTourist.gd"
+UpdateTourism="*res://scripts/updateTourism.gd"
+UpdateTrashLevel="*res://scripts/UpdateTrashLevel.gd"
+Beach="*res://scripts/Beach.gd"
 Population="*res://AI/population/Population.tscn"
 
 [debug]
@@ -297,11 +302,6 @@ right_click={
 taxMenu={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-shift={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 pick_first_option={

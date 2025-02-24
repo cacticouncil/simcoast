@@ -7,6 +7,11 @@ enum JOBS{
 	MIDDLE,
 	HIGH
 }
+enum COL {
+	LOW,
+	MEDIUM,
+	HIGH
+}
 enum JOB_TYPES {
 	LIBRARIAN,#1 max
 	FIREFIGHTER,# 4 max
@@ -33,6 +38,11 @@ var job = null
 var level = JOBS.LOW
 # employment status
 var hasJob = false
+
+#Economic
+var cost_of_goods_services = 0
+
+var cost_of_housing = 0
 
 var unemployed_month = null
 var months_passed = 0
