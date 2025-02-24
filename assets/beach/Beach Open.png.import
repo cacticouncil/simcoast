@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/beach_temp.jpg-82806bbbb49ffdb6d3016db0d89c8dcd.stex"
+path="res://.import/Beach Open.png-f8a490b61d7dd6a86264aafbd45ac03b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/beach/beach_temp.jpg"
-dest_files=[ "res://.import/beach_temp.jpg-82806bbbb49ffdb6d3016db0d89c8dcd.stex" ]
+source_file="res://assets/beach/Beach Open.png"
+dest_files=[ "res://.import/Beach Open.png-f8a490b61d7dd6a86264aafbd45ac03b.stex" ]
 
 [params]
 

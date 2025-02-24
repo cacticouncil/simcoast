@@ -125,9 +125,9 @@ func _unhandled_input(event):
 				tile.sensor = Tile.TileSensor.NONE
 		
 		if Input.is_action_pressed("right_click"):
-			var mini_game = preload("res://ui/Mini Game/MiniGame.tscn")
-			var mini_game_inst = mini_game.instance()
-			add_child(mini_game_inst)
+			var beach_scene = preload("res://ui/Beach/Beach.tscn")
+			var beach_inst = beach_scene.instance()
+			add_child(beach_inst)
 			return
 
 		# Perform action based on current tool selected
