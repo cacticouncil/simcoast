@@ -82,6 +82,9 @@ func calcCommercialDemand():
 				pop += currTile.data[2]
 			elif currTile.zone == Tile.TileZone.COMMERCIAL:
 				comzones += 1
+			#Test for commercial demand tiles
+			if currTile.is_commercial():
+				currTile.demand = currTile.residential_neighbors
 	# for every 48 residential pop (3 full residential zones), demand 1 commercial zone
 	comDemand = round(pop/48)
 	comDemand -= comzones

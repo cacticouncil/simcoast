@@ -205,6 +205,9 @@ var children = [] #List of List of children's indicies
 var parent = [-1, -1] #If this tile is a child, this is it's parent, otherwise -1, -1
 
 
+#Economic Agent
+var demand = 0
+
 func _init(tileData):
 	if not tileData.empty():
 		for key in tileData:
