@@ -218,6 +218,7 @@ TutorialData="*res://scripts/TutorialData.gd"
 NpcOrganizer="*res://scripts/NPCOrganizer.gd"
 SceneManager="*res://scripts/SceneManager.gd"
 UpdateAgent="*res://AI/population/UpdateAgent.gd"
+Population="*res://AI/population/Population.tscn"
 
 [debug]
 

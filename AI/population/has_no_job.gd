@@ -10,8 +10,8 @@ extends BTConditional
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	var current_agent = blackboard.get_data("queue").front()
 	if (current_agent.hasJob == false):
-		print("passed no_job")
+		#print("passed no_job")
 		verified = true
 	else:
-		print("failed no_job")
+		#print("failed no_job")
 		verified = false

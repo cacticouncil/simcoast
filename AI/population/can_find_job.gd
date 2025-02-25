@@ -8,8 +8,8 @@ extends BTConditional
 # Checks if the queue is empty. If it is, do not proceed.
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	if UpdateAgent.can_work():
-		print("passed can_find_job")
+		#print("passed can_find_job")
 		verified = true
 	else:
-		print("failed can_find_job")
+		#print("failed can_find_job")
 		verified = false

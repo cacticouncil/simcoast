@@ -35,17 +35,20 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	if moved == false:
 		var currTile = current_agent.residential_tile
 		currTile.remove_people(1)
+		var currWorkTile = current_agent.commercial_tile
+		if currWorkTile != null:
+			currWorkTile.remove_people(1)
 		UpdateAgent.ActiveAgents.erase(current_agent)
 
 	# updates queue
 	check_empty(blackboard)
-	print("succeeded is_unhappy")
+	#print("succeeded is_unhappy")
 	#succeeds, if ticked
 	return succeed()
 
 # Checks to see if the last item in the queue was consumed. Stops the AI
 func check_empty(blackboard: Blackboard) -> void:
 	var empty = blackboard.get_data("queue").empty()
-	print(str("empty",empty))
+	#print(str("empty",empty))
 	if empty:
 		blackboard.set_data("queue_empty", true)

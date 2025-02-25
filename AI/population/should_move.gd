@@ -34,8 +34,8 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 							moved = true
 							break
 	if (moved == true):
-		print("passed should_move")
+		#print("passed should_move")
 		verified = true
 	else:
-		print("failed should_move")
+		#print("failed should_move")
 		verified = false
