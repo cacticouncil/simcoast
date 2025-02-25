@@ -1,0 +1,76 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=1]
+[ext_resource path="res://AI/population/queue_check.gd" type="Script" id=2]
+[ext_resource path="res://AI/population/should_move_leaf.gd" type="Script" id=3]
+[ext_resource path="res://AI/population/can_find_job.gd" type="Script" id=4]
+[ext_resource path="res://AI/population/has_job.gd" type="Script" id=5]
+[ext_resource path="res://AI/population/should_not_move.gd" type="Script" id=6]
+[ext_resource path="res://AI/population/can_find_job_leaf.gd" type="Script" id=7]
+[ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_selector.gd" type="Script" id=8]
+[ext_resource path="res://AI/population/is_unhappy_leaf.gd" type="Script" id=9]
+[ext_resource path="res://AI/population/is_happy.gd" type="Script" id=10]
+[ext_resource path="res://AI/population/should_move.gd" type="Script" id=11]
+[ext_resource path="res://AI/population/cannot_find_job.gd" type="Script" id=12]
+[ext_resource path="res://AI/population/cannot_find_job_leaf.gd" type="Script" id=13]
+[ext_resource path="res://AI/population/is_unhappy.gd" type="Script" id=14]
+[ext_resource path="res://AI/population/should_not_move_leaf.gd" type="Script" id=15]
+[ext_resource path="res://AI/population/has_no_job.gd" type="Script" id=16]
+
+[node name="BehaviorTree" type="Node"]
+script = ExtResource( 1 )
+is_active = true
+
+[node name="queue empty\?" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="BTSelector" type="Node" parent="queue empty\?"]
+script = ExtResource( 8 )
+
+[node name="is_happy" type="Node" parent="queue empty\?/BTSelector"]
+script = ExtResource( 10 )
+
+[node name="BTSelector" type="Node" parent="queue empty\?/BTSelector/is_happy"]
+script = ExtResource( 8 )
+
+[node name="has_job" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector"]
+script = ExtResource( 5 )
+
+[node name="BTSelector" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job"]
+script = ExtResource( 8 )
+
+[node name="should_move" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector"]
+script = ExtResource( 11 )
+
+[node name="should_move_leaf" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector/should_move"]
+script = ExtResource( 3 )
+
+[node name="should_not_move" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector"]
+script = ExtResource( 6 )
+
+[node name="should_not_move_leaf" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector/should_not_move"]
+script = ExtResource( 15 )
+
+[node name="has_no_job" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector"]
+script = ExtResource( 16 )
+
+[node name="BTSelector" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_no_job"]
+script = ExtResource( 8 )
+
+[node name="can_find_job" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_no_job/BTSelector"]
+script = ExtResource( 4 )
+
+[node name="can_find_job_leaf" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_no_job/BTSelector/can_find_job"]
+script = ExtResource( 7 )
+
+[node name="cannot_find_job" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_no_job/BTSelector"]
+script = ExtResource( 12 )
+
+[node name="cannot_find_job_leaf" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_no_job/BTSelector/cannot_find_job"]
+script = ExtResource( 13 )
+
+[node name="is_unhappy" type="Node" parent="queue empty\?/BTSelector"]
+script = ExtResource( 14 )
+
+[node name="is_unhappy_leaf" type="Node" parent="queue empty\?/BTSelector/is_unhappy"]
+script = ExtResource( 9 )
