@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://ui/CharacterCards/CharacterPhone.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/office/contacts_hover.png" type="Texture" id=4]
+[ext_resource path="res://assets/office/Jermaine.png" type="Texture" id=5]
+[ext_resource path="res://assets/office/contacts.png" type="Texture" id=6]
+[ext_resource path="res://assets/office/contacts_pressed.png" type="Texture" id=7]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[node name="contact" type="TextureButton" parent="."]
+margin_right = 412.0
+margin_bottom = 158.0
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 4 )
+
+[node name="name" type="Label" parent="contact"]
+margin_left = 159.0
+margin_top = 30.0
+margin_right = 399.0
+margin_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = ExtResource( 3 )
+text = "Researcher"
+
+[node name="job" type="RichTextLabel" parent="contact"]
+margin_left = 180.0
+margin_top = 77.0
+margin_right = 358.0
+margin_bottom = 137.0
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = ExtResource( 2 )
+text = "Deputy Mayor"
+
+[node name="picture" type="TextureRect" parent="contact"]
+margin_left = 44.0
+margin_top = 31.0
+margin_right = 126.0
+margin_bottom = 121.0
+texture = ExtResource( 5 )
+
+[connection signal="pressed" from="contact" to="." method="_on_contact_pressed"]

@@ -17,7 +17,14 @@ func update_water_spread():
 			# if current tile has no water neighbors, water should be removed (oceans will NOT be affected by this)
 			if currTile.waterHeight < 0:
 				currTile.waterHeight = 0
-
+func update_water_spread_tile(currTile):
+	var highest = find_highest_water(currTile)
+	# adjust water height to be one unit lower than the highest adjacent tile
+	currTile.changeInWaterHeight = (highest - 1) - currTile.baseHeight
+	currTile.waterHeight = (highest - 1) - currTile.baseHeight
+	# if current tile has no water neighbors, water should be removed (oceans will NOT be affected by this)
+	if currTile.waterHeight < 0:
+		currTile.waterHeight = 0
 # returns total height of the highest tile around the current tile (water + base)
 func find_highest_water(tile):
 	var highest = tile

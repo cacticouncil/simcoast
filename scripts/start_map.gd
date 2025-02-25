@@ -9,6 +9,7 @@ var current_sensor_tile
 var current_road_tile
 var fadedShader = preload("res://assets/shaders/faded.tres")
 var invalidShader = preload("res://assets/shaders/invalid.tres")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initCamera()
@@ -102,6 +103,37 @@ func show_mission_tip(num):
 func clear_mission_tip():
 	get_node("/root/CityMap/HUD/BottomBar/HoverText").text = ""
 
+# Anchor points for tile multi-select
+var anchor1: Array = [null, null]
+var anchor2: Array = [null, null]
+
+# Variable for highlighting the first anchor point
+var anchor1_TileCube = null
+
+func reset_selected():
+	if anchor1_TileCube:
+		anchor1_TileCube.remove_yellow_tint()
+	for tile in Global.selected:
+		tile.cube.remove_yellow_tint()
+	anchor1 = [null, null]
+	anchor2 = [null, null]
+	anchor1_TileCube = null
+	Global.selected = []
+	
+func populate_selected():
+	# Get the minimums and maximums
+	var min_x = min(anchor1[0], anchor2[0])
+	var max_x = max(anchor1[0], anchor2[0])
+	var min_y = min(anchor1[1], anchor2[1])
+	var max_y = max(anchor1[1], anchor2[1])
+	
+	# Iterate through the tile map using the min and max values
+	for i in range(min_x, max_x + 1):
+		for j in range(min_y, max_y + 1):
+			var tile = Global.tileMap[i][j]
+			Global.selected.append(tile)
+			tile.cube.apply_yellow_tint()
+
 # Handle inputs (clicks, keys)
 func _unhandled_input(event):
 	var actionText = get_node("HUD/BottomBar/HoverText")
@@ -114,13 +146,34 @@ func _unhandled_input(event):
 	
 		# If the click was not on a valid tile, do nothing
 		if not cube:
+			reset_selected()
 			return
 		else:
 			tile = Global.tileMap[cube.i][cube.j]
+			
+		if Input.is_action_pressed("left_click") and Input.is_action_pressed("shift"):
+			print("Shift click")
+			# Reset the multi-select if it has already been defined
+			if not anchor1.has(null) and not anchor2.has(null):
+				reset_selected()
+				
+			if anchor1[0] == null: # Check if anchor1 has been defined yet
+				anchor1 = [tile.i, tile.j] # If not, define it
+				anchor1_TileCube = tile.cube
+				anchor1_TileCube.apply_yellow_tint()
+				return
+			else:
+				anchor2 = [tile.i, tile.j] # Define anchor2
+				populate_selected() # Populate the array
+				return
+		
 		if tile.sensor == Tile.TileSensor.TIDE || tile.sensor == Tile.TileSensor.RAIN || tile.sensor == Tile.TileSensor.WIND: 
 			if Input.is_action_pressed("right_click"):
 				sensor_back_to_inventory(tile.sensor)
 				tile.sensor = Tile.TileSensor.NONE
+
+		reset_selected()
+
 		# Perform action based on current tool selected
 		match Global.mapTool:
 			# Change Base or (if same base) raise/lower tile height
@@ -723,7 +776,7 @@ func _unhandled_input(event):
 		# Refresh graphics for cube and status bar text
 		#cube.update()
 		$HUD.update_tile_display(cube.i, cube.j)
-
+	
 	elif event is InputEventKey && event.pressed:
 		if event.scancode == KEY_S:
 			$Popups/SaveDialog.popup_centered()
@@ -814,14 +867,15 @@ func _process(delta):
 			#print("Ticks since start: " + str(ticksSinceStart))
 			
 			# print("Updating on tick: " + str(numTicks))
-			update_game_state()
+			update_game()
+			#Graphics are now updated in the update_tiles function
 			update_graphics()
 			if isFastFWD:
 				tickDelay = Global.TICK_DELAY * 0.5
 			else:
 				tickDelay = Global.TICK_DELAY
 
-func update_game_state():
+func update_game():
 	#print("Updating game state on tick: " + str(numTicks))
 	#UpdateWaves.update_waves()
 	UpdateWeather.update_weather()
@@ -831,19 +885,41 @@ func update_game_state():
 	
 	#turning this function off until it can be fixed
 	#UpdateWater.update_waves()
-	UpdateWater.update_water_spread()
-	City.calculate_damage()
-	UpdateValue.update_land_value()
-	UpdateHappiness.update_happiness()
-	UpdatePopulation.update_population()
+	#This function updates by tile and checks for active tiles
+	update_tiles()
 	UpdateDemand.get_demand()
-	UpdateErosion.update_erosion()
+	# UpdateErosion.update_erosion()
 	Econ.calc_profit_rates()
 	Econ.calcCityIncome()
 	Econ.calculate_upkeep_costs()
 	UpdateDate.update_date()
 	placementState()
-
+func update_tiles():
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
+			var currTile = Global.tileMap[i][j]
+			#Deactivate every tile at the beginning
+			currTile.isActive = false
+			UpdateWater.update_water_spread_tile(currTile)
+			City.calculate_damage_tile(currTile)
+			#damage for storms
+			if Weather.currentlyStorming == true && Weather.stormDamage == true:
+				Weather.stormDamage = false
+				City.calc_storm_damage_tile(currTile)
+			UpdateValue.update_land_value_tile(currTile)
+			UpdateHappiness.update_happiness_tile(currTile)
+			UpdatePopulation.update_population_tile(currTile)
+			UpdateErosion.update_erosion_tile(currTile)
+			#Update the graphics for each tile
+			currTile.cube.update()
+			#Checks if tile is active
+			currTile.check_if_active()
+			#Add to active tile list if it is active or erase if not
+			if currTile.isActive:
+				currTile.set_active_tile()
+			else:
+				currTile.deactivate_tile()
+	return
 func placementState():
 	if Global.placementState:
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
@@ -1126,7 +1202,8 @@ func _on_UIAchievementButton_mouse_entered():
 
 func _on_StoreButton_mouse_entered():
 	$HUD/TopBarBG/StoreHover.visible = true
-
+func _on_OfficeButton_mouse_entered():
+	$HUD/TopBarBG/OfficeHover.visible = true
 func _on_DashboardButton_mouse_exited():
 	$HUD/TopBarBG/DashboardHover.visible = false
 
@@ -1135,7 +1212,8 @@ func _on_UIAchievementButton_mouse_exited():
 
 func _on_StoreButton_mouse_exited():
 	$HUD/TopBarBG/StoreHover.visible = false
-
+func _on_OfficeButton_mouse_exited():
+	$HUD/TopBarBG/OfficeHover.visible = false
 # sensor options -> yes, no, or ask for help
 # yes adds sensor to tile
 func _on_YesButton_pressed():
@@ -1330,3 +1408,9 @@ func _on_RoadRepairNoButton_pressed():
 
 func _on_RoadRepairOKButton_pressed():
 	$RoadRepairError.visible = false
+
+
+func _on_OfficeButton_pressed():
+	var office = preload("res://ui/hud/NPC_Interactions/Office.tscn")
+	var OfficeInstance = office.instance()
+	add_child(OfficeInstance)

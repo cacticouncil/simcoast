@@ -61,9 +61,8 @@ func _on_BuyButton_pressed():
 
 # activate information popup
 func _on_InfoButton_pressed():
-	for sensor in Inventory.sensors:
-		if sensor.get_name() == $SensorsBG/SensorName.text:
-			sensor.info_bttn = true
+	var sensorName = $SensorsBG/SensorName.text
+	SceneManager.emit_signal("sensor_info_clicked", sensorName)
 
 func _on_BuyClose_pressed():
 	$SensorsBG/SensorName/BuyButton/BuyInfo.visible = false

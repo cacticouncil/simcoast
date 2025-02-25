@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
-"class": "Agent",
-"language": "GDScript",
-"path": "res://AI/population/Agent.gd"
-}, {
 "base": "BTDecorator",
 "class": "BTAlways",
 "language": "GDScript",
@@ -145,7 +140,6 @@ _global_script_classes=[ {
 "path": "res://scripts/TileCube.gd"
 } ]
 _global_script_class_icons={
-"Agent": "",
 "BTAlways": "res://addons/behavior_tree/icons/btalways.svg",
 "BTComposite": "res://addons/behavior_tree/icons/btcomposite.svg",
 "BTConditional": "res://addons/behavior_tree/icons/btconditional.png",
@@ -207,20 +201,16 @@ NpcObserver="*res://scripts/Observers/NpcObserver.gd"
 NPCOrganizer="*res://scripts/NPCOrganizer.gd"
 Inventory="*res://inventory/Inventory.tscn"
 BadgeObserver="*res://scripts/Observers/BadgeObserver.gd"
-Introduction="*res://ui/NPC_Interactions/Introduction.gd"
-TutorialData="*res://scripts/TutorialData.gd"
 SeaLevel="*res://scripts/SeaLevel.gd"
 UpdateSeaLevel="*res://scripts/updateSeaLevel.gd"
 WindLevel="*res://scripts/WindLevel.gd"
 UpdateWindLevel="*res://scripts/UpdateWindLevel.gd"
 RainLevel="*res://scripts/RainLevel.gd"
 UpdateRainLevel="*res://scripts/UpdateRainLevel.gd"
+Introduction="*res://ui/NPC_Interactions/Introduction.gd"
+TutorialData="*res://scripts/TutorialData.gd"
 NpcOrganizer="*res://scripts/NPCOrganizer.gd"
-UpdateTourist="*res://AI/population/UpdateTourist.gd"
-UpdateTourism="*res://scripts/updateTourism.gd"
-UpdateTrashLevel="*res://scripts/UpdateTrashLevel.gd"
-Population="*res://AI/population/Population.tscn"
-UpdateAgent="*res://AI/population/UpdateAgent.gd"
+SceneManager="*res://scripts/SceneManager.gd"
 
 [debug]
 
@@ -299,6 +289,11 @@ right_click={
 taxMenu={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+shift={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 pick_first_option={

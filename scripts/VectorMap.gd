@@ -6,7 +6,7 @@ const cube_script = preload("res://scripts/TileCube.gd")
 # Initialize all map tile cubes and collision polygons
 func _ready():
 	for i in Global.mapHeight:
-		for j in Global.mapWidth:			
+		for j in Global.mapWidth:
 			add_tile(i, j)
 
 func add_tile(i, j):

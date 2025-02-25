@@ -82,12 +82,23 @@ func _ready():
 	$VBoxContainer.add_child(beachSection)
 	beachSection.set_bg(beachSection.rect_size, Color("e03c3c3c"))
 	
+	var buildingCodeButtons = [
+	["light", "res://assets/buttons/light", "Light"],
+	["medium", "res://assets/buttons/medium", "Medium"],
+	["high", "res://assets/buttons/high", "High"]
+	]
+	var buildingCodeSection = toolbarSectionScene.instance()
+	#Creates a section of the buttons and takes in the list of ones to add
+	buildingCodeSection.add_button("Building Codes", buildingCodeButtons)
+	$VBoxContainer.add_child(buildingCodeSection)
+	buildingCodeSection.set_bg(buildingCodeSection.rect_size, Color("526e7584"))
+	
 	var sensorButtons = [
 	]
 	sensorSection = toolbarSectionScene.instance()
 	sensorSection.add_button("Sensors", sensorButtons)
 	$VBoxContainer.add_child(sensorSection)
-	sensorSection.set_bg(sensorSection.rect_size, Color("526e7584"))
+	sensorSection.set_bg(sensorSection.rect_size, Color("e03c3c3c"))
 	sensorSection.visible = false
 	
 	
@@ -188,6 +199,12 @@ func button_hover(button):
 			toolInfo.text = "Rotate camera 1/4 turn"
 		'quicksave_button':
 			toolInfo.text = "Quicksave current map"
+		'light_button':
+			toolInfo.text = "Set selected area to light building code zone"
+		'medium_button':
+			toolInfo.text = "Set selected area to medium building code zone"
+		'high_button':
+			toolInfo.text = "Set selected area to high building code zone"
 
 func button_pressed():
 	Global.placementState = false
@@ -393,6 +410,30 @@ func button_pressed():
 			print("ZOOMIN")
 			get_node("../../Camera2D").zoom_in()
 			Global.mapTool = Global.Tool.NONE
+		
+		'light_button':
+			for tile in Global.selected:
+				tile.buildingCodeLevel = Tile.BuildingCode.LIGHT
+				tile.cube.remove_all_tint()
+				tile.cube.apply_orange_tint()
+			
+			Global.selected = []
+			
+		'medium_button':
+			for tile in Global.selected:
+				tile.buildingCodeLevel = Tile.BuildingCode.MEDIUM
+				tile.cube.remove_all_tint()
+				tile.cube.apply_blue_tint()
+				
+			Global.selected = []
+
+		'high_button':
+			for tile in Global.selected:
+				tile.buildingCodeLevel = Tile.BuildingCode.HIGH
+				tile.cube.remove_all_tint()
+				tile.cube.apply_purple_tint()
+				
+			Global.selected = []
 
 func deactivateButtons():
 	for i in group.get_buttons():
@@ -406,7 +447,7 @@ func updateAmounts():
 		var buttonName = i.get_name()
 		#Removes the text at the end that says '_button'
 		var item = buttonName.substr(0, buttonName.length() - 7)
-		if Inventory.items[item] > 0:
+		if item in Inventory.items and Inventory.items[item] > 0:
 			# Only add the inventory indicator if we have some of that item.
 			i.get_node("BG").visible = true
 			i.get_node("BG/Amount").text = str(Inventory.items[item])
