@@ -7,6 +7,7 @@ enum JOBS{
 	MIDDLE,
 	HIGH
 }
+#This needs to be a continuous value
 enum COL {
 	LOW,
 	MEDIUM,
@@ -40,9 +41,15 @@ var level = JOBS.LOW
 var hasJob = false
 
 #Economic - monthly costs
-var cost_of_goods_services = 0
+#Groceries, other stuff, should be based off of the amount of resource demand
+#High resource demand = higher cost of goods_services
+var cost_of_goods_services = 200
+#Constant value for utilities
 var cost_utilities = 400
-var cost_of_housing = 0
+#Based on desirability of the residential tile at the time of moving in
+var cost_of_housing
+#Accumulation of all the expenses to the Agent
+var cost_of_living
 
 var unemployed_month = null
 var months_passed = 0
@@ -67,3 +74,5 @@ func job_level():
 
 func change_residence(tile):
 	residential_tile = tile
+	cost_of_housing = 1500 * range_lerp(tile.desirability, 0, 1, 0, 2)
+	cost_of_living = cost_of_housing + cost_utilities + cost_of_goods_services
