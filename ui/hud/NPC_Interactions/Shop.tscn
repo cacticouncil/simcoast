@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/fonts/upheavtt_24.tres" type="DynamicFont" id=4]
 [ext_resource path="res://assets/fonts/upheavtt_40.tres" type="DynamicFont" id=5]
 
-[sub_resource type="Shader" id=10]
+[sub_resource type="Shader" id=16]
 code = "shader_type canvas_item;
 
 uniform float value = 1.0;
@@ -21,7 +21,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=11]
-shader = SubResource( 10 )
+shader = SubResource( 16 )
 shader_param/value = 1.0
 
 [sub_resource type="StyleBoxEmpty" id=12]
