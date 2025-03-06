@@ -113,7 +113,7 @@ var bridgeHeight = 0
 var wearAndTear = 0
 var base = 0
 var zone = 0
-var inf = 0
+var inf = TileInf.None
 var cube = Area2D.new()
 var data = [0, 0, 0, 0, TileStatus.NONE]
 var utilities = false
@@ -707,6 +707,10 @@ func has_building():
 	return inf == TileInf.BUILDING
 
 func set_zone(type):
+	# Attempt to purchase the zone
+	if (!Econ.purchase_structure(0)):
+		return # If unable, return
+		
 	zone = type
 	match zone: 
 		#single family and commercial have 4 houses/buildings max

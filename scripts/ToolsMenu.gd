@@ -412,28 +412,61 @@ func button_pressed():
 			Global.mapTool = Global.Tool.NONE
 		
 		'light_button':
-			for tile in Global.selected:
-				tile.buildingCodeLevel = Tile.BuildingCode.LIGHT
-				tile.cube.remove_all_tint()
-				tile.cube.apply_orange_tint()
+			var num_valid_tiles = num_empty_tiles_in_selected()
 			
+			if Econ.money - num_valid_tiles * Econ.LIGHT_BULDING_CODE_COST < 0:
+				get_node("/root/Overlay").error_pop("Insufficient Funds")
+				return # Player cannot purchase
+				
+			for tile in Global.selected:
+				Econ.purchase_structure(Econ.LIGHT_BULDING_CODE_COST)
+				
+				tile.buildingCodeLevel = Tile.BuildingCode.LIGHT # Set building code
+				tile.cube.remove_all_tint() # Change tint to none
+			
+			# Clear selected
 			Global.selected = []
 			
 		'medium_button':
+			var num_valid_tiles = num_empty_tiles_in_selected()
+			
+			if Econ.money - num_valid_tiles * Econ.MEDIUM_BULDING_CODE_COST < 0:
+				get_node("/root/Overlay").error_pop("Insufficient Funds")
+				return # Player cannot purchase
+
 			for tile in Global.selected:
-				tile.buildingCodeLevel = Tile.BuildingCode.MEDIUM
-				tile.cube.remove_all_tint()
+				Econ.purchase_structure(Econ.MEDIUM_BULDING_CODE_COST)
+
+				tile.buildingCodeLevel = Tile.BuildingCode.MEDIUM # Set building code
+				tile.cube.remove_all_tint() # Set tint to blue
 				tile.cube.apply_blue_tint()
 				
 			Global.selected = []
 
 		'high_button':
+			var num_valid_tiles = num_empty_tiles_in_selected()
+			
+			if Econ.money - num_valid_tiles * Econ.HIGH_BULDING_CODE_COST < 0:
+				get_node("/root/Overlay").error_pop("Insufficient Funds")
+				return # Player cannot purchase
+				
 			for tile in Global.selected:
-				tile.buildingCodeLevel = Tile.BuildingCode.HIGH
-				tile.cube.remove_all_tint()
+				Econ.purchase_structure(Econ.HIGH_BULDING_CODE_COST)
+
+				tile.buildingCodeLevel = Tile.BuildingCode.HIGH # Set building code
+				tile.cube.remove_all_tint() # Change tint to purple
 				tile.cube.apply_purple_tint()
 				
 			Global.selected = []
+
+# Helper function to get the number of empty tiles in Global.selected
+func num_empty_tiles_in_selected():
+	var num_valid_tiles = 0 # Number of tiles in the selected array 
+							# that can have their building codes changed (i.e. are empty)
+	for tile in Global.selected:
+		if tile.inf == Tile.TileInf.NONE:
+			num_valid_tiles += 1
+	return num_valid_tiles
 
 func deactivateButtons():
 	for i in group.get_buttons():

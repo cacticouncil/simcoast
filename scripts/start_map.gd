@@ -973,6 +973,7 @@ func placementState():
 							currEvent.queue_free()
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
+						Econ.purchase_structure(Econ.SINGLE_FAMILY_ZONE_COST)
 				elif (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY):
 					if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
 						var currEvent = Event.new("Added Tile", "Added Residential Area", 1)
@@ -984,6 +985,7 @@ func placementState():
 							currEvent.queue_free()
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.MULTI_FAMILY)
+						Econ.purchase_structure(Econ.MULTI_FAMILY_ZONE_COST)						
 				elif (Global.mapTool == Global.Tool.ZONE_COM):
 					if !tile.is_commercial():
 						var currEvent = Event.new("Added Tile", "Added Commercial Area", 1)
@@ -995,6 +997,7 @@ func placementState():
 							currEvent.queue_free()
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.COMMERCIAL)
+						Econ.purchase_structure(Econ.COMMERCIAL_ZONE_COST_COST)
 				elif (Global.mapTool == Global.Tool.BASE_OCEAN):
 					if (Econ.purchase_structure(Econ.WATER_COST)):
 						tile.clear_tile()
