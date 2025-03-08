@@ -1,8 +1,8 @@
 extends Node
 
 const WEIGHTS = {
-	"high_traffic": 0.9,
-	"medium_traffic": 0.6,
+	"high_traffic": 0.6,
+	"medium_traffic": 0.4,
 	"low_traffic": 0.2
 }
 var TOURIST_CHANCE = 0.5
@@ -45,16 +45,16 @@ func update_tourism():
 		#Calculate chance based on attractiveness and traffic
 		print("Beach attractiveness: ", beach_attractiveness)
 		TOURIST_CHANCE = traffic * beach_attractiveness
-		print("Number of pop: ", UpdatePopulation.get_population())
+		#print("Number of pop: ", UpdatePopulation.get_population())
 		#Bound by population, commercial areas, put in trash level into beach attractiveness
 		#If no commercial areas or no population, tourists should be zero
 		#If trash level is too high tourists should be zero
 		#Implement them moving to a commercial zone tile if beach is evacuated
 		#Aggregate trash 
 		TOURIST_CHANCE = clamp(TOURIST_CHANCE, LOWER_BOUND, UPPER_BOUND)
-	#print(TOURIST_CHANCE)
+	#print("Tourist chance", TOURIST_CHANCE)
 	update_beach_tiles()
-	#print(UpdateTourist.total_agents())
+	#print("Number of tourists: ", UpdateTourist.total_agents())
 	return TOURIST_CHANCE
 #Updates the beach tiles adding in tourists
 func update_beach_tiles():
@@ -72,5 +72,6 @@ func update_beach_tiles():
 		beachTile.clear_tourists()
 		#Add a tourist based on chance
 		if (TOURIST_CHANCE > rng.randf() && UpdateTourist.ActiveTourists.size() < maxTourists):
+			#break
 			beachTile.add_tourists(1)
 			#total_tourists += 1

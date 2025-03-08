@@ -8,7 +8,7 @@ var rng = RandomNumberGenerator.new()
 # The condition is checked BEFORE ticking. So it should be in _pre_tick.
 # Checks if the queue is empty. If it is, do not proceed.
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
-	var current_agent = blackboard.get_data("queue").front()
+	var current_agent = blackboard.get_data("queue3").front()
 	rng.randomize()
 	if (current_agent != null && current_agent.purchaseChance > rng.randf()):
 		verified = true

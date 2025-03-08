@@ -6,22 +6,22 @@ extends Node
 
 # Sets up primary blackboard values
 func _ready():
-	$Blackboard.set_data("queue", [])
-	$Blackboard.set_data("queue_empty", true)
+	$Blackboard.set_data("queue3", [])
+	$Blackboard.set_data("queue3_empty", true)
 
 
-# Checks if the AI's tile queue is empty
+# Checks if the AI's agent queue is empty
 func _process(delta):
-	if $Blackboard.get_data("queue_empty") == true:
+	if $Blackboard.get_data("queue3_empty") == true:
 		update_AI()
 	
 
-# Obtains a new tile queue and sets it in the blackboard	
+# Obtains a new agent queue and sets it in the blackboard	
 func update_AI():
 	var latest = update_queue()
 	if latest.size() != 0:
-		$Blackboard.set_data("queue", latest)
-		$Blackboard.set_data("queue_empty", false)
+		$Blackboard.set_data("queue3", latest)
+		$Blackboard.set_data("queue3_empty", false)
 	
 
 # Refills the zone queue

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=1]
-[ext_resource path="res://AI/tourism/queue_check.gd" type="Script" id=2]
+[ext_resource path="res://AI/tourism/queue__check.gd" type="Script" id=2]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_sequence.gd" type="Script" id=3]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_selector.gd" type="Script" id=4]
 [ext_resource path="res://AI/tourism/no_litter_leaf.gd" type="Script" id=5]
@@ -21,18 +21,6 @@ script = ExtResource( 2 )
 [node name="Main Sequence" type="Node" parent="queue empty\?"]
 script = ExtResource( 3 )
 
-[node name="Purchase\?" type="Node" parent="queue empty\?/Main Sequence"]
-script = ExtResource( 4 )
-
-[node name="purchase" type="Node" parent="queue empty\?/Main Sequence/Purchase\?"]
-script = ExtResource( 8 )
-
-[node name="purchase_leaf" type="Node" parent="queue empty\?/Main Sequence/Purchase\?/purchase"]
-script = ExtResource( 9 )
-
-[node name="no_purchase_leaf" type="Node" parent="queue empty\?/Main Sequence/Purchase\?"]
-script = ExtResource( 6 )
-
 [node name="Litter\?" type="Node" parent="queue empty\?/Main Sequence"]
 script = ExtResource( 4 )
 
@@ -44,3 +32,15 @@ script = ExtResource( 10 )
 
 [node name="no_litter_leaf" type="Node" parent="queue empty\?/Main Sequence/Litter\?"]
 script = ExtResource( 5 )
+
+[node name="Purchase\?" type="Node" parent="queue empty\?/Main Sequence"]
+script = ExtResource( 4 )
+
+[node name="purchase" type="Node" parent="queue empty\?/Main Sequence/Purchase\?"]
+script = ExtResource( 8 )
+
+[node name="purchase_leaf" type="Node" parent="queue empty\?/Main Sequence/Purchase\?/purchase"]
+script = ExtResource( 9 )
+
+[node name="no_purchase_leaf" type="Node" parent="queue empty\?/Main Sequence/Purchase\?"]
+script = ExtResource( 6 )
