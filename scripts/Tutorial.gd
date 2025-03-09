@@ -28,8 +28,6 @@ func getNextText():
 		
 		# If there is a forced scene change
 		if scene_change:
-			print(city_map.get_path())
-			
 			# If the current scene needs to be removed upon the scene change
 			if scene_to_remove:
 				var child = city_map.get_node(scene_to_remove)
@@ -112,6 +110,7 @@ func _on_Option_pressed(button_id: int):
 
 	var choice = current_conv.dialogues[conv_index].choices[button_id]
 	
+	append_csv_line(choice.selection, choice.response)
 	conv_index += choice.offset
 	
 	$DialogueBox/NextButton.disabled = false
@@ -131,3 +130,20 @@ func _on_Option_pressed(button_id: int):
 	$DialogueBox/Dialogue.bbcode_text = text
 	
 	display_char_photo_and_name(int(choice.char_id))
+
+func sanitize_string(text: String) -> String:
+	return text.replace("\n", " ").replace("\r", " ")  # Remove both LF and CR newlines
+
+func append_csv_line(selection, response):
+	var file = File.new()
+	var file_path = "res://resources/log.txt"
+
+	if file.open(file_path, File.READ_WRITE) == OK:
+		file.seek_end()  # Move to the end of the file to append
+		var sanitized_value1 = sanitize_string(selection)
+		var sanitized_value2 = sanitize_string(response) if response else "EMPTY"
+		file.store_line(sanitized_value1 + ", " + sanitized_value2)
+		file.close()
+		print("Line appended successfully.")
+	else:
+		print("Failed to open file.")
