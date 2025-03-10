@@ -908,7 +908,7 @@ func set_active_tile():
 func deactivate_tile():
 	Global.activeTiles.erase([i, j])
 func check_if_active():
-	if (is_zoned() || has_building() || inf != TileInf.NONE || sensor != TileSensor.NONE):
+	if (is_zoned() || has_building() || (inf != TileInf.NONE && inf != TileInf.CHILD) || sensor != TileSensor.NONE):
 		isActive = true
 		return true
 	else:
