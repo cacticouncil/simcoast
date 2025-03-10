@@ -88,7 +88,8 @@ func get_global_data():
 		"oceanHeight": oceanHeight,
 		"numZones": numZones,
 		"numPeople": numPeople,
-		"userName": userName
+		"userName": userName,
+		"activeTiles": activeTiles
 	}
 	
 	return globalData

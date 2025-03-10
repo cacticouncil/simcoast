@@ -524,6 +524,7 @@ func set_tile_inf(infType, zoneType, height, width):
 			currTile.parent = [i, j]
 			children.append([i - a, j - b])
 	City.connectUtilities()
+	set_active_tile()
 
 func clear_tile():
 	#remove all buildings 
@@ -579,6 +580,7 @@ func clear_tile():
 		Global.tileMap[child[0]][child[1]].clear_tile()
 	children.clear()
 	parent = [-1, -1]
+	self.deactivate_tile()
 	
 func raise_tile():
 	baseHeight += 1
@@ -720,6 +722,8 @@ func set_zone(type):
 			data = [0, 4, 0, 0, 0]
 		_:
 			data = [0, 0, 0, 0, 0]
+	if self.zone != TileZone.NONE:
+		set_active_tile()
 
 func add_building():
 	#if there is something that isn't a building already on this tile, do nothing
@@ -904,12 +908,11 @@ func is_valid_tile(i, j) -> bool:
 	return true
 #Helper functions for setting/deactivating active tiles
 func set_active_tile():
+	isActive = true
 	Global.activeTiles[[i, j]] = true
+	print(Global.activeTiles.size())
 func deactivate_tile():
+	isActive = false
 	Global.activeTiles.erase([i, j])
-func check_if_active():
-	if (is_zoned() || has_building() || (inf != TileInf.NONE && inf != TileInf.CHILD) || sensor != TileSensor.NONE):
-		isActive = true
-		return true
-	else:
-		return false
+	print(Global.activeTiles.size())
+
