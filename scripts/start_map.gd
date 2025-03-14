@@ -229,6 +229,7 @@ func _unhandled_input(event):
 
 			Global.Tool.ADD_COM_BLDG:
 				if tile.is_commercial():
+					tile.jobMax = 16
 					City.adjust_building_number(tile)
 
 			# Add/Remove People
@@ -263,11 +264,13 @@ func _unhandled_input(event):
 							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT, Tile.TileZone.NONE, Global.buildingHeight, Global.buildingWidth)
 							City.numUtilityPlants += 1
 							var currEvent = Event.new("Added Tile", "Added Power Plant", 1)
+							tile.jobMax = 2
 							Announcer.notify(currEvent)
 							currEvent.queue_free()
 						elif (Econ.purchase_structure(Econ.UTILITIES_PLANT_COST)):
 							tile.set_tile_inf(Tile.TileInf.UTILITIES_PLANT, Tile.TileZone.NONE, Global.buildingHeight, Global.buildingWidth)
 							City.numUtilityPlants += 1
+							tile.jobMax = 2
 							var currEvent = Event.new("Added Tile", "Added Power Plant", 1)
 							Announcer.notify(currEvent)
 							currEvent.queue_free()
@@ -301,8 +304,10 @@ func _unhandled_input(event):
 					if (tile.check_if_valid_placement(Tile.TileInf.SEWAGE_FACILITY, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('sewage facility')):
 							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
+							tile.jobMax = 2
 						elif (Econ.purchase_structure(Econ.SEWAGE_FACILITY_COST)):
 							tile.set_tile_inf(Tile.TileInf.SEWAGE_FACILITY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
+							tile.jobMax = 2
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -332,8 +337,10 @@ func _unhandled_input(event):
 					if (tile.check_if_valid_placement(Tile.TileInf.WASTE_TREATMENT, Global.buildingHeight, Global.buildingWidth)):
 						if (Inventory.removeIfHave('waste treatment')):
 							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
+							tile.jobMax = 2
 						elif (Econ.purchase_structure(Econ.WASTE_TREATMENT_COST)):
 							tile.set_tile_inf(Tile.TileInf.WASTE_TREATMENT, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
+							tile.jobMax = 2
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -365,6 +372,7 @@ func _unhandled_input(event):
 							tile.set_tile_inf(Tile.TileInf.PARK, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
+							tile.jobMax = 1
 							var currEvent = Event.new("Added Tile", "Added Park", 1)
 							Announcer.notify(currEvent)
 							currEvent.queue_free()
@@ -372,6 +380,7 @@ func _unhandled_input(event):
 							tile.set_tile_inf(Tile.TileInf.PARK, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numParks += 1
+							tile.jobMax = 1
 							var currEvent = Event.new("Added Tile", "Added Park", 1)
 							Announcer.notify(currEvent)
 							currEvent.queue_free()
@@ -407,10 +416,12 @@ func _unhandled_input(event):
 							tile.set_tile_inf(Tile.TileInf.LIBRARY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numLibraries += 1
+							tile.jobMax = 1
 						elif (Econ.purchase_structure(Econ.LIBRARY_COST)):
 							tile.set_tile_inf(Tile.TileInf.LIBRARY, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numLibraries += 1
+							tile.jobMax = 1
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -443,10 +454,12 @@ func _unhandled_input(event):
 							tile.set_tile_inf(Tile.TileInf.MUSEUM, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numMuseums += 1
+							tile.jobMax = 1
 						elif (Econ.purchase_structure(Econ.MUSEUM_COST)):
 							tile.set_tile_inf(Tile.TileInf.MUSEUM, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							tile.zone = Tile.TileZone.PUBLIC_WORKS
 							City.numMuseums += 1
+							tile.jobMax = 1
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -478,9 +491,11 @@ func _unhandled_input(event):
 						if (Inventory.removeIfHave('fire station')):
 							tile.set_tile_inf(Tile.TileInf.FIRE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numFireStations += 1
+							tile.jobMax = 3
 						elif (Econ.purchase_structure(Econ.FIRE_STATION_COST)):
 							tile.set_tile_inf(Tile.TileInf.FIRE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numFireStations += 1
+							tile.jobMax = 3
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -512,9 +527,11 @@ func _unhandled_input(event):
 						if (Inventory.removeIfHave('hospital')):
 							tile.set_tile_inf(Tile.TileInf.HOSPITAL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numHospital += 1
+							tile.jobMax = 3
 						elif (Econ.purchase_structure(Econ.HOSPITAL_COST)):
 							tile.set_tile_inf(Tile.TileInf.HOSPITAL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numHospital += 1
+							tile.jobMax = 3
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -546,9 +563,11 @@ func _unhandled_input(event):
 						if (Inventory.removeIfHave('police station')):
 							tile.set_tile_inf(Tile.TileInf.POLICE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numPoliceStations += 1
+							tile.jobMax = 3
 						elif (Econ.purchase_structure(Econ.POLICE_STATION_COST)):
 							tile.set_tile_inf(Tile.TileInf.POLICE_STATION, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numPoliceStations += 1
+							tile.jobMax = 3
 						else:
 							actionText.text = "Not enough funds!"
 						
@@ -580,9 +599,11 @@ func _unhandled_input(event):
 						if (Inventory.removeIfHave('school')):
 							tile.set_tile_inf(Tile.TileInf.SCHOOL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numSchools += 1
+							tile.jobMax = 2
 						elif (Econ.purchase_structure(Econ.SCHOOL_COST)):
 							tile.set_tile_inf(Tile.TileInf.SCHOOL, Tile.TileZone.PUBLIC_WORKS, Global.buildingHeight, Global.buildingWidth)
 							City.numSchools += 1
+							tile.jobMax = 2
 						else:
 							actionText.text = "Not enough funds!"
 						
