@@ -26,6 +26,8 @@ var currentMap = "res://data/default.json"
 var mapWidth = 16
 var mapHeight = 18
 
+var beachRows
+
 var mapTool = Tool.NONE
 var tileMap = initTileMap()
 
@@ -89,6 +91,7 @@ func get_global_data():
 		"numZones": numZones,
 		"numPeople": numPeople,
 		"userName": userName,
+		"beachRows": beachRows,
 		"activeTiles": activeTiles
 	}
 	
