@@ -91,7 +91,7 @@ func get_global_data():
 		"numZones": numZones,
 		"numPeople": numPeople,
 		"userName": userName,
-		"beachRows": beachRows
+		"beachRows": beachRows,
 		"activeTiles": activeTiles
 	}
 	
