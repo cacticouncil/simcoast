@@ -4,158 +4,50 @@
 			"dialogues": [
 				{
 					"type": "Dialogue",
-					"text": "Hello, Mayor PLAYER_NAME! Welcome to Shore City. I’m so happy to have you as our new mayor. We’re a small community right now, but I’m sure you can lead us to becoming a bustling city.",
+					"text": "Welcome to your first day in office, Mayor PLAYER_NAME. The city is happy to have you as its leader. I’m Jermaine, your Deputy Mayor.",
 					"char_id": 1,
 					"parent_path": "/root/CityMap"
 				},
 				{
 					"type": "Dialogue",
-					"text": "My name is Maria. Let me give you a tour of the city as I explain your role as mayor.",
-					"char_id": 1,
-					"parent_path": "/root/CityMap"
-				},
-				{
-					"type": "Dialogue",
-					"text": "This is the map of the city. On the left are the tools you need to build infrastructure around town. Utility plants power all the buildings in town. Go ahead and place a utility plant.",
-					"char_id": 1,
-					"parent_path": "/root/CityMap"
-				},
-				null
-			],
-			"conditions": {
-				"event_name": "Added Tile",
-				"event_description": "Added Power Plant"
-			}
-		},
-		{
-			"dialogues": [
-				{
-					"type": "Dialogue",
-					"text": "Placing new buildings costs money. The town has started with a modest budget but you can earn more taxes as new citizens move in. Now place a house or shop and connect it with a road.",
-					"char_id": 1,
-					"parent_path": "/root/CityMap"
-				},
-				null
-			],
-			"conditions": {
-				"event_name": "Added Powered Tile",
-				"event_description": [
-					"Added Commercial Area",
-					"Added Residential Area"
-				]
-			}
-		},
-		{
-			"dialogues": [
-				{
-					"type": "Dialogue",
-					"text": "Look at that. Now we have new people moving in! I’m so excited, Mayor PLAYER_NAME. Our city is growing. As the city grows, it’s important to pay attention to the impact your decisions have on citizens. Let’s check out the dashboard.",
-					"char_id": 1,
-					"parent_path": "/root/CityMap"
-				},
-				null
-			],
-			"conditions": {
-				"event_name": "Dashboard",
-				"event_description": "Entered"
-			}
-		},
-		{
-			"dialogues": [
-				{
-					"type": "Dialogue",
-					"text": "This is your dashboard. This is where you can monitor citizens’ happiness, change tax rates, and monitor sensors. Take a look around. I’ll be waiting for you at the store when you’re ready.",
-					"char_id": 1,
-					"parent_path": "/root/CityMap"
-				},
-				null
-			],
-			"conditions": {
-				"event_name": "Store",
-				"event_description": "Entered"
-			}
-		},
-		{
-			"dialogues": [
-				{
-					"type": "Dialogue",
-					"text": "Thanks for joining me, Mayor. This is the shop where you can purchase sensors. Sensors help monitor the weather. Because our city is right next to the ocean, we use sensors to let us know if there’s a storm approaching.",
-					"char_id": 1,
-					"parent_path": "/root/CityMap"
-				},
-				{
-					"type": "Dialogue",
-					"text": "Sensors are expensive but they’re good investments. Luckily, the city has received a donated tide gauge, so this one is free. You can go ahead and accept it, Mayor.",
-					"char_id": 1,
-					"parent_path": "/root/CityMap"
-				},
-				null
-			],
-			"conditions": {
-				"event_name": "Buy popup",
-				"event_description": "Closed"
-			}
-		},
-		{
-			"dialogues": [
-				{
-					"type": "Dialogue",
-					"text": "After you've purchased a sensor, you can learn even more about it by talking to Dr. Clark. Dr. Clark is our resident environmental scientist. He's very knowledgeable about sensors and how they impact the environment. When you're ready to meet with him, click on 'more information' on the tide gauge to head on over to the lab.",
-					"char_id": 1,
-					"parent_path": "/root/CityMap"
-				},
-				null
-			],
-			"conditions": {
-				"event_name": "Lab",
-				"event_description": "Entered"
-			}
-		},
-		{
-			"dialogues": [
-				{
-					"type": "Dialogue",
-					"text": "Whoa! It’s our new Mayor. Haha. Sorry for the mess. I wasn’t expecting you. Nice to meet you. I’m Dr. Clark.",
-					"char_id": 2,
-					"parent_path": "/root/CityMap"
-				},
-				{
-					"type": "Dialogue",
-					"text": "Nice to meet you, I’m PLAYER_NAME. What do you do at the lab?",
+					"text": "Thank you, Jermaine. I can’t wait to start working together.",
 					"char_id": 0,
 					"parent_path": "/root/CityMap"
 				},
 				{
 					"type": "Dialogue",
-					"text": "I’m an environmental scientist. I study the environment and use that knowledge to help preserve and protect people and the environment.",
-					"char_id": 2,
+					"text": " I’m happy you’re excited. We’ll need that enthusiasm to help get the city fixed up.",
+					"char_id": 1,
 					"parent_path": "/root/CityMap"
 				},
 				{
 					"type": "Dialogue",
-					"text": " That’s really interesting. Can you tell me about the new tide gauge?",
+					"text": "Oh no. The storm was really bad.",
 					"char_id": 0,
 					"parent_path": "/root/CityMap"
 				},
 				{
-					"type": "Dialogue",
-					"text": "Of course! Maria’s been very excited about the new tide sensor.",
-					"char_id": 2,
-					"parent_path": "/root/CityMap"
-				},
-				null
-			],
-			"conditions": {
-				"event_name": "Lab",
-				"event_description": "Exited"
-			}
-		},
-		{
-			"dialogues": [
-				{
-					"type": "Dialogue",
-					"text": "Alright, PLAYER_NAME. Let’s head to the office next to meet your second-in-command, the Deputy Mayor.",
-					"char_id": 1,
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "We need to get the city fixed up.",
+							"response": "That’s right! We have to get things in tip-top shape. Join me in the office, and we can get started.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": true,
+							"scene_path": "res://ui/hud/NPC_Interactions/Office.tscn",
+							"remove_current": false
+						},
+						{
+							"selection": "We need to help our citizens.",
+							"response": "That’s right! We have to get things in tip-top shape. Join me in the office, and we can get started.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
 					"parent_path": "/root/CityMap"
 				},
 				null
@@ -169,26 +61,344 @@
 			"dialogues": [
 				{
 					"type": "Dialogue",
-					"text": "Hey there, PLAYER_NAME! I’m your Deputy Mayor, and I’m here to help you navigate through things in the office. You’ve got some powerful tools at your disposal, and I’m excited to show you how they work.",
-					"char_id": 3,
+					"text": "Welcome to our office, Mayor PLAYER_NAME. This is the hub for all things Saltpoint City.",
+					"char_id": 1,
 					"parent_path": "/root/CityMap"
 				},
 				{
 					"type": "Dialogue",
-					"text": "First, check out the computer on your desk. It’s connected to the city’s sensor network, so you can view important acquired sensor data to help guide your decisions.",
-					"char_id": 3,
+					"text": "This is so nice.",
+					"char_id": 0,
 					"parent_path": "/root/CityMap"
 				},
 				{
 					"type": "Dialogue",
-					"text": "And don’t forget about the phone! You can use it to call other characters and get important updates from them. It’s a great way to stay connected and get information on what’s happening around town.",
-					"char_id": 3,
+					"text": "First, let’s check out the dashboard. If you click on the computer, you can see stats about the city and its citizens. Right now, our citizens’ happiness is very low because of all the damage from the storm.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "How can we help improve citizens' happiness?",
+							"response": "We can start by addressing citizen's issues with the city.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						{
+							"selection": "How can we help improve the city?",
+							"response": "We need to fix the damaged facilities around the city.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
 					"parent_path": "/root/CityMap"
 				},
 				{
 					"type": "Dialogue",
-					"text": "Take a moment to explore these tools, and I will be here if you have any questions!",
-					"char_id": 3,
+					"text": "Managing the city’s resources is a big part of our job. Storms are quite frequent here on the coast, so we need to make sure the city can handle any impending storms.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "That sounds like a big task.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "It is. But we’ll take step by step. How about you start with the beach? The beach was closed due to the storm. It needs to be cleaned before it can be reopened.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "That sounds like a great idea. Let's go!",
+							"response": null,
+							"offset": 1,
+							"force_scene_change": true,
+							"scene_path":"res://ui/Beach/Beach.tscn",
+							"remove_current": true,
+							"current_path": "OfficeScreen"
+						},
+						{
+							"selection": "I’ll meet you at the beach. I’d like to explore the city first.",
+							"response": null,
+							"offset": 1,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Beach",
+				"event_description": "Entered"
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "Good morning, Judith.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Good morning, Jermaine.",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "This is our new mayor.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Good morning. I’m Mayor PLAYER_NAME.",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "It’s nice to meet you, mayor. Thanks for coming down to help today.",
+					"char_id": 2,
+					"parent_path": "/root/CityMap" 
+				},
+				{
+					"type": "Dialogue",
+					"text": "Judith works closely with our community here in Saltpoint City.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Yes. I’m a community activist, and I’ll be leading the beach clean-up today.",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "Oh. What’s a community activist?",
+							"response": "A community activist is someone who lives and works in their community. Our job is to help organize events and speak for others so our community remains safe and happy.",
+							"offset": 1,
+							"char_id": 2,
+							"force_scene_change": false
+						},
+						{
+							"selection": "That’s really cool. What’s your job like?",
+							"response": "I work with people every day to put on events and speak up for others so our community remains safe and happy.",
+							"offset": 1,
+							"char_id": 2,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "I’m happy you’ve joined us today. Have you ever done a beach clean-up before?",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "Yes.",
+							"response": "That's great! Then you'll be a great addition to our little team.",
+							"offset": 1,
+							"char_id": 2,
+							"force_scene_change": false
+						},
+						{
+							"selection": "No.",
+							"response": "Then I'm happy to help with your first one! At a beach clean-up, volunteers come together to pick up and sort trash.",
+							"offset": 1,
+							"char_id": 2,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Right now, the beach is closed to ensure everyone is safe. This protects beachgoers from possible germs that the trash may have. So, make sure you wear your gloves when helping to clean up.",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+						"type": "Options",
+						"choices": [
+							{
+								"selection": "This means the beach stays clean for all our citizens.",
+								"response": "Yes, but also for visitors and marine life. Visitors to the beach also help to improve the city’s economy. Clean beaches also create a healthy environment for marine life.",
+								"offset": 1,
+								"char_id": 2,
+								"force_scene_change": false
+							},
+							{
+								"selection": "Pretty beaches are better than dirty ones.",
+								"response": "Yes. Clean beaches encourage more visitors, which can improve our city’s economy. Clean beaches also create a healthy environment for marine life.",
+								"offset": 1,
+								"char_id": 2,
+								"force_scene_change": false
+							},
+							{
+								"selection": "Clean beaches help animals",
+								"response": "Yes. Clean beaches create a healthy environment for marine life. Clean beaches also encourage visitors and citizens to visit the beach, which helps to improve the economy.",
+								"offset": 1,
+								"char_id": 2,
+								"force_scene_change": false
+							}
+						],
+						"char_id": 0,
+						"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Do you know how a clean beach helps marine animals?",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "A clean beach means people won't hurt animals.",
+							"response": "That’s true! A clean beach means that animals on the beach won’t get caught in the trash. But most marine animals live in the ocean.",
+							"offset": 1,
+							"char_id": 2,
+							"force_scene_change": false
+						},
+						{
+							"selection": "A clean beach means there’s less trash in the ocean.",
+							"response": "That’s correct! A clean beach means that less trash will go from the beach and into the ocean.",
+							"offset": 1,
+							"char_id": 2,
+							"force_scene_change": false
+						},
+						{
+							"selection": "A clean beach means more tourists will come.",
+							"response": "That’s true. But more tourists may also mean more trash.",
+							"offset": 1,
+							"char_id": 2,
+							"force_scene_change": false
+						}
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Trash from the beach can go into the ocean and harm animals there. Animals can become trapped in the trash and get hurt. Some marine animals, like turtles, are born on the beach, and they can get trapped in trash while trying to get to the ocean.",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "That’s right! We need to keep the beach clean for the turtles.",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Are you ready to start?",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "Yes.",
+							"response": null,
+							"offset": 1,
+							"force_scene_change": true,
+							"scene_path": "res://ui/Mini Game/MiniGame.tscn",
+							"remove_current": false
+						},
+						{
+							"selection": "No.",
+							"response": "When you’re ready to start, click on any beach tile to come see me.",
+							"offset": 1,
+							"char_id": 2,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Mini Game",
+				"event_description": "Exited"
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "Whew! That was hard work. Thank you so much for your help, mayor.",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "I was happy to help!",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "It's good to have a mayor who works so closely wth the community. If you have any questions for me, feel free to reach out.",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "I'll go see him right now.",
+							"response": null,
+							"offset": 1,
+							"force_scene_change": true,
+							"scene_path": "res://ui/hud/NPC_Interactions/Office.tscn",
+							"remove_current": true,
+							"current_path": "Beach"
+						},
+						{
+							"selection": "I'm going to look around but I'll meet him at the office later.",
+							"response": null,
+							"offset": 1,
+							"char_id": 2,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
 					"parent_path": "/root/CityMap"
 				},
 				null

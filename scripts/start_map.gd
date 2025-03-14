@@ -171,6 +171,12 @@ func _unhandled_input(event):
 			if Input.is_action_pressed("right_click"):
 				sensor_back_to_inventory(tile.sensor)
 				tile.sensor = Tile.TileSensor.NONE
+		
+		if Input.is_action_pressed("right_click"):
+			var beach_scene = preload("res://ui/Beach/Beach.tscn")
+			var beach_inst = beach_scene.instance()
+			add_child(beach_inst)
+			return
 
 		reset_selected()
 

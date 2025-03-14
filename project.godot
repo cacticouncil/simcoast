@@ -217,6 +217,7 @@ Introduction="*res://ui/NPC_Interactions/Introduction.gd"
 TutorialData="*res://scripts/TutorialData.gd"
 NpcOrganizer="*res://scripts/NPCOrganizer.gd"
 SceneManager="*res://scripts/SceneManager.gd"
+UpdateTrashLevel="*res://scripts/UpdateTrashLevel.gd"
 UpdateAgent="*res://AI/population/UpdateAgent.gd"
 Population="*res://AI/population/Population.tscn"
 
