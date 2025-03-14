@@ -52,10 +52,10 @@ stretch_mode = 1
 
 [node name="QuitBeach" type="Button" parent="Background"]
 material = SubResource( 11 )
-margin_left = 2335.0
-margin_top = 25.0
-margin_right = 2437.0
-margin_bottom = 130.0
+margin_left = 1206.0
+margin_top = 16.0
+margin_right = 1254.0
+margin_bottom = 64.0
 rect_scale = Vector2( 1, 1.005 )
 custom_styles/hover = SubResource( 12 )
 custom_styles/pressed = SubResource( 13 )
@@ -64,7 +64,6 @@ custom_styles/disabled = SubResource( 15 )
 custom_styles/normal = SubResource( 16 )
 icon = ExtResource( 3 )
 icon_align = 1
-expand_icon = true
 
 [node name="MiniGameLabel" type="Label" parent="Background"]
 margin_left = 460.0
@@ -75,7 +74,6 @@ custom_fonts/font = SubResource( 17 )
 text = "PLAY MINIGAME"
 align = 1
 valign = 1
-percent_visible = -0.0833333
 
 [node name="Button" type="Button" parent="Background/MiniGameLabel"]
 modulate = Color( 1, 1, 1, 0 )
