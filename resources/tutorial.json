@@ -108,7 +108,7 @@
 				{
 					"type": "Dialogue",
 					"text": "That sounds like a big task.",
-					"char_id": 1,
+					"char_id": 0,
 					"parent_path": "/root/CityMap"
 				},
 				{
