@@ -833,6 +833,7 @@ func loadMapData(filename):
 	$VectorMap.loadMap()
 	get_node("HUD/BottomBar/HoverText").text = "Map file '%s'.json loaded" % [mapName]
 	City.connectUtilities()
+	update_active_tiles()
 
 func _on_file_selected_load(filePath):
 	if ".json" in filePath:
@@ -904,8 +905,6 @@ func update_tiles():
 	for i in Global.mapHeight:
 		for j in Global.mapWidth:
 			var currTile = Global.tileMap[i][j]
-			#Deactivate every tile at the beginning
-			currTile.isActive = false
 			UpdateWater.update_water_spread_tile(currTile)
 			City.calculate_damage_tile(currTile)
 			#damage for storms
@@ -918,14 +917,17 @@ func update_tiles():
 			UpdateErosion.update_erosion_tile(currTile)
 			#Update the graphics for each tile
 			currTile.cube.update()
-			#Checks if tile is active
-			currTile.check_if_active()
+	return
+func update_active_tiles():
+	Global.activeTiles.clear()
+	for i in Global.mapHeight:
+		for j in Global.mapWidth:
+			var currTile = Global.tileMap[i][j]
 			#Add to active tile list if it is active or erase if not
 			if currTile.isActive:
 				currTile.set_active_tile()
 			else:
 				currTile.deactivate_tile()
-	return
 func placementState():
 	if Global.placementState:
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
@@ -980,6 +982,7 @@ func placementState():
 						var currEvent = Event.new("Added Tile", "Added Road", 1)
 						Announcer.notify(currEvent)
 						currEvent.queue_free()
+						tile.set_active_tile()
 					elif (Econ.purchase_structure(Econ.ROAD_COST)):
 						tile.clear_tile()
 						tile.inf = Tile.TileInf.ROAD
@@ -989,6 +992,7 @@ func placementState():
 						var currEvent = Event.new("Added Tile", "Added Road", 1)
 						Announcer.notify(currEvent)
 						currEvent.queue_free()
+						tile.set_active_tile()
 				elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
 					if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY:
 						var currEvent = Event.new("Added Tile", "Added Residential Area", 1)
@@ -1000,6 +1004,7 @@ func placementState():
 							currEvent.queue_free()
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
+						tile.set_active_tile()
 				elif (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY):
 					if tile.get_zone() != Tile.TileZone.MULTI_FAMILY:
 						var currEvent = Event.new("Added Tile", "Added Residential Area", 1)
@@ -1011,6 +1016,7 @@ func placementState():
 							currEvent.queue_free()
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.MULTI_FAMILY)
+						tile.set_active_tile()
 				elif (Global.mapTool == Global.Tool.ZONE_COM):
 					if !tile.is_commercial():
 						var currEvent = Event.new("Added Tile", "Added Commercial Area", 1)
@@ -1022,6 +1028,7 @@ func placementState():
 							currEvent.queue_free()
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.COMMERCIAL)
+						tile.set_active_tile()
 				elif (Global.mapTool == Global.Tool.BASE_OCEAN):
 					if (Econ.purchase_structure(Econ.WATER_COST)):
 						tile.clear_tile()
@@ -1036,12 +1043,14 @@ func placementState():
 						City.connectRoads(tile)
 						City.connectUtilities()
 						City.numBridges += 1
+						tile.set_active_tile()
 					elif (Econ.purchase_structure(Econ.BRIDGE_COST)):
 						tile.clear_tile()
 						tile.inf = Tile.TileInf.BRIDGE
 						City.connectRoads(tile)
 						City.connectUtilities()
 						City.numBridges += 1
+						tile.set_active_tile()
 			elif (tile.get_base() == Tile.TileBase.SAND):
 				if (Global.mapTool == Global.Tool.INF_BOARDWALK):
 					if (Inventory.removeIfHave('boardwalk')):
@@ -1050,12 +1059,14 @@ func placementState():
 						City.connectRoads(tile)
 						City.connectUtilities()
 						City.numBoardwalks += 1
+						tile.set_active_tile()
 					elif (Econ.purchase_structure(Econ.BOARDWALK_COST)):
 						tile.clear_tile()
 						tile.inf = Tile.TileInf.BOARDWALK
 						City.connectRoads(tile)
 						City.connectUtilities()
 						City.numBoardwalks += 1
+						tile.set_active_tile()
 				elif (Global.mapTool == Global.Tool.ZONE_SINGLE_FAMILY):
 					if tile.get_zone() != Tile.TileZone.SINGLE_FAMILY && tile.baseHeight > 8:
 						var currEvent = Event.new("Added Tile", "Added Resedential Area", 1)
@@ -1068,6 +1079,7 @@ func placementState():
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.SINGLE_FAMILY)
 						tile.on_beach = true
+						tile.set_active_tile()
 				elif (Global.mapTool == Global.Tool.ZONE_MULTI_FAMILY):
 					if tile.get_zone() != Tile.TileZone.MULTI_FAMILY && tile.baseHeight > 8:
 						var currEvent = Event.new("Added Tile", "Added Resedential Area", 1)
@@ -1080,6 +1092,7 @@ func placementState():
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.MULTI_FAMILY)
 						tile.on_beach = true
+						tile.set_active_tile()
 				elif (Global.mapTool == Global.Tool.ZONE_COM):
 					if !tile.is_commercial() && tile.baseHeight > 8:
 						var currEvent = Event.new("Added Tile", "Added Commercial Area", 1)
@@ -1092,6 +1105,7 @@ func placementState():
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.COMMERCIAL)
 						tile.on_beach = true
+						tile.set_active_tile()
 				
 						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
 		#if on damaged road tile, left click to repair
