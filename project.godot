@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
-"class": "Agent",
-"language": "GDScript",
-"path": "res://AI/population/Agent.gd"
-}, {
 "base": "BTDecorator",
 "class": "BTAlways",
 "language": "GDScript",
@@ -150,7 +145,6 @@ _global_script_classes=[ {
 "path": "res://AI/tourism/TourismAgent.gd"
 } ]
 _global_script_class_icons={
-"Agent": "",
 "BTAlways": "res://addons/behavior_tree/icons/btalways.svg",
 "BTComposite": "res://addons/behavior_tree/icons/btcomposite.svg",
 "BTConditional": "res://addons/behavior_tree/icons/btconditional.png",
@@ -223,13 +217,11 @@ RainLevel="*res://scripts/RainLevel.gd"
 UpdateRainLevel="*res://scripts/UpdateRainLevel.gd"
 NpcOrganizer="*res://scripts/NPCOrganizer.gd"
 SceneManager="*res://scripts/SceneManager.gd"
-UpdateAgent="*res://AI/population/UpdateAgent.gd"
 Tourism="*res://AI/tourism/Tourism.tscn"
 UpdateTourist="*res://AI/tourism/UpdateTourist.gd"
 UpdateTourism="*res://scripts/updateTourism.gd"
 UpdateTrashLevel="*res://scripts/UpdateTrashLevel.gd"
 Beach="*res://scripts/Beach.gd"
-Population="*res://AI/population/Population.tscn"
 
 [debug]
 
