@@ -412,6 +412,8 @@ func button_pressed():
 			Global.mapTool = Global.Tool.NONE
 		
 		'light_button':
+			Global.mapTool = Global.Tool.NONE
+			
 			var num_valid_tiles = num_empty_tiles_in_selected()
 			
 			if Econ.money - num_valid_tiles * Econ.LIGHT_BULDING_CODE_COST < 0:
@@ -428,6 +430,8 @@ func button_pressed():
 			Global.selected = []
 			
 		'medium_button':
+			Global.mapTool = Global.Tool.NONE
+			
 			var num_valid_tiles = num_empty_tiles_in_selected()
 			
 			if Econ.money - num_valid_tiles * Econ.MEDIUM_BULDING_CODE_COST < 0:
@@ -444,6 +448,8 @@ func button_pressed():
 			Global.selected = []
 
 		'high_button':
+			Global.mapTool = Global.Tool.NONE
+			
 			var num_valid_tiles = num_empty_tiles_in_selected()
 			
 			if Econ.money - num_valid_tiles * Econ.HIGH_BULDING_CODE_COST < 0:

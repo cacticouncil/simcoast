@@ -1029,7 +1029,7 @@ func placementState():
 							Announcer.notify(currEvent)
 							currEvent.queue_free()
 						tile.clear_tile()
-						if Econ.purchase_structure(Econ.COMMERCIAL_ZONE_COST_COST):
+						if Econ.purchase_structure(Econ.COMMERCIAL_ZONE_COST):
 							tile.set_zone(Tile.TileZone.COMMERCIAL)
 							tile.set_active_tile()
 				elif (Global.mapTool == Global.Tool.BASE_OCEAN):
