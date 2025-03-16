@@ -113,7 +113,7 @@ var bridgeHeight = 0
 var wearAndTear = 0
 var base = 0
 var zone = 0
-var inf = TileInf.None
+var inf = TileInf.NONE
 var cube = Area2D.new()
 var data = [0, 0, 0, 0, TileStatus.NONE]
 var utilities = false
@@ -668,16 +668,39 @@ func remove_water():
 	waterHeight = 0
 	changeInWaterHeight = 0
 
+# Calculation for the mutiplier for damage based on distance from beach (farther = less damage)
+func calculate_distance_damage_multiplier():
+	var distance = Global.mapWidth - i
+	var max_distance = Global.mapWidth
+	var min_multiplier = 0.3  # Multiplier at max distance
+	var decay_rate = log(1.0 / min_multiplier) / max_distance  # Adjust decay to hit min_multiplier at max_distance
+	return lerp(min_multiplier, 1.0, exp(-decay_rate * distance))
+
+# Returns a multiplier to reduce the damage based on the building code level
+func calculate_building_code_damage_multiplier():
+	match buildingCodeLevel:
+		BuildingCode.LIGHT:
+			return 1 - rand_range(0.0, 0.3)
+		BuildingCode.MEDIUM:
+			return 1 - rand_range(0.4, 0.7)
+		BuildingCode.HIGH:
+			return 1 - rand_range(.8, 1)
+
+
 func set_damage(n):
 	#tiles without buildings/zoning or roads/bridges should not be damaged
 	if !is_zoned() && !TileInf.ROAD && !TileInf.BRIDGE && !TileInf.BOARDWALK:
 		return
+	
+	var distance_mult = calculate_distance_damage_multiplier()
+	var code_mult = calculate_building_code_damage_multiplier()
+	
 	if n == TileStatus.LIGHT_DAMAGE:
-		tileDamage += .25
+		tileDamage += .25 * distance_mult * code_mult
 	elif n == TileStatus.MEDIUM_DAMAGE:
-		tileDamage += .5
+		tileDamage += .5 * distance_mult * code_mult
 	elif n == TileStatus.HEAVY_DAMAGE:
-		tileDamage += .75
+		tileDamage += .75 * distance_mult * code_mult
 		
 	if tileDamage < .5:
 		data[4] = TileStatus.LIGHT_DAMAGE
@@ -707,10 +730,6 @@ func has_building():
 	return inf == TileInf.BUILDING
 
 func set_zone(type):
-	# Attempt to purchase the zone
-	if (!Econ.purchase_structure(0)):
-		return # If unable, return
-		
 	zone = type
 	match zone: 
 		#single family and commercial have 4 houses/buildings max
