@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "Agent",
+"language": "GDScript",
+"path": "res://AI/population/Agent.gd"
+}, {
 "base": "BTDecorator",
 "class": "BTAlways",
 "language": "GDScript",
@@ -140,6 +145,7 @@ _global_script_classes=[ {
 "path": "res://scripts/TileCube.gd"
 } ]
 _global_script_class_icons={
+"Agent": "",
 "BTAlways": "res://addons/behavior_tree/icons/btalways.svg",
 "BTComposite": "res://addons/behavior_tree/icons/btcomposite.svg",
 "BTConditional": "res://addons/behavior_tree/icons/btconditional.png",
@@ -211,6 +217,9 @@ Introduction="*res://ui/NPC_Interactions/Introduction.gd"
 TutorialData="*res://scripts/TutorialData.gd"
 NpcOrganizer="*res://scripts/NPCOrganizer.gd"
 SceneManager="*res://scripts/SceneManager.gd"
+UpdateTrashLevel="*res://scripts/UpdateTrashLevel.gd"
+UpdateAgent="*res://AI/population/UpdateAgent.gd"
+Population="*res://AI/population/Population.tscn"
 
 [debug]
 

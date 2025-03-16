@@ -150,7 +150,9 @@ const PARK_NEIGHBORS = 0.1
 const LIBRARY_NEIGHBORS = 0.2
 const MUSEUM_NEIGHBORS = 0.2
 const SCHOOL_NEIGHBORS = 0.2
-
+# Population AI 
+var jobMax = 0
+var jobCapacity = 0
 #These 3 give a one time boost
 const FIRE_STATION_NEIGHBORS = 0.3
 const POLICE_STATION_NEIGHBORS = 0.3
@@ -210,7 +212,6 @@ var tile_dmg_weight = 0
 var num_beach_rocks_nearby = 0
 var children = [] #List of List of children's indicies
 var parent = [-1, -1] #If this tile is a child, this is it's parent, otherwise -1, -1
-
 
 func _init(tileData):
 	if not tileData.empty():
@@ -523,6 +524,7 @@ func set_tile_inf(infType, zoneType, height, width):
 			currTile.parent = [i, j]
 			children.append([i - a, j - b])
 	City.connectUtilities()
+	set_active_tile()
 
 func clear_tile():
 	#remove all buildings 
@@ -563,7 +565,9 @@ func clear_tile():
 		inf = TileInf.NONE
 		City.connectUtilities()
 		
-	sensor = TileSensor.NONE	
+	sensor = TileSensor.NONE
+	jobMax = 0
+	jobCapacity = 0	
 	#reset tile to base
 	inf = TileInf.NONE
 	data = [0, 0, 0, 0, 0]
@@ -576,6 +580,7 @@ func clear_tile():
 		Global.tileMap[child[0]][child[1]].clear_tile()
 	children.clear()
 	parent = [-1, -1]
+	self.deactivate_tile()
 	
 func raise_tile():
 	baseHeight += 1
@@ -740,6 +745,8 @@ func set_zone(type):
 			data = [0, 4, 0, 0, 0]
 		_:
 			data = [0, 0, 0, 0, 0]
+	if self.zone != TileZone.NONE:
+		set_active_tile()
 
 func add_building():
 	#if there is something that isn't a building already on this tile, do nothing
@@ -810,6 +817,9 @@ func add_people(n):
 	var diff = data[2] - before
 	if (is_residential()):
 		UpdatePopulation.change_residents(diff)
+		# people can be added
+		if diff > 0 :
+			UpdateAgent.add_agent(i,j)
 	elif (is_commercial()):
 		UpdatePopulation.change_workers(diff)
 	return diff
@@ -921,12 +931,11 @@ func is_valid_tile(i, j) -> bool:
 	return true
 #Helper functions for setting/deactivating active tiles
 func set_active_tile():
+	isActive = true
 	Global.activeTiles[[i, j]] = true
+	print(Global.activeTiles.size())
 func deactivate_tile():
+	isActive = false
 	Global.activeTiles.erase([i, j])
-func check_if_active():
-	if (is_zoned() || has_building() || inf != TileInf.NONE || sensor != TileSensor.NONE):
-		isActive = true
-		return true
-	else:
-		return false
+	print(Global.activeTiles.size())
+

@@ -105,14 +105,15 @@ func update_population():
 					
 					rng.randomize()
 					if (selectTile * leaveChance > rng.randf_range(0, maxRange) && RESIDENTS > 0):
-						currTile.remove_people(1)
+						#currTile.remove_people(1)
+						pass
 					
 					#fixes workers not moving out when residents leave
 					if (floor(WORKERS - (RESIDENTS * BASE_EMPLOYMENT_RATE)) > 0 && currTile.is_commercial()):
 						var diff = floor(WORKERS - (RESIDENTS * BASE_EMPLOYMENT_RATE))
 						#Can't remove more workers than we have
 						diff = min(currTile.data[2], diff)
-						currTile.remove_people(diff)
+						#currTile.remove_people(diff)
 					
 	
 	get_node("/root/CityMap/HUD/HBoxContainer/Population").text = str(RESIDENTS)
