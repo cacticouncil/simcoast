@@ -227,8 +227,8 @@ gdscript/warnings/enable=false
 
 [display]
 
-window/size/width=1280
-window/size/height=720
+window/size/width=1450
+window/size/height=850
 window/size/resizable=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"

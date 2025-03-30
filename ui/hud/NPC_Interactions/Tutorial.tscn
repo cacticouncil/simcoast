@@ -7,16 +7,11 @@
 [node name="Tutorial" type="CanvasLayer"]
 script = ExtResource( 8 )
 
-[node name="BG" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.392157 )
-
 [node name="DialogueBox" type="ColorRect" parent="."]
-margin_left = 83.0
-margin_top = 425.0
-margin_right = 924.0
-margin_bottom = 689.0
+margin_left = 168.0
+margin_top = 555.0
+margin_right = 1009.0
+margin_bottom = 819.0
 color = Color( 0.364706, 0.65098, 0.862745, 1 )
 
 [node name="NextButton" type="Button" parent="DialogueBox"]

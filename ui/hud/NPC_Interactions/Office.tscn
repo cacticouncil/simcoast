@@ -46,21 +46,21 @@ script = ExtResource( 3 )
 
 [node name="EntireScreen" type="ColorRect" parent="."]
 margin_left = -3.0
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_right = 1450.0
+margin_bottom = 850.0
 color = Color( 0.258824, 0.258824, 0.258824, 1 )
 
 [node name="Top" type="ColorRect" parent="EntireScreen"]
 margin_left = 3.0
-margin_right = 1283.0
+margin_right = 1453.0
 margin_bottom = 85.0
 color = Color( 0.462745, 0.462745, 0.462745, 1 )
 
 [node name="QuitOffice" type="Button" parent="EntireScreen"]
 material = SubResource( 17 )
-margin_left = 1209.0
+margin_left = 1379.0
 margin_top = 16.0
-margin_right = 1257.0
+margin_right = 1427.0
 margin_bottom = 64.0
 rect_scale = Vector2( 1, 1.005 )
 custom_styles/hover = SubResource( 18 )
@@ -87,40 +87,44 @@ valign = 1
 [node name="Office" type="TextureRect" parent="EntireScreen"]
 margin_left = -21.0
 margin_top = 87.0
-margin_right = 1148.0
-margin_bottom = 748.0
+margin_right = 1290.0
+margin_bottom = 878.0
 rect_scale = Vector2( 1.13, 1 )
 texture = ExtResource( 4 )
+expand = true
 
 [node name="Phone" type="TextureButton" parent="EntireScreen/Office"]
-margin_left = 872.567
-margin_top = 279.0
-margin_right = 1049.57
-margin_bottom = 578.0
+margin_left = 984.071
+margin_top = 346.0
+margin_right = 1161.07
+margin_bottom = 701.0
 rect_scale = Vector2( 0.45, 0.4 )
 texture_normal = ExtResource( 18 )
 texture_pressed = ExtResource( 15 )
 texture_hover = ExtResource( 15 )
+expand = true
 
 [node name="Computer" type="TextureButton" parent="EntireScreen/Office"]
-margin_left = 516.814
-margin_top = 152.0
-margin_right = 857.814
-margin_bottom = 435.0
+margin_left = 589.381
+margin_top = 186.0
+margin_right = 953.381
+margin_bottom = 534.0
 rect_scale = Vector2( 0.9, 0.85 )
 texture_normal = ExtResource( 14 )
 texture_pressed = ExtResource( 19 )
 texture_hover = ExtResource( 19 )
+expand = true
 
 [node name="Worker" type="TextureButton" parent="EntireScreen/Office"]
-margin_left = 150.0
-margin_top = 100.0
-margin_right = 458.0
-margin_bottom = 585.0
+margin_left = 171.07
+margin_top = 125.0
+margin_right = 506.07
+margin_bottom = 715.0
 rect_scale = Vector2( 0.68, 0.64 )
 texture_normal = ExtResource( 16 )
 texture_pressed = ExtResource( 17 )
 texture_hover = ExtResource( 17 )
+expand = true
 
 [node name="DialogueBox" type="ColorRect" parent="EntireScreen/Office/Worker"]
 visible = false
