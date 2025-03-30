@@ -7,6 +7,11 @@ enum JOBS{
 	MIDDLE,
 	HIGH
 }
+enum COL {
+	LOW,
+	MEDIUM,
+	HIGH
+}
 enum JOB_TYPES {
 	LIBRARIAN,#1 max
 	FIREFIGHTER,# 4 max
@@ -36,6 +41,17 @@ var hasJob = false
 
 var unemployed_month = null
 var months_passed = 0
+
+#Economic - monthly costs
+#Groceries, other stuff, should be based off of the amount of resource demand
+#High resource demand = higher cost of goods_services
+var cost_of_goods_services = 200
+#Constant value for utilities
+var cost_utilities = 400
+#Based on desirability of the residential tile at the time of moving in
+var cost_of_housing
+#Accumulation of all the expenses to the Agent
+var cost_of_living
 
 func _init(tile):
 	residential_tile = tile
