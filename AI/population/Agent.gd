@@ -45,16 +45,19 @@ var months_passed = 0
 #Economic - monthly costs
 #Groceries, other stuff, should be based off of the amount of resource demand
 #High resource demand = higher cost of goods_services
-var cost_of_goods_services = 200
+var cost_of_goods_services
 #Constant value for utilities
 var cost_utilities = 400
 #Based on desirability of the residential tile at the time of moving in
 var cost_of_housing
 #Accumulation of all the expenses to the Agent
-var cost_of_living
+var cost_of_living = 0
+var cost_of_living_level = COL.LOW
 
 func _init(tile):
 	residential_tile = tile
+	cost_of_housing = 1500 * range_lerp(tile.desirability, 0, 1, 0, 2)
+	update_col()
 
 func change_job(tile):
 	hasJob = true
@@ -71,3 +74,18 @@ func job_level():
 
 func change_residence(tile):
 	residential_tile = tile
+	cost_of_housing = 1500 * range_lerp(tile.desirability, 0, 1, 0, 2)
+	update_col()
+
+func update_col():
+	cost_of_goods_services = 300 * range_lerp(residential_tile.cost_goods_services, 0, 1, 0, 2)
+	cost_of_living = cost_of_housing + cost_utilities + cost_of_goods_services
+	print(cost_of_living)
+	#These thresholds may be tweaked
+	if cost_of_living < 1500:
+		cost_of_living_level = COL.LOW
+	elif cost_of_living > 2500:
+		cost_of_living_level = COL.HIGH
+	else:
+		cost_of_living_level = COL.MEDIUM
+
