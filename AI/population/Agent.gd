@@ -52,7 +52,7 @@ var cost_utilities = 400
 var cost_of_housing
 #Accumulation of all the expenses to the Agent
 var cost_of_living = 0
-var cost_of_living_level = COL.LOW
+var col_level = COL.LOW
 
 func _init(tile):
 	residential_tile = tile
@@ -83,9 +83,9 @@ func update_col():
 	print(cost_of_living)
 	#These thresholds may be tweaked
 	if cost_of_living < 1500:
-		cost_of_living_level = COL.LOW
+		col_level = COL.LOW
 	elif cost_of_living > 2500:
-		cost_of_living_level = COL.HIGH
+		col_level = COL.HIGH
 	else:
-		cost_of_living_level = COL.MEDIUM
+		col_level = COL.MEDIUM
 
