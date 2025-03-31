@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=1]
 [ext_resource path="res://AI/population/queue_check.gd" type="Script" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://AI/population/is_unhappy.gd" type="Script" id=14]
 [ext_resource path="res://AI/population/should_not_move_leaf.gd" type="Script" id=15]
 [ext_resource path="res://AI/population/has_no_job.gd" type="Script" id=16]
+[ext_resource path="res://AI/population/col_check.gd" type="Script" id=17]
+[ext_resource path="res://AI/population/col_check_leaf.gd" type="Script" id=18]
 
 [node name="BehaviorTree" type="Node"]
 script = ExtResource( 1 )
@@ -38,6 +40,12 @@ script = ExtResource( 5 )
 
 [node name="BTSelector" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job"]
 script = ExtResource( 8 )
+
+[node name="col_check" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector"]
+script = ExtResource( 17 )
+
+[node name="col_check_leaf" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector/col_check"]
+script = ExtResource( 18 )
 
 [node name="should_move" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector"]
 script = ExtResource( 11 )

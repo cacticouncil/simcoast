@@ -10,11 +10,10 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var mapWidth = Global.mapWidth
 	var foundJob = false
 	# iterates through the map to find possible working spaces
-	for i in mapHeight:
-		for j in mapWidth:
+	for key in Global.activeTiles:
 			if foundJob == false:
-				var current_tile = Global.tileMap[i][j]
-
+				var current_tile = Global.tileMap[key[0]][key[1]]
+				#print(current_tile.jobMax)
 				if current_tile.jobCapacity < current_tile.jobMax:
 					if current_tile.has_utilities() && current_tile.tileDamage == 0:
 						if current_tile.zone == Tile.TileZone.COMMERCIAL:
@@ -95,6 +94,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 					#	moved = true
 					#	break
 	if foundJob == true:
+		print("found job")
 		current_agent.unemployed_month = null
 		current_agent.months_passed = 0
 		UpdateAgent.increase_total_jobs()

@@ -22,7 +22,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 					rng.randomize()
 					# if living space is suitable and chance of moving allows for move to happen, move agent
 					if (selectTile > rng.randf_range(0, maxRange)):
-						UpdateAgent.ActiveAgents.find(current_agent).residential_tile = current_tile
+						current_agent.change_residence(current_tile)
 						moved = true
 						break
 

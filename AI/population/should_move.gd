@@ -30,7 +30,7 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 					if current_tile.has_utilities() && current_tile.tileDamage == 0:
 						# if living space is suitable and chance of moving allows for move to happen, move agent
 						if (select_tile > selectTile):
-							UpdateAgent.ActiveAgents.find(current_agent).residential_tile = current_tile
+							current_agent.change_residence(current_tile)
 							moved = true
 							break
 	if (moved == true):
