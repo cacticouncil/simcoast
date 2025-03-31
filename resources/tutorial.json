@@ -34,13 +34,34 @@
 							"response": "That’s right! We have to get things in tip-top shape. Join me in the office, and we can get started.",
 							"offset": 1,
 							"char_id": 1,
+							"force_scene_change": false
+						},
+						{
+							"selection": "We need to help our citizens.",
+							"response": "That’s right! We have to get things in tip-top shape. Join me in the office, and we can get started.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "Okay. I'll meet you there.",
+							"response": null,
+							"offset": 1,
 							"force_scene_change": true,
 							"scene_path": "res://ui/hud/NPC_Interactions/Office.tscn",
 							"remove_current": false
 						},
 						{
-							"selection": "We need to help our citizens.",
-							"response": "That’s right! We have to get things in tip-top shape. Join me in the office, and we can get started.",
+							"selection": "I'll be there. But I'd like to take a look around the city first.",
+							"response": "Okay. Take your time. You can always find me in the office.",
 							"offset": 1,
 							"char_id": 1,
 							"force_scene_change": false
@@ -511,6 +532,40 @@
 				{
 					"type": "Dialogue",
 					"text": "All experts have different types of knowledge—even me. Judith may not have an answer, but one of the other experts might.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "Who are the other experts I can ask?",
+							"response": "You can meet different experts by visiting their work areas, such as the research lab and the weather center.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						{
+							"selection": "How can I reach the other experts?",
+							"response": "You can meet different experts by visiting their work areas, such as the research lab and the weather center.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Maybe one of the other experts can help figure out how to keep the beach clean.",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "That’s a great idea! You can consult experts in their field if you need help making decisions. But use your resources wisely; their consultations are not free.",
 					"char_id": 1,
 					"parent_path": "/root/CityMap"
 				},

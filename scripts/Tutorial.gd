@@ -44,6 +44,7 @@ func getNextText():
 	
 	# DIALOGUE CASE
 	if dialogue.type == "Dialogue":
+		disableOptions()
 		# Get the dialogue from dialogues array
 		# Increment conv_index so that the next call will get the next dialogue
 		conv_index += 1
