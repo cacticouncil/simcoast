@@ -381,6 +381,34 @@
 					"type": "Options",
 					"choices": [
 						{
+							"selection": "That was a piece of cake!",
+							"response": "Haha. I wish I had your energy. But the beach won't stay very clean for long.",
+							"offset": 1,
+							"char_id": 2,
+							"force_scene_change": false
+						},
+						{
+							"selection": "That took forever!",
+							"response": "I know. I wish there were a way to get the beach clean faster and for longer.",
+							"offset": 1,
+							"char_id": 2,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "As our mayor, I hope you can find a way to solve this. It will also make the citizens happier. Maybe you should talk to Jermaine about this. He knows a lot of folks about town. He may have some ideas.",
+					"char_id": 2,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
 							"selection": "I'll go see him right now.",
 							"response": null,
 							"offset": 1,
@@ -403,7 +431,229 @@
 				},
 				null
 			],
-			"conditions": {}
+			"conditions": {
+				"event_name": "Office",
+				"event_description": "Entered"
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "That was great work, Mayor PLAYER_NAME. It’s important that we help out the citizens as much as we can. The citizens are much happier, and the beach has been reopened. If you look at the top of the screen, you can see quick stats about the city.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "That's great. How do I keep citizens happy?",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "The best way to keep citizens happy is to keep the city in tip-top shape. Working with experts can help you make better decisions for the city.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "What are the experts?",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Experts have specialized knowledge about their field. You met Judith when we cleaned up the beach. She’s an expert in community relations.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "That means Judith can help us understand how to keep the beach clean.",
+							"response": "That and more. Judith can help us understand how citizens feel about our decisions.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						{
+							"selection": "That means Judith can help us understand how the community feels about our decisions.",
+							"response": "Exactly. If citizens are unhappy with our decisions, Judith can help explain why.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "That's great. How can I contact Judith?",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Judith’s contact information should be on the phone in your office now. As you interact with experts around town, they’ll offer you their contact information.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Okay. But Judith didn’t have advice for me about how to make cleaning up the beach easier.",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "All experts have different types of knowledge—even me. Judith may not have an answer, but one of the other experts might.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "Thank you, Jermaine. Do you know which expert I should visit first?",
+							"response": "Hmmm. If you're interested in doing something faster, automation can help.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						{
+							"selection": "Thank you, Jermaine. I'm going to look around town.",
+							"response": null,
+							"offset": 6,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "What's automation?",
+							"response": "With automation, a task is done automatically instead of waiting for a person to do it. If we can automate cleaning the beach, then we won't need to organize beach clean-ups as often.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						{
+							"selection": "Right! Automation means that the beach clean-up can happen automatically.",
+							"response": "Right. That means we won’t need to organize beach clean-ups as often.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "If we want to clean the beach with automation, we can use robots.",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "That’s right. Robots, sensors, and data play a big role in taking care of the environment. If you stop by the research lab, Clark can tell you more about it. He’s a computer engineer at the Saltpoint City Research Lab.",
+					"char_id": 1,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Options",
+					"choices": [
+						{
+							"selection": "Wow, a research lab. How cool!",
+							"response": "Our office funds the Saltpoint City Research Lab. There, scientists come up with ingenious ideas to help make Saltpoint City even better.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						{
+							"selection": "We have a research lab! What's that?",
+							"response": "Our office funds the Saltpoint City Research Lab. There, scientists come up with ingenious ideas to help make Saltpoint City even better.",
+							"offset": 1,
+							"char_id": 1,
+							"force_scene_change": false
+						},
+						null
+					],
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "That’s awesome. Thanks, Jermaine. I’m going to go check out the research lab.",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Lab",
+				"event_description": "Entered"
+			}
+		},
+		{
+			"dialogues": [
+				{
+					"type": "Dialogue",
+					"text": "Hello. Excuse me. Is anyone here?",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Well, my goodness. If it isn’t the new mayor.",
+					"char_id": 3,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "I’m Mayor PLAYER_NAME. I’m looking for Clark. Do you know him?",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Of course. That’s me! I’m Clark. Nice to meet ya, Mayor PLAYER_NAME.",
+					"char_id": 3,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "Nice to meet you too, Clark.",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "But why is the new mayor looking for little ol’ me?",
+					"char_id": 3,
+					"parent_path": "/root/CityMap"
+				},
+				{
+					"type": "Dialogue",
+					"text": "I was told you could help me with a problem I’ve run into.",
+					"char_id": 0,
+					"parent_path": "/root/CityMap"
+				},
+				null
+			],
+			"conditions": {
+				"event_name": "Office",
+				"event_description": "Entered"
+			}
 		},
 		null
 	]
