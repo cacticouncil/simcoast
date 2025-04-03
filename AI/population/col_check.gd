@@ -16,7 +16,7 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 		unbalanced_col = true
 	if (unbalanced_col == true):
 		#print("passed should_move")
-		verified = false
+		verified = true
 	else:
 		#print("failed should_move")
-		verified = true
+		verified = false
