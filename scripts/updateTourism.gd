@@ -46,7 +46,7 @@ func update_tourism():
 			8, 9, 10, 11, 0:
 				traffic = WEIGHTS.low_traffic
 		#Calculate chance based on attractiveness and traffic
-		print("Beach attractiveness: ", beach_attractiveness)
+		#print("Beach attractiveness: ", beach_attractiveness)
 		TOURIST_CHANCE = traffic * beach_attractiveness
 		#print("Number of pop: ", UpdatePopulation.get_population())
 		#Bound by population, commercial areas, put in trash level into beach attractiveness
@@ -57,7 +57,7 @@ func update_tourism():
 		TOURIST_CHANCE = clamp(TOURIST_CHANCE, LOWER_BOUND, UPPER_BOUND)
 	#print("Tourist chance", TOURIST_CHANCE)
 	update_beach_tiles()
-	print("Number of tourists: ", UpdateTourist.total_agents())
+	#print("Number of tourists: ", UpdateTourist.total_agents())
 	return TOURIST_CHANCE
 #Updates the beach tiles adding in tourists
 func update_beach_tiles():
@@ -68,7 +68,7 @@ func update_beach_tiles():
 	#Add in changing location for tourists
 	
 	var maxTourists = UpdatePopulation.get_population()
-	print("TOURIST_CHANCE", TOURIST_CHANCE)
+	#print("TOURIST_CHANCE", TOURIST_CHANCE)
 	var numTourists = int(maxTourists * TOURIST_CHANCE)
 	UpdateTourist.clear_tourists()
 	for i in numTourists:
