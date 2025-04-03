@@ -143,6 +143,11 @@ _global_script_classes=[ {
 "class": "TileCube",
 "language": "GDScript",
 "path": "res://scripts/TileCube.gd"
+}, {
+"base": "Reference",
+"class": "TourismAgent",
+"language": "GDScript",
+"path": "res://AI/tourism/TourismAgent.gd"
 } ]
 _global_script_class_icons={
 "Agent": "",
@@ -171,7 +176,8 @@ _global_script_class_icons={
 "Sensor": "",
 "SfxObserver": "",
 "Tile": "",
-"TileCube": ""
+"TileCube": "",
+"TourismAgent": ""
 }
 
 [application]
@@ -220,6 +226,10 @@ SceneManager="*res://scripts/SceneManager.gd"
 UpdateTrashLevel="*res://scripts/UpdateTrashLevel.gd"
 UpdateAgent="*res://AI/population/UpdateAgent.gd"
 Population="*res://AI/population/Population.tscn"
+Beach="*res://scripts/Beach.gd"
+UpdateTourism="*res://scripts/updateTourism.gd"
+UpdateTourist="*res://AI/tourism/UpdateTourist.gd"
+Tourism="*res://AI/tourism/Tourism.tscn"
 
 [debug]
 
