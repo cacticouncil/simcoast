@@ -154,8 +154,8 @@ extents = Vector2( 58, 93.125 )
 script = ExtResource( 11 )
 
 [node name="Beach" type="TextureRect" parent="."]
-margin_right = 1277.0
-margin_bottom = 722.0
+margin_right = 1450.0
+margin_bottom = 850.0
 texture = ExtResource( 2 )
 expand = true
 

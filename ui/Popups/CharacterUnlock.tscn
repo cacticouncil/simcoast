@@ -18,9 +18,9 @@ anchor_bottom = 1.0
 script = ExtResource( 3 )
 
 [node name="BG" type="ColorRect" parent="."]
-margin_left = 898.0
+margin_left = 1068.0
 margin_top = 37.0
-margin_right = 1256.0
+margin_right = 1426.0
 margin_bottom = 179.0
 
 [node name="TextureRect" type="TextureRect" parent="BG"]
