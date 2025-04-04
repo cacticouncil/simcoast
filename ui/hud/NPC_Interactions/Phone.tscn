@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/office/characterCard.png" type="Texture" id=5]
 [ext_resource path="res://assets/office/Jermaine.png" type="Texture" id=6]
 
-[node name="Node2D" type="Node2D"]
+[node name="Phone" type="CanvasLayer"]
 script = ExtResource( 1 )
 
 [node name="phone_background" type="ColorRect" parent="."]

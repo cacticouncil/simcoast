@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasLayer
 
 #stores the current npc from clicked character card
 var currNPC
