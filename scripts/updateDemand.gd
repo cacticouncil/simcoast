@@ -47,6 +47,8 @@ func calcResidentialDemand():
 					maxpop += 16 #TODO may need to be changed if Multi Family zoning is changed
 				currpop += currTile.data[2]
 				resZones += 1
+				#Needed for Pop AI
+				currTile.set_goods_services_cost()
 	if avgleave == 0 && avgmove == 0:
 		return 0
 	avgleave /= resZones
@@ -82,6 +84,8 @@ func calcCommercialDemand():
 				pop += currTile.data[2]
 			elif currTile.zone == Tile.TileZone.COMMERCIAL:
 				comzones += 1
+			#Added in to set the resource demand each tick
+			currTile.set_resource_demand()
 	# for every 48 residential pop (3 full residential zones), demand 1 commercial zone
 	comDemand = round(pop/48)
 	comDemand -= comzones

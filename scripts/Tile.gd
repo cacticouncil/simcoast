@@ -153,6 +153,11 @@ const SCHOOL_NEIGHBORS = 0.2
 # Population AI 
 var jobMax = 0
 var jobCapacity = 0
+var numHighLevelJobs = 0
+var numMidLevelJobs = 0
+var numLowLevelJobs = 0
+var resource_demand = 0.0
+var cost_goods_services = 0.0
 #These 3 give a one time boost
 const FIRE_STATION_NEIGHBORS = 0.3
 const POLICE_STATION_NEIGHBORS = 0.3
@@ -212,6 +217,7 @@ var tile_dmg_weight = 0
 var num_beach_rocks_nearby = 0
 var children = [] #List of List of children's indicies
 var parent = [-1, -1] #If this tile is a child, this is it's parent, otherwise -1, -1
+
 
 func _init(tileData):
 	if not tileData.empty():
@@ -530,7 +536,6 @@ func clear_tile():
 	#remove all buildings 
 	while (data[0] > 0):
 		remove_building()
-	
 	#inform the Announcer that we have removed a zone
 	if is_commercial():
 			var currEvent = Event.new("Removed Tile", "Removed Commercial Area", 1)
@@ -568,6 +573,10 @@ func clear_tile():
 	sensor = TileSensor.NONE
 	jobMax = 0
 	jobCapacity = 0	
+	numHighLevelJobs = 0
+	numMidLevelJobs = 0
+	numLowLevelJobs = 0
+	UpdateAgent.onRemovedTile(i, j)
 	#reset tile to base
 	inf = TileInf.NONE
 	data = [0, 0, 0, 0, 0]
@@ -933,9 +942,44 @@ func is_valid_tile(i, j) -> bool:
 func set_active_tile():
 	isActive = true
 	Global.activeTiles[[i, j]] = true
-	print(Global.activeTiles.size())
+	#print(Global.activeTiles.size())
 func deactivate_tile():
 	isActive = false
 	Global.activeTiles.erase([i, j])
-	print(Global.activeTiles.size())
+	#print(Global.activeTiles.size())
+
+func set_resource_demand():
+	if !is_commercial():
+		return
+	var pop_demanding = 0
+	var total_population = UpdatePopulation.get_population()
+	#Loop through and find residential tiles
+	#Get pop count / total population
+	#Clamp 0 -> 1
+	var neighbors = [[i-1, j], [i+1, j], [i, j-1], [i, j+1],
+		[i-2, j], [i+2, j], [i, j-2], [i, j+2],
+		[1, j+1], [i-1, j+1], [i-1, j-1], [i+1, j-1]]
+	for n in neighbors:
+		if is_valid_tile(n[0], n[1]):
+			var tile = Global.tileMap[n[0]][n[1]]
+			if tile.is_residential():
+				pop_demanding += tile.data[2]
+	resource_demand = clamp(pop_demanding / total_population, 0, 1)
+func set_goods_services_cost():
+	if !is_residential():
+		return
+	var neighbors = [[i-1, j], [i+1, j], [i, j-1], [i, j+1],
+		[i-2, j], [i+2, j], [i, j-2], [i, j+2],
+		[1, j+1], [i-1, j+1], [i-1, j-1], [i+1, j-1]]
+	var totalResourceDemand = 0
+	var numComZones = 0
+	for n in neighbors:
+		if is_valid_tile(n[0], n[1]):
+			var tile = Global.tileMap[n[0]][n[1]]
+			if tile.is_commercial():
+				numComZones += 1
+				totalResourceDemand += tile.resource_demand
+	if (numComZones == 0):
+		return
+	cost_goods_services = clamp(totalResourceDemand / numComZones, 0, 1)
 
