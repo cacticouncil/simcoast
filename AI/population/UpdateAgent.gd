@@ -37,7 +37,7 @@ func  decrease_total_jobs():
 	
 func onRemovedTile(i, j):
 	for agent in ActiveAgents:
-		if (agent.residential_tile.i == i && agent.residential_tile == j):
+		if (agent.residential_tile.i == i && agent.residential_tile.j == j):
 			var currTile = agent.residential_tile
 			currTile.remove_people(1)
 			agent.removeJob()
