@@ -23,8 +23,8 @@ var mapPath = ""
 var defaultMap = "res://data/default.json"
 var currentMap = "res://data/default.json"
 
-var mapWidth = 16
-var mapHeight = 18
+var mapWidth = 26
+var mapHeight = 28
 
 var beachRows
 
