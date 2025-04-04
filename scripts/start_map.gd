@@ -16,6 +16,7 @@ func _ready():
 	initSave_Exit()
 	loadMapData(Global.currentMap)
 	initObservers()
+	Beach.update_counts()
 	
 	$HUD/HBoxContainer/Money.text = "$" + Econ.comma_values(str(Econ.money))
 	#$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
@@ -781,6 +782,7 @@ func _unhandled_input(event):
 			Global.Tool.PASTE_TILE:
 				tile.paste_tile(copyTile)
 				
+		Beach.update_counts()
 		# Refresh graphics for cube and status bar text
 		#cube.update()
 		$HUD.update_tile_display(cube.i, cube.j)
@@ -1110,6 +1112,7 @@ func placementState():
 						tile.set_active_tile()
 				
 						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))
+				Beach.update_counts()
 		#if on damaged road tile, left click to repair
 		elif Global.mapTool == Global.Tool.INF_ROAD && tile.inf == Tile.TileInf.ROAD && tile.tileDamage > 0:
 			Global.dragToPlaceState = false
@@ -1178,8 +1181,7 @@ func placementState():
 				tile.clear_tile()
 			elif (Econ.purchase_structure(Econ.REMOVE_BEACH_ROCK)):
 				tile.clear_tile()
-
-
+		Beach.update_counts()
 
 func update_graphics():
 	#print("Updating graphics on tick: " + str(numTicks))
