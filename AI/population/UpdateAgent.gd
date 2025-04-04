@@ -44,4 +44,5 @@ func onRemovedTile(i, j):
 			ActiveAgents.erase(agent)
 		if (agent.commercial_tile != null):
 			if (agent.commercial_tile.i == i && agent.commercial_tile.j == j):
+				print("lost job")
 				agent.removeJob()
