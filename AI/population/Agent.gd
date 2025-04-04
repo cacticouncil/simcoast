@@ -13,21 +13,28 @@ enum COL {
 	HIGH
 }
 enum JOB_TYPES {
-	LIBRARIAN,#1 max
-	FIREFIGHTER,# 4 max
-	PARK_RANGER, # 1 max
-	BUSINESS_OWNER, #1 max
-	BUSINESS_EMPLOYEE, #15 max
-	UTILITY_PLANT_OPERATOR,#2 max
-	HOSPITAL_EMPLOYEE, #8 max
-	POLICE_OFFICER, #4 max
-	SEWAGE_WORKER, #2 max
-	WASTE_TREATMENT_WORKER, #2 max
-	MUSEUM_WORKER, #1 max
-	SCHOOL_EMPLOYEE, #8 max
-	TIDE_SCIENTIST, #1 max
-	RAIN_SCIENTIST, #1 max
-	WIND_SCIENTIST #1 max
+	BEACH_WORKER
+	PRINCIPAL,
+	TEACHER
+	LIBRARIAN,
+	MUSEUM_WORKER,
+	FIRE_CHIEF
+	FIREFIGHTER,
+	PARK_RANGER,
+	BUSINESS_OWNER,
+	BUSINESS_EMPLOYEE,
+	UTILITY_PLANT_OPERATOR,
+	DOCTOR,
+	NURSE,
+	HOSPITAL_EMPLOYEE,
+	POLICE_CHIEF,
+	POLICE_DETECTIVE
+	POLICE_OFFICER,
+	SEWAGE_WORKER,
+	WASTE_TREATMENT_WORKER,
+	TIDE_SCIENTIST,
+	RAIN_SCIENTIST,
+	WIND_SCIENTIST
 }
 # tile in which agent lives in
 var residential_tile = null
@@ -60,17 +67,9 @@ func _init(tile):
 	update_col()
 
 func change_job(tile):
+	removeJob()
 	hasJob = true
 	commercial_tile = tile
-
-func job_level():
-	var r =  randf()
-	if r < 0.6:
-		level = JOBS.LOW
-	elif  r < 0.9:
-		level = JOBS.MIDDLE
-	else:
-		level = JOBS.HIGH
 
 func change_residence(tile):
 	print("moved from", residential_tile.i, residential_tile.j)
@@ -92,4 +91,24 @@ func update_col():
 		col_level = COL.HIGH
 	else:
 		col_level = COL.MEDIUM
-
+func removeJob():
+	var currTile = commercial_tile
+	if (currTile == null):
+		return
+	if (job == JOB_TYPES.BEACH_WORKER):
+		if (level == JOBS.MIDDLE):
+			UpdateAgent.numBeachManagers += 1
+		elif (level == JOBS.LOW):
+			UpdateAgent.numBeachWorkers += 1
+	else:
+		if (level == JOBS.LOW):
+			currTile.numLowLevelJobs += 1
+		elif (level == JOBS.HIGH):
+			currTile.numHighLevelJobs += 1
+		elif (level == JOBS.MIDDLE):
+			currTile.numMidLevelJobs += 1
+		currTile.jobCapacity -= 1
+		currTile.remove_people(1)
+	UpdateAgent.decrease_total_jobs()
+	hasJob = false
+	commercial_tile = null

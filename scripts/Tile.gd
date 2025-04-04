@@ -153,6 +153,9 @@ const SCHOOL_NEIGHBORS = 0.2
 # Population AI 
 var jobMax = 0
 var jobCapacity = 0
+var numHighLevelJobs = 0
+var numMidLevelJobs = 0
+var numLowLevelJobs = 0
 var resource_demand = 0.0
 var cost_goods_services = 0.0
 #These 3 give a one time boost
@@ -533,7 +536,6 @@ func clear_tile():
 	#remove all buildings 
 	while (data[0] > 0):
 		remove_building()
-	
 	#inform the Announcer that we have removed a zone
 	if is_commercial():
 			var currEvent = Event.new("Removed Tile", "Removed Commercial Area", 1)
@@ -571,6 +573,10 @@ func clear_tile():
 	sensor = TileSensor.NONE
 	jobMax = 0
 	jobCapacity = 0	
+	numHighLevelJobs = 0
+	numMidLevelJobs = 0
+	numLowLevelJobs = 0
+	UpdateAgent.onRemovedTile(i, j)
 	#reset tile to base
 	inf = TileInf.NONE
 	data = [0, 0, 0, 0, 0]

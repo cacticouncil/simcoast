@@ -2,6 +2,8 @@ extends Node
 
 var ActiveAgents = []
 var totalJobs = 0
+var numBeachWorkers = 3
+var numBeachManagers = 1
 #above 10% unemployment and people are unhappy 
 var UNEMPLOYMENT_LIMIT = .10
 
@@ -32,3 +34,14 @@ func increase_total_jobs():
 
 func  decrease_total_jobs():
 	totalJobs = totalJobs - 1;
+	
+func onRemovedTile(i, j):
+	for agent in ActiveAgents:
+		if (agent.residential_tile.i == i && agent.residential_tile == j):
+			var currTile = agent.residential_tile
+			currTile.remove_people(1)
+			agent.removeJob()
+			ActiveAgents.erase(agent)
+		if (agent.commercial_tile != null):
+			if (agent.commercial_tile.i == i && agent.commercial_tile.j == j):
+				agent.removeJob()
