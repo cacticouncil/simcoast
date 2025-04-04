@@ -44,6 +44,7 @@ func getNextText():
 	
 	# DIALOGUE CASE
 	if dialogue.type == "Dialogue":
+		disableOptions()
 		# Get the dialogue from dialogues array
 		# Increment conv_index so that the next call will get the next dialogue
 		conv_index += 1
@@ -61,8 +62,8 @@ func getNextText():
 		var choices = dialogue.choices
 		
 		# Put the text on the screen
-		$DialogueBox/Option0.text = choices[0].selection
-		$DialogueBox/Option1.text = choices[1].selection
+		$DialogueBox/Option0/Label.text = choices[0].selection
+		$DialogueBox/Option1/Label.text = choices[1].selection
 		
 		# Enable the options
 		$DialogueBox/Option0.disabled = false
@@ -70,7 +71,7 @@ func getNextText():
 		
 		# Not always a 3rd option
 		if choices[2]:
-			$DialogueBox/Option2.text = choices[2].selection
+			$DialogueBox/Option2/Label.text = choices[2].selection
 			$DialogueBox/Option2.disabled = false
 	
 	display_char_photo_and_name(int(dialogue.char_id))
@@ -101,9 +102,9 @@ func disableOptions():
 	$DialogueBox/Option0.disabled = true
 	$DialogueBox/Option1.disabled = true
 	$DialogueBox/Option2.disabled = true
-	$DialogueBox/Option0.text = ""
-	$DialogueBox/Option1.text = ""
-	$DialogueBox/Option2.text = ""
+	$DialogueBox/Option0/Label.text = ""
+	$DialogueBox/Option1/Label.text = ""
+	$DialogueBox/Option2/Label.text = ""
 
 func _on_Option_pressed(button_id: int):
 	disableOptions()
