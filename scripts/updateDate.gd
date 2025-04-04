@@ -56,6 +56,7 @@ func update_date():
 	#update profit display weekly
 	if int(ticksSinceLastWeekChange) % (DATE_TICKS) == 0:
 		Econ.updateProfitDisplay()
+		UpdateTourism.update_tourism()
 	if (ticksSinceLastWeekChange >= DATE_TICKS):
 		ticksSinceLastWeekChange = 0
 		if (week == Weeks.Week4):
