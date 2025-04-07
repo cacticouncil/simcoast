@@ -16,7 +16,8 @@ func updateHurricanePrep():
 			continue;
 		count += 1
 		var damage = tile.tileDamage
-		var regulationValue = 1 - tile.calculate_building_code_damage_multiplier()
+		var regulationValue = tile.get_building_code_value()
+		#var regulationValue = 1 - tile.calculate_building_code_damage_multiplier()
 		tile.hurricane_prep = (regulationValue + 1 - damage) / 2
 		totalPrep += tile.hurricane_prep
 	var avgPerTile = 0

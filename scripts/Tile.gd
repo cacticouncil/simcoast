@@ -700,7 +700,15 @@ func calculate_building_code_damage_multiplier():
 			return 1 - rand_range(0.4, 0.7)
 		BuildingCode.HIGH:
 			return 1 - rand_range(.8, 1)
-
+# Returns a 0-1 value based on building code
+func get_building_code_value():
+	match buildingCodeLevel:
+		BuildingCode.LIGHT:
+			return 0
+		BuildingCode.MEDIUM:
+			return 0.5
+		BuildingCode.HIGH:
+			return 1
 
 func set_damage(n):
 	#tiles without buildings/zoning or roads/bridges should not be damaged
