@@ -69,8 +69,8 @@ func update_population():
 					if expectedPeopleMoveIn > peopleMovedIn:
 						currTile.add_people(1)
 			else:
-				var maxRange = currTile.landValue + currTile.happiness
-				var selectTile = BASE_BUILD_CHANCE * (currTile.landValue + currTile.happiness)
+				var maxRange = currTile.landValue + (UpdateHappiness.city_happiness * 100)
+				var selectTile = BASE_BUILD_CHANCE * (maxRange)
 				
 				# cannot add buldings or people without utility, zoning, or if the tile is damaged
 				if currTile.is_zoned() && currTile.has_utilities() && currTile.tileDamage == 0:
@@ -139,8 +139,8 @@ func update_population_tile(currTile):
 			if expectedPeopleMoveIn > peopleMovedIn:
 				currTile.add_people(1)
 	else:
-		var maxRange = currTile.landValue + currTile.happiness
-		var selectTile = BASE_BUILD_CHANCE * (currTile.landValue + currTile.happiness)
+		var maxRange = currTile.landValue + (UpdateHappiness.city_happiness * 100)
+		var selectTile = BASE_BUILD_CHANCE * (maxRange)
 		
 		# cannot add buldings or people without utility, zoning, or if the tile is damaged
 		if currTile.is_zoned() && currTile.has_utilities() && currTile.tileDamage == 0:
