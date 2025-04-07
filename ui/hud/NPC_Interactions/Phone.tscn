@@ -42,7 +42,6 @@ rect_scale = Vector2( 1.25, 1.1 )
 texture_normal = ExtResource( 5 )
 
 [node name="photo" type="TextureRect" parent="phone_info"]
-visible = false
 margin_left = 135.2
 margin_top = 37.2727
 margin_right = 217.2
