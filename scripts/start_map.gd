@@ -944,6 +944,7 @@ func update_game():
 	update_tiles()
 	UpdateDemand.get_demand()
 	UpdateHappiness.update_happiness()
+	HurricanePrep.updateHurricanePrep()
 	# UpdateErosion.update_erosion()
 	Econ.calc_profit_rates()
 	Econ.calcCityIncome()

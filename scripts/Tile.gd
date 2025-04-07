@@ -121,6 +121,7 @@ var tileDamage = 0
 var erosion = 0
 var buildingCodeLevel = BuildingCode.LIGHT
 var isActive = false
+var hurricane_prep = 0
 # Purchase price of a tile
 var landValue = 0
 # Income of a zone

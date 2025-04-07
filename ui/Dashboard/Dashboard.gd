@@ -7,6 +7,7 @@ func _ready():
 	$ColorRect2/CityStatsBar/Money.text = "$" + Econ.comma_values(str(Econ.money))
 	$ColorRect2/CityStatsBar/Population.text = str(UpdatePopulation.get_population())
 	$ColorRect2/CityStatsBar/Happiness.text = str(int(UpdateHappiness.city_happiness * 100)) + "%"
+	$ColorRect2/CityStatsBar/WeatherPreparedness.text = str(int(HurricanePrep.city_hurricane_prep * 100)) + "%"
 
 	#When dashboard is opened, propery, sales, and income taxes are set based on values in Econ.gd
 	
@@ -46,7 +47,7 @@ func _process(delta):
 	$ColorRect2/CityStatsBar/Money.text = "$" + Econ.comma_values(str(Econ.money))
 	$ColorRect2/CityStatsBar/Population.text = str(UpdatePopulation.get_population())
 	$ColorRect2/CityStatsBar/Happiness.text = str(int(UpdateHappiness.city_happiness * 100)) + "%"
-
+	$ColorRect2/CityStatsBar/WeatherPreparedness.text = str(int(HurricanePrep.city_hurricane_prep * 100)) + "%"
 #When user adjusts tax sliders, functions are called to change the values in Econ.gd and update the text displayed to the user.
 func _on_PropertyTaxSlider_value_changed(value):
 	Econ.adjust_property_tax_rate(value/100)
