@@ -309,13 +309,13 @@ margin_right = 412.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 10, 0 )
 
-[node name="HapinessIcon" type="TextureRect" parent="HUD/HBoxContainer"]
+[node name="HappinessIcon" type="TextureRect" parent="HUD/HBoxContainer"]
 margin_left = 416.0
 margin_right = 441.0
 margin_bottom = 24.0
 texture = ExtResource( 118 )
 
-[node name="Hapiness" type="Label" parent="HUD/HBoxContainer"]
+[node name="Happiness" type="Label" parent="HUD/HBoxContainer"]
 margin_left = 445.0
 margin_top = 5.0
 margin_right = 469.0

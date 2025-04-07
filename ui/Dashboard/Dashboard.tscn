@@ -251,7 +251,7 @@ margin_bottom = 340.0
 rect_min_size = Vector2( 980, 300 )
 
 [node name="DisplayCharacterCards" type="VBoxContainer" parent="BadgesSensorStats/ScrollContainer/MenuContainer/ColorRect2/ScrollContainer"]
-margin_right = 1130.0
+margin_right = 980.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 980, 300 )
 script = ExtResource( 3 )

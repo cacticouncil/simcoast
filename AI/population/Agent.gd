@@ -61,6 +61,8 @@ var cost_of_housing
 var cost_of_living = 0
 var col_level = COL.LOW
 
+var happiness = 0
+
 func _init(tile):
 	residential_tile = tile
 	cost_of_housing = 1500 * range_lerp(tile.desirability, 0, 1, 0, 2)
@@ -91,6 +93,7 @@ func update_col():
 		col_level = COL.HIGH
 	else:
 		col_level = COL.MEDIUM
+	calculate_happiness()
 func removeJob():
 	var currTile = commercial_tile
 	if (currTile == null):
@@ -112,3 +115,8 @@ func removeJob():
 	UpdateAgent.decrease_total_jobs()
 	hasJob = false
 	commercial_tile = null
+func calculate_happiness():
+	#Technically, COL can range from 400 - 4000 at the extreme
+	#COL is inverse of happiness
+	happiness = 1 - range_lerp(cost_of_living, 400, 4000, 0, 1)
+	#print("happiness:", happiness)

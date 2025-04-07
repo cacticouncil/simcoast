@@ -46,3 +46,15 @@ func onRemovedTile(i, j):
 			if (agent.commercial_tile.i == i && agent.commercial_tile.j == j):
 				print("lost job")
 				agent.removeJob()
+#Gets average happiness of agents living in that tile
+func getAverageHappiness(i, j):
+	var totalHappiness = 0
+	var numAgents = 0
+	for agent in ActiveAgents:
+		if (agent.residential_tile.i == i && agent.residential_tile.j == j):
+			totalHappiness += agent.happiness
+			numAgents += 1
+	if (numAgents == 0):
+		return 0
+	else:
+		return totalHappiness / numAgents

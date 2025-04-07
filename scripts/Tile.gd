@@ -982,4 +982,7 @@ func set_goods_services_cost():
 	if (numComZones == 0):
 		return
 	cost_goods_services = clamp(totalResourceDemand / numComZones, 0, 1)
+func calculateHappiness():
+	var agentHappiness = UpdateAgent.getAverageHappiness(i, j)
+	return (agentHappiness + desirability) / 2
 

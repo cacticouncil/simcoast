@@ -943,6 +943,7 @@ func update_game():
 	#This function updates by tile and checks for active tiles
 	update_tiles()
 	UpdateDemand.get_demand()
+	UpdateHappiness.update_happiness()
 	# UpdateErosion.update_erosion()
 	Econ.calc_profit_rates()
 	Econ.calcCityIncome()
@@ -960,7 +961,7 @@ func update_tiles():
 				Weather.stormDamage = false
 				City.calc_storm_damage_tile(currTile)
 			UpdateValue.update_land_value_tile(currTile)
-			UpdateHappiness.update_happiness_tile(currTile)
+			#UpdateHappiness.update_happiness_tile(currTile)
 			UpdatePopulation.update_population_tile(currTile)
 			UpdateErosion.update_erosion_tile(currTile)
 			#Update the graphics for each tile
