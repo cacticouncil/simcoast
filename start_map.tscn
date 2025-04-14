@@ -629,7 +629,7 @@ margin_top = 185.0
 margin_bottom = 300.0
 
 [node name="PauseTitle" type="Label" parent="PauseMenu/PauseMenu"]
-margin_right = 1280.0
+margin_right = 1450.0
 margin_bottom = 72.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 0
@@ -641,25 +641,30 @@ valign = 1
 
 [node name="PauseButtons" type="VBoxContainer" parent="PauseMenu/PauseMenu"]
 margin_top = 76.0
-margin_right = 1280.0
+margin_right = 1450.0
 margin_bottom = 292.0
 
 [node name="ContinueButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 113 )]
+margin_right = 1450.0
 
 [node name="SaveButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 114 )]
 margin_top = 44.0
+margin_right = 1450.0
 margin_bottom = 84.0
 
 [node name="LoadButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 110 )]
 margin_top = 88.0
+margin_right = 1450.0
 margin_bottom = 128.0
 
 [node name="AchievementButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 112 )]
 margin_top = 132.0
+margin_right = 1450.0
 margin_bottom = 172.0
 
 [node name="QuitButton" parent="PauseMenu/PauseMenu/PauseButtons" instance=ExtResource( 115 )]
 margin_top = 176.0
+margin_right = 1450.0
 margin_bottom = 216.0
 
 [node name="Popups" type="CanvasLayer" parent="."]
@@ -871,18 +876,18 @@ Any unsved progress will be lost."
 align = 1
 
 [node name="RoadRepair" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="RoadRepair"]
-margin_right = 1280.0
-margin_bottom = 720.0
+visible = false
+margin_right = 1450.0
+margin_bottom = 850.0
 color = Color( 0, 0, 0, 0.196078 )
 
 [node name="ChoiceBox" type="ColorRect" parent="RoadRepair/ColorRect"]
-margin_left = 600.0
-margin_top = 200.0
-margin_right = 834.0
-margin_bottom = 370.0
+margin_left = 685.0
+margin_top = 265.0
+margin_right = 919.0
+margin_bottom = 435.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="ChoicePrompt" type="RichTextLabel" parent="RoadRepair/ColorRect/ChoiceBox"]
@@ -912,15 +917,15 @@ text = "No"
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="RoadRepairError"]
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_right = 1450.0
+margin_bottom = 850.0
 color = Color( 0, 0, 0, 0.196078 )
 
 [node name="ChoiceBox" type="ColorRect" parent="RoadRepairError/ColorRect"]
-margin_left = 600.0
-margin_top = 200.0
-margin_right = 834.0
-margin_bottom = 370.0
+margin_left = 685.0
+margin_top = 265.0
+margin_right = 919.0
+margin_bottom = 435.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="ErrorMessage" type="RichTextLabel" parent="RoadRepairError/ColorRect/ChoiceBox"]

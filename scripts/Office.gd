@@ -29,7 +29,7 @@ func _on_QuitOffice_button_down():
 func _on_Phone_pressed():
 	var phone = preload("res://ui/hud/NPC_Interactions/Phone.tscn")
 	var phone_instance = phone.instance()
-	add_child(phone_instance)
+	get_tree().get_current_scene().add_child(phone_instance)
 	
 # opens sensor graphs
 func _on_Computer_pressed():

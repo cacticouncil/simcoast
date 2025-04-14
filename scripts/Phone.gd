@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasLayer
 
 #stores the current npc from clicked character card
 var currNPC
@@ -17,10 +17,7 @@ func _npc_callback(npc_character):
 	$phone_info/photo.texture = load(picPath)
 	$phone_info/name.text = currNPC.name
 	$phone_info/job.text = currNPC.job
-	if currNPC.name !="Jermaine":
-		$phone_info/jobdesc.text = "No information available at the moment. Please check later!"
-	else:
-		$phone_info/jobdesc.text = "A deputy mayor assists the mayor in matters of running the city. He chairs council meetings, liaisons with the community, and acts on behalf of the mayor."
+	$phone_info/jobdesc.text = currNPC.description
 	$phone_info/fee.text = str("You can consult with ",currNPC.name, " for free.")
 	$phone_info.visible = true
 	$ScrollContainer.visible = false
