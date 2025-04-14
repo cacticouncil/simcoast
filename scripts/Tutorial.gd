@@ -19,6 +19,10 @@ func getNextText():
 	# Get the current conversation from array
 	current_conv = TutorialData.convs[segment]
 	
+	# Set TutorialComplete to true when end of convs array is reached
+	if current_conv == null:
+		Global.TutorialComplete = true
+		
 	# Check if the dialogue is null (end of conversation)
 	if current_conv == null or current_conv.dialogues[conv_index] == null:
 		# Remove the tutorial scene

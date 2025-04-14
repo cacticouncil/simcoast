@@ -168,3 +168,4 @@ enum Tool {
 	PASTE_TILE
 }
 var newGame = false #If New Game is entered, this is used for game state purposes
+var TutorialComplete: bool = false
