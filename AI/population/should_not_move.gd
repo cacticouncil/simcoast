@@ -24,8 +24,8 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	elif (status == Tile.TileStatus.HEAVY_DAMAGE):
 		leaveChance += SEVERE_DAMAGE_UNHAPPINESS
 	if (selectTile * leaveChance > 0.5):
-		print("failed shoud stay")
+		#print("failed shoud stay")
 		verified = false
 	else:
-		print("passed shoud stay")
+		#print("passed shoud stay")
 		verified = true
