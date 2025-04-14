@@ -4511,7 +4511,7 @@
             "isActive": true,
             "landValue": 1.2165,
             "profitRate": 36.495,
-            "happiness": 44.5,
+            "happiness": 0,
             "changeInWaterHeight": -11,
             "connections": [
                 0,
@@ -6357,7 +6357,7 @@
             "isActive": true,
             "landValue": 0.7635,
             "profitRate": 0,
-            "happiness": 17.5,
+            "happiness": 0,
             "changeInWaterHeight": -11,
             "connections": [
                 0,
@@ -6428,7 +6428,7 @@
             "isActive": true,
             "landValue": 0.8385,
             "profitRate": 25.155,
-            "happiness": 41.5,
+            "happiness": 0,
             "changeInWaterHeight": -11,
             "connections": [
                 0,

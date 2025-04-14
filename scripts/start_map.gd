@@ -232,9 +232,6 @@ func _unhandled_input(event):
 
 			Global.Tool.ADD_COM_BLDG:
 				if tile.is_commercial():
-					tile.jobMax = 16
-					tile.numHighLevelJobs = 1
-					tile.numLowLevelJobs = 15
 					City.adjust_building_number(tile)
 
 			# Add/Remove People
@@ -1082,6 +1079,9 @@ func placementState():
 						if Econ.purchase_structure(Econ.COMMERCIAL_ZONE_COST):
 							tile.set_zone(Tile.TileZone.COMMERCIAL)
 							tile.set_active_tile()
+							tile.jobMax = 16
+							tile.numHighLevelJobs = 1
+							tile.numLowLevelJobs = 15
 				elif (Global.mapTool == Global.Tool.BASE_OCEAN):
 					if (Econ.purchase_structure(Econ.WATER_COST)):
 						tile.clear_tile()
@@ -1158,6 +1158,9 @@ func placementState():
 						tile.clear_tile()
 						tile.set_zone(Tile.TileZone.COMMERCIAL)
 						tile.on_beach = true
+						tile.jobMax = 16
+						tile.numHighLevelJobs = 1
+						tile.numLowLevelJobs = 15
 						tile.set_active_tile()
 				
 						Announcer.notify(Event.new("Added Tile", "Added Bridge", 1))

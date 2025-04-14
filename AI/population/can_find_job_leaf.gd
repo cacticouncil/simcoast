@@ -14,7 +14,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 				#print(current_tile.jobMax)
 				if current_tile.jobCapacity < current_tile.jobMax:
 					if current_tile.has_utilities() && current_tile.tileDamage == 0:
-						if current_tile.zone == Tile.TileZone.COMMERCIAL:
+						if current_tile.is_commercial():
 							foundJob = true
 							if current_tile.jobCapacity == 0:
 								current_agent.level = Agent.JOBS.HIGH
@@ -185,7 +185,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 			foundJob = true
 	
 	if foundJob == true:
-		print("found job")
+		print("found job", current_agent.commercial_tile.i, current_agent.commercial_tile.j)
 		current_agent.unemployed_month = null
 		current_agent.months_passed = 0
 		UpdateAgent.increase_total_jobs()

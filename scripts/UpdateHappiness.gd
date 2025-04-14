@@ -10,15 +10,14 @@ func update_happiness():
 	for tile in Global.activeTiles:
 		var currTile = Global.tileMap[tile[0]][tile[1]]
 		#If there are people in the tile
-		if (currTile.is_zoned() && currTile.data[2] != 0):
-			var avgHappiness = currTile.calculateHappiness()
-			var happiness = (avgHappiness + currTile.desirability) / 2
+		if (currTile.is_residential() && currTile.data[2] != 0):
+			var happiness = currTile.calculateHappiness()
 			#if unemployment is high, happiness takes a big hit
 			if UpdatePopulation.is_unemployment_high():
 				happiness += HIGH_UNEMPLOYMENT_PENALTY
 			currTile.happiness = happiness * 100
 			numResTiles += 1
-		totalHappiness += currTile.happiness
+			totalHappiness += currTile.happiness
 	if (numResTiles == 0):
 		city_happiness = 0
 		return
@@ -27,7 +26,7 @@ func update_happiness():
 	#print(city_happiness)
 func update_happiness_tile(currTile):
 	#If there are people in the tile
-	if (currTile.is_zoned() && currTile.data[2] != 0):
+	if (currTile.is_residential() && currTile.data[2] != 0):
 		var avgHappiness = currTile.calculateHappiness()
 		var happiness = (avgHappiness + currTile.desirability) / 2
 		#if unemployment is high, happiness takes a big hit

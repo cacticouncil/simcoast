@@ -83,13 +83,14 @@ func change_residence(tile):
 	update_col()
 
 func update_col():
-	cost_of_goods_services = 300 * range_lerp(residential_tile.cost_goods_services, 0, 1, 0, 2)
+	cost_of_goods_services = 500 * range_lerp(residential_tile.cost_goods_services, 0, 1, 1, 2)
 	cost_of_living = cost_of_housing + cost_utilities + cost_of_goods_services
 	#print(cost_of_living)
+	#print(cost_of_living)
 	#These thresholds may be tweaked
-	if cost_of_living < 1500:
+	if cost_of_living < 2000:
 		col_level = COL.LOW
-	elif cost_of_living > 2500:
+	elif cost_of_living > 3000:
 		col_level = COL.HIGH
 	else:
 		col_level = COL.MEDIUM
