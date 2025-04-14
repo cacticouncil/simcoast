@@ -379,10 +379,10 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Library.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.position = Vector2(x - w , y)
 		buildingSprite.z_index = (i + j) * 10
 		listOfBuildings.append(buildingSprite)
-		sensor_height = 32
+		sensor_height = 16
 		sensor_zindex+=2
 		
 	elif tile.inf == Tile.TileInf.MUSEUM:
@@ -390,7 +390,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Museum.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h)
+		buildingSprite.position = Vector2(x, y)
 		buildingSprite.z_index = (i + j) * 10
 		listOfBuildings.append(buildingSprite)
 		sensor_height = 16
@@ -412,8 +412,7 @@ func update_polygons():
 		var image = load("res://assets/building_assets/2d Assets/Firehouse.png")
 		buildingSprite = Sprite.new()
 		buildingSprite.texture = image
-		buildingSprite.position = Vector2(x, y - h - 32)
-		buildingSprite.scale = Vector2(2, 2)
+		buildingSprite.position = Vector2(x - w , y)
 		buildingSprite.z_index = (i + j) * 10
 		listOfBuildings.append(buildingSprite)
 		sensor_height = 16
