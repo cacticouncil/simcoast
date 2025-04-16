@@ -25,8 +25,8 @@ func _ready():
 	#$HUD/TopBar/HBoxContainer/Demand.text = "Residential Demand: " + str(UpdateDemand.calcResidentialDemand()) + "/10" + " Commercial Demand: " + str(UpdateDemand.calcCommercialDemand()) + "/10"
 	$HUD/Date/Year.text = str(UpdateDate.year)
 	$HUD/Date/Month.text = UpdateDate.Months.keys()[UpdateDate.month]
-	if (Global.newGame):
-		initTutorial()
+	#if (Global.newGame):
+	#	initTutorial()
 
 func initSave_Exit():
 	$Popups/SaveDialog.connect("file_selected", self, "_on_file_selected_save")

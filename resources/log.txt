@@ -1,2 +1,14 @@
 SELECTION, RESPONSE
 
+We need to get the city fixed up., That’s right! We have to get things in tip-top shape. Join me in the office, and we can get started.
+How can we help improve the city?, We need to fix the damaged facilities around the city.
+I’ll meet you at the beach. I’d like to explore the city first., EMPTY
+We need to get the city fixed up., That’s right! We have to get things in tip-top shape. Join me in the office, and we can get started.
+How can we help improve the city?, We need to fix the damaged facilities around the city.
+That sounds like a great idea. Let's go!, EMPTY
+That’s really cool. What’s your job like?, I work with people every day to put on events and speak up for others so our community remains safe and happy.
+Yes., That's great! Then you'll be a great addition to our little team.
+Pretty beaches are better than dirty ones., Yes. Clean beaches encourage more visitors, which can improve our city’s economy. Clean beaches also create a healthy environment for marine life.
+A clean beach means there’s less trash in the ocean., That’s correct! A clean beach means that less trash will go from the beach and into the ocean.
+Yes., EMPTY
+I'll go see him right now., EMPTY
