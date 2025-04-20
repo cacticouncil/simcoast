@@ -173,16 +173,12 @@ func _unhandled_input(event):
 				sensor_back_to_inventory(tile.sensor)
 				tile.sensor = Tile.TileSensor.NONE
 
-		# Instantiate beach scene upon middle mouse click on tile
-		if Input.is_action_pressed("middle_mouse_click"):
-			var beach_scene = preload("res://ui/Beach/Beach.tscn")
-			var beach_inst = beach_scene.instance()
-			add_child(beach_inst)
-			reset_selected()
-			return
-
 		reset_selected()
 
+		# Can't place anything until the tutorial is complete
+		if not Global.TutorialComplete:
+			return
+			
 		# Perform action based on current tool selected
 		match Global.mapTool:
 			# Change Base or (if same base) raise/lower tile height
@@ -1223,24 +1219,27 @@ func _on_StoreButton_pressed():
 
 func _on_DashboardButton_mouse_entered():
 	$HUD/TopBarBG/DashboardHover.visible = true
-
 func _on_UIAchievementButton_mouse_entered():
 	$HUD/TopBarBG/AchievementHover.visible = true
-
 func _on_StoreButton_mouse_entered():
 	$HUD/TopBarBG/StoreHover.visible = true
 func _on_OfficeButton_mouse_entered():
 	$HUD/TopBarBG/OfficeHover.visible = true
+func _on_BeachButton_mouse_entered():
+	$HUD/TopBarBG/BeachHover.visible = true
+	
 func _on_DashboardButton_mouse_exited():
 	$HUD/TopBarBG/DashboardHover.visible = false
-
 func _on_UIAchievementButton_mouse_exited():
 	$HUD/TopBarBG/AchievementHover.visible = false
-
 func _on_StoreButton_mouse_exited():
 	$HUD/TopBarBG/StoreHover.visible = false
 func _on_OfficeButton_mouse_exited():
 	$HUD/TopBarBG/OfficeHover.visible = false
+func _on_BeachButton_mouse_exited():
+	$HUD/TopBarBG/BeachHover.visible = false
+
+
 # sensor options -> yes, no, or ask for help
 # yes adds sensor to tile
 func _on_YesButton_pressed():
@@ -1435,3 +1434,9 @@ func _on_OfficeButton_pressed():
 	var office = preload("res://ui/hud/NPC_Interactions/Office.tscn")
 	var OfficeInstance = office.instance()
 	add_child(OfficeInstance)
+
+
+func _on_BeachButton_pressed():
+	var beach_scene = preload("res://ui/Beach/Beach.tscn")
+	var beach_inst = beach_scene.instance()
+	add_child(beach_inst)
