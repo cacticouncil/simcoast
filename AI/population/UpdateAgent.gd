@@ -17,9 +17,9 @@ func add_agent(i, j):
 #func _process(delta):
 #	pass
 func total_agents():
-	#print(ActiveAgents.size())
 	return ActiveAgents.size()
 
+#Checks if jobs allow for agents to work
 func can_work():
 	var p = total_agents()
 	if p == 0:

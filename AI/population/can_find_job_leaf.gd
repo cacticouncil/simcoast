@@ -8,6 +8,8 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var current_agent = blackboard.get_data("queue").pop_front()
 	var foundJob = false
 	# iterates through the map to find possible working spaces
+	# Each utility has a number of jobs as different levels
+	# Agents choose higher paying jobs first
 	for key in Global.activeTiles:
 			if foundJob == false:
 				var current_tile = Global.tileMap[key[0]][key[1]]

@@ -2,16 +2,19 @@ class_name Agent
 extends Node
 # single population agent
 
+#Range of income
 enum JOBS{
 	LOW,
 	MIDDLE,
 	HIGH
 }
+#Cost of living assessments
 enum COL {
 	LOW,
 	MEDIUM,
 	HIGH
 }
+#All job titles
 enum JOB_TYPES {
 	BEACH_WORKER
 	PRINCIPAL,
@@ -58,11 +61,13 @@ var cost_utilities = 400
 #Based on desirability of the residential tile at the time of moving in
 var cost_of_housing
 #Accumulation of all the expenses to the Agent
+#Continuous value -> HIGH, MEDIUM, LOW
 var cost_of_living = 0
 var col_level = COL.LOW
-
+#Per agent Happiness metric
 var happiness = 0
 
+#When agent moves into the city
 func _init(tile):
 	residential_tile = tile
 	cost_of_housing = 1500 * range_lerp(tile.desirability, 0, 1, 0, 2)
@@ -73,6 +78,7 @@ func change_job(tile):
 	hasJob = true
 	commercial_tile = tile
 
+#When agent moves
 func change_residence(tile):
 	print("moved from", residential_tile.i, residential_tile.j)
 	print("moved to", tile.i, tile.j)
@@ -82,12 +88,11 @@ func change_residence(tile):
 	cost_of_housing = 1500 * range_lerp(tile.desirability, 0, 1, 0, 2)
 	update_col()
 
+#Update COL values - adds housing, utilities (constant) and goods and services
 func update_col():
 	cost_of_goods_services = 500 * range_lerp(residential_tile.cost_goods_services, 0, 1, 1, 2)
 	cost_of_living = cost_of_housing + cost_utilities + cost_of_goods_services
-	#print(cost_of_living)
-	#print(cost_of_living)
-	#These thresholds may be tweaked
+	#Thresholds for COL
 	if cost_of_living < 2000:
 		col_level = COL.LOW
 	elif cost_of_living > 3000:
@@ -95,6 +100,7 @@ func update_col():
 	else:
 		col_level = COL.MEDIUM
 	calculate_happiness()
+#Agent loses their job
 func removeJob():
 	var currTile = commercial_tile
 	if (currTile == null):
@@ -116,8 +122,8 @@ func removeJob():
 	UpdateAgent.decrease_total_jobs()
 	hasJob = false
 	commercial_tile = null
+#Calculate per agent happiness
 func calculate_happiness():
 	#Technically, COL can range from 400 - 4000 at the extreme
 	#COL is inverse of happiness
 	happiness = 1 - range_lerp(cost_of_living, 400, 4000, 0, 1)
-	#print("happiness:", happiness)

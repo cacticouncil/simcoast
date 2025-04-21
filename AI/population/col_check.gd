@@ -8,14 +8,13 @@ extends BTConditional
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	var current_agent = blackboard.get_data("queue").front()
 	var unbalanced_col = false
-	#print("level", current_agent.level)
-	#print("col", current_agent.col_level)
+	#Checks if COL is unbalanced
 	if (current_agent.level == Agent.JOBS.LOW && current_agent.col_level == Agent.COL.HIGH):
 		unbalanced_col = true
 	elif (current_agent.level == Agent.JOBS.HIGH && current_agent.col_level == Agent.COL.LOW):
 		unbalanced_col = true
 	if (unbalanced_col == true):
-		#print("passed should_move")
+		print("unbalanced")
 		verified = true
 	else:
 		#print("failed should_move")

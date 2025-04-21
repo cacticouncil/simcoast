@@ -6,13 +6,12 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var current_agent = blackboard.get_data("queue").pop_front()
 	if (current_agent.level == Agent.JOBS.LOW && current_agent.col_level == Agent.COL.HIGH):
 		#Wants to find new job or move
-		#print("wants to move")
 		for key in Global.activeTiles:
 			var tile = Global.tileMap[key[0]][key[1]]
 			if (tile.is_residential() && tile.desirability < current_agent.residential_tile.desirability):
 				current_agent.change_residence(tile)
 	elif (current_agent.level == Agent.JOBS.HIGH && current_agent.col_level == Agent.COL.LOW):
-		#print("wants to move")
+		#Wants to find more desirable place to live
 		for key in Global.activeTiles:
 			var tile = Global.tileMap[key[0]][key[1]]
 			if (tile.is_residential() && tile.desirability > current_agent.residential_tile.desirability):

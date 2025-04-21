@@ -10,6 +10,7 @@ var rng = RandomNumberGenerator.new()
 
 func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var current_agent = blackboard.get_data("queue").pop_front()
+	#Agent will move if they are unhappy or leave the city
 	var mapHeight = Global.mapHeight
 	var mapWidth = Global.mapWidth
 	var moved = false

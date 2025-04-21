@@ -12,6 +12,7 @@ var SEVERE_DAMAGE_UNHAPPINESS = 30
 # The condition is checked BEFORE ticking. So it should be in _pre_tick.
 # Checks if the queue is empty. If it is, do not proceed.
 func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
+	#Checks utilities, happiness, damage to see if agent wants to leave
 	var current_agent = blackboard.get_data("queue").front()
 	current_agent.update_col()
 	var currTile = current_agent.residential_tile
