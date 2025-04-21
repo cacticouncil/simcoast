@@ -261,8 +261,8 @@ func button_pressed():
 			Global.placementState = true
 			Global.hoverImage = "res://assets/building_assets/2d Assets/Hospital.png"
 			Global.infType = Tile.TileInf.HOSPITAL
-			Global.buildingHeight = 1
-			Global.buildingWidth = 1
+			Global.buildingHeight = 2
+			Global.buildingWidth = 2
 			get_node("/root/CityMap/PreviewFade").play("Fade")
 		'police station_button':
 			Global.mapTool = Global.Tool.INF_POLICE_STATION
@@ -277,8 +277,8 @@ func button_pressed():
 			Global.placementState = true
 			Global.hoverImage = "res://assets/building_assets/2d Assets/UtilityPlant.png"
 			Global.infType = Tile.TileInf.UTILITIES_PLANT
-			Global.buildingHeight = 1
-			Global.buildingWidth = 1
+			Global.buildingHeight = 2
+			Global.buildingWidth = 2
 			get_node("/root/CityMap/PreviewFade").play("Fade")
 		'sewage facility_button':
 			Global.mapTool = Global.Tool.INF_SEWAGE_FACILITY
@@ -309,16 +309,16 @@ func button_pressed():
 			Global.placementState = true
 			Global.hoverImage = "res://assets/building_assets/2d Assets/Library.png"
 			Global.infType = Tile.TileInf.LIBRARY
-			Global.buildingHeight = 1
-			Global.buildingWidth = 1
+			Global.buildingHeight = 2
+			Global.buildingWidth = 2
 			get_node("/root/CityMap/PreviewFade").play("Fade")
 		'museum_button':
 			Global.mapTool = Global.Tool.INF_MUSEUM
 			Global.placementState = true
 			Global.hoverImage = "res://assets/building_assets/2d Assets/Museum.png"
 			Global.infType = Tile.TileInf.MUSEUM
-			Global.buildingHeight = 1
-			Global.buildingWidth = 1
+			Global.buildingHeight = 2
+			Global.buildingWidth = 2
 			get_node("/root/CityMap/PreviewFade").play("Fade")
 		'school_button':
 			Global.mapTool = Global.Tool.INF_SCHOOL
