@@ -498,8 +498,8 @@ func check_if_valid_placement(inf_to_be, height, width):
 	
 	for a in range(0, height):
 		for b in range(0, width):
-			if (i - a >= 0 and j - b >= 0):
-				var currTile = Global.tileMap[i - a][j - b]
+			if (i + a < Global.mapHeight and j + b < Global.mapWidth):
+				var currTile = Global.tileMap[i + a][j + b]
 				if currTile.inf != TileInf.NONE or currTile.zone != TileZone.NONE:
 					return false
 				elif currTile.baseHeight != baseHeight:
@@ -518,11 +518,11 @@ func set_tile_inf(infType, zoneType, height, width):
 			if a == 0 and b == 0:
 				continue
 			#No need to check if valid, already did that
-			var currTile = Global.tileMap[i - a][j - b]
+			var currTile = Global.tileMap[i + a][j + b]
 			currTile.inf = TileInf.CHILD
 			currTile.zone = zoneType
 			currTile.parent = [i, j]
-			children.append([i - a, j - b])
+			children.append([i + a, j + b])
 	City.connectUtilities()
 	set_active_tile()
 
@@ -934,6 +934,8 @@ func set_active_tile():
 	isActive = true
 	Global.activeTiles[[i, j]] = true
 	print(Global.activeTiles.size())
+	for child in children:
+		print(child)
 func deactivate_tile():
 	isActive = false
 	Global.activeTiles.erase([i, j])
