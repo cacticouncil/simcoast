@@ -174,10 +174,6 @@ func _unhandled_input(event):
 				tile.sensor = Tile.TileSensor.NONE
 
 		reset_selected()
-
-		# Can't place anything until the tutorial is complete
-		if not Global.TutorialComplete:
-			return
 			
 		# Perform action based on current tool selected
 		match Global.mapTool:

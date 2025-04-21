@@ -9,7 +9,7 @@ var npcCount: int = 0
 func _ready():
 	addNPC("PLAYER_NAME", "Mayor",  0, "res://assets/characters/test_profession_icon.png", "")
 	addNPC("Jermaine", "Deputy Mayor", 1, "res://assets/characters/Jermaine.png", "A deputy mayor assists the mayor in matters of running the city. He chairs council meetings, liaisons with the community, and acts on behalf of the mayor.")
-	addNPC("Judith","Researcher", 2, "res://assets/characters/judth.png", "I am a researcher!")
+	addNPC("Judith","Researcher", 2, "res://assets/characters/Judith.png", "I am a researcher!")
 	addNPC("Clark", "Environmental Engineer", 3, "res://assets/characters/scientist_icon.png", "I am an environmental engineer!")
 	#addNPC("Test Name","Test Profession", 4, "res://assets/characters/test_profession_icon.png", "I am definitely something!")
 
