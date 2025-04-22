@@ -187,7 +187,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 			foundJob = true
 	
 	if foundJob == true:
-		print("found job", current_agent.commercial_tile.i, current_agent.commercial_tile.j)
+		#print("found job", current_agent.commercial_tile.i, current_agent.commercial_tile.j)
 		current_agent.unemployed_month = null
 		current_agent.months_passed = 0
 		UpdateAgent.increase_total_jobs()
