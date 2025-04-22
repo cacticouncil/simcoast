@@ -13,7 +13,7 @@ func update_happiness():
 		if (currTile.is_residential() && currTile.data[2] != 0):
 			var happiness = currTile.calculateHappiness()
 			#if unemployment is high, happiness takes a big hit
-			if UpdatePopulation.is_unemployment_high():
+			if UpdateAgent.is_unemployment_high():
 				happiness += HIGH_UNEMPLOYMENT_PENALTY
 			currTile.happiness = happiness * 100
 			numResTiles += 1
@@ -30,6 +30,6 @@ func update_happiness_tile(currTile):
 		var avgHappiness = currTile.calculateHappiness()
 		var happiness = (avgHappiness + currTile.desirability) / 2
 		#if unemployment is high, happiness takes a big hit
-		if UpdatePopulation.is_unemployment_high():
+		if UpdateAgent.is_unemployment_high():
 			happiness += HIGH_UNEMPLOYMENT_PENALTY
 		currTile.happiness = happiness * 100

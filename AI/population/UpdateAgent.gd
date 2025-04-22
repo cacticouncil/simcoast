@@ -28,7 +28,12 @@ func can_work():
 		return true
 	else:
 		return false
-
+func is_unemployment_high() -> bool:
+	var p = total_agents()
+	var rate = float((p - totalJobs) / 100.0)
+	if rate > UNEMPLOYMENT_LIMIT:
+		return true
+	return false
 func increase_total_jobs():
 	totalJobs = totalJobs + 1;
 
