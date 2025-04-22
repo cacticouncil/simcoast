@@ -80,8 +80,6 @@ func change_job(tile):
 
 #When agent moves
 func change_residence(tile):
-	print("moved from", residential_tile.i, residential_tile.j)
-	print("moved to", tile.i, tile.j)
 	residential_tile.remove_people(1)
 	residential_tile = tile
 	residential_tile.add_people(1)
