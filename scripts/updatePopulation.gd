@@ -48,9 +48,8 @@ func load_population_data(data):
 
 #Update buildings and population
 func update_population():
-	for i in Global.mapHeight:
-		for j in Global.mapWidth:
-			var currTile = Global.tileMap[i][j]
+	for key in Global.activeTiles:
+			var currTile = Global.tileMap[key[0]][key[1]]
 			
 			if currTile.on_beach && Global.beginBeachEvacuation:
 				if currTile.data[2] > 0:
@@ -69,8 +68,8 @@ func update_population():
 					if expectedPeopleMoveIn > peopleMovedIn:
 						currTile.add_people(1)
 			else:
-				var maxRange = currTile.landValue + currTile.happiness
-				var selectTile = BASE_BUILD_CHANCE * (currTile.landValue + currTile.happiness)
+				var maxRange = currTile.landValue + (UpdateHappiness.city_happiness * 100)
+				var selectTile = BASE_BUILD_CHANCE * (maxRange)
 				
 				# cannot add buldings or people without utility, zoning, or if the tile is damaged
 				if currTile.is_zoned() && currTile.has_utilities() && currTile.tileDamage == 0:
@@ -93,20 +92,21 @@ func update_population():
 						
 				if currTile.has_building():
 	#				code related to people moving out of buildings
-					var leaveChance = 0
-					var status = currTile.get_status()
+					#This code is now done within Population Tree
+					#var leaveChance = 0
+					#var status = currTile.get_status()
 					
-					if (!currTile.has_utilities()):
-						leaveChance += NO_UTILITIES_UNHAPPINESS 
-					if (status == Tile.TileStatus.LIGHT_DAMAGE || status == Tile.TileStatus.MEDIUM_DAMAGE):
-						leaveChance += DAMAGE_UNHAPPINESS
-					elif (status == Tile.TileStatus.HEAVY_DAMAGE):
-						leaveChance += SEVERE_DAMAGE_UNHAPPINESS
+					#if (!currTile.has_utilities()):
+						#leaveChance += NO_UTILITIES_UNHAPPINESS 
+					#if (status == Tile.TileStatus.LIGHT_DAMAGE || status == Tile.TileStatus.MEDIUM_DAMAGE):
+						#leaveChance += DAMAGE_UNHAPPINESS
+					#elif (status == Tile.TileStatus.HEAVY_DAMAGE):
+						#leaveChance += SEVERE_DAMAGE_UNHAPPINESS
 					
 					rng.randomize()
-					if (selectTile * leaveChance > rng.randf_range(0, maxRange) && RESIDENTS > 0):
+					#if (selectTile * leaveChance > rng.randf_range(0, maxRange) && RESIDENTS > 0):
 						#currTile.remove_people(1)
-						pass
+						#pass
 					
 					#fixes workers not moving out when residents leave
 					if (floor(WORKERS - (RESIDENTS * BASE_EMPLOYMENT_RATE)) > 0 && currTile.is_commercial()):
@@ -121,70 +121,6 @@ func update_population():
 	Announcer.notify(currEvent)
 	currEvent.queue_free()
 					
-func update_population_tile(currTile):
-	if currTile.on_beach && Global.beginBeachEvacuation:
-		if currTile.data[2] > 0:
-			var peopleMovedOut = currTile.pre_evacuation_residents - currTile.data[2]
-			var ticksPerPerson = floor(UpdateDate.DATE_TICKS / currTile.pre_evacuation_residents)
-			var expectedPeopleMoveOut = UpdateDate.ticksSinceLastWeekChange / ticksPerPerson
-			if expectedPeopleMoveOut > peopleMovedOut:
-				currTile.remove_people(1)
-	elif currTile.on_beach && Global.stayEvacuated:
-		pass
-	elif currTile.on_beach && Global.moveBackIn:
-		if currTile.pre_evacuation_residents > 0:
-			var peopleMovedIn = currTile.data[2]
-			var ticksPerPerson = floor(UpdateDate.DATE_TICKS / currTile.pre_evacuation_residents)
-			var expectedPeopleMoveIn = UpdateDate.ticksSinceLastWeekChange / ticksPerPerson
-			if expectedPeopleMoveIn > peopleMovedIn:
-				currTile.add_people(1)
-	else:
-		var maxRange = currTile.landValue + currTile.happiness
-		var selectTile = BASE_BUILD_CHANCE * (currTile.landValue + currTile.happiness)
-		
-		# cannot add buldings or people without utility, zoning, or if the tile is damaged
-		if currTile.is_zoned() && currTile.has_utilities() && currTile.tileDamage == 0:
-			rng.randomize()
-			#only add buildings to tiles that already have buildings if a tile is at over 50% capacity 
-			if (selectTile > rng.randf_range(0, maxRange) && currTile.data[3] != 0 && currTile.data[2]/currTile.data[3] > .5):
-				currTile.add_building()
-			#if tile has no buildings, add building if random chance hits
-			elif (currTile.data[3] == 0 && selectTile > rng.randf_range(0, maxRange)):
-				currTile.add_building()
-				
-			if (selectTile > rng.randf_range(0, maxRange)):
-				if (currTile.is_residential()):
-					# Person moves in
-					currTile.add_people(1)
-				elif (currTile.is_commercial()):
-					if RESIDENTS * BASE_EMPLOYMENT_RATE > WORKERS:
-						currTile.add_people(1)
-		if currTile.has_building():
-	#		code related to people moving out of buildings
-			var leaveChance = 0
-			var status = currTile.get_status()
-					
-			if (!currTile.has_utilities()):
-				leaveChance += NO_UTILITIES_UNHAPPINESS 
-			if (status == Tile.TileStatus.LIGHT_DAMAGE || status == Tile.TileStatus.MEDIUM_DAMAGE):
-				leaveChance += DAMAGE_UNHAPPINESS
-			elif (status == Tile.TileStatus.HEAVY_DAMAGE):
-				leaveChance += SEVERE_DAMAGE_UNHAPPINESS
-					
-			rng.randomize()
-			if (selectTile * leaveChance > rng.randf_range(0, maxRange) && RESIDENTS > 0):
-				currTile.remove_people(1)
-					
-			#fixes workers not moving out when residents leave
-			if (floor(WORKERS - (RESIDENTS * BASE_EMPLOYMENT_RATE)) > 0 && currTile.is_commercial()):
-				var diff = floor(WORKERS - (RESIDENTS * BASE_EMPLOYMENT_RATE))
-				#Can't remove more workers than we have
-				diff = min(currTile.data[2], diff)
-				currTile.remove_people(diff)
-	get_node("/root/CityMap/HUD/HBoxContainer/Population").text = str(RESIDENTS)
-	var currEvent = Event.new("Total Population", "Number of Citizens", RESIDENTS)
-	Announcer.notify(currEvent)
-	currEvent.queue_free()
 func get_population():
 	return RESIDENTS
 	

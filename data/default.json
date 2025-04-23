@@ -8,7 +8,7 @@
         "oceanHeight": 3,
         "numZones": 0,
         "numPeople": 0,
-	"beachRows": [17, 22]
+	"beachRows": [23, 26]
     },
     "tiles": [
         {
@@ -861,7 +861,9 @@
             "is_income_tax_light": false,
             "is_neg_profit": false,
             "wealth_weight": 0,
-            "tile_dmg_weight": 0
+            "tile_dmg_weight": 0,
+            "jobMax": 1,
+            "numMidLevelJobs": 1
         },
         {
             "i": 0,
@@ -1145,7 +1147,10 @@
             "is_income_tax_light": false,
             "is_neg_profit": false,
             "wealth_weight": 0,
-            "tile_dmg_weight": -0.2
+            "tile_dmg_weight": -0.2,
+            "jobMax": 11,
+            "numHighLevelJobs": 1,
+            "numLowLevelJobs": 10
         },
         {
             "i": 0,
@@ -4511,7 +4516,7 @@
             "isActive": true,
             "landValue": 1.2165,
             "profitRate": 36.495,
-            "happiness": 44.5,
+            "happiness": 0,
             "changeInWaterHeight": -11,
             "connections": [
                 0,
@@ -4553,7 +4558,10 @@
             "is_income_tax_light": false,
             "is_neg_profit": false,
             "wealth_weight": 1,
-            "tile_dmg_weight": 0
+            "tile_dmg_weight": 0,
+            "jobMax": 16,
+            "numHighLevelJobs": 1,
+            "numLowLevelJobs": 15
         },
         {
             "i": 2,
@@ -4624,7 +4632,10 @@
             "is_income_tax_light": false,
             "is_neg_profit": false,
             "wealth_weight": 1,
-            "tile_dmg_weight": -0.2
+            "tile_dmg_weight": -0.2,
+            "jobMax": 16,
+            "numHighLevelJobs": 1,
+            "numLowLevelJobs": 15
         },
         {
             "i": 2,
@@ -6357,7 +6368,7 @@
             "isActive": true,
             "landValue": 0.7635,
             "profitRate": 0,
-            "happiness": 17.5,
+            "happiness": 0,
             "changeInWaterHeight": -11,
             "connections": [
                 0,
@@ -6399,7 +6410,10 @@
             "is_income_tax_light": false,
             "is_neg_profit": false,
             "wealth_weight": 1,
-            "tile_dmg_weight": -0.1
+            "tile_dmg_weight": -0.1,
+            "jobMax": 16,
+            "numHighLevelJobs": 1,
+            "numLowLevelJobs": 15
         },
         {
             "i": 3,
@@ -6428,7 +6442,7 @@
             "isActive": true,
             "landValue": 0.8385,
             "profitRate": 25.155,
-            "happiness": 41.5,
+            "happiness": 0,
             "changeInWaterHeight": -11,
             "connections": [
                 0,
@@ -6470,7 +6484,10 @@
             "is_income_tax_light": false,
             "is_neg_profit": false,
             "wealth_weight": 1,
-            "tile_dmg_weight": 0
+            "tile_dmg_weight": 0,
+            "jobMax": 16,
+            "numHighLevelJobs": 1,
+            "numLowLevelJobs": 15
         },
         {
             "i": 3,
