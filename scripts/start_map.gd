@@ -22,6 +22,7 @@ func _ready():
 	#$HUD/TopBar/HBoxContainer/City_Income.text = "City's Net Profit: $" + Econ.comma_values(str(Econ.city_income))
 	#$HUD/TopBar/HBoxContainer/City_Tax_Rate.text = "Tax Rate: " + str(Econ.city_tax_rate * 100) + "%"
 	$HUD/HBoxContainer/Population.text = str(UpdatePopulation.get_population())
+	loadAgents()
 	#$HUD/TopBar/HBoxContainer/Demand.text = "Residential Demand: " + str(UpdateDemand.calcResidentialDemand()) + "/10" + " Commercial Demand: " + str(UpdateDemand.calcCommercialDemand()) + "/10"
 	$HUD/Date/Year.text = str(UpdateDate.year)
 	$HUD/Date/Month.text = UpdateDate.Months.keys()[UpdateDate.month]
@@ -976,6 +977,12 @@ func update_active_tiles():
 				currTile.set_active_tile()
 			else:
 				currTile.deactivate_tile()
+func loadAgents():
+	for key in Global.activeTiles:
+		var tile = Global.tileMap[key[0]][key[1]]
+		if (tile.is_residential() && tile.data[2] > 0):
+			for i in range(tile.data[2]):
+				UpdateAgent.add_agent(tile.i, tile.j)
 func placementState():
 	if Global.placementState:
 		var cube = $VectorMap.get_tile_at(get_global_mouse_position())
