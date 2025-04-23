@@ -36,9 +36,11 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	if moved == false:
 		var currTile = current_agent.residential_tile
 		currTile.remove_people(1)
+		
 		var currWorkTile = current_agent.commercial_tile
 		if currWorkTile != null:
-			currWorkTile.remove_people(1)
+			current_agent.removeJob()
+			#currWorkTile.remove_people(1)
 		UpdateAgent.ActiveAgents.erase(current_agent)
 
 	# updates queue

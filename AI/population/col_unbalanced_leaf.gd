@@ -8,14 +8,16 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 		#Wants to find new job or move
 		for key in Global.activeTiles:
 			var tile = Global.tileMap[key[0]][key[1]]
-			if (tile.is_residential() && tile.desirability < current_agent.residential_tile.desirability):
+			if (tile.is_residential() && tile.desirability < current_agent.residential_tile.desirability && tile.data[2] < tile.data[3]):
 				current_agent.change_residence(tile)
+				break
 	elif (current_agent.level == Agent.JOBS.HIGH && current_agent.col_level == Agent.COL.LOW):
 		#Wants to find more desirable place to live
 		for key in Global.activeTiles:
 			var tile = Global.tileMap[key[0]][key[1]]
-			if (tile.is_residential() && tile.desirability > current_agent.residential_tile.desirability):
+			if (tile.is_residential() && tile.desirability > current_agent.residential_tile.desirability && tile.data[2] < tile.data[3]):
 				current_agent.change_residence(tile)
+				break
 	# updates queue
 	check_empty(blackboard)
 	#print("succeeded should_move")

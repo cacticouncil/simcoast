@@ -942,6 +942,7 @@ func update_game():
 	UpdateDemand.get_demand()
 	UpdateHappiness.update_happiness()
 	HurricanePrep.updateHurricanePrep()
+	UpdatePopulation.update_population()
 	# UpdateErosion.update_erosion()
 	Econ.calc_profit_rates()
 	Econ.calcCityIncome()
@@ -960,7 +961,7 @@ func update_tiles():
 				City.calc_storm_damage_tile(currTile)
 			UpdateValue.update_land_value_tile(currTile)
 			#UpdateHappiness.update_happiness_tile(currTile)
-			UpdatePopulation.update_population_tile(currTile)
+			#UpdatePopulation.update_population_tile(currTile)
 			UpdateErosion.update_erosion_tile(currTile)
 			#Update the graphics for each tile
 			currTile.cube.update()

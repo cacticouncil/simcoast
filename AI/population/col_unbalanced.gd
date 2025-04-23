@@ -14,7 +14,7 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	elif (current_agent.level == Agent.JOBS.HIGH && current_agent.col_level == Agent.COL.LOW):
 		unbalanced_col = true
 	if (unbalanced_col == true):
-		#print("unbalanced")
+		print("unbalanced")
 		verified = true
 	else:
 		#print("failed should_move")

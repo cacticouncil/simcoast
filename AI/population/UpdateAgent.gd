@@ -12,6 +12,7 @@ func add_agent(i, j):
 	var newAgent = load("res://AI/population/Agent.gd")
 	var currentAgent = newAgent.new(tile)
 	ActiveAgents.append(currentAgent)
+	print(ActiveAgents.size())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -39,7 +40,16 @@ func increase_total_jobs():
 
 func  decrease_total_jobs():
 	totalJobs = totalJobs - 1;
-	
+# If only one person is removed from a tile
+func removeAgent(i, j):
+	for agent in ActiveAgents:
+		if (agent.residential_tile.i == i && agent.residential_tile.j == j):
+			var currTile = agent.residential_tile
+			currTile.remove_people(1)
+			agent.removeJob()
+			ActiveAgents.erase(agent)
+			break
+	print("Removed agent")
 func onRemovedTile(i, j):
 	for agent in ActiveAgents:
 		if (agent.residential_tile.i == i && agent.residential_tile.j == j):

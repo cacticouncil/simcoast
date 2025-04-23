@@ -74,15 +74,17 @@ func _init(tile):
 	update_col()
 
 func change_job(tile):
+	print("found job at: ", tile.i, " , ", tile.j)
 	removeJob()
 	hasJob = true
 	commercial_tile = tile
 
 #When agent moves
 func change_residence(tile):
-	residential_tile.remove_people(1)
+	print("moved from ", residential_tile.i, " , ", residential_tile.j, " to ", tile.i, " , ", tile.j)
+	residential_tile.move_people_out(1)
 	residential_tile = tile
-	residential_tile.add_people(1)
+	tile.move_people_in(1)
 	cost_of_housing = 1500 * range_lerp(tile.desirability, 0, 1, 0, 2)
 	update_col()
 
@@ -90,6 +92,7 @@ func change_residence(tile):
 func update_col():
 	cost_of_goods_services = 500 * range_lerp(residential_tile.cost_goods_services, 0, 1, 1, 2)
 	cost_of_living = cost_of_housing + cost_utilities + cost_of_goods_services
+	#print(cost_of_living)
 	#Thresholds for COL
 	if cost_of_living < 2000:
 		col_level = COL.LOW
@@ -116,7 +119,7 @@ func removeJob():
 		elif (level == JOBS.MIDDLE):
 			currTile.numMidLevelJobs += 1
 		currTile.jobCapacity -= 1
-		currTile.remove_people(1)
+		#currTile.remove_people(1)
 	UpdateAgent.decrease_total_jobs()
 	hasJob = false
 	commercial_tile = null

@@ -851,10 +851,30 @@ func remove_people(n):
 	var diff = data[2] - before
 	if (is_residential()):
 		UpdatePopulation.change_residents(diff)
+		if (diff == 1):
+			UpdateAgent.removeAgent(i, j)
 	elif (is_commercial()):
 		UpdatePopulation.change_workers(diff)
 	return diff
-
+# Population Agent
+# Does not affect population
+func move_people_in(n):
+	if (is_residential()):
+		var before = data[2]
+		data[2] += n
+		if data[2] > data[3]:
+			data[2] = data[3]
+		var diff = data[2] - before
+	return
+func move_people_out(n):
+	if (is_residential()):
+		var before = data[2]
+		data[2] -= n
+		if data[2] <= 0:
+			data[2] = 0
+			#data[4] = 0
+		var diff = data[2] - before
+	return
 func clear_house():
 	if zone != TileZone.RESIDENTIAL:
 		return
