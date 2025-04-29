@@ -2,7 +2,7 @@ extends BTLeaf
 
 func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var current_agent = blackboard.get_data("queue3").front()
-	#print("Didn't litter")
+	#Tourist didn't litter
 	# updates queue
 	check_empty(blackboard)
 

@@ -144,7 +144,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/TileCube.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "TourismAgent",
 "language": "GDScript",
 "path": "res://AI/tourism/TourismAgent.gd"
@@ -230,6 +230,7 @@ Beach="*res://scripts/Beach.gd"
 UpdateTourism="*res://scripts/updateTourism.gd"
 UpdateTourist="*res://AI/tourism/UpdateTourist.gd"
 Tourism="*res://AI/tourism/Tourism.tscn"
+HurricanePrep="*res://scripts/HurricanePrep.gd"
 
 [debug]
 

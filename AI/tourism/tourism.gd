@@ -26,12 +26,6 @@ func update_AI():
 
 # Refills the zone queue
 func update_queue() -> Array:
-#func add_agent(i, j):
-#	var tile = Global.tileMap[i][j]
-#	var newAgent = load("res://AI/population/Agent.gd")
-#	var currentAgent = newAgent.new(tile)
-#	ActiveAgents.append(currentAgent)
-#	print("done")
 
 	var activeAgents = UpdateTourist.ActiveTourists
 	var latest = []

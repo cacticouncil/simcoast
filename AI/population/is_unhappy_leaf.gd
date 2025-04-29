@@ -10,6 +10,7 @@ var rng = RandomNumberGenerator.new()
 
 func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	var current_agent = blackboard.get_data("queue").pop_front()
+	#Agent will move if they are unhappy or leave the city
 	var mapHeight = Global.mapHeight
 	var mapWidth = Global.mapWidth
 	var moved = false
@@ -27,7 +28,7 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 						rng.randomize()
 						# if living space is suitable and chance of moving allows for move to happen, move agent
 						if (selectTile > rng.randf_range(0, maxRange)):
-							UpdateAgent.ActiveAgents.find(current_agent).residential_tile = current_tile
+							current_agent.change_residence(current_tile)
 							moved = true
 							break
 
@@ -35,9 +36,11 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 	if moved == false:
 		var currTile = current_agent.residential_tile
 		currTile.remove_people(1)
+		
 		var currWorkTile = current_agent.commercial_tile
 		if currWorkTile != null:
-			currWorkTile.remove_people(1)
+			current_agent.removeJob()
+			#currWorkTile.remove_people(1)
 		UpdateAgent.ActiveAgents.erase(current_agent)
 
 	# updates queue

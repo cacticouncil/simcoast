@@ -2,20 +2,20 @@
 
 [ext_resource path="res://addons/behavior_tree/src/behavior_tree.gd" type="Script" id=1]
 [ext_resource path="res://AI/population/queue_check.gd" type="Script" id=2]
-[ext_resource path="res://AI/population/should_move_leaf.gd" type="Script" id=3]
+[ext_resource path="res://AI/population/col_balanced_leaf.gd" type="Script" id=3]
 [ext_resource path="res://AI/population/can_find_job.gd" type="Script" id=4]
 [ext_resource path="res://AI/population/has_job.gd" type="Script" id=5]
-[ext_resource path="res://AI/population/should_not_move.gd" type="Script" id=6]
 [ext_resource path="res://AI/population/can_find_job_leaf.gd" type="Script" id=7]
 [ext_resource path="res://addons/behavior_tree/src/btnodes/composites/bt_selector.gd" type="Script" id=8]
 [ext_resource path="res://AI/population/is_unhappy_leaf.gd" type="Script" id=9]
 [ext_resource path="res://AI/population/is_happy.gd" type="Script" id=10]
-[ext_resource path="res://AI/population/should_move.gd" type="Script" id=11]
+[ext_resource path="res://AI/population/col_balanced.gd" type="Script" id=11]
 [ext_resource path="res://AI/population/cannot_find_job.gd" type="Script" id=12]
 [ext_resource path="res://AI/population/cannot_find_job_leaf.gd" type="Script" id=13]
 [ext_resource path="res://AI/population/is_unhappy.gd" type="Script" id=14]
-[ext_resource path="res://AI/population/should_not_move_leaf.gd" type="Script" id=15]
 [ext_resource path="res://AI/population/has_no_job.gd" type="Script" id=16]
+[ext_resource path="res://AI/population/col_unbalanced.gd" type="Script" id=17]
+[ext_resource path="res://AI/population/col_unbalanced_leaf.gd" type="Script" id=18]
 
 [node name="BehaviorTree" type="Node"]
 script = ExtResource( 1 )
@@ -39,17 +39,17 @@ script = ExtResource( 5 )
 [node name="BTSelector" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job"]
 script = ExtResource( 8 )
 
-[node name="should_move" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector"]
+[node name="col_unbalanced" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector"]
+script = ExtResource( 17 )
+
+[node name="col_unbalanced_leaf" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector/col_unbalanced"]
+script = ExtResource( 18 )
+
+[node name="col_balanced" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector"]
 script = ExtResource( 11 )
 
-[node name="should_move_leaf" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector/should_move"]
+[node name="col_balanced_leaf" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector/col_balanced"]
 script = ExtResource( 3 )
-
-[node name="should_not_move" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector"]
-script = ExtResource( 6 )
-
-[node name="should_not_move_leaf" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector/has_job/BTSelector/should_not_move"]
-script = ExtResource( 15 )
 
 [node name="has_no_job" type="Node" parent="queue empty\?/BTSelector/is_happy/BTSelector"]
 script = ExtResource( 16 )
