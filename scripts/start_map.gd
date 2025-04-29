@@ -175,10 +175,6 @@ func _unhandled_input(event):
 				tile.sensor = Tile.TileSensor.NONE
 
 		reset_selected()
-
-		# Can't place anything until the tutorial is complete
-		if not Global.TutorialComplete:
-			return
 			
 		# Perform action based on current tool selected
 		match Global.mapTool:
@@ -1385,15 +1381,9 @@ func _on_NoButton_pressed():
 
 # help display
 func _on_HelpButton_pressed():
-	#$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = true
-	match Global.mapTool:
-		Global.Tool.SENSOR_TIDE:
-			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting tide sensors in the ocean, near the shore, where they will be most effective."
-		Global.Tool.SENSOR_RAIN:
-			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting rain sensors inland, near tall buildings, where they will be most effective."
-		Global.Tool.SENSOR_WIND:
-			$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect/RichTextLabel.text = "The Professor recommends putting wind sensors near the beach, where they will be most effective."
-	
+	var phone = preload("res://ui/hud/NPC_Interactions/Phone.tscn")
+	var phone_instance = phone.instance()
+	add_child(phone_instance)
 
 func _on_CloseHelpButton_pressed():
 	$SensorChoice/ColorRect/ChoiceBox/HelpButton/ColorRect.visible = false

@@ -10,6 +10,7 @@ func update_happiness():
 	for tile in Global.activeTiles:
 		var currTile = Global.tileMap[tile[0]][tile[1]]
 		#If there are people in the tile
+		currTile.happiness = 0
 		if (currTile.is_residential() && currTile.data[2] != 0):
 			var happiness = currTile.calculateHappiness()
 			#if unemployment is high, happiness takes a big hit

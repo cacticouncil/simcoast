@@ -45,7 +45,7 @@ func removeAgent(i, j):
 	for agent in ActiveAgents:
 		if (agent.residential_tile.i == i && agent.residential_tile.j == j):
 			var currTile = agent.residential_tile
-			currTile.remove_people(1)
+			#currTile.remove_people(1)
 			agent.removeJob()
 			ActiveAgents.erase(agent)
 			break
@@ -54,7 +54,7 @@ func onRemovedTile(i, j):
 	for agent in ActiveAgents:
 		if (agent.residential_tile.i == i && agent.residential_tile.j == j):
 			var currTile = agent.residential_tile
-			currTile.remove_people(1)
+			#currTile.remove_people(1)
 			agent.removeJob()
 			ActiveAgents.erase(agent)
 		if (agent.commercial_tile != null):

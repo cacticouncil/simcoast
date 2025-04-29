@@ -88,7 +88,7 @@ func display_char_photo_and_name(char_id: int):
 	var npc: NPC = NPCOrganizer.npcDictionary[char_id]
 	var npc_icon = load(npc.icon)
 	var npc_name = npc.name if npc.name != "PLAYER_NAME" else Global.userName
-	$DialogueBox/SpeakerBox/Speaker.texture = npc_icon
+	$DialogueBox/SpeakerBox/Border/Speaker.texture = npc_icon
 	$DialogueBox/SpeakerBox/SpeakerName.bbcode_text = "[center]" + npc_name + "[/center]"
 
 func _on_NextButton_pressed():

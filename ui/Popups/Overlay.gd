@@ -34,9 +34,9 @@ func error_pop(errorDesc):
 		$AnimationPlayer.queue("Fade")
 
 #Pretty much same thing as achievement popup, but for characters to make it clear
-func character_pop(npcName, npcPic):
+func character_pop(npcName: String, npcPic: String):
 	var inst = characterPopup.instance()
-	inst.set_values(npcName, npcPic)
+	inst.set_values(npcName, npcPic.replace(".png", "_unlocked.png"))
 	inst.name = npcName
 	inst.visible = false
 	queue.append(npcName)
