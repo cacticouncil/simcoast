@@ -851,8 +851,9 @@ func remove_people(n):
 	var diff = data[2] - before
 	if (is_residential()):
 		UpdatePopulation.change_residents(diff)
-		if (diff == 1):
-			UpdateAgent.removeAgent(i, j)
+		if (diff < 0):
+			for i in range(abs(diff)):
+				UpdateAgent.removeAgent(i, j)
 	elif (is_commercial()):
 		UpdatePopulation.change_workers(diff)
 	return diff
@@ -993,7 +994,10 @@ func set_resource_demand():
 			var tile = Global.tileMap[n[0]][n[1]]
 			if tile.is_residential():
 				pop_demanding += tile.data[2]
-	resource_demand = clamp(pop_demanding / total_population, 0, 1)
+	if (total_population != 0):
+		resource_demand = clamp(pop_demanding / total_population, 0, 1)
+	else:
+		resource_demand = 0
 func set_goods_services_cost():
 	if !is_residential():
 		return

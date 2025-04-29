@@ -20,7 +20,7 @@ func _pre_tick(agent: Node, blackboard: Blackboard) -> void:
 	var status = currTile.get_status()
 	var selectTile = BASE_STAY_CHANCE * (currTile.landValue + currTile.happiness)
 	if (!currTile.has_utilities()):
-		leaveChance += NO_UTILITIES_UNHAPPINESS 
+		leaveChance += NO_UTILITIES_UNHAPPINESS
 	if (status == Tile.TileStatus.LIGHT_DAMAGE || status == Tile.TileStatus.MEDIUM_DAMAGE):
 		leaveChance += DAMAGE_UNHAPPINESS
 	elif (status == Tile.TileStatus.HEAVY_DAMAGE):

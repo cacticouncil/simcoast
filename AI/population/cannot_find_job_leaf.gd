@@ -14,7 +14,8 @@ func _tick(agent: Node, blackboard: Blackboard) -> bool:
 
 	if current_agent.months_passed > 6:
 		var currTile = current_agent.residential_tile
-		currTile.remove_people(1)
+		currTile.move_people_out(1)
+		UpdatePopulation.change_residents(-1)
 		UpdateAgent.ActiveAgents.erase(current_agent)
 
 	# updates queue
